@@ -284,9 +284,13 @@ ru:
       issue:
         name: Название
         description: Содержание работ
+        abbr_planned_closing_at: План. дата
         planned_closing_at: Плановая дата выполнения
+        abbr_planned_grade: План. баллы
         planned_grade: Плановое количество баллов за выполнение
+        abbr_closed_at: Факт. дата
         closed_at: Фактическая дата выполнения
+        abbr_grade: Факт. баллы
         grade: Количество баллов за выполнение
         results: Полученные результаты
         planned_summ_grade: Запланировано баллов

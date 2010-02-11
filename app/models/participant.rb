@@ -94,5 +94,14 @@ class Participant < ActiveRecord::Base
     end
   end
 
+  # суммы для индивидуальных задач
+  def issues_planned_summ_grade
+    Participant.sum("issues.planned_grade", :include => :issues, :conditions => {'participants.id' => self.id})
+  end
+
+  def issues_fact_summ_grade
+    Participant.sum("issues.grade", :include => :issues, :conditions => {'participants.id' => self.id})
+  end
+
 end
 

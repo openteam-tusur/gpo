@@ -19,6 +19,8 @@ module ApplicationHelper
     case controller.controller_name
     when "visitations"
       "container_one_column"
+    when "issues"
+      "container_one_column"
     else
       "container_two_column"
     end

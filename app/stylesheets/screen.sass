@@ -337,6 +337,49 @@ img.icon
     +message_box(#f7a7a7, "/images/error_background.png", #d65d5d, #800000)
     :float right
 
+  .issues
+    :margin-bottom 20px
+    .header
+      +clearfix
+      :margin-bottom 10px
+      a
+        :font-weight bold
+        :display block
+        :float right
+        :background-color #FFF3C5
+        :padding 10px
+        :margin-left 10px
+    table
+      :line-height 1.5em
+      :border-collapse collapse
+      td, th
+        +small_text
+        :vertical-align top
+        :border 1px solid #ccc
+        :padding 5px 8px
+      th
+        :cursor default
+        :vertical-align middle
+        :text-align center
+        :font-weight bold
+        :background-color #f5f5f5
+        abbr
+          :cursor help
+          :border-bottom = "1px" "dashed" !text_color
+      td.planned_closing_at,
+      td.planned_grade,
+      td.closed_at,
+      td.grade
+        :text-align center
+      .actions
+        +clearfix
+        :margin 20px 0 5px
+        .edit
+          +link_as_small_float_icon("/images/small_icon_edit.png")
+          :margin-right 10px
+        .destroy
+          +link_as_small_float_icon("/images/small_icon_destroy.png")
+
 .participant_visitation
   li
     +clearfix
@@ -492,30 +535,6 @@ img.icon
       a
         +decorate_on_hover
         :color = !text_color
-
-  .issues
-    +clearfix
-    :margin-bottom 10px
-    :border-bottom 1px solid #ddd
-    p
-      :margin-bottom 0.5em
-    ul
-      :float left
-      :width 386px
-      :margin-right 20px
-      li
-        :background-color = !block_alternate_background_color
-        :padding 10px
-        :margin-bottom 20px
-        .actions
-          +clearfix
-          a
-            :float right
-            :margin-left 10px
-    .right
-      :float left
-      :width 150px
-
 
 .fieldWithErrors
   +small_text
