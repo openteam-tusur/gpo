@@ -1,0 +1,25 @@
+<% title "Приказ #{order_title(@order)}", :order %>
+
+<% content_for :hint do %>
+  <h3>Страница приказа</h3>
+  <p>На странице отображается сведения о приказе и список проектов, связаных с приказом, а также журнал изменения статуса приказа и комментарии к ним.</p>
+<% end %>
+
+<% action_link(link_to_file(@order, "odt", l(:order, :odt_file)), 'odt', 'Скачать приказ в формате OpenOffice Document') if @order.file? %>
+<% action_link(link_to_file(@order, "doc", l(:order, :doc_file)), 'doc', 'Скачать приказ в формате Microsoft Word') if @order.file? %>
+
+<% action_link(link_to(l(:edit), edit_chair_order_url(@order.chair, @order)), 'edit', "Позволяет изменить информацию о приказе") if permitted_to?(:update, @order) %>
+<% action_link(link_to_delete(chair_order_url(@order.chair, @order)), 'destroy', "Позволяет удалить приказ") if permitted_to?(:delete, @order) %>
+
+<% if permitted_to?(:to_review, @order) || permitted_to?(:review, @order) || permitted_to?(:cancel, @order) || permitted_to?(:approve, @order) %>
+  <p class="hint"><%= l(:order, "hint_#{@order.state}".to_sym)%> </p>
+  <%= render :partial => "change_state_form", :locals => {:order => @order} %>
+<% end %>
+
+<h2>Проекты <span>список проектов, проходящих по данному приказу</span></h2>
+<%= render_list 'projects/project', @order.projects, :id => 'projects' %>
+
+<% unless @order.activities.recent.empty? %>
+  <h2>Активность по приказу <span>что происходило с данным приказом</span></h2>
+  <%= render_list 'shared/activity', @order.activities.recent, :id => 'order-activities' %>
+<% end %>

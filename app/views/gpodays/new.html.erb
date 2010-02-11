@@ -1,0 +1,17 @@
+<% title "Добавление дня ГПО", :gpoday %>
+
+<% content_for :hint do %>
+  <p>Для добавления дня ГПО, выберите дату и нажмите кнопку "Создать"</p>
+  <p>Если нет необходимости создавать новый день ГПО нажмите "Отмена" для возврата к расписанию.</p>
+<% end %>
+
+<% form_for(@gpoday) do |form| %>
+  <fieldset>
+    <%= render :partial => 'form', :locals => {:form => form} %>
+    <p>
+      <%= form.submit l(:create) %>
+      <%= link_to l(:cancel), gpodays_path %>
+    </p>
+  </fieldset>
+<% end %>
+

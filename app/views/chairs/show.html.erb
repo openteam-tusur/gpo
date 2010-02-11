@@ -1,0 +1,45 @@
+<% title chair_abbr(@chair), :chair %>
+
+<%= render :partial => 'reports/report_action_link', :collection => Report::REPORTS[:chair], :as => :report, :locals => {:type => 'chair', :id => @chair.id}  %>
+<% action_link(link_to(l(:edit), edit_chair_path(@chair)), 'edit', "Позволяет изменить информацию о кафедре") if permitted_to?(:update, @chair) %>
+
+<% content_for :hint do %>
+  <h3>Страница кафедры</h3>
+  <p>На странице отображаются задачи на кафедре, приказы, не вступившие в силу, а таже записи по последним действиями с приказами.</p>
+  <dl>
+    <dt><%= help_term(:task_order) %></dt>
+    <dd>Задачи, связанные с визированием и утверждение приказов.</dd>
+    <dt><%= help_term(:task_project) %></dt>
+    <dd>Задачи, касающиеся конкретного проекта. Например, в проекте есть участники с некорректным статусом (по данным АИС "Контингент" такой студент либо не являются учащимся, либо не является участником ГПО).</dd>
+  </dl>
+  <p>По каждому приказу показано состояние приказа и когда оно было изменено и проекты, связаные с приказом.</p>
+<% end %>
+
+<% unless @chair.tasks(current_user).empty? %>
+  <div class="attention">
+    <h2>Задачи <span>на это стоит обратить внимание</span></h2>
+    <%= render_list 'shared/task', @chair.tasks(current_user), :class => 'tasks' %>
+  </div>
+<% end %>
+
+<% unless @chair.orders.blocking.empty? %>
+  <h2>Приказы <span>следующие приказы ещё не вступили в силу</span></h2>
+  <%= render_list "orders/order", @chair.orders.blocking, :id => 'awaiting-orders' %>
+<% end %>
+
+<% unless @chair.activities.orders.empty? %>
+  <h2>Активность по приказам <span>что произошло за последнее время</span></h2>
+  <%= render_list 'shared/activity', @chair.activities.orders, :id => 'activities' %>
+<% end %>
+
+<% content_for :right do %>
+  <h3>Ответственный за ГПО</h3>
+  <div id="chair_mentors">
+    <%= chair_mentors(@chair) %>
+  </div>
+
+  <div id="stats">
+    <h3>На кафедре <%= @chair.abbr %></h3>
+    <%= render_table_stats @chair.stats %>
+  </div>
+<% end %>

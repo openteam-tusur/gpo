@@ -1,0 +1,60 @@
+<% title "Журнал посещаемости", :visitations %>
+
+<% content_for :hint do %>
+  <p><b>Для изменения балла за посещаемость</b> щелкните по иконке <%= image_tag "icon_edit.png" %></p>
+  <p>В появившемся поле введите (или измените) значение балла за посещение в диапазоне <b>от 0 до 2</b>. Чтобы сборсить значение оставте поле пустым</p>
+  <p><b>Для сохранения изменений</b> щелкните по иконке <%= image_tag "icon_save.png" %> или нажмите клавишу <b>&laquo;Enter&raquo;</b></p>
+  <p><b>Для отмены изменений</b> щелкните по иконке <%= image_tag "icon_cancel.png" %> или нажмите клавишу <b>&laquo;Esc&raquo;</b></p>
+<% end %>
+
+<div class="visitationlog">
+  <div id="project_<%= @project.id %>" class="project">
+    <%
+      summ_balls ||= {}
+      summ_balls[@project.id] = {}
+      summ_balls[@project.id][:render_summ] = true
+    %>
+
+    <ul class="listing participants">
+      <% @project.participants.active.each_with_index do |participant, index| %>
+        <%
+          summ_balls[@project.id][participant.id] = {:period => 0.0, :summ => 0.0}
+        %>
+        <li class="participant_<%= index+1 %>">
+          <div class="participant object">
+            <h3><%= h(participant.name) %></h3>
+          </div>
+        </li>
+      <% end -%>
+    </ul>
+
+    <div class="rating">
+      <div class="wrapper">
+        <% Gpoday.find(:all, :order => :date).each do | gpoday | %>
+          <div class="gpoday <%= gpoday.kt? ? 'kt' : nil %>">
+            <span class="date"><%= I18n.localize(gpoday.date) + "#{gpoday.kt? ? ' (КТ)' : nil}" %></span>
+            <ul>
+              <% @project.participants.active.each_with_index do |participant, index| %>
+                <%
+                  visitation = participant.visitation_for_gpoday(gpoday)
+                  summ_balls[@project.id][participant.id][:period] += visitation.rate || 0.0
+                  summ_balls[@project.id][participant.id][:summ] += visitation.rate || 0.0
+                %>
+                <li id="<%= @project.chair.id %>_<%= @project.id %>_<%= visitation.id %>">
+                  <%= visitation.rate.nil? ? "<span class='empty ratio'>&mdash;</span>" : "<span class='ratio'>#{participant.visitation_for_gpoday(gpoday).rate}</span>" %>
+                  <% if gpoday.kt? %>
+                    <%= content_tag :span, summ_balls[@project.id][participant.id][:period], :class=>"period", :title => "за текущий период" %>
+                    <%= content_tag :span, " / #{summ_balls[@project.id][participant.id][:summ]}", :class=>"summ", :title => "суммарно" if summ_balls[@project.id][:render_summ] %>
+                  <% summ_balls[@project.id][participant.id][:period] = 0.0 %>
+                  <%  end %>
+                </li>
+              <% end %>
+            </ul>
+            <%= link_to t('edit'), edit_chair_project_visitation_url(@project.chair, @project, gpoday), :class => "edit" if permitted_to?(:update, @project) %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

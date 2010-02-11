@@ -1,0 +1,27 @@
+<% title "Кафедры", :chair %>
+
+<% action_link(link_to(l(:chair, :new), new_chair_path), 'new', "Позволяет добавить новую кафедру") if permitted_to?(:create, :chairs) %>
+
+<% content_for :hint do %>
+  <h3>Список кафедр</h3>
+  <p>На странице собрана основная информация по проектам и участникам ГПО на кафедрах.</p>
+  <dl>
+    <dt><%= help_term(:chair_projects_stats) %></dt>
+    <dd>Отображается количество активных / черновиков / закрытых проетов.</dd>
+    <dt><%= help_term(:chair_participants_stats) %></dt>
+    <dd>Отображается количество студентов всего / 3 курса / 4 курса.</dd>
+    <dt><%= help_term(:chair_has_tasks) %></dt>
+    <dd>Показывает что для вас есть задачи на кафедре.</dd>
+  </dl>
+  <p>Данные приводятся в соответствии с утвержденными приказами.</p>
+  <p>Активность показывает как давно на кафедре были какие-либо изменения с приказами.</p>
+<% end %>
+
+<%= render_list 'chair_with_stats', @chairs, :id=>"chairs" %>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика</h3>
+    <%= render_table_stats Stat.global %>
+  </div>
+<% end %>

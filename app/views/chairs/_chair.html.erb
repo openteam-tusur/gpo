@@ -1,0 +1,12 @@
+<div class="chair object <%= permitted_to?(:show, chair) ? '': 'disabled' %>">
+  <%= icon(:chair) %>
+  <h3><%= link_to chair_abbr(chair), chair %></h3>
+  <div class="status">
+    <% unless chair.tasks(current_user, "dashboard").empty? %>
+      <span class="reminder">есть задачи!</span>
+    <% end %>
+    <span class="date">Активность: <%= time_ago(chair.last_activity) || 'не было' %></span>
+  </div>
+  <div class="details"><%= chair_mentors(chair) %></div>
+</div>
+

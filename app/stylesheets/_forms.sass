@@ -1,0 +1,67 @@
+=default_input
+  :margin-bottom 8px
+  :background white
+  :border = 1px "solid" !input_border_color
+
+form
+  p
+    :margin-bottom 0
+    
+  dt
+    :margin 0px
+    :padding 0px
+    :margin-right 15px
+  dd
+    :margin 0px
+    :padding 0
+    :margin-bottom 7px
+    
+  label
+    :display block
+    :margin-bottom 1px
+    span
+      :color = !comment_color
+      
+  fieldset
+    :background #f3f3f3
+    :padding 10px 15px
+    :margin-bottom 2.5em
+    :border = 1px "solid" #eee
+    
+    input[type=text], input[type=password]
+      +default_input      
+      :font-size 1.1em
+      :padding 4px
+      :margin-right 10px
+      
+    input[type=submit]
+      :font-size 1.3em
+      :padding 0.1em 0.5em
+
+  textarea
+    +default_input
+    :padding 4px
+    :font-size 1em
+    :width 95%
+    :height 100px
+    
+  select
+    :padding 1px
+    :font-size 1em
+    :width 200px
+
+  #errorExplanation
+    h2
+      +header_text
+    p
+      :margin 0
+    ul
+      :padding 0
+      :margin 0 0 1em 15px
+    
+  .fieldWithErrors
+    label
+      :color #cc3333
+      :font-weight bold
+      
+      

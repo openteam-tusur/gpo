@@ -1,0 +1,13 @@
+# binary gems
+*.o
+*.so
+*.h
+*.log
+Makefile
+# secure info
+config/database.yml
+config/initializers/session_store.rb
+# we doesn't need this stuff in the repo
+public/stylesheets/compiled/*
+public/files/*
+tmp/*

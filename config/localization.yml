@@ -1,0 +1,151 @@
+
+add: Добавить
+create: Создать
+edit: Редактировать
+delete: Удалить
+are_you_sure: Вы уверены?
+save: Сохранить
+back: Назад
+cancel: Отмена
+
+session:
+  login: Логин
+  password: Пароль
+
+password:
+  user: Пользователь
+  email: E-mail
+
+chairs: Кафедры
+chair:
+  new: Новая кафедра
+  title: Название
+  abbr: Аббревиатура
+  chief: Заведующий
+
+users: Пользователи
+user:
+  new: Новый пользователь
+  first_name: Имя
+  mid_name: Отчество
+  last_name: Фамилия
+  email: E-mail
+  login: Логин
+  post: Должность, уч. звание
+  float: Аудитория, корпус
+  phone: Контактный телефон
+  password: Пароль
+  password_confirmation: Подтверждение пароля
+  chair_id: Кафедра
+
+projects: Проекты
+project:
+  new: Новый проект
+  close: Закрыть проект
+  reopen: Возобновить проект
+  cipher: Шифр
+  title: Название
+  chair: Кафедра
+  chair_id: Кафедра
+  stakeholders: Заинтересованные структуры
+  funds_required: Потребные ассигнования
+  funds_sources: Источники средств
+  purpose: Показатели назначения (технические, научные, экономические и пр.)
+  features: Основные характеристики
+  analysis: Анализ состояния дел и имеющихся достижений по тематике проекта
+  novelty: Новизна предполагаемой разработки
+  expected_results: Ожидаемые результаты
+  release_cost: Оценка возможности реализации разработки и её рыночной ценности
+  forecast: Прогноз возможных сроков и направлений практической реализации результатов проекта
+  close_reason: Причина
+  state_draft: Черновик проекта
+  state_active: Активный проект
+  state_closed: Проект закрыт
+  editable_state_editable: Правки разрешены
+  editable_state_blocked: Правки запрещены
+  archive: Закрытые проекты
+  active: Активные проекты
+
+
+rules: Правила
+rule:
+  new: Новое правило
+  user_id: Пользователь
+  role: Роль
+  chair_id: Кафедра
+  project_id: Проект
+
+managers: Руководители
+manager:
+  new: Добавить руководителя
+  user_id: Пользователь
+  project_id: Проект
+  state_awaiting_approval: Ожидает утверждения
+  state_approved: Утверждён
+  state_awaiting_removal: Ожидает удаления
+  state_removed: Удален
+
+
+participants: Участники проекта
+participant:
+  new: Новый участник
+  student_id: Студент
+  state_awaiting_approval: Ожидает включения
+  state_approved: Участник
+  state_awaiting_removal: На исключение
+  state_removed: Удален
+
+stages: Этапы календарного плана
+stage:
+  new: Новый этап
+  title: Название
+  start: Дата начала
+  finish: Дата окончания
+  funds_required: Объем затрат
+  activity: Содержание работ
+  results: Ожидаемые результаты
+
+
+task:
+  order: Приказ
+  project: Проект
+
+orders: Приказы
+order:
+  number: Номер
+  approved_at: Дата
+  file: Файл
+  state_draft: Черновик
+  state_being_reviewed: Отправлен на визирование
+  state_reviewed: Визирован
+  state_approved: Утверждён
+  odt_file: Экспорт ODT
+  doc_file: Экспорт DOC
+  to_review: Отправить на визирование
+  review: Визировать
+  cancel: Вернуть
+  approve: Утвердить
+  hint_draft: Для того, чтобы изменения вступили в силу, приказ нужно отправить на визирование
+  hint_being_reviewed: Приказ требует визирования. Вы можете просмотреть изменения в проектах, визировать или вернуть приказ на доработку
+  hint_reviewed: Приказ требует утверждения. Вы можете утвердить или вернуть приказ на доработку
+
+opening_order:
+  title: о формировании проектов
+  new: Формирование проектов
+
+workgroup_order:
+  title: об изменении рабочих групп проектов
+  new: Изменение рабочих групп
+
+activities: Активность
+activity:
+    action: Действие
+    comment: Комментарий
+
+order_activity:
+    unknown: состояние изменен
+    return: возвращен на доработку
+    approve: утвержден
+    to_review: отправлен на визирование
+    review: визирован
+

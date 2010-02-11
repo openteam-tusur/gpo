@@ -1,0 +1,3 @@
+default: --require features/support --require features/step_definitions
+all: --require features/support --require features/step_definitions --format progress
+

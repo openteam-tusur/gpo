@@ -1,0 +1,49 @@
+<% title "Индивидуальные задачи", :issues %>
+
+<% content_for :hint do %>
+  Надо не забыть написать помощь
+<% end %>
+
+<% @project.participants.active.each_with_index do |participant, index| %>
+  <div id="participant_<%= index+1 %>" class="issues">
+    <h2><%= h(participant.name) %></h2>
+    <%= link_to 'Экспорт в XLS', export_chair_project_participant_issues_path(@chair, @project, participant) %>
+    <% planned_summ_grade = 0 %>
+    <% fact_summ_grade = 0 %>
+    <ul>
+      <% unless participant.issues.empty? %>
+        <% participant.issues.each do |issue| %>
+          <li>
+            <% planned_summ_grade += issue.planned_grade %>
+            <h3><b><%= t("activerecord.attributes.issue.name") %>:</b> <%= issue.name %></h3>
+            <p class="description"><b><%= t("activerecord.attributes.issue.description") %>:</b> <%= issue.description %></p>
+            <p class="planned_closing_at"><b><%= t("activerecord.attributes.issue.planned_closing_at") %>:</b> <%= date(issue.planned_closing_at) %></p>
+            <p class="planned_grade"><b><%= t("activerecord.attributes.issue.planned_grade") %>:</b> <%= issue.planned_grade %></p>
+            <% if issue.closed_at %>
+              <% fact_summ_grade += issue.grade %>
+              <p class="closed_at"><b>Фактическая дата выполнения:</b> <%= date(issue.closed_at) %></p>
+              <p class="grade"><b><%= t("activerecord.attributes.issue.grade") %>:</b> <%= issue.grade %></p>
+              <p class="results"><b><%= t("activerecord.attributes.issue.results") %>:</b> <%= issue.results %></p>
+            <% else %>
+              <p class="closed_at"><b>Статус:</b> Задача не завершена</p>
+            <% end %>
+            <p class="actions">
+              <%= link_to t(:delete), chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" if permitted_to?(:update, @project) %>
+              <%= link_to t(:edit), edit_chair_project_participant_issue_path(@chair, @project, participant, issue) if permitted_to?(:update, @project) %>
+            </p>
+          </li>
+        <% end %>
+      <% else %>
+        <li>
+          <p>Нет запланированных задач</p>
+        </li>
+      <% end %>
+    </ul>
+    <div class="right">
+      <p class="planned_summ_grade"><%= t("activerecord.attributes.issue.planned_summ_grade") %>:&nbsp;<%= planned_summ_grade %></p>
+      <p class="fact_summ_grade"><%= t("activerecord.attributes.issue.fact_summ_grade") %>:&nbsp;<%= fact_summ_grade %></p>
+      <p class="add"><%= link_to t(:add), new_chair_project_participant_issue_path(@chair, @project, participant) if permitted_to?(:update, @project) %></p>
+    </div>
+  </div>
+<% end %>
+

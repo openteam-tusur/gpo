@@ -1,0 +1,12 @@
+development: &DEVELOPMENT
+  adapter: postgresql
+  database: gpo
+
+test: &TEST
+  adapter: sqlite3
+  database: ":memory:"
+  verbosity: silent
+
+cucumber:
+  <<: *TEST
+

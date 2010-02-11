@@ -1,0 +1,28 @@
+<% title "Редактирование посещаемости", :visitation %>
+
+<% content_for :hint do %>
+  <p>Введите баллы за посещаемость в диапазоне <b>от 0 до 2</b> и нажмите кнопку "Сохранить"</p>
+  <p>Если нет необходимости менять баллы, нажмите "Отмена" для возврата к журналу посещаемости.</p>
+<% end %>
+
+<% form_tag(chair_project_visitation_path(@project.chair, @project, @gpoday), :method => :put) do %>
+  <fieldset class="participant_visitation">
+    <ul>
+      <% @project.participants.active.each do |participant| %>
+        <li>
+          <label for="participant_<%= participant.id %>"><%= (participant.name) %>
+          <% if @errors.include?(participant.id) %>
+            <span class="fieldWithErrors">Должно быть введено значение от 0 до 2</span>
+          <% end %>
+          </label>
+          <%= text_field_tag "participant[#{participant.id}]", participant.visitation_for_gpoday(@gpoday).rate %>
+        </li>
+      <% end -%>
+    </ul>
+    <p class="action">
+      <%= submit_tag l(:save) %>
+      <%= link_to l(:cancel), chair_project_visitations_path(@project.chair, @project) %>
+    </p>
+  </fieldset>
+<% end %>
+

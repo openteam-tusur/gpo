@@ -1,0 +1,33 @@
+<% title "Руководители", :user %>
+
+<% content_for :hint do %>
+  <h3>Руководители проекта</h3>
+  <p>На странице отображается список руководителей проекта.</p>
+  <dl>
+    <dt><%= help_term(:manager_awaiting_approval) %></dt>
+    <dd>Включение участника проекта не подтверждено приказом</dd>
+    <dt><%= help_term(:manager_awaiting_removal) %></dt>
+    <dd>Исключение участника проекта не подтверждено приказом</dd>
+    <dt><%= help_term(:manager_approved) %></dt>
+    <dd>Участника проекта подтвержден приказом</dd>
+  </dl>
+  <p>Статус руководителя нового проекта подтверждает приказом о формировании проекта. Статус руководителя активного проекта может утвердить администратор системы.</p>
+  
+  <% if permitted_to?(:create, @project.managers.build) %>
+  <dl>
+    <dt>"Отменить"</dt>
+    <dd>Позволяет отменить действие ранее произведенное над руководителем проекта.</dd>
+    <% if current_user.admin? %>
+      <dt>"Утвердить"</dt>
+      <dd>Позволяет утвердить действие над руководителем проекта, даже не утвержденное приказом.</dd>
+    <% end %>
+    <dt>"Удалить"</dt>
+    <dd>Переводит руководителя проекта в статус "Ожидает удаления".</dd>
+  </dl>
+  <% end %>
+<% end %>
+
+<% action_link(link_to(l(:manager, :new), new_chair_project_manager_url(@project.chair, @project)), 'new', "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) %>
+
+<%= render_list 'manager_with_actions', @managers, :id => 'managers' %>
+

@@ -1,0 +1,6 @@
+<% if logged_in? %>
+  <span class='login'><%= current_user.name %></span>
+  <%= link_to "Выйти", logout_path, :class => 'logout' %>
+<% else %>
+  <%= icon(:login) %><%= link_to 'Войти', login_path, :class => 'login' %>
+<% end %>

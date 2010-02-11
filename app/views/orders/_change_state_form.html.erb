@@ -1,0 +1,15 @@
+<% form_for(:order, :url => update_state_chair_order_url(order.chair, order), :html => {:method => :put} ) do |form| %>
+  <%= form.error_messages %>
+  <fieldset>
+    <% if permitted_to?(:approve, order) %>
+      <%= form.text_field :number %>
+      <%= form.text_field :approved_at, :class => 'datepicker'%>
+    <% end %>
+    <%= label_tag 'comment', l(:activity, :comment) %>
+    <%= text_area_tag 'comment' %>
+    <%= form.submit(l(:order, :to_review), :name => :to_review) if permitted_to?(:to_review, order) %>
+    <%= form.submit(l(:order, :review), :name => :review) if permitted_to?(:review, order) %>
+    <%= form.submit(l(:order, :cancel), :name => :cancel) if permitted_to?(:cancel, order) %>
+    <%= form.submit(l(:order, :approve), :name => :approve) if permitted_to?(:approve, order) %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,20 @@
+<% title "Добавление проекта", :project %>
+
+<% content_for :hint do %>
+  <h3>Добавление проекта</h3>
+  <p>Для добавления проекта введите название проекта и нажмите кнопку "Создать".</p>
+  <p>Шифр проекта будет сгенерирован автоматически.</p>
+  <p>Если нет необходимости создавать проект нажмите "Отмена" для возврата к списку проектов.</p>
+<% end %>
+
+<% form_for([@chair, @project]) do |form| %>
+  <fieldset>
+    <%= form.error_messages %>
+    <%= form.text_field(:title) %>
+    <p>
+      <%= form.submit l(:create) %>
+      <%= link_to l(:back), chair_projects_path(@chair) %>
+    </p>
+  </fieldset>
+<% end %>
+
