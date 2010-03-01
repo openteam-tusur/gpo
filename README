@@ -1,4 +1,5 @@
 == Подготовка приложения
+
 1. В командной строке наберите <tt>rake gems:build</tt> - эта команда скомпилирует все бинарные gem
 2. <tt>cp config/database.yml.example config/database.yml</tt>
 3. <tt>rake db:migrate db:seed</tt>
