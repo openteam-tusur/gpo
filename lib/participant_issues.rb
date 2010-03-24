@@ -52,13 +52,13 @@ class ParticipantIssues < XlsReport
     end
     summ_row = table.delete_element("//table:table-row[5+#{participant.issues.size}+1]")
 
-    summ_row.elements[4].attributes['formula'].gsub!(".F6:.F6", ".F6:.F#{5+participant.issues.size}")
-    summ_row.elements[4].attributes['value'].gsub!("1", summ_plan_grade.to_s)
-    summ_row.elements[4][1].text = summ_plan_grade
+    summ_row.elements[6].attributes['formula'].gsub!(".F6:.F6", ".F6:.F#{5+participant.issues.size}")
+    summ_row.elements[6].attributes['value'].gsub!("1", summ_plan_grade.to_s)
+    summ_row.elements[6][1].text = summ_plan_grade
 
-    summ_row.elements[5].attributes['formula'].gsub!(".G6:.G6", ".G6:.G#{5+participant.issues.size}")
-    summ_row.elements[5].attributes['value'].gsub!("0", summ_grade.to_s)
-    summ_row.elements[5][1].text = summ_grade
+    summ_row.elements[7].attributes['formula'].gsub!(".G6:.G6", ".G6:.G#{5+participant.issues.size}")
+    summ_row.elements[7].attributes['value'].gsub!("0", summ_grade.to_s)
+    summ_row.elements[7][1].text = summ_grade
 
     table.insert_after("//table:table-row[5+#{participant.issues.size}]", summ_row)
     document.to_s
