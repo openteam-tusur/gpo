@@ -42,6 +42,9 @@ Rails::Initializer.run do |config|
   config.action_mailer.default_charset        = 'utf-8'
   config.action_mailer.default_content_type   = 'text/html'
 
+  # See only warnings in the log (default is :info)
+  config.log_level = :warn
+
 end
 
 # Настройки плугина ExceptionNotifier
