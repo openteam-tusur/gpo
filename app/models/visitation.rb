@@ -6,6 +6,30 @@ class Visitation < ActiveRecord::Base
   validates_uniqueness_of :gpoday_id, :scope => :participant_id
   validates_numericality_of :rate, :allow_nil => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 2, :on => :update
 
+  named_scope :beetween_dates, lambda { |from, to|
+    {
+      :joins => :gpoday,
+      :conditions => ["gpodays.date between :from and :to", {:from => from, :to => to}]
+    }
+  }
+
+  named_scope :for_participant, lambda { |participant|
+    {
+      :conditions => {:participant_id => participant.id}
+    }
+  }
+
+  named_scope :ascending, :joins => :gpoday, :order => "gpodays.date"
+  named_scope :descending, :joins => :gpoday, :order => "gpodays.date desc"
+
+  def sum
+    Visitation.for_participant(participant).beetween_dates(kt_start, date).sum(:rate)
+  end
+
+  def total
+    Visitation.for_participant(participant).sum(:rate, :joins => :gpoday, :conditions => ["gpodays.date <= ?", date])
+  end
+
   def kt?
     gpoday.kt?
   end
@@ -14,35 +38,13 @@ class Visitation < ActiveRecord::Base
     gpoday.date
   end
 
-  def prev
-    Visitation.find(:last, :joins => :gpoday, :order => "gpodays.date", :conditions => ["gpodays.date < ?", date])
-  end
+  private
 
-  def prev_kt
-    Visitation.find(:last, :joins => :gpoday, :order => "gpodays.date", :conditions => ["gpodays.date < ? and kt = ?", date, true])
-  end
-
-  def self.first
-    Visitation.find(:first, :joins => :gpoday, :order => "gpodays.date")
-  end
-
-  def next
-    Visitation.find(:first, :joins => :gpoday, :order => "gpodays.date", :conditions => ["gpodays.date > ?", date])
-  end
-
-  def summ
-    kt_start = prev_kt
-    unless kt_start.nil?
-      kt_start = kt_start.next
-    else
-      kt_start = Visitation.first
-    end
-    Visitation.sum(:rate, :joins => :gpoday,
-      :conditions => ["gpodays.date between :begin and :end", {:begin => kt_start.gpoday.date, :end => date}])
-  end
-
-  def total
-    Visitation.sum(:rate, :joins => :gpoday, :conditions => ["gpodays.date < ?", date]) + rate
+  def kt_start
+    prev_kt = Gpoday.descending.find(:first, :conditions => ["gpodays.date < ? and kt = ?", date, true])
+    prev_kt ? Gpoday.ascending.find(:first, :conditions => ["gpodays.date > ?", prev_kt.date]).date : Gpoday.ascending.first.date
+#    prev_kt = Visitation.for_participant(participant).descending.find(:first, :conditions => ["gpodays.date < ? and kt = ?", date, true])
+#    prev_kt ? Visitation.for_participant(participant).ascending.find(:first, :conditions => ["gpodays.date > ?", prev_kt.date]) : Visitation.for_participant(participant).ascending.first
   end
 
 end
