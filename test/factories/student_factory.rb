@@ -1,4 +1,4 @@
-Factory.define :student do |student|
+Factory.define :student, :default_strategy => :stub do |student|
   student.first_name { Factory.next(:first_name) }
   student.mid_name { Factory.next(:mid_name) }
   student.last_name { Factory.next(:last_name) }

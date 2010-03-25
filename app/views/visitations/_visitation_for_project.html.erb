@@ -2,6 +2,7 @@
   summ_balls ||= {}
   summ_balls[project.id] = {}
   summ_balls[project.id][:render_summ] = true
+  issues_summ = 0
 %>
 
 <ul class="listing participants">
@@ -31,9 +32,8 @@
             %>
             <li id="<%= project.chair.id %>_<%= project.id %>_<%= visitation.id %>">
               <%= visitation.rate.nil? ? "<span class='empty ratio'>&mdash;</span>" : "<span class='ratio'>#{participant.visitation_for_gpoday(gpoday).rate}</span>" %>
-              <%#= link_to t('edit'), edit_chair_project_visitation_url(project.chair, project, visitation, :context => @context), :class => "edit" if permitted_to?(:update, project) %>
               <% if gpoday.kt? %>
-                <%= content_tag :span, summ_balls[project.id][participant.id][:period], :class=>"period", :title => "за текущий период" %>
+                <%= content_tag :span, summ_balls[project.id][participant.id][:period], :class=>"period", :title => "за текущий период с учетом индивидульных задач" %>
                 <%= content_tag :span, " / #{summ_balls[project.id][participant.id][:summ]}", :class=>"summ", :title => "суммарно" if summ_balls[project.id][:render_summ] %>
               <% summ_balls[project.id][participant.id][:period] = 0.0 %>
               <%  end %>

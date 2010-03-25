@@ -3,6 +3,11 @@ Given /^для студента "([^\"]*)" заведена задача "([^\"]
   Factory.create(:issue, :participant => participant, :name => issue_name, :planned_closing_at => issue_planned_closing_id, :planned_grade => issue_planned_grade)
 end
 
+Given /^для студента "([^\"]*)" заведена задача "([^\"]*)" с фактической датой завершения "([^\"]*)" и фактическим количеством баллов "([^\"]*)"$/ do |student_ident, issue_name, issue_closed_at, issue_grade|
+  participant = Participant.find_by_student_id(students(student_ident.to_sym)[:id])
+  Factory.create(:issue, :participant => participant, :name => issue_name, :closed_at => issue_closed_at, :grade => issue_grade, :results => "results")
+end
+
 When /^я на странице индивидуальных задач проекта "([^\"]*)"$/ do |project_cipher|
   project = Project.find_by_cipher(project_cipher)
   visit chair_project_issues_path(project.chair, project)

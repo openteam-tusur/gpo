@@ -145,6 +145,13 @@ function gpoday() {
   });
 };
 
+function go_to_chair() {
+  $("#go-to-chair input[type=submit]").hide();
+  $("#go_to_chair").change(function() {
+    $(this).parent().submit();
+  });
+}
+
 //$.blockUI.defaults = {
 //  message:  "<p style='margin-bottom: 20px;'><img width='16' height='16' src='/images/ajax-loader.gif' /></p><p style='font-size: 16px; font-weight: bold;'>Пожалуйста, подождите...</p>",
 //  css: {
@@ -180,4 +187,5 @@ $(document).ready(function() {
   $('.attention').effect("highlight", {color: '#ff0'}, 1000);
   hint();
   gpoday();
+  go_to_chair();
 });
