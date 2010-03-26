@@ -16,7 +16,7 @@ class IssueTest < ActiveSupport::TestCase
       mock.get "/students/333.xml", {}, students(:ivanov).to_xml(:root => "student")
     end
     participant = Factory.create(:participant, :student => Student.find(333))
-    issue = Factory.build(:issue, :participant => participant)
+    issue = Issue.new(:participant => participant)
     issue.save
     assert issue.errors.on(:closed_at).nil?
     assert issue.errors.on(:grade).nil?

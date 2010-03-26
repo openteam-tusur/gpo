@@ -22,12 +22,22 @@ class Visitation < ActiveRecord::Base
   named_scope :ascending, :joins => :gpoday, :order => "gpodays.date"
   named_scope :descending, :joins => :gpoday, :order => "gpodays.date desc"
 
-  def sum
-    Visitation.for_participant(participant).beetween_dates(kt_start, date).sum(:rate)
+  def kt_issues_sum
+    Issue.for_participant(participant).beetween_dates(kt_start, date).sum(:grade)
   end
 
-  def total
-    Visitation.for_participant(participant).sum(:rate, :joins => :gpoday, :conditions => ["gpodays.date <= ?", date])
+  def kt_sum
+    Visitation.for_participant(participant).beetween_dates(kt_start, date).sum(:rate) +
+      kt_issues_sum
+  end
+
+  def total_issues_sum
+    Issue.for_participant(participant).sum(:grade)
+  end
+
+  def total_sum
+    Visitation.for_participant(participant).sum(:rate, :joins => :gpoday, :conditions => ["gpodays.date <= ?", date]) +
+      total_issues_sum
   end
 
   def kt?

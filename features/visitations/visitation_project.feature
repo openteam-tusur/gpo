@@ -64,21 +64,24 @@
   Если я вхожу в систему как администратор
     И я на странице журнала посещаемости проекта АОИ-0701
   То я вижу "2.0" в ".gpoday[1] li[1]"
-    И нет селектора ".gpoday[1] li[1] .period"
-    И нет селектора ".gpoday[1] li[1] .summ"
+    И нет селектора ".gpoday[1] li[1] .kt_issues_sum"
+    И нет селектора ".gpoday[1] li[1] .kt_sum"
+    И нет селектора ".gpoday[1] li[1] .total_sum"
 
     И я вижу "1.0" в ".gpoday[2] li[1]"
-    И я вижу "9.0" в ".gpoday[2] li[1] .period"
-    И я вижу "9.0" в ".gpoday[2] li[1] .summ"
+    И я вижу "6" в ".gpoday[2] li[1] .kt_issues_sum"
+    И я вижу "9.0" в ".gpoday[2] li[1] .kt_sum"
+    И я вижу "9.0" в ".gpoday[2] li[1] .total_sum"
 
     И я вижу "—" в ".gpoday[3] li[1]"
-    И я вижу "0.0" в ".gpoday[3] li[1] .period"
-    И я вижу "9.0" в ".gpoday[3] li[1] .summ"
+    И я вижу "0" в ".gpoday[3] li[1] .kt_issues_sum"
+    И я вижу "0.0" в ".gpoday[3] li[1] .kt_sum"
+    И я вижу "9.0" в ".gpoday[3] li[1] .total_sum"
 
     И я вижу "2.0" в ".gpoday[4] li[1]"
-    И я вижу "2.0" в ".gpoday[4] li[1] .period"
-    И я вижу "11.0" в ".gpoday[4] li[1] .summ"
-
+    И я вижу "0" в ".gpoday[4] li[1] .kt_issues_sum"
+    И я вижу "2.0" в ".gpoday[4] li[1] .kt_sum"
+    И я вижу "11.0" в ".gpoday[4] li[1] .total_sum"
 
   Структура сценария: Разграничения доступа по управлению проектами
   Допустим в расписании существует день ГПО "24.09.2009"
