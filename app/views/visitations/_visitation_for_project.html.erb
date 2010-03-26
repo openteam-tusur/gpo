@@ -1,21 +1,11 @@
-<%
-  summ_balls ||= {}
-  summ_balls[project.id] = {}
-  summ_balls[project.id][:render_summ] = true
-  issues_summ = 0
-%>
-
 <ul class="listing participants">
   <% project.participants.active.each_with_index do |participant, index| %>
-    <%
-      summ_balls[project.id][participant.id] = {:period => 0.0, :summ => 0.0}
-    %>
     <li class="participant_<%= index+1 %>">
       <div class="participant object">
         <h3><%= h(participant.name) %></h3>
       </div>
     </li>
-  <% end -%>
+  <% end %>
 </ul>
 
 <div class="rating">
@@ -25,21 +15,17 @@
         <span class="date"><%= I18n.localize(gpoday.date) + "#{gpoday.kt? ? ' (КТ)' : nil}" %></span>
         <ul>
           <% project.participants.active.each_with_index do |participant, index| %>
-            <%
-              visitation = participant.visitation_for_gpoday(gpoday)
-              summ_balls[project.id][participant.id][:period] += visitation.rate || 0.0
-              summ_balls[project.id][participant.id][:summ] += visitation.rate || 0.0
-            %>
+            <% visitation = participant.visitation_for_gpoday(gpoday) %>
             <li id="<%= project.chair.id %>_<%= project.id %>_<%= visitation.id %>">
-              <%= visitation.rate.nil? ? "<span class='empty ratio'>&mdash;</span>" : "<span class='ratio'>#{participant.visitation_for_gpoday(gpoday).rate}</span>" %>
-              <% if gpoday.kt? %>
-                <%= content_tag :span, summ_balls[project.id][participant.id][:period], :class=>"period", :title => "за текущий период с учетом индивидульных задач" %>
-                <%= content_tag :span, " / #{summ_balls[project.id][participant.id][:summ]}", :class=>"summ", :title => "суммарно" if summ_balls[project.id][:render_summ] %>
-              <% summ_balls[project.id][participant.id][:period] = 0.0 %>
-              <%  end %>
+              <%= visitation.rate.nil? ? "<span class='empty ratio'>&mdash;</span>" : "<span class='ratio'>#{visitation.rate}</span>" %>
+              <% if visitation.kt? %>
+                <%= content_tag :span, visitation.sum, :class=>"period", :title => "за текущий период с учетом индивидульных задач" %>
+                <%= content_tag :span, " / #{visitation.total}", :class=>"summ", :title => "суммарно" %>
+              <% end %>
             </li>
           <% end %>
         </ul>
+        <%= link_to t('edit'), edit_chair_project_visitation_url(project.chair, project, gpoday), :class => "edit" if show_edit_link && permitted_to?(:update, project) && !project.participants.empty? %>
       </div>
     <% end %>
   </div>

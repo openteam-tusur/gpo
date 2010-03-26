@@ -43,8 +43,6 @@ class Visitation < ActiveRecord::Base
   def kt_start
     prev_kt = Gpoday.descending.find(:first, :conditions => ["gpodays.date < ? and kt = ?", date, true])
     prev_kt ? Gpoday.ascending.find(:first, :conditions => ["gpodays.date > ?", prev_kt.date]).date : Gpoday.ascending.first.date
-#    prev_kt = Visitation.for_participant(participant).descending.find(:first, :conditions => ["gpodays.date < ? and kt = ?", date, true])
-#    prev_kt ? Visitation.for_participant(participant).ascending.find(:first, :conditions => ["gpodays.date > ?", prev_kt.date]) : Visitation.for_participant(participant).ascending.first
   end
 
 end

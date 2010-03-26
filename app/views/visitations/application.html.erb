@@ -11,7 +11,7 @@
     <% chair.projects.active.each_with_index do |project, index| %>
       <div class="project_<%= project.id %>" class="project">
         <%= link_to(project.cipher, chair_project_url(project.chair, project), :class => 'chair_cipher') %>
-        <%= render :partial => 'visitation_for_project', :locals => {:project => project} %>
+        <%= render :partial => 'visitation_for_project', :locals => {:project => project, :show_edit_link => false} %>
       </div>
     <% end -%>
     </div>

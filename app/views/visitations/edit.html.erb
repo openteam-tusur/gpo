@@ -17,7 +17,7 @@
           </label>
           <%= text_field_tag "participant[#{participant.id}]", participant.visitation_for_gpoday(@gpoday).rate %>
         </li>
-      <% end -%>
+      <% end %>
     </ul>
     <p class="action">
       <%= submit_tag l(:save) %>
