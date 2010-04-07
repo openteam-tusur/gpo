@@ -11,7 +11,7 @@
     <p>Если нет необходимости изменять приказ "Отмена" для возврата к просмотру приказа.</p>
 <% end %>
 
-<p>Выберите проекты, состояние которых будет отверждено приказом.</p>
+<p>Выберите проекты, состояние которых будет утверждено приказом.</p>
 <% form_for(:order, @order, :url => chair_order_url(@chair, @order), :html => {:method => :put}) do |form| %>
   <fieldset>
     <%= render :partial => 'form', :locals => {:form => form, :order => @order} %>
