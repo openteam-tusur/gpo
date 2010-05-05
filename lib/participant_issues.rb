@@ -27,11 +27,11 @@ class ParticipantIssues < XlsReport
       tmp_row.elements[3][1].text = issue.description
 
       tmp_row.elements[4].attributes['date-value'].gsub!("2010-01-01", issue.planned_closing_at.to_s(:format => :long))
-      tmp_row.elements[4][1].text = issue.planned_closing_at
+      tmp_row.elements[4][1].text = "'" + issue.planned_closing_at.to_s
 
       if issue.closed_at
         tmp_row.elements[5].attributes['date-value'].gsub!("2010-01-02", issue.closed_at.to_s(:format => :long))
-        tmp_row.elements[5][1].text = issue.closed_at
+        tmp_row.elements[5][1].text = "'" + issue.closed_at.to_s
         tmp_row.elements[7].attributes['value'].gsub!("0", issue.grade.to_s)
         tmp_row.elements[7][1].text = issue.grade
         summ_grade += issue.grade
