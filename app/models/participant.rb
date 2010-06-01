@@ -103,5 +103,15 @@ class Participant < ActiveRecord::Base
     Participant.sum("issues.grade", :include => :issues, :conditions => {'participants.id' => self.id})
   end
 
+
+  # Для семестровой суммы баллов
+  def visitation_total_summ_rate
+    Participant.sum("visitations.rate", :include => :visitations, :conditions => {'participants.id' => self.id})
+  end
+
+  def total_term_mark
+    self.issues_fact_summ_grade.to_f + self.visitation_total_summ_rate.to_f
+  end
+
 end
 

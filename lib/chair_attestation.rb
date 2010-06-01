@@ -4,7 +4,7 @@ class ChairAttestation < XlsReport
   def initialize chair
     @chair = chair
   end
-  
+
   def process_xml_template(xml)
     # меняем статический контент в шаблоне
     xml = xml.gsub("CHAIR_ABBR", @chair.abbr).
@@ -27,6 +27,7 @@ class ChairAttestation < XlsReport
         # поэтому используем этот хитрый хак, чтобы формулы прокопировались правильно
         tmp_row.elements[9].attributes.inspect
         tmp_row.elements[10].attributes.inspect
+        tmp_row.elements[7].attributes.inspect
 
         if i == 1
           tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
@@ -37,6 +38,9 @@ class ChairAttestation < XlsReport
         tmp_row.elements[4][1].text = participant.name
         tmp_row.elements[5][1].text = participant.course
         tmp_row.elements[6][1].text = participant.edu_group
+        tmp_row.elements[7][1].text = participant.total_term_mark
+        tmp_row.elements[7].attributes['value'].gsub!("0", participant.total_term_mark.to_s)
+
 
         tmp_row.elements[9].attributes["formula"].gsub!("7", formula_index.to_s)
         tmp_row.elements[10].attributes["formula"].gsub!("I7", "I#{formula_index.to_s}").gsub!("H7", "H#{formula_index.to_s}")
@@ -47,8 +51,8 @@ class ChairAttestation < XlsReport
       end
     end
     document.to_s
-  end  
-  
+  end
+
   def render_to_file(&block)
     super('chair_attestation', &block)
   end

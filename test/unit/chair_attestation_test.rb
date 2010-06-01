@@ -33,6 +33,11 @@ class ChairAttestationTest < Test::Unit::TestCase
     participant1 = Factory(:participant, :project => project, :student => Student.find(111))
     participant1.state = 'approved'
     participant1.save(false)
+
+    gpoday = Gpoday.create!(:date => Date.today)
+    Factory.create(:visitation, :gpoday => gpoday, :participant => participant1, :rate => 1.5)
+    Factory.create(:issue, :participant => participant1)
+
     participant2 = Factory(:participant, :project => project, :student => Student.find(222))
     participant2.state = 'approved'
     participant2.save(false)
@@ -59,6 +64,7 @@ class ChairAttestationTest < Test::Unit::TestCase
           assert_equal participant.name,  oo.cell(index, 'D'), "студент"
           assert_equal participant.course.to_s,  oo.cell(index, 'E'), "курс студента"
           assert_equal participant.edu_group,  oo.cell(index, 'F'), "группа"
+          assert_equal participant.total_term_mark,  oo.cell(index, 'G'), "семестровая сумма баллов"
           assert oo.formula(index, 'I').include?("G#{index}"), "рейтинг"
           assert oo.formula(index, 'J').include?("I#{index}"), "оценка ГПО"
           index += 1
