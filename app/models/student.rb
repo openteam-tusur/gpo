@@ -17,7 +17,7 @@ class Student < ActiveResource::Base
   def course
     self.year.to_i
   end
-  
+
   def self.find_by_query(query)
     condition = []
     query.each do |key, value|
@@ -25,7 +25,11 @@ class Student < ActiveResource::Base
     end
     self.find(:all, :conditions => condition.join(" and "), :order => :last_name)
   end
-  
+
+  def destroyed?
+    false
+  end
+
   # Разрешения
   def self.listable_by?(user, context = nil)
     user.is_a?(User) && (user.admin? || user.supervisor?)
