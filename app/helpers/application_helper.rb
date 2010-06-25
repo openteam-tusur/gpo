@@ -107,11 +107,11 @@ module ApplicationHelper
   def render_inline_stats(stats, options = {})
     term ||= content_tag :dt, options[:term] unless options[:term].nil?
 
-    items = stats.collect { |stat|
-      content_tag :dd, stat.value, :title => stat.title, :class => stat.key
-    }.join
+    stats.collect { |stat|
+      term += content_tag :dd, stat.value, :title => stat.title, :class => stat.key
+    }
 
-    content_tag :dl, term.to_s + items
+    content_tag :dl, term.to_s
   end
 
   def task_url(task)
