@@ -14,10 +14,9 @@ namespace :students do
     begin
       participants.each do |participant|
         id = participant.id
-        participant.inspect
+        p participant
         participant.update_from_contingent
         participant.save!
-        participant.inspect
       end
       ret << "все успешно обновлено"
     rescue Exception => e

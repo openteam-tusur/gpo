@@ -1,6 +1,6 @@
 class Student < ActiveResource::Base
 
-  self.site = "http://students"
+  self.site = "http://students.openteam.ru/"
 
   def to_param
     self.contingent_id
