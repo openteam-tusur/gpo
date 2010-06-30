@@ -1,262 +1,263 @@
-@import compass/reset.sass
-@import compass/utilities.sass
+@import "compass/reset"
+@import "compass/utilities"
 
-!page_width = 900px
-!min_page_height = 500px
-!background_color = #214478
-!content_background_color = #ffffff
-!header_text_color = #b3b3b3
-!text_color = #333
-!comment_color = #7a7a7a
-!frame_color = #9dafcb
-!frame_width = 5px
-!local_header_color = #ffffff
-!border_color = #dddddd
-!input_border_color = #ccc
+$page_width: 900px
+$min_page_height: 500px
+$background_color: #214478
+$content_background_color: white
+$header_text_color: #b3b3b3
+$text_color: #333333
+$comment_color: #7a7a7a
+$frame_color: #9dafcb
+$frame_width: 5px
+$local_header_color: white
+$border_color: #dddddd
+$input_border_color: #cccccc
 
-!block_background_color = white
-!block_alternate_background_color = #f7f7f7
+$block_background_color: white
+$block_alternate_background_color: #f7f7f7
+
 //!block_item_hover_color = #fffaed
-!block_item_hover_color = #f2f2f2
+$block_item_hover_color: #f2f2f2
 
-!h1_color = #3e3e3e
-!h2_color = #502d16
-!h3_color = #668000
-!title_color = #222
+$h1_color: #3e3e3e
+$h2_color: #502d16
+$h3_color: #668000
+$title_color: #222222
 
-=wrapped_into(!width)
+=wrapped_into($width)
   +clearfix
-  :margin 0px auto
-  :width = !width
+  margin: 0px auto
+  width: $width
 
 =simple-list
-  :list-style none
+  list-style: none
 
 =normal_line_height
-  :line-height 1.7em
+  line-height: 1.7em
 
 =small_line_height
-  :line-height 1em
+  line-height: 1em
 
 =sans_font
-  :font-family Tahoma, Arial, sans-serif
+  font-family: Tahoma, Arial, sans-serif
+
 =serif_font
-  :font-family "Times New Roman", Georgia
+  font-family: "Times New Roman", Georgia
 
 =default_text
   +sans_font
-  :font-size 12px
-  :font-weight normal
+  font-size: 12px
+  font-weight: normal
   +normal_line_height
 
 =huge_header_text
   +sans_font
-  :font-size 22px
+  font-size: 22px
   +small_line_height
 
 =header_text
   +sans_font
-  :font-size 16px
-  :font-weight bold
+  font-size: 16px
+  font-weight: bold
   +small_line_height
 
 =subheader_text
   +default_text
-  :font-weight bold
-  :color != h3_color
+  font-weight: bold
+  color: $h3_color
 
 =title_text
   +sans_font
-  :font-weight bold
-  :font-size 13px
-  :color = !title_color
+  font-weight: bold
+  font-size: 13px
+  color: $title_color
 
 =small_text
-  :font-weight normal
-  :font-size 11px
+  font-weight: normal
+  font-size: 11px
 
 =tiny_text
   +sans_font
-  :font-size 11px
-  :text-transform lowercase
-  :letter-spacing 0.1em
+  font-size: 11px
+  text-transform: lowercase
+  letter-spacing: 0.1em
 
 =comment_text
   +small_text
-  :font-style italic
-  :color = !comment_color
+  font-style: italic
+  color: $comment_color
 
 =tabbed_navigation
   +horizontal-list
-  :background transparent url('/images/project_navigation_bg.png') repeat-x 0px 100%
+  background: transparent url("/images/project_navigation_bg.png") repeat-x 0px 100%
   & li
-    :padding 5px 8px
+    padding: 5px 8px
     a
       +small_text
       +decorate_on_hover
-      :color = !text_color
+      color: $text_color
   & li.current
-    :background-color white
-    :border-top 1px solid #ccc
-    :border-left 1px solid #ccc
-    :border-right 1px solid #ccc
+    background-color: white
+    border-top: 1px solid #cccccc
+    border-left: 1px solid #cccccc
+    border-right: 1px solid #cccccc
 
 =simple_block
-  :cursor default
-  :border = 1px "solid" !border_color
-  :background-color = !block_background_color
-  :margin 0px 0px 30px 0px
+  cursor: default
+  border: 1px solid $border_color
+  background-color: $block_background_color
+  margin: 0px 0px 30px 0px
   & li.odd
-    :background-color = !block_background_color
+    background-color: $block_background_color
   & li.even
-    :background-color = !block_alternate_background_color
+    background-color: $block_alternate_background_color
   & tr.odd
     td
-      :background-color = !block_background_color
+      background-color: $block_background_color
   & tr.even
     td
-      :background-color = !block_alternate_background_color
-  /& li:hover
-    :background-color = !block_item_hover_color
+      background-color: $block_alternate_background_color
+  //& li:hover
+    background-color: $block_item_hover_color
 
 =nice_block
   +simple_block
-  :border-top = 5px "solid" !border_color
-  :border-bottom = 5px "solid" !border_color
+  border-top: 5px solid $border_color
+  border-bottom: 5px solid $border_color
 
 =no_decoration
-  :text-decoration none
+  text-decoration: none
 
 =decorate_on_hover
-  :text-decoration none
+  text-decoration: none
   &:hover
-    :text-decoration underline
+    text-decoration: underline
 
 =normal_state
   +tiny_text
-  :padding 1px 5px
+  padding: 1px 5px
 
 =important_state
   +normal_state
-  :background-color #b62f2f
-  :color white
-  :padding 1px 5px
+  background-color: #b62f2f
+  color: white
+  padding: 1px 5px
 
 =important_badge
   +important_state
 
-=message_box(!bg_color, !bg_img, !bdr_color, !header_color)
-  :border = 1px "solid" !bdr_color
-  :padding 15px
-  :background = !bg_color url(!bg_img) "repeat-x" 0px 100%
-  :margin-bottom 30px
+=message_box($bg_color, $bg_img, $bdr_color, $header_color)
+  border: 1px solid $bdr_color
+  padding: 15px
+  background: $bg_color url($bg_img) repeat-x 0px 100%
+  margin-bottom: 30px
   & h3
     +title_text
-    :margin-bottom 15px
-    :color = !header_color
+    margin-bottom: 15px
+    color: $header_color
 
-=action_link(!bg_img)
-  :float left
-  :display block
-  :width 16px
-  :height 16px
-  :text-indent -10000px
-  :background = "transparent" url(!bg_img) "no-repeat"
+=action_link($bg_img)
+  float: left
+  display: block
+  width: 16px
+  height: 16px
+  text-indent: -10000px
+  background: transparent url($bg_img) no-repeat
 
 =looks_like_object
   +clearfix
   & .icon
-    :float left
+    float: left
   & h3
     +title_text
     +small_line_height
-    :margin-left 22px
+    margin-left: 22px
     span
       +small_text
-      :color !comment_color
+      color: $comment_color
   & .status
     +small_text
-    :line-height 1.2em
-    :margin-top 0.5em
-    :margin-bottom 0.7em
-    :margin-left 22px
+    line-height: 1.2em
+    margin-top: 0.5em
+    margin-bottom: 0.7em
+    margin-left: 22px
   & .details
-    :margin-left 22px
+    margin-left: 22px
     .icon
-      :float none
+      float: none
 
-=listing(!item_padding)
-  :margin-bottom 2em
+=listing($item_padding)
+  margin-bottom: 2em
   & li
     +clearfix
-    :padding = !item_padding
-    :border-bottom = 1px "solid" !border_color
+    padding: $item_padding
+    border-bottom: 1px solid $border_color
 
-=listing_with_stats(!item_padding)
-  +listing(!item_padding)
+=listing_with_stats($item_padding)
+  +listing($item_padding)
   & .object
-    :float left
-    :width 400px
+    float: left
+    width: 400px
   & dl
     +clearfix
-    :width 130px
-    :float right
+    width: 130px
+    float: right
     dt
-      :text-align left
-      :float left
+      text-align: left
+      float: left
     dd
-      :text-align right
-      :width 16px
-      :float left
+      text-align: right
+      width: 16px
+      float: left
 
-=listing_with_actions(!item_padding)
-  +listing(!item_padding)
+=listing_with_actions($item_padding)
+  +listing($item_padding)
   & .object
-    :float left
-    :width 400px
+    float: left
+    width: 400px
   & .actions
-    :float right
-    :width 100px
+    float: right
+    width: 100px
 
 =highlight_on_hover
   & li:hover
-    :background-color = !block_item_hover_color
+    background-color: $block_item_hover_color
 
 =theme_error
   .error
-    :color #d73838
+    color: #d73838
 
 =as_activity
   +clearfix
   a
     +decorate_on_hover
-    :color = !text_color
+    color: $text_color
   & .details
     +small_text
-    :color = !comment_color
-    :display block
-    :padding-left 26px
+    color: $comment_color
+    display: block
+    padding-left: 26px
   & .comment
-    :color = !text_color
-    :font-style italic
-    :margin-right 5px
-
+    color: $text_color
+    font-style: italic
+    margin-right: 5px
 
 =zebra_table
-  :width 100%
-  :border-collapse "collapse"
+  width: 100%
+  border-collapse: "collapse"
   & td
-    :border-bottom = 1px "solid" !border_color
-    :padding 4px 8px
+    border-bottom: 1px solid $border_color
+    padding: 4px 8px
   & tr:hover
     td
-      :background-color = !block_item_hover_color
+      background-color: $block_item_hover_color
 
-=link_as_small_float_icon(!bg_image)
-  :display block
-  :float left
-  :width 16px
-  :height 16px
-  :overflow hidden
-  :text-indent -9999px
-  :background = "transparent" url(!bg_image) "no-repeat"
+=link_as_small_float_icon($bg_image)
+  display: block
+  float: left
+  width: 16px
+  height: 16px
+  overflow: hidden
+  text-indent: -9999px
+  background: transparent url($bg_image) no-repeat

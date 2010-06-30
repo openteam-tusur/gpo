@@ -1,12 +1,5 @@
-#unless RAILS_ENV == "test"
-  require 'compass'
-  # If you have any compass plugins, require them here.
-  Compass.configuration do |config|
-    config.project_path = RAILS_ROOT
-    config.output_style = :compressed
-    config.sass_dir = "app/stylesheets"
-    config.css_dir = "public/stylesheets/compiled"
-  end
-  Compass.configure_sass_plugin!
-#end
-
+require 'compass'
+rails_root = (defined?(Rails) ? Rails.root : RAILS_ROOT).to_s
+Compass.add_project_configuration(File.join(rails_root, "config", "compass.rb"))
+Compass.configure_sass_plugin!
+Compass.handle_configuration_change!
