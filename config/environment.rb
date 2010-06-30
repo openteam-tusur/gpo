@@ -16,7 +16,7 @@ Rails::Initializer.run do |config|
 
   # Specify gems that this application depends on and have them installed with rake gems:install
 
-  config.gem "compass", :source => "http://gemcutter.org"
+  config.gem "compass"
   config.gem "russian", :source => "http://gemcutter.org"
   config.gem "documatic"
 
