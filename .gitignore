@@ -11,3 +11,4 @@ config/initializers/session_store.rb
 public/stylesheets/compiled/*
 public/files/*
 tmp/*
+students_synchronize
