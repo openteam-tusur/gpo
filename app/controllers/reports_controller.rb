@@ -15,13 +15,16 @@ class ReportsController < ApplicationController
     unless params[:format] == 'xls'
       report = Report.new(params[:id], @chair, @project)
     end
-    respond_to do |format|
-      format.html { render :action => :index }
-      format.odt { send_odt(report) } if params[:format] == 'odt'
-      format.doc { send_converted_odt(report, :doc) } if params[:format] == 'doc'
-      format.xls { send_xls(params[:id]) } if params[:format] == 'xls'
+    if report.id == "project_tz"
+      send_report_throught_jod(report)
+    else
+      respond_to do |format|
+        format.html { render :action => :index }
+        format.odt { send_odt(report) } if params[:format] == 'odt'
+        format.doc { send_converted_odt(report, :doc) } if params[:format] == 'doc'
+        format.xls { send_xls(params[:id]) } if params[:format] == 'xls'
+      end
     end
-
   end
 
   protected
@@ -78,6 +81,33 @@ class ReportsController < ApplicationController
       system("bash", "#{RAILS_ROOT}/script/converter/converter.sh", file.path, converted_file.path, format.to_s)
       send_file converted_file.path, :type => Mime::Type.lookup_by_extension(format.to_s), :filename => filename
     }
+  end
+
+  private
+  def send_report_throught_jod(report)
+    report_name = report.id
+    template_path = "#{Rails.root}/lib/templates/reports/#{report_name}.odt"
+
+    data_file = Better::Tempfile.open(["data_file", ".xml"]) do |file|
+      file << report.model.to_tz_report
+    end
+
+    extention = "doc" #Rails::env.production? ? "doc": "odt"
+
+    report_filename = "#{report_name}_#{report.model.id}.#{extention}"
+    odt_file = Better::Tempfile.new([report_filename, ".odt"])
+    doc_file = Better::Tempfile.new([report_filename, ".doc"])
+
+    libdir = "#{Rails::root}/lib/templates/reports/lib"
+    system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
+    report_filepath = odt_file.path
+
+    if extention == "doc"
+      system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodconverter-cli-2.2.2.jar", odt_file.path, doc_file.path)
+      report_filepath = doc_file.path
+    end
+
+    send_file report_filepath, :type => MIME::Types.of(extention).first.content_type, :filename => report_filename
   end
 end
 

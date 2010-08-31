@@ -19,6 +19,8 @@ Rails::Initializer.run do |config|
   config.gem "compass"
   config.gem "russian", :source => "http://gemcutter.org"
   config.gem "documatic"
+  config.gem "better", :lib => false
+  config.gem "mime-types", :lib => "mime/types"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

@@ -98,5 +98,37 @@ class Project < ActiveRecord::Base
     arr.join("; ")
   end
 
+  def to_tz_report
+    self.to_xml(:skip_types => true, :root => "doc") do |xml|
+      xml.chair_abbr self.chair.abbr
+      xml.chair_chief self.chair.chief
+      xml.opened_order_approved_at (self.opening_order && self.opening_order.approved_at) ? I18n.l(self.opening_order.approved_at) : ''
+      xml.opened_order_number self.opening_order ? self.opening_order.number : ''
+      xml.theme_name self.theme ? self.theme.name : ''
+      xml.funds_sources self.funds_sources
+      xml.chief self.users.empty? ? '' : "#{self.users[0].initials_name}, #{self.users[0].post}"
+      xml.chief_name self.users.empty? ? '' : "#{self.users[0].initials_name}"
+      xml.participants do |xml_participant|
+        self.participants.active.each do |participant|
+          xml.participant do
+            xml.name participant.name
+            xml.edu_group participant.edu_group
+          end
+        end
+      end
+      xml.stages do |xml_stage|
+        self.stages.each do |stage|
+          xml.stage do
+            xml.title stage.title
+            xml.activity stage.activity
+            xml.results stage.results
+            xml.start I18n.l(stage.start)
+            xml.finish I18n.l(stage.finish)
+          end
+        end
+      end
+    end
+  end
+
 end
 
