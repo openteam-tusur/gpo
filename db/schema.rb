@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100210085216) do
+ActiveRecord::Schema.define(:version => 20100916021613) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -124,6 +124,8 @@ ActiveRecord::Schema.define(:version => 20100210085216) do
     t.string   "editable_state"
     t.text     "close_reason"
     t.integer  "theme_id"
+    t.text     "goal"
+    t.text     "source_data"
   end
 
   create_table "rules", :force => true do |t|
