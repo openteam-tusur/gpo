@@ -67,9 +67,7 @@ class Participant < ActiveRecord::Base
   end
 
   def visitation_for_gpoday(gpoday)
-    visit = self.visitations.find_by_gpoday_id(gpoday.id) || self.visitations.build(:gpoday_id => gpoday.id)
-    visit.save if visit.new_record?
-    visit
+    self.visitations.find_or_create_by_gpoday_id(gpoday.id)
   end
 
   def after_enter_removed
