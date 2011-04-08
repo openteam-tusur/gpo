@@ -18,6 +18,7 @@ class ChairAttestation < XlsReport
     table = document.elements["//table:table"]
     row = table.delete_element('//table:table-row[7]')
     formula_index = 7
+    participant_index = 0
     chair.projects.active.each do |project|
       i = 1
       project.participants.active.each do |participant|
@@ -32,20 +33,22 @@ class ChairAttestation < XlsReport
         if i == 1
           tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
           tmp_row.elements[2].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
+          tmp_row.elements[3].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
         end
         tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.users.collect {|user| user.name}.join(", ")}"
-        tmp_row.elements[3][1].text = i
-        tmp_row.elements[4][1].text = participant.name
-        tmp_row.elements[5][1].text = participant.course
-        tmp_row.elements[6][1].text = participant.edu_group
-        tmp_row.elements[7][1].text = participant.total_term_mark
-        tmp_row.elements[7].attributes['value'].gsub!("0", participant.total_term_mark.to_s)
+        tmp_row.elements[4][1].text = i
+        tmp_row.elements[5][1].text = participant.name
+        tmp_row.elements[6][1].text = participant.course
+        tmp_row.elements[7][1].text = participant.edu_group
+        tmp_row.elements[8][1].text = participant.total_term_mark
+        tmp_row.elements[8].attributes['value'].gsub!("0", participant.total_term_mark.to_s)
 
 
-        tmp_row.elements[9].attributes["formula"].gsub!("7", formula_index.to_s)
-        tmp_row.elements[10].attributes["formula"].gsub!("I7", "I#{formula_index.to_s}").gsub!("H7", "H#{formula_index.to_s}")
+        tmp_row.elements[10].attributes["formula"].gsub!("7", formula_index.to_s)
+        tmp_row.elements[11].attributes["formula"].gsub!("I7", "I#{formula_index.to_s}").gsub!("H7", "H#{formula_index.to_s}")
 
-        table.add_element tmp_row
+        table.insert_after("//table:table-row[5+#{participant_index}]", tmp_row)
+        participant_index += 1
         i += 1
         formula_index += 1
       end
