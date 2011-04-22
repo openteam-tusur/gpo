@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
     unless params[:format] == 'xls'
       report = Report.new(params[:id], @chair, @project)
     end
-    if report.id == "project_tz"
+    if params[:id] == "project_tz"
       send_report_throught_jod(report)
     else
       respond_to do |format|
@@ -39,7 +39,6 @@ class ReportsController < ApplicationController
 
   def send_xls(report)
     case params[:id]
-
     when 'chair_schedule_group'
       report = ChairScheduleGroup.new(@chair) if @chair
     when 'chair_projects_list'

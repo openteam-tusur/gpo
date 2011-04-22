@@ -26,9 +26,9 @@ class ChairAttestation < XlsReport
 
         # deep_clone не всегда deep :(
         # поэтому используем этот хитрый хак, чтобы формулы прокопировались правильно
-        tmp_row.elements[9].attributes.inspect
+        tmp_row.elements[8].attributes.inspect
         tmp_row.elements[10].attributes.inspect
-        tmp_row.elements[7].attributes.inspect
+        tmp_row.elements[11].attributes.inspect
 
         if i == 1
           tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
@@ -45,9 +45,10 @@ class ChairAttestation < XlsReport
 
 
         tmp_row.elements[10].attributes["formula"].gsub!("7", formula_index.to_s)
-        tmp_row.elements[11].attributes["formula"].gsub!("I7", "I#{formula_index.to_s}").gsub!("H7", "H#{formula_index.to_s}")
+        tmp_row.elements[11].attributes["formula"].gsub!("I7", "I#{formula_index.to_s}")
+        tmp_row.elements[11].attributes["formula"].gsub!("J7", "J#{formula_index.to_s}")
 
-        table.insert_after("//table:table-row[5+#{participant_index}]", tmp_row)
+        table.insert_after("//table:table-row[6+#{participant_index}]", tmp_row)
         participant_index += 1
         i += 1
         formula_index += 1
@@ -60,3 +61,4 @@ class ChairAttestation < XlsReport
     super('chair_attestation', &block)
   end
 end
+
