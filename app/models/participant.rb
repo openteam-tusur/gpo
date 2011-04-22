@@ -104,11 +104,12 @@ class Participant < ActiveRecord::Base
 
   # Для семестровой суммы баллов
   def visitation_total_summ_rate
-    Participant.sum("visitations.rate", :include => :visitations, :conditions => {'participants.id' => self.id})
+    Visitation.sum(:rate, :conditions => ['participant_id = ?', self.id])
   end
 
   def total_term_mark
-    self.issues_fact_summ_grade.to_f + self.visitation_total_summ_rate.to_f
+    self.visitation_total_summ_rate.to_f +
+    Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', self.id, Gpoday.find(:first, :order => "date").date]).to_f
   end
 
 end

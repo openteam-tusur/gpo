@@ -32,12 +32,12 @@ class Visitation < ActiveRecord::Base
   end
 
   def total_issues_sum
-    Issue.for_participant(participant).sum(:grade)
+    Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', participant.id, Gpoday.find(:first, :order => "date").date])
   end
 
   def total_sum
     Visitation.for_participant(participant).sum(:rate, :joins => :gpoday, :conditions => ["gpodays.date <= ?", date]) +
-      total_issues_sum
+      total_issues_sum.to_f
   end
 
   def kt?
@@ -56,3 +56,4 @@ class Visitation < ActiveRecord::Base
   end
 
 end
+
