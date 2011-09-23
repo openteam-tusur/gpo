@@ -22,7 +22,7 @@ class Report
         :type => "doc"},
       {:id => :university_participants,
         :title => "Списки студентов",
-        :description => "Списки студентов 3, 4, 5 курсов, участвующих в ГПО, в формате MS Excel",
+        :description => "Списки студентов участвующих в ГПО, в формате MS Excel",
         :type => "xls"}
     ],
     :chair => [
