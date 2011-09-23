@@ -23,6 +23,7 @@ class Stat
       ],
       :participants => [
         Stat.new(:participant_total, Participant.active.count, "Всего студентов"),
+        Stat.new(:participant_course_1, Participant.active.at_course(1).count, "Студентов 1 курса"),
         Stat.new(:participant_course_2, Participant.active.at_course(2).count, "Студентов 2 курса"),
         Stat.new(:participant_course_3, Participant.active.at_course(3).count, "Студентов 3 курса"),
         Stat.new(:participant_course_4, Participant.active.at_course(4).count, "Студентов 4 курса"),
@@ -42,6 +43,7 @@ class Stat
       ],
       :participants => [
         Stat.new(:participant_total, chair.participants.active.count, "Всего студентов"),
+        Stat.new(:participant_course_1, chair.participants.active.at_course(1).count, "Студентов 1 курса"),
         Stat.new(:participant_course_2, chair.participants.active.at_course(2).count, "Студентов 2 курса"),
         Stat.new(:participant_course_3, chair.participants.active.at_course(3).count, "Студентов 3 курса"),
         Stat.new(:participant_course_4, chair.participants.active.at_course(4).count, "Студентов 4 курса"),
@@ -58,6 +60,7 @@ class Stat
       ],
       :participants => [
         Stat.new(:participant_total, project.participants.active.count, "Всего студентов"),
+        Stat.new(:participant_course_1, project.participants.active.at_course(1).count, "Студентов 1 курса"),
         Stat.new(:participant_course_2, project.participants.active.at_course(2).count, "Студентов 2 курса"),
         Stat.new(:participant_course_3, project.participants.active.at_course(3).count, "Студентов 3 курса"),
         Stat.new(:participant_course_4, project.participants.active.at_course(4).count, "Студентов 4 курса"),
