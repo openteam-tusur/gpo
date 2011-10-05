@@ -56,4 +56,9 @@ class Chair < ActiveRecord::Base
     Task.tasks_for(user, self, context)
   end
 
+  def xml_for_chair_statement_checkup
+    self.to_xml(:skip_types => true, :root => "doc") do |xml|
+    end
+  end
+
 end

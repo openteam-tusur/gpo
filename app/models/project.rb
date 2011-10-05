@@ -98,7 +98,7 @@ class Project < ActiveRecord::Base
     arr.join("; ")
   end
 
-  def to_tz_report
+  def xml_for_project_tz
     self.to_xml(:skip_types => true, :root => "doc") do |xml|
       xml.chair_abbr self.chair.abbr
       xml.chair_chief self.chair.chief

@@ -8,6 +8,8 @@ class Report
       @model = build_data_all_projects
     when "project_tz"
       @model = project
+    when "chair_statement_checkup"
+      @model = chair
     else raise "Нет такого типа отчета"
     end
     raise "Ошибка инициализации отчета" if model.nil?
@@ -50,7 +52,11 @@ class Report
        :title => "Журнал аттестации",
        :description => "Скачать бланк журнала аттестации участников ГПО в формате MS Excel",
        :type => "xls"
-      }
+      },
+      {:id => :chair_statement_checkup,
+        :title => "Акт проверки",
+        :description => "Скачать шаблон акта комплексной проверки",
+        :type => "doc"}
     ],
     :project => [
       {:id => :project_tz,

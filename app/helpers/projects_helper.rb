@@ -18,8 +18,6 @@ module ProjectsHelper
     value = project.respond_to?(attribute) ? project.send(attribute) : nil
     out = ""
     unless value.blank?
-      p "==========================="
-      p attribute
       out << content_tag(:h3, l(:project, attribute))
       out << content_tag(:div, value + "", :class => 'section')
     end

@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
     unless params[:format] == 'xls'
       report = Report.new(params[:id], @chair, @project)
     end
-    if params[:id] == "project_tz"
+    if %w[project_tz chair_statement_checkup].include?(params[:id])
       send_report_throught_jod(report)
     else
       respond_to do |format|
@@ -88,10 +88,10 @@ class ReportsController < ApplicationController
     template_path = "#{Rails.root}/lib/templates/reports/#{report_name}.odt"
 
     data_file = Better::Tempfile.open(["data_file", ".xml"]) do |file|
-      file << report.model.to_tz_report
+      file << report.model.send("xml_for_#{report_name}")
     end
 
-    extention = "doc" #Rails::env.production? ? "doc": "odt"
+    extention = Rails::env.production? ? "doc": "odt"
 
     report_filename = "#{report_name}_#{report.model.id}.#{extention}"
     odt_file = Better::Tempfile.new([report_filename, ".odt"])
@@ -105,7 +105,6 @@ class ReportsController < ApplicationController
       system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodconverter-cli-2.2.2.jar", odt_file.path, doc_file.path)
       report_filepath = doc_file.path
     end
-
     send_file report_filepath, :type => MIME::Types.of(extention).first.content_type, :filename => report_filename
   end
 end
