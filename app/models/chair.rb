@@ -58,6 +58,20 @@ class Chair < ActiveRecord::Base
 
   def xml_for_chair_statement_checkup
     self.to_xml(:skip_types => true, :root => "doc") do |xml|
+      xml.chair_abbr self.abbr
+      xml.count_participants self.participants.active.count
+      xml.count_participants_3_4 self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
+      xml.mentors self.mentors.map(&:name).join(", ")
+      xml.projects do |xml_project|
+        self.projects.current_active.each do |project|
+          xml.project do
+            xml.cipher project.cipher
+            xml.managers project.managers.active.active.map(&:user).map(&:name).join(", ")
+            xml.count_participants_3 project.participants.active.at_course(3).count
+            xml.count_participants_4 project.participants.active.at_course(4).count
+          end
+        end
+      end
     end
   end
 
