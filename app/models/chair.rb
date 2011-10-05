@@ -76,6 +76,13 @@ class Chair < ActiveRecord::Base
           end
         end
       end
+      xml.managers do |xml_manager|
+        User.find(:all, :conditions => {:id => Manager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)}).each do |user|
+          xml.manager do
+            xml.name user.name
+          end
+        end
+      end
     end
   end
 
