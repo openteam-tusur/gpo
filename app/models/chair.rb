@@ -66,7 +66,7 @@ class Chair < ActiveRecord::Base
       xml.count_participants_4 self.participants.active.at_course(4).count
       xml.count_managers User.count(:conditions => {:id => Manager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)})
       xml.count_projects self.projects.current_active.count
-      xml.mentors self.mentors.map(&:name).join(", ")
+      xml.mentor self.mentors.first.name
       xml.projects do |xml_project|
         self.projects.current_active.each do |project|
           xml.project do
