@@ -59,6 +59,7 @@ class Chair < ActiveRecord::Base
   def xml_for_chair_statement_checkup
     self.to_xml(:skip_types => true, :root => "doc") do |xml|
       xml.chair_abbr self.abbr
+      xml.chair_chief self.chief
       xml.count_participants self.participants.active.count
       xml.count_participants_3_4 self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
       xml.count_participants_3 self.participants.active.at_course(3).count
