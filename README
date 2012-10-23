@@ -1,9 +1,0 @@
-== Подготовка приложения
-1. В командной строке наберите <tt>rake gems:build</tt> - эта команда скомпилирует все бинарные gem
-2. <tt>cp config/database.yml.example config/database.yml</tt>
-3. <tt>rake db:migrate db:seed</tt>
-4. <tt>cp config/initializers/session_store.rb.example config/initializers/session_store.rb</tt>
-5. <tt>script/server</tt>
-6. В браузере зайдите по адресу: <tt>http://localhost:3000/</tt>
-7. Административный вход под логином <tt>login</tt> и паролем <tt>password</tt>
-

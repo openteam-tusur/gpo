@@ -1,9 +1,0 @@
-<% title "Руководители проектов", :user %>
-
-<% content_for :hint do %>
-  <h3>Руководители проектов</h3>
-  <p>На странице отображается сведения о руководителях проектов на кафедре.</p>
-<% end %>
-
-<%= render_list 'chair_manager', @chair.managers, :id => 'chair-managers' %>
-

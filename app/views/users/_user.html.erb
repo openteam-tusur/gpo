@@ -1,9 +1,0 @@
-<div class="user object">
-  <%= icon(:user) %>
-  <h3><%= h user.name %></h3>  
-  <div class="status">
-    <span><%= user.login? ? h(user.login) : "нет логина" %>,</span>
-    <span><%= user.email? ? h(user.email) : "нет email" %></span>
-  </div>
-  <div class="details"><%= h user_post(user) %></div>
-</div>

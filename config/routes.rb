@@ -1,48 +1,58 @@
-ActionController::Routing::Routes.draw do |map|
-  map.resources :themes, :except => :show, :collection => {:projects => :get, :statistics => :get}
-  map.resources :gpodays, :except => :show
+Gpo::Application.routes.draw do
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup', :controller => 'users', :action => 'new'
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
 
-  map.forgot_password '/forgot_password', :controller => 'passwords', :action => 'new'
-  map.change_password '/change_password/:reset_code', :controller => 'passwords', :action => 'reset'
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
 
-  map.error_access_denied '/access_denied', :controller => 'application', :action => 'error_access_denied'
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
-  map.resources :passwords
-  map.resources :students, :collection => {:problematic => :get}
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
-  map.resources :reports
-  map.resources :rules
-  map.resources :chairs, :member => { :managers => :get } do |chairs|
-    chairs.resources :orders, :member => { :update_state => :put }
-    chairs.resources :users
-    chairs.resources :visitations, :only => :index
-    chairs.resources :projects, :member => {:to_close => :get, :close => :put, :reopen => :put, :update_visitationlog => :put} do |projects|
-      projects.resources :participants, :member => {:approve => :put, :cancel => :put} do |participant|
-        participant.resources :issues, :only => [:new, :create, :edit, :update, :destroy], :collection => {:export => :get}
-      end
-      projects.resources :managers, :member => {:approve => :put, :cancel => :put}
-      projects.resources :stages
-      projects.resources :orders
-      projects.resources :visitations, :except => [:new, :create, :destroy]
-      projects.resources :issues, :only => [:index]
-    end
-  end
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
 
-  map.resources :visitations, :only => :index
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
 
-  map.resources :users
-  map.resource :session
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
 
-  map.dashboard '/dashboard', :controller => 'sessions', :action => 'dashboard'
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
 
-  map.root :controller => "sessions", :action => "new"
+  # See how all your routes lay out with "rake routes"
 
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
 end
-

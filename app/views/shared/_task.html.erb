@@ -1,9 +1,0 @@
-<div class="task">
-  <div class="body">
-    <div class="meta">
-      <span class="category task_<%= task.category %>"><%= l(:task, task.category) %></span>
-      <span class="date"><%= date_with_time(task.date) %></date>
-    </div>
-    <div class="description"><%= link_to task.description, task_url(task) %></div>
-  </div>
-</div>

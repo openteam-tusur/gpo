@@ -3,18 +3,5 @@
 #
 # Examples:
 #
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Major.create(:name => 'Daley', :city => cities.first)
-    admin = User.create!(
-      :login                  => "login",
-      :first_name             => "first_name",
-      :mid_name               => "mid_name",
-      :last_name              => "last_name",
-      :post                   => "post",
-      :email                  => "mail@mail.no",
-      :password               => "password",
-      :password_confirmation  => "password"
-    )
-    admin.save!
-    rule = Rule.create!(:role => "admin", :user_id => admin)
-
+#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
+#   Mayor.create(name: 'Emanuel', city: cities.first)

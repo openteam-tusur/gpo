@@ -1,9 +1,0 @@
-<div class="stage object">
-  <%= icon(:stage) %>
-  <h3><%= link_to h(stage.title), chair_project_stage_url(stage.project.chair, stage.project, stage) %></h3>
-  <div class='status'>
-    <span class="date">с <%= date(stage.start) %></span>
-    <span class="date">по <%= date(stage.finish) %></span>
-  </div>
-  <div class="details"><%= h stage.activity %></div>
-</div>
