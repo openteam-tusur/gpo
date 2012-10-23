@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Project < ActiveRecord::Base
   belongs_to :chair
   belongs_to :theme
@@ -17,28 +18,28 @@ class Project < ActiveRecord::Base
 
   validates_presence_of :close_reason, :if => :closed?
 
-  has_states :draft, :active, :closed do
-    on :approve do
-      transition :draft => :active
-    end
-    on :close do
-      transition :active => :closed
-    end
-    on :reopen do
-      transition :closed => :active
-    end
-  end
+  #has_states :draft, :active, :closed do
+    #on :approve do
+      #transition :draft => :active
+    #end
+    #on :close do
+      #transition :active => :closed
+    #end
+    #on :reopen do
+      #transition :closed => :active
+    #end
+  #end
 
-  has_states :editable, :blocked, :in => :editable_state do
-    on :disable_modifications do
-      transition :editable => :blocked
-    end
-    on :enable_modifications do
-      transition :blocked => :editable
-    end
-  end
+  #has_states :editable, :blocked, :in => :editable_state do
+    #on :disable_modifications do
+      #transition :editable => :blocked
+    #end
+    #on :enable_modifications do
+      #transition :blocked => :editable
+    #end
+  #end
 
-  named_scope :current_active, :conditions => {:state => ['draft', 'active' ]}
+  scope :current_active, where(:state => %w[draft active])
 
   def stats(*types)
     Stat.for_project(self, *types)

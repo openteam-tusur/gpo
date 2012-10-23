@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Visitation < ActiveRecord::Base
 
   belongs_to :gpoday
@@ -6,21 +7,21 @@ class Visitation < ActiveRecord::Base
   validates_uniqueness_of :gpoday_id, :scope => :participant_id
   validates_numericality_of :rate, :allow_nil => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 2, :on => :update
 
-  named_scope :beetween_dates, lambda { |from, to|
+  scope :beetween_dates, lambda { |from, to|
     {
       :joins => :gpoday,
       :conditions => ["gpodays.date between :from and :to", {:from => from, :to => to}]
     }
   }
 
-  named_scope :for_participant, lambda { |participant|
+  scope :for_participant, lambda { |participant|
     {
       :conditions => {:participant_id => participant.id}
     }
   }
 
-  named_scope :ascending, :joins => :gpoday, :order => "gpodays.date"
-  named_scope :descending, :joins => :gpoday, :order => "gpodays.date desc"
+  scope :ascending, :joins => :gpoday, :order => "gpodays.date"
+  scope :descending, :joins => :gpoday, :order => "gpodays.date desc"
 
   def kt_issues_sum
     Issue.for_participant(participant).beetween_dates(kt_start, date).sum(:grade)

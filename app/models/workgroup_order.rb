@@ -1,3 +1,4 @@
+# encoding: utf-8
 class WorkgroupOrder < Order
   
   def self.state_events

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'task'
 
 class Chair < ActiveRecord::Base

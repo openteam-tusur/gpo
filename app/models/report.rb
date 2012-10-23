@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Report
   attr_accessor :model, :id
 

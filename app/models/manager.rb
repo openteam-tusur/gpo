@@ -1,27 +1,28 @@
+# encoding: utf-8
 class Manager < ActiveRecord::Base
-  has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
-    on :approve do
-      transition :awaiting_approval => :approved, :awaiting_removal => :removed
-    end
-    on :cancel do
-      transition :awaiting_approval => :removed, :awaiting_removal => :approved
-    end
-    on :remove do
-      transition :approved => :awaiting_removal
-    end
-  end
-  
+  #has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
+    #on :approve do
+      #transition :awaiting_approval => :approved, :awaiting_removal => :removed
+    #end
+    #on :cancel do
+      #transition :awaiting_approval => :removed, :awaiting_removal => :approved
+    #end
+    #on :remove do
+      #transition :approved => :awaiting_removal
+    #end
+  #end
+
   validates_presence_of :user_id
   validates_presence_of :project_id
 
   validates_uniqueness_of :user_id, :scope => [:project_id], :message => 'уже является руководителем проекта'
-  
+
   belongs_to :user
   belongs_to :project
-  
-  named_scope :active, lambda { { :conditions => [ 'state = ? OR state = ?', 'approved', 'awaiting_removal' ] } }
-  
-  
+
+  scope :active, where(:state => %w[approved awaiting_removal])
+
+
   def state_description
     L10N[:manager]["state_#{self.state}"]
   end
@@ -39,7 +40,7 @@ class Manager < ActiveRecord::Base
   def text_for_order_report
     "#{self.user.post} #{self.user.last_name} #{self.user.first_name[0..1]}.#{self.user.mid_name[0..1]}."
   end
-  
+
   private
   def self.allowed?(user, project = nil)
     if project.editable?

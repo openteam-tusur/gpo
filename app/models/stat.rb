@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Stat
   attr_reader :title, :value, :key
 

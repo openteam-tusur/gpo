@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Stage < ActiveRecord::Base
   belongs_to :project
   validates_presence_of :title, :start, :finish

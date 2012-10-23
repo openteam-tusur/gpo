@@ -1,15 +1,16 @@
+# encoding: utf-8
 class Participant < ActiveRecord::Base
-  has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
-    on :approve do
-      transition :awaiting_approval => :approved, :awaiting_removal => :removed
-    end
-    on :cancel do
-      transition :awaiting_approval => :removed, :awaiting_removal => :approved
-    end
-    on :remove do
-      transition :approved => :awaiting_removal
-    end
-  end
+  #has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
+    #on :approve do
+      #transition :awaiting_approval => :approved, :awaiting_removal => :removed
+    #end
+    #on :cancel do
+      #transition :awaiting_approval => :removed, :awaiting_removal => :approved
+    #end
+    #on :remove do
+      #transition :approved => :awaiting_removal
+    #end
+  #end
 
   validates_presence_of :student_id
   validates_presence_of :project_id
@@ -20,13 +21,12 @@ class Participant < ActiveRecord::Base
   has_many :visitations, :dependent => :destroy
   has_many :issues, :order => :planned_closing_at, :dependent => :destroy
 
-  named_scope :active, :conditions => {:state => ['approved', 'awaiting_removal']}, :order => :last_name
-  named_scope :at_course, lambda { |course| { :conditions => [ 'course = ?', course ] } }
-  named_scope :awaiting, lambda { { :conditions => [ 'state = ? OR state = ?', 'awaiting_approval', 'awaiting_removal' ] } }
-  named_scope :problematic, lambda { { :conditions =>  [ '((state = ? OR state = ?) AND contingent_gpo = ?) OR contingent_active =?',
-       'approved', 'awaiting_removal', false, false], :order => "last_name" } }
-
-  named_scope :for_student, lambda { |id| { :conditions => { :student_id => id } } }
+  scope :ordered, order(:last_name)
+  scope :active, where(:state => %w[approved awaiting_removal]).ordered
+  scope :at_course, ->(course) { where(:course => course) }
+  scope :awaiting, where(:state => %w[awaiting_approval awaiting_removal])
+  scope :problematic, where('(state in ? AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered
+  scope :for_student, ->(id) { where(:student_id => id) }
 
   def state_description
     L10N[:participant]["state_#{self.state}"]

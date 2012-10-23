@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Task
   attr_accessor :date, :category, :description, :priority
 

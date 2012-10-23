@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Student < ActiveResource::Base
 
   self.site = "http://students.openteam.ru/"

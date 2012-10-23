@@ -1,4 +1,4 @@
-require 'documatic'
+# encoding: utf-8
 
 class Order < ActiveRecord::Base
   set_table_name "ordinances"
@@ -9,30 +9,30 @@ class Order < ActiveRecord::Base
 
   belongs_to :chair
 
-  has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
+  #has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
 
   validates_presence_of :number, :approved_at, :if => :approved?
 
-  has_states :draft, :being_reviewed, :reviewed, :approved, :removed do
-    on :remove do
-      transition :draft => :removed, :being_reviewed => :removed, :reviewed => :removed, :approved => :removed
-    end
-    on :to_review do
-      transition :draft => :being_reviewed
-    end
-    on :cancel do
-      transition :being_reviewed => :draft, :reviewed => :draft
-    end
-    on :review do
-      transition :being_reviewed => :reviewed
-    end
-    on :approve do
-      transition :reviewed => :approved
-    end
-  end
+  #has_states :draft, :being_reviewed, :reviewed, :approved, :removed do
+    #on :remove do
+      #transition :draft => :removed, :being_reviewed => :removed, :reviewed => :removed, :approved => :removed
+    #end
+    #on :to_review do
+      #transition :draft => :being_reviewed
+    #end
+    #on :cancel do
+      #transition :being_reviewed => :draft, :reviewed => :draft
+    #end
+    #on :review do
+      #transition :being_reviewed => :reviewed
+    #end
+    #on :approve do
+      #transition :reviewed => :approved
+    #end
+  #end
 
-  named_scope :blocking, :conditions => {:state => ['being_reviewed', 'reviewed' ]}
-  named_scope :not_approved, :conditions => {:state => ['draft', 'being_reviewed', 'reviewed' ]}
+  scope :blocking, where(:state => %w[being_reviewed reviewed])
+  scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
 
   def state_description
     L10N[:order]["state_#{self.state}".to_sym]
@@ -89,6 +89,7 @@ class Order < ActiveRecord::Base
   end
 
   def generate_odt_file(&block)
+    require 'documatic'
     odt_file = Tempfile.new('order_tempfile.odt')
     options = Ruport::Controller::Options.new(:template_file => "#{RAILS_ROOT}/lib/templates/orders/#{self.class.name.underscore}.odt",
       :output_file => odt_file.path )
