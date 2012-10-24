@@ -1,4 +1,17 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: managers
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  project_id :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  state      :string(255)
+#
+
 class Manager < ActiveRecord::Base
   #has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
     #on :approve do

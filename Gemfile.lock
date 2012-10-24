@@ -29,6 +29,8 @@ GEM
     activesupport (3.2.8)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    annotate (2.5.0)
+      rake
     arel (3.0.2)
     builder (3.0.4)
     choice (0.1.6)
@@ -119,6 +121,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  annotate
   coffee-rails
   hirb
   jquery-rails

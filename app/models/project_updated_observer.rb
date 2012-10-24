@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class ProjectUpdatedObserver < ActiveRecord::Observer
   observe :participant, :manager, :stage
 

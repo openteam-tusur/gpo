@@ -1,4 +1,26 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: participants
+#
+#  id                :integer          not null, primary key
+#  student_id        :integer
+#  state             :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  project_id        :integer
+#  course            :integer
+#  chair_id          :integer
+#  first_name        :string(255)
+#  mid_name          :string(255)
+#  last_name         :string(255)
+#  chair_abbr        :string(255)
+#  edu_group         :string(255)
+#  contingent_active :boolean
+#  contingent_gpo    :boolean
+#
+
 class Participant < ActiveRecord::Base
   #has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
     #on :approve do

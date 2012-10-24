@@ -1,5 +1,24 @@
 # encoding: utf-8
 
+# == Schema Information
+#
+# Table name: ordinances
+#
+#  id                :integer          not null, primary key
+#  number            :string(255)
+#  approved_at       :date
+#  chair_id          :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  type              :string(255)
+#  state             :string(255)
+#  file_file_name    :string(255)
+#  file_content_type :string(255)
+#  file_file_size    :integer
+#  file_updated_at   :date
+#
+
+
 class Order < ActiveRecord::Base
   set_table_name "ordinances"
 

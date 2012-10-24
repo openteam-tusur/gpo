@@ -1,4 +1,18 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: rules
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer
+#  role         :string(255)
+#  context_type :string(255)
+#  context_id   :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class Rule < ActiveRecord::Base
 
   belongs_to :user

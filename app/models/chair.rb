@@ -1,4 +1,17 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: chairs
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  abbr       :string(255)
+#  chief      :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require 'task'
 
 class Chair < ActiveRecord::Base

@@ -1,4 +1,15 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: themes
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Theme < ActiveRecord::Base
   
   has_many :projects, :order => 'cipher'

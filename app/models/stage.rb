@@ -1,4 +1,21 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: stages
+#
+#  id             :integer          not null, primary key
+#  project_id     :integer
+#  title          :text
+#  start          :date
+#  finish         :date
+#  funds_required :text
+#  activity       :text
+#  results        :text
+#  created_at     :datetime
+#  updated_at     :datetime
+#
+
 class Stage < ActiveRecord::Base
   belongs_to :project
   validates_presence_of :title, :start, :finish

@@ -1,4 +1,22 @@
 # encoding: utf-8
+
+# == Schema Information
+#
+# Table name: issues
+#
+#  id                 :integer          not null, primary key
+#  name               :string(255)
+#  description        :text
+#  planned_closing_at :date
+#  planned_grade      :integer
+#  closed_at          :date
+#  grade              :integer
+#  results            :text
+#  participant_id     :integer
+#  created_at         :datetime
+#  updated_at         :datetime
+#
+
 class Issue < ActiveRecord::Base
   validates_presence_of :participant_id, :name, :planned_closing_at, :planned_grade
   validates_presence_of :grade, :if => :closed_at

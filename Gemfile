@@ -15,9 +15,10 @@ group :default do
 end
 
 group :development do
-  gem 'sqlite3'
+  gem 'annotate'
   gem 'hirb'
   gem 'rails-erd'
+  gem 'sqlite3'
 end
 
 group :production do
