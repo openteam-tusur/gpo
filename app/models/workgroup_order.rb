@@ -1,10 +1,10 @@
 # encoding: utf-8
 class WorkgroupOrder < Order
-  
+
   def self.state_events
     Order.state_events
   end
-  
+
   def available_projects
     self.chair.projects.active.editable.find_all do |project|
       # в проекте есть изменения в участниках
@@ -13,7 +13,7 @@ class WorkgroupOrder < Order
       (project.workgroup_orders.not_approved.empty? || project.workgroup_orders.include?(self))
     end
   end
-  
+
   def title
     L10N[:workgroup_order][:title]
   end

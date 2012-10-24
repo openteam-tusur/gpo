@@ -7,21 +7,12 @@ class Visitation < ActiveRecord::Base
   validates_uniqueness_of :gpoday_id, :scope => :participant_id
   validates_numericality_of :rate, :allow_nil => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 2, :on => :update
 
-  scope :beetween_dates, lambda { |from, to|
-    {
-      :joins => :gpoday,
-      :conditions => ["gpodays.date between :from and :to", {:from => from, :to => to}]
-    }
-  }
+  scope :beetween_dates, ->(from,to) { joins(:gpoday).where("gpodays.date between :from and :to", :from => from, :to => to) }
 
-  scope :for_participant, lambda { |participant|
-    {
-      :conditions => {:participant_id => participant.id}
-    }
-  }
+  scope :for_participant, ->(participant) { where(:participant_id => participant) }
 
-  scope :ascending, :joins => :gpoday, :order => "gpodays.date"
-  scope :descending, :joins => :gpoday, :order => "gpodays.date desc"
+  scope :ascending, joins(:gpoday).order("gpodays.date")
+  scope :descending, joins(:gpoday).order("gpodays.date desc")
 
   def kt_issues_sum
     Issue.for_participant(participant).beetween_dates(kt_start, date).sum(:grade)
