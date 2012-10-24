@@ -13,18 +13,6 @@
 #
 
 class Manager < ActiveRecord::Base
-  #has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
-    #on :approve do
-      #transition :awaiting_approval => :approved, :awaiting_removal => :removed
-    #end
-    #on :cancel do
-      #transition :awaiting_approval => :removed, :awaiting_removal => :approved
-    #end
-    #on :remove do
-      #transition :approved => :awaiting_removal
-    #end
-  #end
-
   validates_presence_of :user_id
   validates_presence_of :project_id
 
@@ -35,31 +23,34 @@ class Manager < ActiveRecord::Base
 
   scope :active, where(:state => %w[approved awaiting_removal])
 
+  state_machine :state, :initial => :awaiting_approval do
+    event :approve do
+      transition :awaiting_approval => :approved, :awaiting_removal => :removed
+    end
+    event :cancel do
+      transitievent :awaiting_approval => :removed, :awaiting_removal => :approved
+    end
+    event :remove do
+      transitievent :approved => :awaiting_removal
+    end
 
+    after_transition any => :removed do
+      Rule.managers.for_project(project).for_user(user).first.destroy
+      destroy
+    end
+
+    after_transition any => :awaiting_approval do
+      Rule.build_manager_rule(self.user_id, self.project_id).save
+    end
+  end
+
+  # FIXME: remove L10N
   def state_description
-    L10N[:manager]["state_#{self.state}"]
-  end
-
-  def after_enter_awaiting_approval
-    Rule.build_manager_rule(self.user_id, self.project_id).save
-  end
-
-  def after_enter_removed
-    Rule.managers.for_project(self.project_id).for_user(self.user_id).find(:first).destroy
-    self.destroy
+    L10N[:manager]["state_#{state}"]
   end
 
   # для приказа
   def text_for_order_report
     "#{self.user.post} #{self.user.last_name} #{self.user.first_name[0..1]}.#{self.user.mid_name[0..1]}."
-  end
-
-  private
-  def self.allowed?(user, project = nil)
-    if project.editable?
-      user.is_a?(User) && (user.mentor?(project.chair) || user.admin?)
-    else
-      user.is_a?(User) && user.admin?
-    end
   end
 end

@@ -24,13 +24,13 @@ class Rule < ActiveRecord::Base
   validates_presence_of :chair_id, :if => Proc.new { |rule| rule.role == 'mentor' }
   validates_presence_of :project_id, :if => Proc.new { |rule| rule.role == 'manager' }
 
-  scope :administrators, :conditions => { :role => 'admin' }
-  scope :supervisors, :conditions => { :role => 'supervisor' }
-  scope :managers, :conditions => { :role => 'manager' }
-  scope :mentors, :conditions => { :role => 'mentor' }
-  scope :for_user, lambda { |id| { :conditions => { :user_id => id } } }
-  scope :for_project, lambda { |id| { :conditions => { :context_type => Project.name, :context_id => id } } }
-  scope :for_chair, lambda { |id| { :conditions => { :context_type => Chair.name, :context_id => id } } }
+  scope :administrators,  where(:role => :admin)
+  scope :supervisors,     where(:role => :supervisors)
+  scope :managers,        where(:role => :manager)
+  scope :mentors,         where(:role => :mentor)
+  scope :for_user,        ->(user)    { where(:user_id => user) }
+  scope :for_project,     ->(project) { where(:context_type => Project).where(:context_id => project) }
+  scope :for_chair,       ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
   #has_limited_field :role, {
    #:admin => "Администратор",

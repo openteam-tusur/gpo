@@ -8,7 +8,7 @@ group :assets do
 end
 
 group :default do
-  gem 'aasm'
+  gem 'state_machine'
   gem 'jquery-rails'
   gem 'rails'
   gem 'russian'
