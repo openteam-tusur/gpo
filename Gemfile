@@ -17,6 +17,7 @@ end
 group :development do
   gem 'sqlite3'
   gem 'hirb'
+  gem 'rails-erd'
 end
 
 group :production do
