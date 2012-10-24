@@ -18,11 +18,11 @@ class Rule < ActiveRecord::Base
   belongs_to :user
   belongs_to :context, :polymorphic => true
 
-  validates_presence_of :user_id
+  validates_presence_of   :user_id
   validates_uniqueness_of :user_id, :scope => [:role, :context_type, :context_id], :message => 'уже имеет такое правило'
 
-  validates_presence_of :chair_id, :if => Proc.new { |rule| rule.role == 'mentor' }
-  validates_presence_of :project_id, :if => Proc.new { |rule| rule.role == 'manager' }
+  validates_presence_of   :chair_id,    :if => Proc.new { |rule| rule.role == 'mentor' }
+  validates_presence_of   :project_id,  :if => Proc.new { |rule| rule.role == 'manager' }
 
   scope :administrators,  where(:role => :admin)
   scope :supervisors,     where(:role => :supervisors)
@@ -31,13 +31,6 @@ class Rule < ActiveRecord::Base
   scope :for_user,        ->(user)    { where(:user_id => user) }
   scope :for_project,     ->(project) { where(:context_type => Project).where(:context_id => project) }
   scope :for_chair,       ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
-
-  #has_limited_field :role, {
-   #:admin => "Администратор",
-   #:mentor => 'Ответственный за ГПО на кафедре',
-   #:manager => 'Руководитель проекта',
-   #:supervisor => 'Ответственный за ГПО университета'
-  #}
 
   def role_with_context
     if context.nil?
@@ -92,10 +85,5 @@ class Rule < ActiveRecord::Base
 
   def manager?
     self.role == 'manager'
-  end
-
-  protected
-  def self.allowed?(user, context)
-    user.is_a?(User) && user.admin?
   end
 end

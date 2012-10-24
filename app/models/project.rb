@@ -47,28 +47,30 @@ class Project < ActiveRecord::Base
 
   validates_presence_of :close_reason, :if => :closed?
 
-  #has_states :draft, :active, :closed do
-    #on :approve do
-      #transition :draft => :active
-    #end
-    #on :close do
-      #transition :active => :closed
-    #end
-    #on :reopen do
-      #transition :closed => :active
-    #end
-  #end
-
-  #has_states :editable, :blocked, :in => :editable_state do
-    #on :disable_modifications do
-      #transition :editable => :blocked
-    #end
-    #on :enable_modifications do
-      #transition :blocked => :editable
-    #end
-  #end
-
   scope :current_active, where(:state => %w[draft active])
+
+  before_create :set_cipher, :unless => :cipher?
+
+  state_machine do
+    event :approve do
+      transition :draft => :active
+    end
+    event :close do
+      transition :active => :closed
+    end
+    event :reopen do
+      transition :closed => :active
+    end
+  end
+
+  state_machine :editable_state do
+    event :disable_modifications do
+      transition :editable => :blocked
+    end
+    event :enable_modifications do
+      transition :blocked => :editable
+    end
+  end
 
   def stats(*types)
     Stat.for_project(self, *types)
@@ -76,30 +78,6 @@ class Project < ActiveRecord::Base
 
   def id_to_s
     self.cipher
-  end
-
-  def before_create
-    if self.cipher.blank?
-      year = Time.now.year.to_s[2..3]
-      last_project = Project.find(:first, :conditions => "cipher like '#{chair.abbr}-#{year}%'", :order => "cipher DESC")
-      if last_project.nil?
-        cipher = "#{chair.abbr}-#{year}01"
-      else
-        max_iter = last_project.cipher[-2..-1].to_i
-        max_iter += 1
-        cipher = "#{chair.abbr}-#{year}#{max_iter > 9 ? max_iter.to_s : '0' + max_iter.to_s}"
-      end
-      self.cipher = cipher
-    end
-  end
-
-  def after_enter_active
-    self.managers.each do |manager|
-      manager.approve
-    end
-    self.participants.each do |participant|
-      participant.approve
-    end
   end
 
   def visitations_problem?
@@ -110,14 +88,12 @@ class Project < ActiveRecord::Base
     visitations_count != days_count*self.participants.active.count
   end
 
-  def after_enter_closed
-    self.managers.destroy_all
-  end
-
+  # FIXME: -l10n
   def editable_state_description
     L10N[:project]["editable_state_#{self.editable_state}"]
   end
 
+  # FIXME: -l10n
   def state_description
     L10N[:project]["state_#{self.state}"]
   end
@@ -128,38 +104,22 @@ class Project < ActiveRecord::Base
     arr.join("; ")
   end
 
-  def xml_for_project_tz
-    self.to_xml(:skip_types => true, :root => "doc") do |xml|
-      xml.chair_abbr self.chair.abbr
-      xml.chair_chief self.chair.chief
-      xml.opened_order_approved_at (self.opening_order && self.opening_order.approved_at) ? I18n.l(self.opening_order.approved_at) : ''
-      xml.opened_order_number self.opening_order ? self.opening_order.number : ''
-      xml.theme_name self.theme ? self.theme.name : ''
-      xml.funds_sources self.funds_sources
-      xml.source_data self.source_data
-      xml.chief self.users.empty? ? '' : "#{self.users[0].initials_name}, #{self.users[0].post}"
-      xml.chief_name self.users.empty? ? '' : "#{self.users[0].initials_name}"
-      xml.participants do |xml_participant|
-        self.participants.active.each do |participant|
-          xml.participant do
-            xml.name participant.name
-            xml.edu_group participant.edu_group
-          end
-        end
-      end
-      xml.stages do |xml_stage|
-        self.stages.each do |stage|
-          xml.stage do
-            xml.title stage.title
-            xml.activity stage.activity
-            xml.results stage.results
-            xml.start I18n.l(stage.start)
-            xml.finish I18n.l(stage.finish)
-          end
-        end
-      end
-    end
+  private
+
+  def after_enter_active
+    managers.each(&:approve)
+    participants.each(&:approve)
+  end
+
+  def after_enter_closed
+    managers.destroy_all
+  end
+
+  def set_cipher
+    year = Date.today.year % 100
+    last_project = Project.where("cipher like '#{chair.abbr}-#{year}%'").order('cipher DESC').first
+    last_number = last_project.try(:cipher).try(:[], -2..-1).to_i
+    self.cipher = sprintf "%s-%d%02d", chair.abbr, year, last_number + 1
   end
 
 end
-

@@ -11,6 +11,8 @@
 #  updated_at :datetime
 #
 
+# TODO: remove this model
+
 class OrderProject < ActiveRecord::Base
   belongs_to :order
   belongs_to :project

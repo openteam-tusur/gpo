@@ -33,17 +33,9 @@ class WorkgroupOrder < Order
     end
   end
 
+  # FIXME: - l10n
   def title
     L10N[:workgroup_order][:title]
-  end
-
-  def after_enter_approved
-    self.projects.each do |project|
-      project.enable_modifications
-      project.participants.awaiting.each do |participant|
-        participant.approve
-      end
-    end
   end
 
   # для приказа
@@ -60,6 +52,18 @@ class WorkgroupOrder < Order
       "виза заведующего кафедрой #{chairs[0]}; "
     when 2
       "визы заведующих кафедрами #{chairs.join(', ')}; "
+    end
+  end
+
+  private
+
+  # TODO: ensure this method invokes
+  def after_enter_approved
+    self.projects.each do |project|
+      project.enable_modifications
+      project.participants.awaiting.each do |participant|
+        participant.approve
+      end
     end
   end
 end

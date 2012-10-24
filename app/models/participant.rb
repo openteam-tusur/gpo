@@ -22,34 +22,40 @@
 #
 
 class Participant < ActiveRecord::Base
-  #has_states :awaiting_approval, :approved, :awaiting_removal, :removed do
-    #on :approve do
-      #transition :awaiting_approval => :approved, :awaiting_removal => :removed
-    #end
-    #on :cancel do
-      #transition :awaiting_approval => :removed, :awaiting_removal => :approved
-    #end
-    #on :remove do
-      #transition :approved => :awaiting_removal
-    #end
-  #end
-
   validates_presence_of :student_id
   validates_presence_of :project_id
 
   belongs_to :student
   belongs_to :project
   belongs_to :chair
-  has_many :visitations, :dependent => :destroy
-  has_many :issues, :order => :planned_closing_at, :dependent => :destroy
+  has_many :visitations,  :dependent => :destroy
+  has_many :issues,       :order => :planned_closing_at,                                         :dependent => :destroy
 
-  scope :ordered, order(:last_name)
-  scope :active, where(:state => %w[approved awaiting_removal]).ordered
-  scope :at_course, ->(course) { where(:course => course) }
-  scope :awaiting, where(:state => %w[awaiting_approval awaiting_removal])
-  scope :problematic, where('(state in ? AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered
-  scope :for_student, ->(id) { where(:student_id => id) }
+  scope :ordered,         order(:last_name)
+  scope :active,          where(:state => %w[approved awaiting_removal]).ordered
+  scope :awaiting,        where(:state => %w[awaiting_approval awaiting_removal])
+  scope :problematic,     where('(state in ? AND contingent_gpo = ?) OR contingent_active = ?',  %w[approved awaiting_removal],  false,  false).ordered
+  scope :at_course,       ->(course) { where(:course => course) }
+  scope :for_student,     ->(id)     { where(:student_id => id) }
 
+  before_create :update_from_contingent
+
+  state_machine do
+    event :approve do
+      transition :awaiting_approval => :approved, :awaiting_removal => :removed
+    end
+    event :cancel do
+      transition :awaiting_approval => :removed, :awaiting_removal => :approved
+    end
+    event :remove do
+      transition :approved => :awaiting_removal
+    end
+    after_transition all => :removed do
+      destroy
+    end
+  end
+
+  # FIXME: - l10n
   def state_description
     L10N[:participant]["state_#{self.state}"]
   end
@@ -59,26 +65,22 @@ class Participant < ActiveRecord::Base
   end
 
   def problems
-    returning Array.new do | problems |
+    [].tap do | problems |
       problems << %q(Не числится учащимся в АИС "Контингент") unless contingent_active?
       problems << %q(Не числится в ГПО в АИС "Контингент") if (approved? || awaiting_removal?) && !contingent_gpo?
     end
   end
 
-  def before_create
-    self.update_from_contingent
-  end
-
   def update_from_contingent
-    self.first_name = self.student.first_name
-    self.mid_name = self.student.mid_name
-    self.last_name = self.student.last_name
-    self.chair_abbr = self.student.chair_abbr
-    self.edu_group = self.student.edu_group
-    self.course = self.student.course
-    self.contingent_active = self.student.active
-    self.contingent_gpo = self.student.gpo
-    self.chair_id = self.project.chair_id
+    self.first_name        = student.first_name
+    self.mid_name          = student.mid_name
+    self.last_name         = student.last_name
+    self.chair_abbr        = student.chair_abbr
+    self.edu_group         = student.edu_group
+    self.course            = student.course
+    self.contingent_active = student.active
+    self.contingent_gpo    = student.gpo
+    self.chair_id          = project.chair_id
   end
 
   def self.update_from_contingent
@@ -90,10 +92,6 @@ class Participant < ActiveRecord::Base
 
   def visitation_for_gpoday(gpoday)
     self.visitations.find_or_create_by_gpoday_id(gpoday.id)
-  end
-
-  def after_enter_removed
-    self.destroy
   end
 
   # для приказа

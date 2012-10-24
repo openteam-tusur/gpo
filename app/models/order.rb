@@ -23,36 +23,42 @@ class Order < ActiveRecord::Base
   set_table_name "ordinances"
 
   has_many :order_projects, :dependent => :destroy
-  has_many :projects, :through => :order_projects, :order => "cipher desc"
+  has_many :projects, :through => :order_projects, :order => 'cipher desc'
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at desc'
 
   belongs_to :chair
 
+  # FIXME: + dragonfly || esp storage
   #has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
 
   validates_presence_of :number, :approved_at, :if => :approved?
 
-  #has_states :draft, :being_reviewed, :reviewed, :approved, :removed do
-    #on :remove do
-      #transition :draft => :removed, :being_reviewed => :removed, :reviewed => :removed, :approved => :removed
-    #end
-    #on :to_review do
-      #transition :draft => :being_reviewed
-    #end
-    #on :cancel do
-      #transition :being_reviewed => :draft, :reviewed => :draft
-    #end
-    #on :review do
-      #transition :being_reviewed => :reviewed
-    #end
-    #on :approve do
-      #transition :reviewed => :approved
-    #end
-  #end
-
   scope :blocking, where(:state => %w[being_reviewed reviewed])
   scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
 
+  state_machine do
+    event :remove do
+      transition :draft => :removed, :being_reviewed => :removed, :reviewed => :removed, :approved => :removed
+    end
+    event :to_review do
+      transition :draft => :being_reviewed
+    end
+    event :cancel do
+      transition :being_reviewed => :draft, :reviewed => :draft
+    end
+    event :review do
+      transition :being_reviewed => :reviewed
+    end
+    event :approve do
+      transition :reviewed => :approved
+    end
+    after_transition  any => :draft,          :do => :after_enter_draft
+    after_transition  any => :removed,        :do => :after_enter_removed
+    after_transition  any => :approved,       :do => :after_enter_approved
+    after_transition  any => :being_reviewed, :do => :after_enter_being_reviewed
+  end
+
+  # FIXME: - l10n
   def state_description
     L10N[:order]["state_#{self.state}".to_sym]
   end
@@ -92,6 +98,8 @@ class Order < ActiveRecord::Base
     self.activities.create(:action => action.to_s, :actor => actor, :comment => comment, :chair => self.chair)
   end
 
+  protected
+
   def after_enter_removed
     release_projects! if was_being_reviewed? || was_reviewed?
     self.destroy
@@ -107,35 +115,9 @@ class Order < ActiveRecord::Base
     remove_file! if self.file?
   end
 
-  def generate_odt_file(&block)
-    require 'documatic'
-    odt_file = Tempfile.new('order_tempfile.odt')
-    options = Ruport::Controller::Options.new(:template_file => "#{RAILS_ROOT}/lib/templates/orders/#{self.class.name.underscore}.odt",
-      :output_file => odt_file.path )
-    Documatic::OpenDocumentText::Template.process_template(:options => options, :data => self)
-    if block_given?
-      block.call(odt_file)
-    end
-    odt_file.close
+  def after_enter_approved
   end
 
-  def assign_file!
-    order = Order.find(self.id)
-    self.generate_odt_file do |temp_file|
-      temp_file.open
-      order.file = temp_file
-      order.save
-    end
-  end
-
-  def remove_file!
-    order = Order.find(self.id)
-    order.file = nil
-    order.save
-  end
-
-
-  protected
   def release_projects!
     self.projects.each { |p| p.enable_modifications }
   end

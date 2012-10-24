@@ -19,21 +19,22 @@
 #
 
 class OpeningOrder < Order
-  
+
   def self.state_events
     Order.state_events
   end
-  
+
   def available_projects
-    self.chair.projects.draft.find_all do |project|
+    chair.projects.draft.find_all do |project|
       project.opening_order.nil? || (project.opening_order == self && self.draft?)
     end
   end
-  
+
+  # FIXME: - l10n
   def title
     L10N[:opening_order][:title]
   end
-  
+
   # для приказа
   def chairs_for_order_report
     chairs = []
@@ -50,6 +51,9 @@ class OpeningOrder < Order
     end
   end
 
+  private
+
+  # TODO: ensure this method invokes
   def after_enter_approved
     self.projects.each do |project|
       p = Project.find(project.id)
