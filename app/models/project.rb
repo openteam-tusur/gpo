@@ -51,7 +51,7 @@ class Project < ActiveRecord::Base
 
   before_create :set_cipher, :unless => :cipher?
 
-  state_machine do
+  state_machine :initial => :draft do
     event :approve do
       transition :draft => :active
     end
@@ -63,7 +63,7 @@ class Project < ActiveRecord::Base
     end
   end
 
-  state_machine :editable_state do
+  state_machine :editable_state, :initial => :editable do
     event :disable_modifications do
       transition :editable => :blocked
     end

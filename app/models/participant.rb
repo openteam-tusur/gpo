@@ -40,7 +40,7 @@ class Participant < ActiveRecord::Base
 
   before_create :update_from_contingent
 
-  state_machine do
+  state_machine :initial => :awaiting_approval do
     event :approve do
       transition :awaiting_approval => :approved, :awaiting_removal => :removed
     end

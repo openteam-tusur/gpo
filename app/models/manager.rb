@@ -28,10 +28,10 @@ class Manager < ActiveRecord::Base
       transition :awaiting_approval => :approved, :awaiting_removal => :removed
     end
     event :cancel do
-      transitievent :awaiting_approval => :removed, :awaiting_removal => :approved
+      transition :awaiting_approval => :removed, :awaiting_removal => :approved
     end
     event :remove do
-      transitievent :approved => :awaiting_removal
+      transition :approved => :awaiting_removal
     end
 
     after_transition any => :removed do
