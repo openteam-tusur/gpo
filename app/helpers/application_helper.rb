@@ -163,7 +163,7 @@ module ApplicationHelper
   end
 
   def help_term(term)
-    image_tag "/images/help/#{term}.png"
+    image_tag "help/#{term}.png"
   end
 
 end
