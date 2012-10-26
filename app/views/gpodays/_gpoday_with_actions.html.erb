@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="actions">
-  <%= link_to t('edit'), edit_gpoday_path(gpoday) %>
-  <%= link_to(t(:delete), gpoday_url(gpoday), :method=> :delete, :confirm => l(:are_you_sure)) %>
+  <%= link_to(t('edit'), edit_gpoday_path(gpoday)) %>
+  <%= link_to(t('delete'), gpoday_url(gpoday), :method=> :delete, :confirm => t(:are_you_sure)) %>
 </div>
 
