@@ -1,0 +1,26 @@
+=iepngfix
+  behavior: url("iepngfix.htc")
+  & img
+    behavior: url("iepngfix.htc")
+
+#header-wrapper,
+#navigation,
+#content,
+#content a.edit,
+#content a.save,
+#content a.cancel
+  +iepngfix
+
+#content
+  .visitationlog
+    .rating
+      .gpoday
+        width: 100px
+        ul
+          li
+            .input
+              margin-right: 9px
+            .save
+              margin-right: 4px
+      .kt
+        width: 200px
