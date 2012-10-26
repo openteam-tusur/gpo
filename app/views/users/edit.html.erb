@@ -1,4 +1,4 @@
-<% title "Редактирование #{h(@user.name)}", :user %>
+<% title "Редактирование #{@user.name}", :user %>
 
 <% content_for :hint do %>
   <p>Для изменения информации о пользователе исправьте значение полей формы и нажмите кнопку "Сохранить"</p>
@@ -19,9 +19,9 @@
 
 <% form_for(@chair.nil? ? @user : [@chair,@user]) do |form| %>
   <fieldset>
-    <%= render :partial => 'form', :locals => {:form => form, :show_chair => @chair.nil?} %>
+    <%= render :partial => "form", :locals => {:form => form, :show_chair => @chair.nil?} %>
     <p>
-      <%= form.submit l(:save) %>
+      <%= form.submit I18n.t("save") %>
       <%= link_to_back_to_users(@chair) %>
     </p>
   </fieldset>

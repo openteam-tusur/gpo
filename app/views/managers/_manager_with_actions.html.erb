@@ -3,5 +3,5 @@
 <div class="actions">
   <%= manager_cancel_state_button("Отменить", object) if permitted_to?(:cancel, object) %>
   <%= manager_approve_state_button("Утвердить", object) if permitted_to?(:approve, object) %>
-  <%= link_to_delete chair_project_manager_url(@project.chair, @project, object) if permitted_to?(:delete, object) %>
+  <%= link_to_delete chair_project_manager_path(@project.chair, @project, object) if permitted_to?(:delete, object) %>
 </div>

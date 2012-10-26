@@ -1,7 +1,7 @@
 <% title "Правила", :rule %>
 
 <% content_for :action_nav do %>
-  <%= action_link(link_to(l(:rule, :new), new_rule_path), 'new', "Позволяет создать правило для пользователя") if permitted_to?(:create, :rules) %>
+  <%= action_link(link_to(I18n.t("rule.new"), new_rule_path), "new", "Позволяет создать правило для пользователя") if permitted_to?(:create, :rules) %>
 <% end %>
 
 <% content_for :hint do %>
@@ -14,6 +14,6 @@
     </dl>
 <% end %>
 
-<%= render_list 'rule', @rules, :id => 'rules' %>
+<%= render_list "rule", @rules, :id => "rules" %>
 
 

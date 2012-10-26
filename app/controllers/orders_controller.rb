@@ -34,7 +34,7 @@ class OrdersController < ApplicationController
 
     if @order.save
       flash[:notice] = 'Приказ успешно создан'
-      redirect_to(chair_order_url(@chair, @order))
+      redirect_to(chair_order_path(@chair, @order))
     else
       render :action => "new", :type => @order.class.name
     end
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
 
     if @order.update_attributes(params[:order])
       flash[:notice] = 'Приказ успешно сохранен'
-      redirect_to chair_order_url(@order.chair, @order)
+      redirect_to chair_order_path(@order.chair, @order)
     else
       render :action => "edit"
     end
@@ -61,7 +61,7 @@ class OrdersController < ApplicationController
         flash[:notice] = "Приказ отправлен на визирование"
         @order.activity!("to_review", current_user.name, params[:comment])
       end
-      redirect_to chair_order_url(@order.chair, @order)
+      redirect_to chair_order_path(@order.chair, @order)
     end
     unless params[:review].blank?
       permitted_to!(:review, @order)
@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
         flash[:notice] = "Приказ визирован"
         @order.activity!("review", current_user.name, params[:comment])
       end
-      redirect_to chair_order_url(@order.chair, @order)
+      redirect_to chair_order_path(@order.chair, @order)
     end
     unless params[:cancel].blank?
       permitted_to!(:cancel, @order)
@@ -77,7 +77,7 @@ class OrdersController < ApplicationController
         flash[:notice] = "Приказ возвращён на доработку"
         @order.activity!("return", current_user.name, params[:comment])
       end
-      redirect_to chair_order_url(@order.chair, @order)
+      redirect_to chair_order_path(@order.chair, @order)
     end
     unless params[:approve].blank?
       permitted_to!(:approve, @order)
@@ -86,7 +86,7 @@ class OrdersController < ApplicationController
         @order.update_attributes!(params[:order])
         flash[:notice] = "Приказ утвержден"
         @order.activity!("approve", current_user.name, params[:comment])
-        redirect_to chair_order_url(@order.chair, @order)
+        redirect_to chair_order_path(@order.chair, @order)
       rescue
         @order.state = @order.state_was
         render :action => :show
@@ -97,7 +97,7 @@ class OrdersController < ApplicationController
   def destroy
     @order.remove
     flash[:notice] = 'Приказ успешно удален'
-    redirect_to chair_orders_url(@chair)
+    redirect_to chair_orders_path(@chair)
   end
 
   protected

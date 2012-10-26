@@ -43,7 +43,7 @@ class PasswordsController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         flash[:notice] = 'Пароль успешно обновлен'
-        format.html { redirect_to login_url }
+        format.html { redirect_to login_path }
       else
         @user.password_confirmation = ""
         flash[:notice] = 'Ошибка обновления пароля'

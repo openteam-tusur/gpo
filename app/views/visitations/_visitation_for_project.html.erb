@@ -26,7 +26,7 @@
             </li>
           <% end %>
         </ul>
-        <%= link_to t('edit'), edit_chair_project_visitation_url(project.chair, project, gpoday), :class => "edit" if show_edit_link && permitted_to?(:update, project) && !project.participants.empty? %>
+        <%= link_to t('edit'), edit_chair_project_visitation_path(project.chair, project, gpoday), :class => "edit" if show_edit_link && permitted_to?(:update, project) && !project.participants.empty? %>
       </div>
     <% end %>
   </div>

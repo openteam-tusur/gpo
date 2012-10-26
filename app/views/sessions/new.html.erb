@@ -2,18 +2,18 @@
 
 <% form_tag session_path do %>
   <fieldset>
-    <dt><%= label_tag 'login', l(:session, :login) %></dt>
-    <dd><%= text_field_tag 'login', @login %></dd>
+    <dt><%= label_tag "login", I18n.t("session.login") %></dt>
+    <dd><%= text_field_tag "login", @login %></dd>
 
-    <dt><%= label_tag 'password', l(:session, :password) %></dt>
-    <dd><%= password_field_tag 'password', nil %></dd>
+    <dt><%= label_tag "password", I18n.t("session.password") %></dt>
+    <dd><%= password_field_tag "password", nil %></dd>
 
     <!-- Uncomment this if you want this functionality
-    <p><%= label_tag 'remember_me', 'Remember me' %>
-    <%= check_box_tag 'remember_me', '1', @remember_me %></p>
+    <p><%= label_tag "remember_me", "Remember me" %>
+    <%= check_box_tag "remember_me", "1", @remember_me %></p>
     -->
-    <p><%= submit_tag 'Войти' %></p>
-    <p><%= link_to 'Вы забыли пароль?', forgot_password_url %></p>
+    <p><%= submit_tag "Войти" %></p>
+    <p><%= link_to "Вы забыли пароль?", forgot_password_path %></p>
   </fieldset>
 <% end %>
 
@@ -21,6 +21,6 @@
   <h3>Вход в систему</h3>
   <p>Введите свой логин и пароль, чтобы войти в систему</p>
 
-  <p>Если вы забыли пароль, то мы можем вам его <%= link_to 'напомнить', forgot_password_url %></p>
+  <p>Если вы забыли пароль, то мы можем вам его <%= link_to "напомнить", forgot_password_path %></p>
 <% end %>
 

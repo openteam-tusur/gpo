@@ -12,7 +12,7 @@
   <p>У студентов, которых нельзя добавить отображается проект, участником которого он является.</p>
 <% end %>
 
-<% form_tag(new_chair_project_participant_url(@project.chair, @project), :method => 'get') do %>
+<% form_tag(new_chair_project_participant_path(@project.chair, @project), :method => 'get') do %>
   <fieldset>
     <h1 class="section">Поиск студентов</h1>
     <%= label_tag(:last_name, "Фамилия") %>

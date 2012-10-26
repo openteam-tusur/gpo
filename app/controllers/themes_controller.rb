@@ -14,7 +14,7 @@ class ThemesController < ApplicationController
     @themes = Theme.find(:all, :order => 'id', :conditions => {:id => params[:themes]})
     if @themes.empty?
       flash[:error] = "Не выбрано ни одного направления"
-      redirect_to statistics_themes_url
+      redirect_to statistics_themes_path
     end
   end
 
@@ -31,7 +31,7 @@ class ThemesController < ApplicationController
 
     if @theme.save
       flash[:notice] = 'Направление успешно создано'
-      redirect_to themes_url
+      redirect_to themes_path
     else
       render :action => "new"
     end
@@ -42,7 +42,7 @@ class ThemesController < ApplicationController
 
     if @theme.update_attributes(params[:theme])
       flash[:notice] = 'Направление успешно сохранено'
-      redirect_to themes_url
+      redirect_to themes_path
     else
       render :action => "edit"
     end
@@ -52,7 +52,7 @@ class ThemesController < ApplicationController
     @theme = Theme.find(params[:id])
     @theme.destroy
     flash[:notice] = 'Направление удалено'
-    redirect_to themes_url
+    redirect_to themes_path
   end
 end
 

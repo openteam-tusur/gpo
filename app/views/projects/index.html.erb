@@ -2,12 +2,12 @@
 
 <% content_for :inline_navigation do %>
   <ul>
-    <%= inline_nav_link link_to(l(:project, :active), chair_projects_path(@chair)), params[:state].blank? %>
-    <%= inline_nav_link link_to(l(:project, :archive), chair_projects_path(@chair, :state => 'close')), params[:state] == 'close' %>
+    <%= inline_nav_link link_to(I18n.t("project.active"), chair_projects_path(@chair)), params[:state].blank? %>
+    <%= inline_nav_link link_to(I18n.t("project.archive"), chair_projects_path(@chair, :state => "close")), params[:state] == "close" %>
   </ul>
 <% end %>
 
-<% action_link(link_to(l(:project, :new), new_chair_project_path(@chair)), "new", "Позволяет создать новый проект на кафедре") if permitted_to?(:chair_manage, @chair)%>
+<% action_link(link_to(I18n.t("project.new"), new_chair_project_path(@chair)), "new", "Позволяет создать новый проект на кафедре") if permitted_to?(:chair_manage, @chair)%>
 
 <% content_for :hint do %>
   <% if params[:state].blank? %>
@@ -37,7 +37,7 @@
   <% end %>
 <% end %>
 
-<%= render_list 'projects/project_with_stats', @projects, :id => 'projects' %>
+<%= render_list "projects/project_with_stats", @projects, :id => "projects" %>
 
 <% content_for :right do %>
   <div id="stats">

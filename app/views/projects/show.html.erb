@@ -5,12 +5,12 @@
   <p>На странице представлена тематическая карточка проекта, а также состояние проекта и дата последнего изменения.</p>
 <% end %>
 
-<%= render :partial => 'reports/report_action_link', :collection => Report::REPORTS[:project], :as => :report, :locals => {:type => 'project', :id => @project.id}  %>
-<% action_link(link_to(l(:manager, :new), new_chair_project_manager_url(@project.chair, @project)), 'new', "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) && @project.managers.empty? %>
-<% action_link(link_to(l(:edit), edit_chair_project_path(@chair,@project)), 'edit', "Позволяет изменить основную информацию о проекте") if permitted_to?(:update, @project) %>
-<% action_link(link_to_delete(chair_project_path(@chair, @project)), 'destroy', "Позволяет удалить проект") if permitted_to?(:delete, @project) %>
-<% action_link(link_to(l(:project, :close), to_close_chair_project_path(@chair,@project)), 'сlose', "Позволяет убрать проект в архив") if permitted_to?(:close, @project) %>
-<% action_link(reopen_project_button(@project), 'reopen', "Возобновляет проект") if permitted_to?(:reopen, @project) %>
+<%= render :partial => "reports/report_action_link", :collection => Report::REPORTS[:project], :as => :report, :locals => {:type => "project", :id => @project.id}  %>
+<% action_link(link_to(I18n.t("manager.new"), new_chair_project_manager_path(@project.chair, @project)), "new", "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) && @project.managers.empty? %>
+<% action_link(link_to(I18n.t("edit"), edit_chair_project_path(@chair,@project)), "edit", "Позволяет изменить основную информацию о проекте") if permitted_to?(:update, @project) %>
+<% action_link(link_to_delete(chair_project_path(@chair, @project)), "destroy", "Позволяет удалить проект") if permitted_to?(:delete, @project) %>
+<% action_link(link_to(I18n.t("project.close"), to_close_chair_project_path(@chair,@project)), "сlose", "Позволяет убрать проект в архив") if permitted_to?(:close, @project) %>
+<% action_link(reopen_project_button(@project), "reopen", "Возобновляет проект") if permitted_to?(:reopen, @project) %>
 
 <% content_for :right do %>
   <h3>Руководители проекта</h3>
@@ -28,10 +28,10 @@
 
 <% unless @project.orders.blocking.empty? %>
   <h2>Ожидаемые приказы <span>данный проект проходит по следующим приказам, которые ещё не уверждены</span></h2>
-  <%= render_list "orders/order", @project.orders.blocking, :id=>'awaiting-orders' %>
+  <%= render_list "orders/order", @project.orders.blocking, :id => "awaiting-orders" %>
 <% end %>
 
-<h2><%= h @project.title %></h2>
+<h2><%= @project.title %></h2>
 <div class="project">
   <div class="status">
     <span class="editable_state_<%= @project.editable_state %>"><%= @project.editable_state_description %></span>

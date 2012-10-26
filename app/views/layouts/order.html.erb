@@ -18,12 +18,12 @@
   <div id="wrapper" class="order-level">
     <div id="navigation">
       <ul>
-        <%= nav_link link_to(chair_abbr(@order.chair), chair_url(@order.chair)), 'chairs', :action => 'show', :selected => false if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Проекты", chair_projects_url(@order.chair)), 'projects', :selected => false if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Приказы", chair_orders_url(@order.chair)), 'orders', :selected => true if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Пользователи", chair_users_url(@order.chair)), 'users', :selected => false if permitted_to?(:chair_manage, @order.chair) %>
-        <%= nav_link link_to("Руководители", managers_chair_url(@order.chair)), 'chairs', :action => 'managers', :selected => false if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Журнал посещаемости", chair_visitations_url(@order.chair)), 'visitations', :selected => false if permitted_to?(:read, @order.chair) %>
+        <%= nav_link link_to(chair_abbr(@order.chair), chair_path(@order.chair)), 'chairs', :action => 'show', :selected => false if permitted_to?(:read, @order.chair) %>
+        <%= nav_link link_to("Проекты", chair_projects_path(@order.chair)), 'projects', :selected => false if permitted_to?(:read, @order.chair) %>
+        <%= nav_link link_to("Приказы", chair_orders_path(@order.chair)), 'orders', :selected => true if permitted_to?(:read, @order.chair) %>
+        <%= nav_link link_to("Пользователи", chair_users_path(@order.chair)), 'users', :selected => false if permitted_to?(:chair_manage, @order.chair) %>
+        <%= nav_link link_to("Руководители", managers_chair_path(@order.chair)), 'chairs', :action => 'managers', :selected => false if permitted_to?(:read, @order.chair) %>
+        <%= nav_link link_to("Журнал посещаемости", chair_visitations_path(@order.chair)), 'visitations', :selected => false if permitted_to?(:read, @order.chair) %>
       </ul>
     </div>
 

@@ -12,8 +12,8 @@
     <%= form.error_messages %>
     <%= form.text_field(:title) %>
     <p>
-      <%= form.submit l(:create) %>
-      <%= link_to l(:back), chair_projects_path(@chair) %>
+      <%= form.submit I18n.t("create") %>
+      <%= link_to I18n.t("back"), chair_projects_path(@chair) %>
     </p>
   </fieldset>
 <% end %>

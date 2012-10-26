@@ -1,13 +1,13 @@
 <div class="gpoday object">
   <div class="name">
     <div class="label">
-      <%= I18n.l(gpoday.date) %>
+      <%= date(gpoday.date) %>
     </div>
     <%= content_tag :div, "Контрольная точка", :class => "kt" if gpoday.kt? %>
   </div>
 </div>
 <div class="actions">
-  <%= link_to(t('edit'), edit_gpoday_path(gpoday)) %>
-  <%= link_to(t('delete'), gpoday_url(gpoday), :method=> :delete, :confirm => t(:are_you_sure)) %>
+  <%= link_to(I18n.t("edit"), edit_gpoday_path(gpoday)) %>
+  <%= link_to(I18n.t("delete"), gpoday_path(gpoday), :method=> :delete, :confirm => I18n.t("are_you_sure")) %>
 </div>
 

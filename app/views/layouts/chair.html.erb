@@ -18,12 +18,12 @@
   <div id="wrapper" class="chair-level">
     <div id="navigation">
       <ul>
-        <%= nav_link link_to(chair_abbr(@chair), chair_url(@chair)), 'chairs', :action => 'show' if permitted_to?(:read, @chair) %>
-        <%= nav_link link_to("Проекты", chair_projects_url(@chair)), 'projects' if permitted_to?(:read, @chair) %>
-        <%= nav_link link_to("Приказы", chair_orders_url(@chair)), 'orders' if permitted_to?(:read, @chair) %>
-        <%= nav_link link_to("Пользователи", chair_users_url(@chair)), 'users' if permitted_to?(:chair_manage, @chair) %>
-        <%= nav_link link_to("Руководители", managers_chair_url(@chair)), 'chairs', :action => 'managers' if permitted_to?(:read, @chair) %>
-        <%= nav_link link_to("Посещаемость", chair_visitations_url(@chair)), 'visitations' if permitted_to?(:read, @chair) %>
+        <%= nav_link link_to(chair_abbr(@chair), chair_path(@chair)), 'chairs', :action => 'show' if permitted_to?(:read, @chair) %>
+        <%= nav_link link_to("Проекты", chair_projects_path(@chair)), 'projects' if permitted_to?(:read, @chair) %>
+        <%= nav_link link_to("Приказы", chair_orders_path(@chair)), 'orders' if permitted_to?(:read, @chair) %>
+        <%= nav_link link_to("Пользователи", chair_users_path(@chair)), 'users' if permitted_to?(:chair_manage, @chair) %>
+        <%= nav_link link_to("Руководители", managers_chair_path(@chair)), 'chairs', :action => 'managers' if permitted_to?(:read, @chair) %>
+        <%= nav_link link_to("Посещаемость", chair_visitations_path(@chair)), 'visitations' if permitted_to?(:read, @chair) %>
       </ul>
       <%#= render :partial => 'shared/go_to_chair' %>
     </div>

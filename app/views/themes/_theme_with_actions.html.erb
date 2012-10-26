@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="actions">
-  <%= link_to(l(:edit), edit_theme_url(theme))  if permitted_to?(:update, theme) %>
-  <%= link_to(l(:delete), theme_url(theme), :method=> :delete, :confirm => l(:are_you_sure)) if permitted_to?(:delete, theme) %>
+  <%= link_to(t('edit'), edit_theme_path(theme))  if permitted_to?(:update, theme) %>
+  <%= link_to(t('delete'), theme_path(theme), :method=> :delete, :confirm => t('are_you_sure')) if permitted_to?(:delete, theme) %>
 </div>
 

@@ -5,7 +5,7 @@
 <% end %>
 
 
-<% form_for :themes, :url => projects_themes_url, :method => :get do |f| %>
+<% form_for :themes, :url => projects_themes_path, :method => :get do |f| %>
   <%= render_list 'theme', @themes, :id => 'themes' %>
   <%= f.submit "Показать проекты" %>
 <% end -%>

@@ -7,11 +7,12 @@
 
 <% form_for(@theme) do |f| %>
   <fieldset>
+    <%# FIXME remove error_messages %>
     <%= f.error_messages %>
     <%= f.text_field :name %>
     <p>
-      <%= f.submit l(:create) %>
-      <%= link_to l(:cancel), themes_path %>
+      <%= f.submit I18n.t("create") %>
+      <%= link_to I18n.t("cancel"), themes_path %>
     </p>
   </fieldset>
 <% end %>

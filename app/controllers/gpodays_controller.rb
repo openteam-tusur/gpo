@@ -37,7 +37,7 @@ class GpodaysController < ApplicationController
     respond_to do |format|
       if @gpoday.save
         flash[:notice] = 'День ГПО добавлен в расписание'
-        format.html { redirect_to gpodays_url }
+        format.html { redirect_to gpodays_path }
         format.xml  { render :xml => @gpoday, :status => :created, :location => @gpoday }
       else
         flash[:error] = 'Ошибка добавления дня ГПО в расписание'
@@ -55,7 +55,7 @@ class GpodaysController < ApplicationController
     respond_to do |format|
       if @gpoday.update_attributes(params[:gpoday])
         flash[:notice] = 'День ГПО сохранен'
-        format.html { redirect_to gpodays_url }
+        format.html { redirect_to gpodays_path }
         format.xml  { head :ok }
       else
         flash[:error] = 'Ошибка сохранения дня ГПО'
@@ -72,7 +72,7 @@ class GpodaysController < ApplicationController
     @gpoday.destroy
     flash[:notice] = 'День ГПО удален из расписания'
     respond_to do |format|
-      format.html { redirect_to(gpodays_url) }
+      format.html { redirect_to(gpodays_path) }
       format.xml  { head :ok }
     end
   end

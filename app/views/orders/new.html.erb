@@ -14,10 +14,10 @@
   <p>Выберите проекты, состояние которых будет утверждено приказом.</p>
   <% form_for(:order, :url => chair_orders_path(@chair)) do |form| %>
     <fieldset>
-      <%= render :partial => 'form', :locals => {:form => form, :order => @order} %>
+      <%= render :partial => "form", :locals => {:form => form, :order => @order} %>
       <p>
-        <%= form.submit l(:create) %>
-        <%= link_to l(:cancel), chair_orders_path(@chair) %>
+        <%= form.submit I18n.t("create") %>
+        <%= link_to I18n.t("cancel"), chair_orders_path(@chair) %>
       </p>
     </fieldset>
   <% end %>

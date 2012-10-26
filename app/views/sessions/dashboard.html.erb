@@ -14,7 +14,7 @@
 <% @user_chairs.each do |chair| %>
   <% tasks = chair.tasks(current_user, "dashboard") %>
   <% unless tasks.empty? %>
-    <h2><%= link_to chair_abbr(chair), chair_url(chair) %><span>на кафедре есть нерешенные задачи</span></h2>
+    <h2><%= link_to chair_abbr(chair), chair_path(chair) %><span>на кафедре есть нерешенные задачи</span></h2>
     <%= render_list 'shared/task', tasks, :class => 'tasks' %>
   <% end %>
 <% end %>

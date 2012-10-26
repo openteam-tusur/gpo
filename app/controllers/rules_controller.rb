@@ -23,7 +23,7 @@ class RulesController < ApplicationController
     
     if @rule.save
       flash[:notice] = 'Правило успешно добавлено'
-      redirect_to(rules_url)
+      redirect_to(rules_path)
     else
       render :action => "new" 
     end
@@ -34,7 +34,7 @@ class RulesController < ApplicationController
     
     if @rule.update_attributes(Rule.attributes_from_params(params[:rule]))
       flash[:notice] = 'Правило успешно обновлено'
-      redirect_to(rules_url)
+      redirect_to(rules_path)
     else
       render :action => "edit"
     end
@@ -44,11 +44,11 @@ class RulesController < ApplicationController
 #    authorize @rule.destroyable_by?(current_user)
     if Rule.administrators.count == 1 && @rule.admin?
       flash[:notice] = "Последний администратор не может быть удален"
-      redirect_to(rules_url)
+      redirect_to(rules_path)
     else
       @rule.destroy
       flash[:notice] = "Правило успешно удалено"
-      redirect_to(rules_url)
+      redirect_to(rules_path)
     end
   end
   

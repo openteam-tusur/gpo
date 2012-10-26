@@ -1,5 +1,5 @@
 <ul>
-  <%= nav_link link_to("Пользователи", users_url), 'users' if permitted_to?(:index, :users) %>
-  <%= nav_link link_to("Правила", rules_url), 'rules' if permitted_to?(:index, :rules) %>
+  <%= nav_link link_to("Пользователи", users_path), 'users' if permitted_to?(:index, :users) %>
+  <%= nav_link link_to("Правила", rules_path), 'rules' if permitted_to?(:index, :rules) %>
 </ul>
 

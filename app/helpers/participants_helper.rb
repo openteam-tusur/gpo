@@ -2,11 +2,11 @@
 
 module ParticipantsHelper
   def participant_cancel_state_button(button_name, participant)
-    participant_change_state_form(cancel_chair_project_participant_url(participant.project.chair, participant.project, participant), button_name)
+    participant_change_state_form(cancel_chair_project_participant_path(participant.project.chair, participant.project, participant), button_name)
   end
 
   def participant_approve_state_button(button_name, participant)
-    participant_change_state_form(approve_chair_project_participant_url(participant.project.chair, participant.project, participant), button_name)
+    participant_change_state_form(approve_chair_project_participant_path(participant.project.chair, participant.project, participant), button_name)
   end
 
   def participant_change_state_form(url, button_name)

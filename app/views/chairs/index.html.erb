@@ -1,6 +1,6 @@
 <% title "Кафедры", :chair %>
 
-<% action_link(link_to(l(:chair, :new), new_chair_path), 'new', "Позволяет добавить новую кафедру") if permitted_to?(:create, :chairs) %>
+<% action_link(link_to(I18n.t("chair.new"), new_chair_path), "new", "Позволяет добавить новую кафедру") if permitted_to?(:create, :chairs) %>
 
 <% content_for :hint do %>
   <h3>Список кафедр</h3>
@@ -17,7 +17,7 @@
   <p>Активность показывает как давно на кафедре были какие-либо изменения с приказами.</p>
 <% end %>
 
-<%= render_list 'chair_with_stats', @chairs, :id=>"chairs" %>
+<%= render_list "chair_with_stats", @chairs, :id=>"chairs" %>
 
 <% content_for :right do %>
   <div id="stats">

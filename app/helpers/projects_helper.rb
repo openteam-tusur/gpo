@@ -4,7 +4,7 @@ module ProjectsHelper
 
   def reopen_project_button(project)
     out = ""
-    out << form_tag(reopen_chair_project_url(project.chair, project), :method => :put)
+    out << form_tag(reopen_chair_project_path(project.chair, project), :method => :put)
     out << submit_tag(I18n.t("project.reopen"))
     out << "</form>"
     out

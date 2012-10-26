@@ -1,6 +1,6 @@
 <ul>
-  <%= nav_link link_to("Отчеты", reports_url), 'reports' if permitted_to?(:index, :reports) %>
-  <%= nav_link link_to("По направлениям", statistics_themes_url), 'themes' if permitted_to?(:statistics, :themes) %>
-  <%= nav_link link_to("Посещаемость", visitations_url), 'visitations' if permitted_to?(:read, :visitations) %>
+  <%= nav_link link_to("Отчеты", reports_path), 'reports' if permitted_to?(:index, :reports) %>
+  <%= nav_link link_to("По направлениям", statistics_themes_path), 'themes' if permitted_to?(:statistics, :themes) %>
+  <%= nav_link link_to("Посещаемость", visitations_path), 'visitations' if permitted_to?(:read, :visitations) %>
 </ul>
 

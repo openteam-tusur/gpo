@@ -23,12 +23,12 @@ class ParticipantsController < ApplicationController
     if !participant.nil? && participant.project.eql?(@project)
       participant.cancel
       flash[:notice] = "Исключение участника отменено"
-      redirect_to chair_project_participants_url(@project.chair, @project)
+      redirect_to chair_project_participants_path(@project.chair, @project)
       return
     end
     if @participant.save
       flash[:notice] = 'Добавлен новый участник'
-      redirect_to chair_project_participants_url(@project.chair, @project)
+      redirect_to chair_project_participants_path(@project.chair, @project)
     else
       render :action => "new"
     end
@@ -44,7 +44,7 @@ class ParticipantsController < ApplicationController
         flash[:notice] = "Исключение участника отменено"
       end
     end
-    redirect_to chair_project_participants_url(@project.chair, @project)
+    redirect_to chair_project_participants_path(@project.chair, @project)
   end
 
   def approve
@@ -57,7 +57,7 @@ class ParticipantsController < ApplicationController
         flash[:notice] = "Исключение участника подтверждено"
       end
     end
-    redirect_to chair_project_participants_url(@project.chair, @project)
+    redirect_to chair_project_participants_path(@project.chair, @project)
   end
 
   def destroy
@@ -66,7 +66,7 @@ class ParticipantsController < ApplicationController
     if @participant.remove
       flash[:notice] = "Участник помечен на удаление"
     end
-    redirect_to chair_project_participants_url(@project.chair, @project)
+    redirect_to chair_project_participants_path(@project.chair, @project)
   end
   
   protected

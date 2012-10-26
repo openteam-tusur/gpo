@@ -8,10 +8,10 @@
 
 <% form_for(@chair) do |form| %>
   <fieldset>
-    <%= render :partial => 'form', :locals => {:form => form} %>
+    <%= render :partial => "form", :locals => {:form => form} %>
     <p>
-      <%= form.submit l(:create) %>
-      <%= link_to l(:cancel), chairs_path %>
+      <%= form.submit I18n.t("create") %>
+      <%= link_to I18n.t("cancel"), chairs_path %>
     </p>
   </fieldset>
 <% end %>

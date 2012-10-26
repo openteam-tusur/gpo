@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def update
     if @user.update_attributes(params[:user])
       flash[:notice] = 'Информация о пользователе успешно обновлена'
-      redirect_to @chair.nil? ? users_url : chair_users_url(@chair)
+      redirect_to @chair.nil? ? users_path : chair_users_path(@chair)
     else
       render :action => "edit"
     end
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
     end
     
     if @user.save
-      redirect_to @chair.nil? ? users_url : chair_users_url(@chair)
+      redirect_to @chair.nil? ? users_path : chair_users_path(@chair)
       flash[:notice] = "Пользователь успешно добавлен"
     else
       render :action => 'new'
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     flash[:notice] = "Пользователь успешно удален"
-    redirect_to @chair.nil? ? users_url : chair_users_url(@chair)
+    redirect_to @chair.nil? ? users_path : chair_users_path(@chair)
   end
 
   private

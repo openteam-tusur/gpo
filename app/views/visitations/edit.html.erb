@@ -20,8 +20,8 @@
       <% end %>
     </ul>
     <p class="action">
-      <%= submit_tag l(:save) %>
-      <%= link_to l(:cancel), chair_project_visitations_path(@project.chair, @project) %>
+      <%= submit_tag I18n.t("save") %>
+      <%= link_to I18n.t("cancel"), chair_project_visitations_path(@project.chair, @project) %>
     </p>
   </fieldset>
 <% end %>

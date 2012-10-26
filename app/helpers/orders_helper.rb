@@ -18,15 +18,15 @@ module OrdersHelper
   end
 
   def review_order_button(order, caption)
-    change_order_state_button(review_chair_order_url(order.chair, order), caption)
+    change_order_state_button(review_chair_order_path(order.chair, order), caption)
   end
 
   def to_review_order_button(order, caption)
-    change_order_state_button(to_review_chair_order_url(order.chair, order), caption)
+    change_order_state_button(to_review_chair_order_path(order.chair, order), caption)
   end
 
   def cancel_order_button(order, caption)
-    change_order_state_button(cancel_chair_order_url(order.chair, order), caption)
+    change_order_state_button(cancel_chair_order_path(order.chair, order), caption)
   end
 
   def change_order_state_button(url, caption)
@@ -40,7 +40,7 @@ module OrdersHelper
   end
 
   def link_to_file(order, format, caption)
-    link_to caption, chair_order_url(order.chair, order, :format => format)
+    link_to caption, chair_order_path(order.chair, order, :format => format)
   end
 
   def order_projects_list(order)
@@ -51,7 +51,7 @@ module OrdersHelper
       other_projects = "и еще #{n} #{Order.pluralized_string(n)}"
       projects = projects[0..1]
     end
-    out = projects.collect {|project| content_tag :span, link_to(project.cipher, chair_project_url(project.chair, project)), :title => project.title }.join(", ")
+    out = projects.collect {|project| content_tag :span, link_to(project.cipher, chair_project_path(project.chair, project)), :title => project.title }.join(", ")
     "#{out} #{other_projects}"
   end
 end

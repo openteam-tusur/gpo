@@ -9,10 +9,10 @@
 
 <% form_for([@project.chair, @project, @stage]) do |form| %>
   <fieldset>
-    <%= render :partial => 'form', :locals => {:form => form} %>
+    <%= render :partial => "form", :locals => {:form => form} %>
     <p>
-      <%= form.submit l(:save) %>
-      <%= link_to l(:back), chair_project_stage_url(@project.chair, @project, @stage) %>
+      <%= form.submit I18n.t("save") %>
+      <%= link_to I18n.t("back"), chair_project_stage_path(@project.chair, @project, @stage) %>
     </p>
   </fieldset>
 <% end %>

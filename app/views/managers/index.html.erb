@@ -12,7 +12,7 @@
     <dd>Участника проекта подтвержден приказом</dd>
   </dl>
   <p>Статус руководителя нового проекта подтверждает приказом о формировании проекта. Статус руководителя активного проекта может утвердить администратор системы.</p>
-  
+
   <% if permitted_to?(:create, @project.managers.build) %>
   <dl>
     <dt>"Отменить"</dt>
@@ -27,7 +27,7 @@
   <% end %>
 <% end %>
 
-<% action_link(link_to(l(:manager, :new), new_chair_project_manager_url(@project.chair, @project)), 'new', "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) %>
+<% action_link(link_to(I18n.t("manager.new"), new_chair_project_manager_path(@project.chair, @project)), "new", "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) %>
 
-<%= render_list 'manager_with_actions', @managers, :id => 'managers' %>
+<%= render_list "manager_with_actions", @managers, :id => "managers" %>
 

@@ -79,6 +79,6 @@ class ManagersController < ApplicationController
   end
 
   def redirect_to_managers_list
-    redirect_to chair_project_managers_url(@project.chair, @project)
+    redirect_to chair_project_managers_path(@project.chair, @project)
   end
 end

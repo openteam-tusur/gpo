@@ -40,7 +40,7 @@ class ProjectsController < ApplicationController
 
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Проект успешно обновлён.'
-      redirect_to chair_project_url(@project.chair, @project)
+      redirect_to chair_project_path(@project.chair, @project)
     else
       render :action => "edit"
     end
@@ -55,7 +55,7 @@ class ProjectsController < ApplicationController
       @project.update_attributes!(params[:project])
       @project.disable_modifications
       flash[:notice] = 'Проект успешно закрыт'
-      redirect_to(chair_project_url(@chair, @project))
+      redirect_to(chair_project_path(@chair, @project))
     rescue
       @project.state = @project.state_was
       render :action => :to_close
@@ -66,13 +66,13 @@ class ProjectsController < ApplicationController
     @project.reopen
     @project.enable_modifications
     flash[:notice] = 'Проект успешно возобновлен'
-    redirect_to(chair_project_url(@chair, @project))
+    redirect_to(chair_project_path(@chair, @project))
   end
 
   def destroy
     @project.destroy
     flash[:notice] = 'Проект успешно удален'
-    redirect_to chair_projects_url(@chair)
+    redirect_to chair_projects_path(@chair)
   end
 
   protected

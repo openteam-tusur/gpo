@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   def dashboard
     @chair = @user_chairs.first
-    redirect_to chair_url(@chair)
+    redirect_to chair_path(@chair)
   end
 
   protected

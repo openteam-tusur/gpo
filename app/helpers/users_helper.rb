@@ -40,9 +40,9 @@ module UsersHelper
 
   def link_to_new_user(chair)
     if chair.nil?
-      link_to I18n.t("user.new"), new_user_url
+      link_to I18n.t("user.new"), new_user_path
     else
-      link_to I18n.t("user.new"), new_chair_user_url(chair)
+      link_to I18n.t("user.new"), new_chair_user_path(chair)
     end
   end
 
@@ -67,14 +67,14 @@ module UsersHelper
   end
 
   def link_to_edit_user(user, chair)
-    link_to(I18n.t("edit"), chair.nil? ? edit_user_url(user) : edit_chair_user_path(chair, user) )
+    link_to(I18n.t("edit"), chair.nil? ? edit_user_path(user) : edit_chair_user_path(chair, user) )
   end
 
   def link_to_delete_user(user, chair)
     if chair.nil?
-      link_to_delete(user_url(user))
+      link_to_delete(user_path(user))
     else
-      link_to_delete(chair_user_url(chair, user))
+      link_to_delete(chair_user_path(chair, user))
     end
   end
 

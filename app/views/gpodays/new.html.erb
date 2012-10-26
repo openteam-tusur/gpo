@@ -7,10 +7,10 @@
 
 <% form_for(@gpoday) do |form| %>
   <fieldset>
-    <%= render :partial => 'form', :locals => {:form => form} %>
+    <%= render :partial => "form", :locals => {:form => form} %>
     <p>
-      <%= form.submit l(:create) %>
-      <%= link_to l(:cancel), gpodays_path %>
+      <%= form.submit I18n.t("create") %>
+      <%= link_to I18n.t("cancel"), gpodays_path %>
     </p>
   </fieldset>
 <% end %>

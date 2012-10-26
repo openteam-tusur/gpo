@@ -122,12 +122,12 @@ module ApplicationHelper
     content_tag :dl, term.to_s
   end
 
-  def task_url(task)
+  def task_path(task)
     case task
      when OrderTask
-       chair_order_url(task.order.chair, task.order)
+       chair_order_path(task.order.chair, task.order)
      when ProblematicParticipantsTask
-       chair_project_participants_url(task.project.chair, task.project)
+       chair_project_participants_path(task.project.chair, task.project)
      when ProjectVisitationsTask
        chair_project_visitations_path(task.project.chair, task.project)
      else

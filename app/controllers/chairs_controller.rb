@@ -5,7 +5,7 @@ class ChairsController < ApplicationController
 
   def index
     @chairs = Chair.find(:all, :order => "abbr")
-    redirect_to chair_url(params[:go_to_chair]) if params[:go_to_chair]
+    redirect_to chair_path(params[:go_to_chair]) if params[:go_to_chair]
   end
 
   def show
@@ -46,7 +46,7 @@ class ChairsController < ApplicationController
 
   def destroy
     @chair.destroy
-    redirect_to(chairs_url)
+    redirect_to(chairs_path)
   end
   
   protected

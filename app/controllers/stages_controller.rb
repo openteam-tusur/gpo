@@ -36,7 +36,7 @@ class StagesController < ApplicationController
     
     if @stage.save
       flash[:notice] = 'Этап успешно создан.'
-      redirect_to chair_project_stage_url(@project.chair, @project, @stage)
+      redirect_to chair_project_stage_path(@project.chair, @project, @stage)
     else
       render :action => "new"
     end
@@ -50,7 +50,7 @@ class StagesController < ApplicationController
     
     if @stage.update_attributes(params[:stage])
       flash[:notice] = 'Этап успешно сохранен.'
-      redirect_to chair_project_stage_url(@project.chair, @project, @stage)
+      redirect_to chair_project_stage_path(@project.chair, @project, @stage)
     else
       render :action => "edit"
     end
@@ -65,7 +65,7 @@ class StagesController < ApplicationController
     @stage.destroy
 
     flash[:notice] = 'Этап успешно удален.'
-    redirect_to chair_project_stages_url(@project.chair, @project)
+    redirect_to chair_project_stages_path(@project.chair, @project)
   end
 
   private

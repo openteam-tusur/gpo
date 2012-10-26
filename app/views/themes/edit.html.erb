@@ -10,8 +10,8 @@
     <%= f.error_messages %>
     <%= f.text_field :name %>
     <p>
-      <%= f.submit l(:save) %>
-      <%= link_to l(:back), themes_path %>
+      <%= f.submit I18n.t("save") %>
+      <%= link_to I18n.t("back"), themes_path %>
     </p>
   </fieldset>
 <% end %>

@@ -7,9 +7,9 @@
 <% end %>
 
 <% form_for(@chair) do |form| %>
-  <%= render :partial => 'form', :locals => {:form => form} %>
+  <%= render :partial => "form", :locals => {:form => form} %>
   <p>
-    <%= form.submit l(:save) %>
-    <%= link_to l(:cancel), chairs_path %>
+    <%= form.submit I18n.t("save") %>
+    <%= link_to I18n.t("cancel"), chairs_path %>
   </p>
 <% end %>

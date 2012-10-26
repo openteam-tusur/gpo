@@ -17,28 +17,28 @@
     <h2><%= h(participant.name) %></h2>
     <div class="header">
       <%= link_to 'Экспорт в XLS', export_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
-      <%= link_to t(:add), new_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
-      <h3 class="planned_summ_grade"><%= t("activerecord.attributes.issue.planned_summ_grade") %>:&nbsp;<%= participant.issues_planned_summ_grade %></h3>
-      <h3 class="fact_summ_grade"><%= t("activerecord.attributes.issue.fact_summ_grade") %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
+      <%= link_to I18n.t("add"), new_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
+      <h3 class="planned_summ_grade"><%= I18n.t("activerecord.attributes.issue.planned_summ_grade") %>:&nbsp;<%= participant.issues_planned_summ_grade %></h3>
+      <h3 class="fact_summ_grade"><%= I18n.t("activerecord.attributes.issue.fact_summ_grade") %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
     </div>
     <% unless participant.issues.empty? %>
       <table>
         <tr>
-          <th class="name"><%= t("activerecord.attributes.issue.name") %></th>
-          <th class="description"><%= t("activerecord.attributes.issue.description") %></th>
-          <th class="planned_closing_at"><abbr title="<%= t("activerecord.attributes.issue.planned_closing_at") %>"><%= t("activerecord.attributes.issue.abbr_planned_closing_at") %></abbr></th>
-          <th class="planned_grade"><abbr title="<%= t("activerecord.attributes.issue.planned_grade") %>"><%= t("activerecord.attributes.issue.abbr_planned_grade") %></abbr></th>
-          <th class="closed_at"><abbr title="<%= t("activerecord.attributes.issue.closed_at") %>"><%= t("activerecord.attributes.issue.abbr_closed_at") %></abbr></th>
-          <th class="grade"><abbr title="<%= t("activerecord.attributes.issue.grade") %>"><%= t("activerecord.attributes.issue.abbr_grade") %></abbr></th>
-          <th class="results"><%= t("activerecord.attributes.issue.results") %></th>
+          <th class="name"><%= I18n.t("activerecord.attributes.issue.name") %></th>
+          <th class="description"><%= I18n.t("activerecord.attributes.issue.description") %></th>
+          <th class="planned_closing_at"><abbr title="<%= I18n.t("activerecord.attributes.issue.planned_closing_at") %>"><%= I18n.t("activerecord.attributes.issue.abbr_planned_closing_at") %></abbr></th>
+          <th class="planned_grade"><abbr title="<%= I18n.t("activerecord.attributes.issue.planned_grade") %>"><%= I18n.t("activerecord.attributes.issue.abbr_planned_grade") %></abbr></th>
+          <th class="closed_at"><abbr title="<%= I18n.t("activerecord.attributes.issue.closed_at") %>"><%= I18n.t("activerecord.attributes.issue.abbr_closed_at") %></abbr></th>
+          <th class="grade"><abbr title="<%= I18n.t("activerecord.attributes.issue.grade") %>"><%= I18n.t("activerecord.attributes.issue.abbr_grade") %></abbr></th>
+          <th class="results"><%= I18n.t("activerecord.attributes.issue.results") %></th>
         </tr>
         <% participant.issues.each do |issue| %>
           <tr>
             <td class="name">
               <p><%= issue.name %></p>
               <div class="actions">
-                <%= link_to t(:edit), edit_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => t(:edit), :class => "edit" if permitted_to?(:update, @project) %>
-                <%= link_to t(:delete), chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?", :title => t(:delete), :class => "destroy" if permitted_to?(:update, @project) %>
+                <%= link_to I18n.t("edit"), edit_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                <%= link_to I18n.t("delete"), chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?", :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
               </div>
             </td>
             <td class="description"><%= issue.description %></td>
@@ -55,4 +55,3 @@
     <% end %>
   </div>
 <% end %>
-

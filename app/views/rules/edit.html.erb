@@ -9,10 +9,10 @@
 
 <% form_for(@rule) do |form| %>
   <fieldset>
-    <%= render :partial => 'form', :locals => {:form => form} %>
+    <%= render :partial => "form", :locals => {:form => form} %>
     <p>
-      <%= form.submit l(:save) %>
-      <%= link_to l(:cancel), rules_path %>
+      <%= form.submit I18n.t("save") %>
+      <%= link_to I18n.t("cancel"), rules_path %>
     </p>
   </fieldset>
 <% end %>
