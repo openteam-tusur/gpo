@@ -94,7 +94,7 @@ module ApplicationHelper
       css_class = ['listing']
       css_class << options[:class] if options[:class]
 
-      content_tag :ul, content, :id => options[:id], :class => css_class.join(' ')
+      content_tag :ul, content.html_safe, :id => options[:id], :class => css_class.join(' ')
     else
       content_tag :div, (options[:if_empty] || "В списке нет элементов") , :class => 'empty-list'
     end
@@ -114,7 +114,7 @@ module ApplicationHelper
     rows = stats.collect { |stat|
       content_tag :tr, content_tag(:td, stat.title) + content_tag(:td, stat.value, :class=>'value'), :class => cycle('odd ', 'even ') + stat.key.to_s
     }.join
-    content_tag :table, rows
+    content_tag :table, rows.html_safe
   end
 
   def render_inline_stats(stats, options = {})
@@ -146,11 +146,11 @@ module ApplicationHelper
   end
 
   def date(datetime)
-    localize(datetime.to_date) rescue nil
+    I18n.l(datetime.to_date) rescue nil
   end
 
   def date_with_time(datetime)
-    localize(datetime, :format => :short)  rescue nil
+    I18n.l(datetime, :format => :short)  rescue nil
   end
 
   def time_ago(object, method = :created_at)
@@ -167,4 +167,3 @@ module ApplicationHelper
   end
 
 end
-
