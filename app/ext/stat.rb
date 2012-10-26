@@ -10,7 +10,7 @@ class Stat
 
   def self.get_stats(collection, *types)
     types = collection.keys if types.empty?
-    returning Array.new do |stats|
+    [].tap do |stats|
       types.each {|type| stats.concat collection.fetch(type) }
     end
   end

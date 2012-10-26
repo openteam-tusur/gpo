@@ -53,6 +53,7 @@ class Project < ActiveRecord::Base
 
   scope :active, where(:state => :active)
   scope :draft, where(:state => :draft)
+  scope :closed, where(:state => :closed)
 
   state_machine :initial => :draft do
     event :approve do
@@ -93,12 +94,12 @@ class Project < ActiveRecord::Base
 
   # FIXME: -l10n
   def editable_state_description
-    L10N[:project]["editable_state_#{self.editable_state}"]
+    #L10N[:project]["editable_state_#{self.editable_state}"]
   end
 
   # FIXME: -l10n
   def state_description
-    L10N[:project]["state_#{self.state}"]
+    #L10N[:project]["state_#{self.state}"]
   end
 
   # для приказа

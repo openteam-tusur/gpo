@@ -32,7 +32,7 @@ class OpeningOrder < Order
 
   # FIXME: - l10n
   def title
-    L10N[:opening_order][:title]
+    self.class.model_name.human
   end
 
   # для приказа

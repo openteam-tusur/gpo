@@ -82,12 +82,12 @@ module ApplicationHelper
   end
 
   def render_list(item_partial, items, options = {})
-    options[:if_empty] ||= "В списке нет элементов"
-    object = options.delete(:object) || :object
-    unless items.blank?
+    if items.any?
+      object = options.delete(:object) || item_partial.split('/').last.to_sym
       content = items.collect {|item|
         item_class = [cycle('odd ', 'even ')]
         item_class << options[:item_class] if options[:item_class]
+        puts "render (:partial => #{item_partial}, :locals => {#{object.inspect} => '#{item.class}'}, :class => '#{item_class.join(' ')}')"
         content_tag(:li, render(:partial => item_partial, :locals => {object => item}), :class => item_class.join(' '))
       }.join
 
@@ -96,7 +96,7 @@ module ApplicationHelper
 
       content_tag :ul, content, :id => options[:id], :class => css_class.join(' ')
     else
-      content_tag :div, options[:if_empty], :class => 'empty-list'
+      content_tag :div, (options[:if_empty] || "В списке нет элементов") , :class => 'empty-list'
     end
   end
 
