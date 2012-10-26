@@ -5,6 +5,7 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= @project.cipher %> <%=h @project.title %> &#x2014; <%= yield(:title) %></title>
+  <%= csrf_meta_tags %>
   <%= render :partial => 'shared/css_and_js' %>
 </head>
 <body>
