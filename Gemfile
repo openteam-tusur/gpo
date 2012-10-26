@@ -8,6 +8,7 @@ group :assets do
 end
 
 group :default do
+  gem 'compass-rails'
   gem 'state_machine'
   gem 'jquery-rails'
   gem 'rails'
