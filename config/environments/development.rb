@@ -34,4 +34,12 @@ Gpo::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.to_prepare do
+    %w[ext].each do |dir|
+      Dir[Rails.root.join("app/models/#{dir}/*")].each do |model_path|
+        require_or_load model_path.to_s
+      end
+    end
+  end
 end

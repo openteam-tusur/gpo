@@ -51,6 +51,9 @@ class Project < ActiveRecord::Base
 
   before_create :set_cipher, :unless => :cipher?
 
+  scope :active, where(:state => :active)
+  scope :draft, where(:state => :draft)
+
   state_machine :initial => :draft do
     event :approve do
       transition :draft => :active

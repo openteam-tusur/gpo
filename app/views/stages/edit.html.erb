@@ -1,0 +1,18 @@
+<% title "Редактирование этапа", :stage %>
+
+<% content_for :hint do %>
+  <h3>Редактирование этапа</h3>
+  <p>Для изменение информации исправьте значения полей формы и нажмите кнопку "Сохранить".</p>
+  <p>Обязательными для заполнения полями являются название, дата начала и дата окончания.</p>
+  <p>Если нет необходимости изменять информацию об этапе нажмите "Отмена" для перехода к просмотру этапа.</p>
+<% end %>
+
+<% form_for([@project.chair, @project, @stage]) do |form| %>
+  <fieldset>
+    <%= render :partial => 'form', :locals => {:form => form} %>
+    <p>
+      <%= form.submit l(:save) %>
+      <%= link_to l(:back), chair_project_stage_url(@project.chair, @project, @stage) %>
+    </p>
+  </fieldset>
+<% end %>

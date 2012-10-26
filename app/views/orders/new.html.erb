@@ -1,0 +1,24 @@
+<% title "Создание приказа #{order_title(@order)}", :order %>
+
+<% content_for :hint do %>
+  <h3>Создание приказа</h3>
+  <p>Для создания приказа, отметьте проекты, состояние которых будет утверждено приказом и нажмите "Создать".</p>
+  <p>Если нет необходимости изменять приказ "Отмена" для возврата к списку приказов.</p>
+<% end %>
+
+
+<% if @order.available_projects.empty? %>
+  "Создание приказа невозможно, т.к. нет подходящих проектов"
+<% else %>
+
+  <p>Выберите проекты, состояние которых будет утверждено приказом.</p>
+  <% form_for(:order, :url => chair_orders_path(@chair)) do |form| %>
+    <fieldset>
+      <%= render :partial => 'form', :locals => {:form => form, :order => @order} %>
+      <p>
+        <%= form.submit l(:create) %>
+        <%= link_to l(:cancel), chair_orders_path(@chair) %>
+      </p>
+    </fieldset>
+  <% end %>
+<% end %>

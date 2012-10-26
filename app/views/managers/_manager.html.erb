@@ -1,0 +1,8 @@
+<div class="manager object">
+  <%= icon(:user) %>
+  <h3><%= h manager.user.name %></h3>
+  <div class="status">
+    <span class="state_<%= manager.state %>"><%= manager.state_description %></span>
+    <span class="date"><%= time_ago(manager, :updated_at) %></span>
+  </div>
+</div>

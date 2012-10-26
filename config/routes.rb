@@ -44,6 +44,7 @@ Gpo::Application.routes.draw do
 
   resources :visitations, :only => :index
 
-  get '/dashboard' => 'sessions#dashboard'
+  get '/dashboard' => 'application#dashboard', :as => :dashboard
+  root :to => 'application#dashboard'
 end
 

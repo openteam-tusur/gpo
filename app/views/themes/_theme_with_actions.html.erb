@@ -1,0 +1,12 @@
+<div class="theme object">
+  <div class="name">
+    <div class="label">
+      <%= theme.name %>
+    </div>
+  </div>
+</div>
+<div class="actions">
+  <%= link_to(l(:edit), edit_theme_url(theme))  if permitted_to?(:update, theme) %>
+  <%= link_to(l(:delete), theme_url(theme), :method=> :delete, :confirm => l(:are_you_sure)) if permitted_to?(:delete, theme) %>
+</div>
+

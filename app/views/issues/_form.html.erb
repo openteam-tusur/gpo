@@ -1,0 +1,15 @@
+<%= form.error_messages %>
+
+<%= form.text_field :name, :size => 30, :maxlength => 255 %>
+
+<%= form.text_area :description %>
+
+<%= form.text_field :planned_closing_at, :class => 'datepicker', :value => form.object.planned_closing_at==nil ? '' : form.object.planned_closing_at %>
+
+<%= form.text_field :planned_grade %>
+
+<%= form.text_field :closed_at, :class => 'datepicker', :value => form.object.closed_at==nil ? '' : form.object.closed_at %>
+
+<%= form.text_field :grade %>
+
+<%= form.text_area :results %>

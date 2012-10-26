@@ -1,0 +1,10 @@
+<%= form.error_messages %>
+
+<%= form.select :user_id, User.find(:all).collect {|user| [user.name, user.id]}, {:include_blank => true} %>
+
+<%= form.radio_button :role, 'admin', {:label => Rule.role_hash[:admin]} %>
+<%= form.radio_button :role, 'supervisor', {:label => Rule.role_hash[:supervisor]} %>
+
+<%= form.radio_button :role, 'mentor', {:label => Rule.role_hash[:mentor]} %>
+<%= form.select :chair_id, Chair.find(:all).collect {|chair| [chair.abbr, chair.id]}, {:include_blank => true} %>
+

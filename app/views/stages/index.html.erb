@@ -1,0 +1,11 @@
+<% title "Календарный план проекта", :stage %>
+
+<% content_for :hint do %>
+  <h3>Календарный план проекта</h3>
+  <p>На странице представлены этапы календарного плана реализации проекта.</p>
+<% end %>
+
+<% action_link(link_to(l(:stage, :new), new_chair_project_stage_url(@project.chair, @project)), 'new', "Позволяет добавить этап") if permitted_to?(:update, @project)%>
+
+<%= render_list 'stage', @stages, :id => 'stages' %>
+

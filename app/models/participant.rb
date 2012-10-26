@@ -34,7 +34,7 @@ class Participant < ActiveRecord::Base
   scope :ordered,         order(:last_name)
   scope :active,          where(:state => %w[approved awaiting_removal]).ordered
   scope :awaiting,        where(:state => %w[awaiting_approval awaiting_removal])
-  scope :problematic,     where('(state in ? AND contingent_gpo = ?) OR contingent_active = ?',  %w[approved awaiting_removal],  false,  false).ordered
+  scope :problematic,     where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?',  %w[approved awaiting_removal],  false,  false).ordered
   scope :at_course,       ->(course) { where(:course => course) }
   scope :for_student,     ->(id)     { where(:student_id => id) }
 

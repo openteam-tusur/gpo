@@ -1,0 +1,6 @@
+<%= render :partial => 'participant', :object => object %>
+<div class="actions">
+  <%= link_to_delete chair_project_participant_url(@project.chair, @project, object), "Исключить" if permitted_to?(:delete, object) %>
+  <%= participant_approve_state_button("Утвердить", object) if permitted_to?(:approve, object) %>
+  <%= participant_cancel_state_button("Отменить", object) if permitted_to?(:cancel, object) %>
+</div>

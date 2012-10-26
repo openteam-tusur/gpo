@@ -1,0 +1,17 @@
+<% title "Редактирование дня ГПО", :gpoday %>
+
+<% content_for :hint do %>
+  <p>Для изменения даты дня ГПО, выберите дату и нажмите кнопку "Сохранить"</p>
+  <p>Если нет необходимости менять дату, нажмите "Отмена" для возврата к расписанию.</p>
+<% end %>
+
+<% form_for(@gpoday) do |form| %>
+  <fieldset>
+    <%= render :partial => 'form', :locals => {:form => form} %>
+    <p>
+      <%= form.submit l(:save) %>
+      <%= link_to l(:cancel), gpodays_path %>
+    </p>
+  </fieldset>
+<% end %>
+
