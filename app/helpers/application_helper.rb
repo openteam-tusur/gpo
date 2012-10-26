@@ -5,10 +5,6 @@ module ApplicationHelper
     true
   end
 
-  def l(*args)
-    args.join('.')
-  end
-
   def current_user
     User.find_by_login(:admin)
   end
@@ -24,7 +20,7 @@ module ApplicationHelper
       selected = options[:selected]
     end
     css_class = selected ? "current" : ""
-    img = image_tag "nav_#{id}.png", :class => 'icon'
+    img = image_tag "nav_#{id}.png", :class => "icon"
     content_tag :li, img + link, :class => css_class, :id => "link_to_#{id}"
   end
 
@@ -73,30 +69,29 @@ module ApplicationHelper
   end
 
   def hint(content)
-    content_tag :div, content, :class => 'hint'
+    content_tag :div, content, :class => "hint"
   end
 
   def link_to_delete(url, link_title = nil)
-    link_title ||= l(:delete)
-    link_to link_title, url, :method => :delete, :confirm => l(:are_you_sure)
+    link_title ||= I18n.t("delete")
+    link_to link_title, url, :method => :delete, :confirm => I18n.t("are_you_sure")
   end
 
   def render_list(item_partial, items, options = {})
     if items.any?
-      object = options.delete(:object) || item_partial.split('/').last.to_sym
+      object = options.delete(:object) || item_partial.split("/").last.to_sym
       content = items.collect {|item|
-        item_class = [cycle('odd ', 'even ')]
+        item_class = [cycle("odd", "even")]
         item_class << options[:item_class] if options[:item_class]
-        puts "render (:partial => #{item_partial}, :locals => {#{object.inspect} => '#{item.class}'}, :class => '#{item_class.join(' ')}')"
-        content_tag(:li, render(:partial => item_partial, :locals => {object => item}), :class => item_class.join(' '))
+        content_tag(:li, render(:partial => item_partial, :locals => {object => item}), :class => item_class.join(" "))
       }.join
 
-      css_class = ['listing']
+      css_class = ["listing"]
       css_class << options[:class] if options[:class]
 
-      content_tag :ul, content.html_safe, :id => options[:id], :class => css_class.join(' ')
+      content_tag :ul, content.html_safe, :id => options[:id], :class => css_class.join(" ")
     else
-      content_tag :div, (options[:if_empty] || "В списке нет элементов") , :class => 'empty-list'
+      content_tag :div, (options[:if_empty] || "В списке нет элементов") , :class => "empty-list"
     end
   end
 
@@ -112,7 +107,7 @@ module ApplicationHelper
 
   def render_table_stats(stats)
     rows = stats.collect { |stat|
-      content_tag :tr, content_tag(:td, stat.title) + content_tag(:td, stat.value, :class=>'value'), :class => cycle('odd ', 'even ') + stat.key.to_s
+      content_tag :tr, content_tag(:td, stat.title) + content_tag(:td, stat.value, :class => "value"), :class => cycle("odd", "even") + stat.key.to_s
     }.join
     content_tag :table, rows.html_safe
   end
@@ -156,7 +151,7 @@ module ApplicationHelper
   def time_ago(object, method = :created_at)
     unless object.nil? || object.send(method).nil?
       exact_time = object.send method
-      "<span title='#{exact_time.to_s(:long)}'>#{distance_of_time_in_words(exact_time, Time.now)} назад</span>"
+      "<span title=\"#{exact_time.to_s(:long)}\">#{distance_of_time_in_words(exact_time, Time.now)} назад</span>"
     else
       nil
     end

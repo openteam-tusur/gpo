@@ -12,6 +12,5 @@ module ThemesHelper
     end
     out
   end
-  
-end
 
+end

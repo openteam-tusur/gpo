@@ -2,7 +2,7 @@
 
 module ChairsHelper
   def chair_abbr(chair)
-    h "Кафедра #{chair.abbr}"
+    "Кафедра #{chair.abbr}"
   end
 
   def chair_mentors(chair)

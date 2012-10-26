@@ -1,50 +1,13 @@
 # encoding: utf-8
 
 module UsersHelper
-  
-  #
-  # Use this to wrap view elements that the user can't access.
-  # !! Note: this is an *interface*, not *security* feature !!
-  # You need to do all access control at the controller level.
-  #
-  # Example:
-  # <%= if_authorized?(:index,   User)  do link_to('List all users', users_path) end %> |
-  # <%= if_authorized?(:edit,    @user) do link_to('Edit this user', edit_user_path) end %> |
-  # <%= if_authorized?(:destroy, @user) do link_to 'Destroy', @user, :confirm => 'Are you sure?', :method => :delete end %> 
-  #
-  #
+
   def if_authorized?(action, resource, &block)
     if authorized?(action, resource)
       yield action, resource
     end
   end
 
-  #
-  # Link to user's page ('users/1')
-  #
-  # By default, their login is used as link text and link title (tooltip)
-  #
-  # Takes options
-  # * :content_text => 'Content text in place of user.login', escaped with
-  #   the standard h() function.
-  # * :content_method => :user_instance_method_to_call_for_content_text
-  # * :title_method => :user_instance_method_to_call_for_title_attribute
-  # * as well as link_to()'s standard options
-  #
-  # Examples:
-  #   link_to_user @user
-  #   # => <a href="/users/3" title="barmy">barmy</a>
-  #
-  #   # if you've added a .name attribute:
-  #  content_tag :span, :class => :vcard do
-  #    (link_to_user user, :class => 'fn n', :title_method => :login, :content_method => :name) +
-  #          ': ' + (content_tag :span, user.email, :class => 'email')
-  #   end
-  #   # => <span class="vcard"><a href="/users/3" title="barmy" class="fn n">Cyril Fotheringay-Phipps</a>: <span class="email">barmy@blandings.com</span></span>
-  #
-  #   link_to_user @user, :content_text => 'Your user page'
-  #   # => <a href="/users/3" title="barmy" class="nickname">Your user page</a>
-  #
   def link_to_user(user, options={})
     raise "Invalid user" unless user
     options.reverse_merge! :content_method => :login, :title_method => :login, :class => :nickname
@@ -54,18 +17,6 @@ module UsersHelper
     link_to h(content_text), user_path(user), options
   end
 
-  #
-  # Link to login page using remote ip address as link content
-  #
-  # The :title (and thus, tooltip) is set to the IP address 
-  #
-  # Examples:
-  #   link_to_login_with_IP
-  #   # => <a href="/login" title="169.69.69.69">169.69.69.69</a>
-  #
-  #   link_to_login_with_IP :content_text => 'not signed in'
-  #   # => <a href="/login" title="169.69.69.69">not signed in</a>
-  #
   def link_to_login_with_IP content_text=nil, options={}
     ip_addr           = request.remote_ip
     content_text    ||= ip_addr
@@ -77,29 +28,24 @@ module UsersHelper
     end
   end
 
-  #
-  # Link to the current user's page (using link_to_user) or to the login page
-  # (using link_to_login_with_IP).
-  #
   def link_to_current_user(options={})
     if current_user
       link_to_user current_user, options
     else
-      content_text = options.delete(:content_text) || 'not signed in'
-      # kill ignored options from link_to_user
-      [:content_method, :title_method].each{|opt| options.delete(opt)} 
+      content_text = options.delete(:content_text) || "not signed in"
+      [:content_method, :title_method].each{|opt| options.delete(opt)}
       link_to_login_with_IP content_text, options
     end
   end
-  
+
   def link_to_new_user(chair)
     if chair.nil?
-      link_to l(:user, :new), new_user_url
+      link_to I18n.t("user.new"), new_user_url
     else
-      link_to l(:user, :new), new_chair_user_url(chair)
+      link_to I18n.t("user.new"), new_chair_user_url(chair)
     end
   end
-  
+
   def new_user_title(chair)
     if chair.nil?
       "Добавление нового пользователя"
@@ -107,7 +53,7 @@ module UsersHelper
       "Добавление нового пользователя на кафедру #{chair.abbr}"
     end
   end
-  
+
   def users_title(chair)
     if chair.nil?
       "Пользователи"
@@ -115,13 +61,13 @@ module UsersHelper
       "Пользователи кафедры #{chair.abbr}"
     end
   end
-  
+
   def link_to_back_to_users(chair)
-    link_to(l(:cancel), chair.nil? ? users_path : chair_users_path(chair) )
+    link_to(I18n.t("cancel"), chair.nil? ? users_path : chair_users_path(chair) )
   end
-  
+
   def link_to_edit_user(user, chair)
-    link_to(l(:edit), chair.nil? ? edit_user_url(user) : edit_chair_user_path(chair, user) )
+    link_to(I18n.t("edit"), chair.nil? ? edit_user_url(user) : edit_chair_user_path(chair, user) )
   end
 
   def link_to_delete_user(user, chair)
@@ -131,12 +77,12 @@ module UsersHelper
       link_to_delete(chair_user_url(chair, user))
     end
   end
-  
+
   def user_post(user)
     post = []
     post << "Кафедра #{h(user.chair.abbr)}" if user.chair
     post << h(user.post) unless user.post.blank?
-    post.join(',')
+    post.join(", ")
   end
 
 end

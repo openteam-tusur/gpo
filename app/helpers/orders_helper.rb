@@ -8,11 +8,11 @@ module OrdersHelper
     end
     title
   end
-  
+
   def order_icon(order)
-    image_tag "order_#{order.state}.png", :title => "#{order.state_description}", :class => 'icon'
+    image_tag "order_#{order.state}.png", :title => "#{order.state_description}", :class => "icon"
   end
-  
+
   def order_title_with_projects(order)
     "#{order.title} (проекты #{order.projects_to_s})"
   end
@@ -24,16 +24,16 @@ module OrdersHelper
   def to_review_order_button(order, caption)
     change_order_state_button(to_review_chair_order_url(order.chair, order), caption)
   end
-  
+
   def cancel_order_button(order, caption)
     change_order_state_button(cancel_chair_order_url(order.chair, order), caption)
   end
-  
+
   def change_order_state_button(url, caption)
     out = ""
     out << form_tag(url, :method => :put)
-    out << label_tag('comment', l(:activity, :comment))
-    out << text_area_tag('comment')
+    out << label_tag("comment", I18n.t("activity.comment"))
+    out << text_area_tag("comment")
     out << submit_tag(caption)
     out << "</form>"
     out
@@ -51,7 +51,7 @@ module OrdersHelper
       other_projects = "и еще #{n} #{Order.pluralized_string(n)}"
       projects = projects[0..1]
     end
-    out = projects.collect {|project| content_tag :span, link_to(project.cipher, chair_project_url(project.chair, project)), :title => project.title }.join(', ')
+    out = projects.collect {|project| content_tag :span, link_to(project.cipher, chair_project_url(project.chair, project)), :title => project.title }.join(", ")
     "#{out} #{other_projects}"
   end
 end
