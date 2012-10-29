@@ -1,285 +1,169 @@
 ru:
-  add: Добавить
-  create: Создать
-  edit: Редактировать
-  delete: Удалить
+  add:          Добавить
   are_you_sure: Вы уверены?
-  save: Сохранить
-  back: Назад
-  cancel: Отмена
+  back:         Назад
+  cancel:       Отмена
+  create:       Создать
+  delete:       Удалить
+  edit:         Редактировать
+  save:         Сохранить
 
-  login_required: Необходимо войти в систему
-
-  session:
-    login: Логин
-    password: Пароль
-
-  password:
-    user: Пользователь
-    email: E-mail
-
-  chairs: Кафедры
   chair:
-    new: Новая кафедра
-    title: Название
-    abbr: Аббревиатура
-    chief: Заведующий
+    new:        Новая кафедра
 
-  users: Пользователи
-  user:
-    new: Новый пользователь
-    first_name: Имя
-    mid_name: Отчество
-    last_name: Фамилия
-    email: E-mail
-    login: Логин
-    post: Должность, уч. звание
-    float: Аудитория, корпус
-    phone: Контактный телефон
-    password: Пароль
-    password_confirmation: Подтверждение пароля
-    chair_id: Кафедра
-
-  projects: Проекты
-  project:
-    new: Новый проект
-    cipher: Шифр
-    title: Название
-    chair: Кафедра
-    chair_id: Кафедра
-    stakeholders: Заинтересованные структуры
-    funds_required: Потребные ассигнования
-    funds_sources: Источники средств
-    purpose: Показатели назначения (технические, научные, экономические и пр.)
-    features: Основные характеристики
-    analysis: Анализ состояния дел и имеющихся достижений по тематике проекта
-    novelty: Новизна предполагаемой разработки
-    expected_results: Ожидаемые результаты
-    release_cost: Оценка возможности реализации разработки и её рыночной ценности
-    forecast: Прогноз возможных сроков и направлений практической реализации результатов проекта
-    goal: Цель проекта
-    source_data: Исходные данные для проектирования
-    close_reason: Причина
-    archive: Закрытые проекты
-    active: Активные проекты
-
-  rules: Правила
-  rule:
-    new: Новое правило
-    user_id: Пользователь
-    role: Роль
-    chair_id: Кафедра
-    project_id: Проект
-
-  managers: Руководители
   manager:
-    new: Добавить руководителя
-    user_id: Пользователь
-    project_id: Проект
+    new:        Добавить руководителя
 
-  participants: Участники проекта
   participant:
-    new: Новый участник
-    student_id: Студент
+    new:        Новый участник
 
-  stages: Этапы календарного плана
-  stage:
-    new: Новый этап
-    title: Название
-    start: Дата начала
-    finish: Дата окончания
-    funds_required: Объем затрат
-    activity: Содержание работ
-    results: Ожидаемые результаты
-
-  task:
-    order: Приказ
-    project: Проект
-
-  orders: Приказы
-  order:
-    number: Номер
-    approved_at: Дата
-    file: Файл
-    odt_file: Экспорт ODT
-    doc_file: Экспорт DOC
-    hint_draft: Для того, чтобы изменения вступили в силу, приказ нужно отправить на визирование
-    hint_being_reviewed: Приказ требует визирования. Вы можете просмотреть изменения в проектах, визировать или вернуть приказ на доработку
-    hint_reviewed: Приказ требует утверждения. Вы можете утвердить или вернуть приказ на доработку
+  project:
+    active:     Активные проекты
+    archive:    Закрытые проекты
+    new:        Новый проект
 
   opening_order:
-    title: о формировании проектов
-    new: Формирование проектов
+    new:        Формирование проектов
+    title:      о формировании проектов
 
-  workgroup_order:
-    title: об изменении рабочих групп проектов
-    new: Изменение рабочих групп
-
-  activities: Активность
-  activity:
-    action: Действие
-    comment: Комментарий
+  order:
+    doc_file:            Экспорт DOC
+    hint_being_reviewed: Приказ требует визирования. Вы можете просмотреть изменения в проектах, визировать или вернуть приказ на доработку
+    hint_draft:          Для того, чтобы изменения вступили в силу, приказ нужно отправить на визирование
+    hint_reviewed:       Приказ требует утверждения. Вы можете утвердить или вернуть приказ на доработку
+    odt_file:            Экспорт ODT
 
   order_activity:
-    unknown: состояние изменен
-    return: возвращен на доработку
-    approve: утвержден
-    to_review: отправлен на визирование
-    review: визирован
+    approve:    утвержден
+    return:     возвращен на доработку
+    review:     визирован
+    to_review:  отправлен на визирование
+    unknown:    состояние изменен
+
+  rule:
+    new:        Новое правило
+
+  stage:
+    new:        Новый этап
+
+  task:
+    order:      Приказ
+    project:    Проект
+
+  workgroup_order:
+    new:        Изменение рабочих групп
+    title:      об изменении рабочих групп проектов
 
   activerecord:
     models:
-      chair: Кафедра
-      user: Пользователь
-      project: Проект
-      rule: Правило
-      manager: Руководитель
+      activity:    Активность
+      chair:       Кафедра
+      issue:       Индивидуальная задача
+      manager:     Руководитель
+      order:       Приказ
       participant: Участник
-      stage: Этап
-      order: Приказ
-      activity: Активность
-      theme: Направление
-      visitation: Посещаемость
-      issue: Индивидуальная задача
+      project:     Проект
+      rule:        Правило
+      stage:       Этап
+      theme:       Направление
+      user:        Пользователь
+      visitation:  Посещаемость
 
     attributes:
-
-      session:
-        login: Логин
-        password: Пароль
-
-      theme:
-        name: Название
-
-      password:
-        user: Пользователь
-        email: E-mail
+      activity:
+        action:    Действие
+        comment:   Комментарий
 
       chair:
-        new: Новая кафедра
-        title: Название
-        abbr: Аббревиатура
-        chief: Заведующий
-
-      user:
-        new: Новый пользователь
-        first_name: Имя
-        mid_name: Отчество
-        last_name: Фамилия
-        email: E-mail
-        login: Логин
-        post: Откуда это берется
-        password: Пароль
-        password_confirmation: Подтверждение пароля
-        chair_id: Кафедра
-
-      project:
-        active: Активные проекты
-        analysis: Анализ состояния дел и имеющихся достижений по тематике проекта
-        archive: Закрытые проекты
-        chair: Кафедра
-        chair_id: Кафедра
-        cipher: Шифр
-        close_reason: Причина
-        expected_results: Ожидаемые результаты
-        features: Основные характеристики
-        forecast: Прогноз возможных сроков и направлений практической реализации результатов проекта
-        funds_required: Потребные ассигнования
-        funds_sources: Источники средств
-        goal: Цель проекта
-        new: Новый проект
-        novelty: Новизна предполагаемой разработки
-        purpose: Показатели назначения (технические, научные, экономические и пр.)
-        release_cost: Оценка возможности реализации разработки и её рыночной ценности
-        source_data: Исходные данные для проектирования
-        stakeholders: Заинтересованные структуры
-        theme_id: Направление
-        title: Название
-
-      rule:
-        new: Новое правило
-        user_id: Пользователь
-        role: Роль
-        chair_id: Кафедра
-        project_id: Проект
-
-      manager:
-        new: Добавить руководителя
-        user_id: Пользователь
-        project_id: Проект
-
-      participant:
-        new: Новый участник
-        student_id: Студент
-
-      stage:
-        new: Новый этап
-        title: Название
-        start: Дата начала
-        finish: Дата окончания
-        funds_required: Объем затрат
-        activity: Содержание работ
-        results: Ожидаемые результаты
-
-
-      task:
-        order: Приказ
-        project: Проект
-
-      order:
-        number: Номер
-        approved_at: Дата
-        file: Файл
-        odt_file: Экспорт ODT
-        doc_file: Экспорт DOC
-        to_review: Отправить на визирование
-        review: Визировать
-        cancel: Вернуть
-        approve: Утвердить
-        hint_draft: Для того, чтобы изменения вступили в силу, приказ нужно отправить на визирование
-        hint_being_reviewed: Приказ требует визирования. Вы можете просмотреть изменения в проектах, визировать или вернуть приказ на доработку
-        hint_reviewed: Приказ требует утверждения. Вы можете утвердить или вернуть приказ на доработку
-
-      opening_order:
-        title: о формировании проектов
-        new: Формирование проектов
-
-      workgroup_order:
-        title: об изменении рабочих групп проектов
-        new: Изменение рабочих групп
-
-      activity:
-          action: Действие
-          comment: Комментарий
-
-      order_activity:
-          unknown: состояние изменен
-          return: возвращен на доработку
-          approve: утвержден
-          to_review: отправлен на визирование
-          review: визирован
+        abbr:      Аббревиатура
+        chief:     Заведующий
+        title:     Название
 
       gpoday:
-        date: Дата
-        kt: Контрольная точка
-
-      visitation:
-        rate: Баллы
+        date:      Дата
+        kt:        Контрольная точка
 
       issue:
-        name: Название
-        description: Содержание работ
-        abbr_planned_closing_at: План<br />дата
-        planned_closing_at: Плановая дата выполнения
-        abbr_planned_grade: План<br />баллы
-        planned_grade: Плановое количество баллов за выполнение
-        abbr_closed_at: Факт<br />дата
-        closed_at: Фактическая дата выполнения
-        abbr_grade: Факт<br />баллы
-        grade: Количество баллов за выполнение
-        results: Полученные результаты
-        planned_summ_grade: Запланировано баллов
-        fact_summ_grade: Фактическая сумма баллов
+        abbr_closed_at:           Факт<br />дата
+        abbr_grade:               Факт<br />баллы
+        abbr_planned_closing_at:  План<br />дата
+        abbr_planned_grade:       План<br />баллы
+        closed_at:                Фактическая дата выполнения
+        description:              Содержание работ
+        fact_summ_grade:          Фактическая сумма баллов
+        grade:                    Количество баллов за выполнение
+        name:                     Название
+        planned_closing_at:       Плановая дата выполнения
+        planned_grade:            Плановое количество баллов за выполнение
+        planned_summ_grade:       Запланировано баллов
+        results:                  Полученные результаты
+
+      manager:
+        project_id:       Проект
+        user_id:          Пользователь
+
+      order:
+        approved_at:      Дата
+        file:             Файл
+        number:           Номер
+
+      participant:
+        student_id:       Студент
+
+      project:
+        analysis:         Анализ состояния дел и имеющихся достижений по тематике проекта
+        chair:            Кафедра
+        chair_id:         Кафедра
+        cipher:           Шифр
+        close_reason:     Причина
+        expected_results: Ожидаемые результаты
+        features:         Основные характеристики
+        forecast:         Прогноз возможных сроков и направлений практической реализации результатов проекта
+        funds_required:   Потребные ассигнования
+        funds_sources:    Источники средств
+        goal:             Цель проекта
+        novelty:          Новизна предполагаемой разработки
+        purpose:          Показатели назначения (технические, научные, экономические и пр.)
+        release_cost:     Оценка возможности реализации разработки и её рыночной ценности
+        source_data:      Исходные данные для проектирования
+        stakeholders:     Заинтересованные структуры
+        theme_id:         Направление
+        title:            Название
+
+      rule:
+        chair_id:         Кафедра
+        project_id:       Проект
+        role:             Роль
+        user_id:          Пользователь
+
+      stage:
+        title:            Название
+        start:            Дата начала
+        finish:           Дата окончания
+        funds_required:   Объем затрат
+        activity:         Содержание работ
+        results:          Ожидаемые результаты
+
+      task:
+        order:            Приказ
+        project:          Проект
+
+      theme:
+        name:             Название
+
+      visitation:
+        rate:             Баллы
+
+      user:
+        chair_id:              Кафедра
+        email:                 E-mail
+        first_name:            Имя
+        last_name:             Фамилия
+        login:                 Логин
+        mid_name:              Отчество
+        password:              Пароль
+        password_confirmation: Подтверждение пароля
+        post:                  Откуда это берется
 
     state_machines:
       manager:
