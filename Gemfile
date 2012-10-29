@@ -10,8 +10,8 @@ end
 group :default do
   gem 'better'
   gem 'compass-rails'
-  gem 'jquery-rails'
   gem 'inherited_resources'
+  gem 'jquery-rails'
   gem 'openteam-commons'
   gem 'rails'
   gem 'russian'
