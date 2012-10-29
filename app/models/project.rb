@@ -39,7 +39,7 @@ class Project < ActiveRecord::Base
 
   has_many :order_projects, :dependent => :destroy
   has_many :orders, :through => :order_projects, :order => "ordinances.id desc"
-  has_one :opening_order, :through => :order_projects, :conditions => ["ordinances.type = ?", OpeningOrder.name], :source => :order
+  has_many :opening_orders, :through => :order_projects, :conditions => ["ordinances.type = ?", OpeningOrder.name], :source => :order
   has_many :workgroup_orders, :through => :order_projects, :conditions => ["ordinances.type = ?", WorkgroupOrder.name], :source => :order, :order => "ordinances.approved_at desc"
 
   validates_presence_of :title
@@ -80,6 +80,10 @@ class Project < ActiveRecord::Base
     Stat.for_project(self, *types)
   end
 
+  def opening_order
+    opening_orders.first
+  end
+
   def id_to_s
     self.cipher
   end
@@ -115,5 +119,39 @@ class Project < ActiveRecord::Base
     last_number = last_project.try(:cipher).try(:[], -2..-1).to_i
     self.cipher = sprintf "%s-%d%02d", chair.abbr, year, last_number + 1
   end
+
+  def xml_for_project_tz
+    self.to_xml(:skip_types => true, :root => "doc") do |xml|
+      xml.chair_abbr self.chair.abbr
+      xml.chair_chief self.chair.chief
+      xml.opened_order_approved_at (self.opening_order && self.opening_order.approved_at) ? I18n.l(self.opening_order.approved_at) : ''
+      xml.opened_order_number self.opening_order ? self.opening_order.number : ''
+      xml.theme_name self.theme ? self.theme.name : ''
+      xml.funds_sources self.funds_sources
+      xml.source_data self.source_data
+      xml.chief self.users.empty? ? '' : "#{self.users[0].initials_name}, #{self.users[0].post}"
+      xml.chief_name self.users.empty? ? '' : "#{self.users[0].initials_name}"
+      xml.participants do |xml_participant|
+        self.participants.active.each do |participant|
+          xml.participant do
+            xml.name participant.name
+            xml.edu_group participant.edu_group
+          end
+        end
+      end
+      xml.stages do |xml_stage|
+        self.stages.each do |stage|
+          xml.stage do
+            xml.title stage.title
+            xml.activity stage.activity
+            xml.results stage.results
+            xml.start I18n.l(stage.start)
+            xml.finish I18n.l(stage.finish)
+          end
+        end
+      end
+    end
+  end
+
 
 end

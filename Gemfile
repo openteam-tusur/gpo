@@ -8,6 +8,7 @@ group :assets do
 end
 
 group :default do
+  gem 'better'
   gem 'compass-rails'
   gem 'jquery-rails'
   gem 'openteam-commons'

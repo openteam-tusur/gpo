@@ -1,7 +1,8 @@
 # encoding: utf-8
+require 'better/tempfile'
 
 class ReportsController < ApplicationController
-  before_filter [:find_chair, :find_project], :only => :show
+  before_filter :find_chair, :find_project, only: :show
 
   def index
   end
@@ -53,11 +54,14 @@ class ReportsController < ApplicationController
 
     raise "Неверные параметры для отчета" unless report
 
-    filename = "#{params[:id]}.xls"
+    filename = "#{params[:id]}.ods"
     report.render_to_file { |file|
-      converted_file = Tempfile.new('converted_file')
-      system("bash", "#{RAILS_ROOT}/script/converter/converter_xls.sh", file.path, converted_file.path, "xls")
-      send_file converted_file.path, :type => Mime::Type.lookup_by_extension('xls'), :filename => filename
+      #raise Mime::Type.lookup_by_extension('ods').inspect
+      send_file file.path#, :type => Mime::Type.lookup_by_extension('ods'), :filename => filename
+      #raise file.inspect
+      #converted_file = Tempfile.new('converted_file')
+      #system("bash", "#{Rails.root}/script/converter/converter_xls.sh", file.path, converted_file.path, "xls")
+      #send_file converted_file.path, :type => Mime::Type.lookup_by_extension('xls'), :filename => filename
     }
   end
 
@@ -92,7 +96,7 @@ class ReportsController < ApplicationController
     odt_file = Better::Tempfile.new([report_filename, ".odt"])
     doc_file = Better::Tempfile.new([report_filename, ".doc"])
 
-    libdir = "#{Rails::root}/lib/templates/reports/lib"
+    libdir = "#{Rails::root}/lib/reports/lib"
     system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
     report_filepath = odt_file.path
 
@@ -100,7 +104,7 @@ class ReportsController < ApplicationController
       system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodconverter-cli-2.2.2.jar", odt_file.path, doc_file.path)
       report_filepath = doc_file.path
     end
-    send_file report_filepath, :type => MIME::Types.of(extention).first.content_type, :filename => report_filename
+    send_file report_filepath#, :type => MIME::Types.of(extention).first.content_type, :filename => report_filename
   end
 end
 
