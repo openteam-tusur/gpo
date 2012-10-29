@@ -17,7 +17,7 @@
   <fieldset>
     <%= form.input :last_name, :input_html => { :value => params[:last_name] } %>
     <%= form.input :edu_group, :input_html => { :value => params[:edu_group] } %>
-    <%= form.submit I18n.t("find") %>
+    <%= form.button :submit, I18n.t("find") %>
   </fieldset>
 <% end %>
 

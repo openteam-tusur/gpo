@@ -1,7 +1,9 @@
 =default_input
-  margin-bottom: 8px
-  background: white
+  background-color: white
   border: 1px solid $input_border_color
+  +border-radius(3px)
+  margin: 0 10px 0 0
+  padding: 4px
 
 .simple_form
   p
@@ -14,50 +16,42 @@
     margin: 0px
     padding: 0
     margin-bottom: 7px
-  label
-    display: block
-    margin-bottom: 1px
-    span
-      color: $comment_color
-    abbr
-      +clearfix
-      width: 6px
-      +inline-block
-      text-indent: -9999em
-      cursor: help
-      background: transparent image_url("required.png") no-repeat 0 3px
   fieldset
     background: #f3f3f3
     padding: 10px 15px
     margin-bottom: 2.5em
     border: 1px solid #eee
+  .input
+    margin-bottom: 10px
+    label
+      display: block
+      margin-bottom: 1px
+      span
+        color: $comment_color
+      abbr
+        +clearfix
+        width: 6px
+        +inline-block
+        text-indent: -9999em
+        cursor: help
+        background: transparent image_url("required.png") no-repeat 0 3px
+    textarea
+      +default_input
+      font-size: 1em
+      width: 95%
+      height: 100px
+    select
+      +default_input
+      font-size: 1em
+      width: 200px
     input
       +default_input
       font-size: 1.1em
-      padding: 4px
       margin-right: 10px
-    input[type=submit]
-      font-size: 1.3em
-      padding: 0.1em 0.5em
-  textarea
-    +default_input
-    padding: 4px
-    font-size: 1em
-    width: 95%
-    height: 100px
-  select
-    padding: 1px
-    font-size: 1em
-    width: 200px
-  #errorExplanation
-    h2
-      +header_text
-    p
-      margin: 0
-    ul
-      padding: 0
-      margin: 0 0 1em 15px
-  .fieldWithErrors
-    label
+    .error
       color: #cc3333
+      font-size: 11px
       font-weight: bold
+      margin-bottom: 0 !important
+  .button
+    margin-right: 5px

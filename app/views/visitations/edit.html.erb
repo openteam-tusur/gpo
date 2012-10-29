@@ -8,7 +8,7 @@
 <%= simple_form_for chair_project_visitation_path(@project.chair, @project, @gpoday), :method => :put do | form | %>
   <fieldset class="participant_visitation">
     <%= form.association :rate %>
-    <%= form.submit I18n.t("save") %>
+    <%= form.button :submit, I18n.t("save") %>
     <%= link_to I18n.t("cancel"), chair_project_visitations_path(@project.chair, @project) %>
   </fieldset>
 <% end %>

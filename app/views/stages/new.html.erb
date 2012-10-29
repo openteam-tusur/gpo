@@ -10,7 +10,7 @@
 <%= simple_form_for [@project.chair, @project, @stage] do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
-    <%= form.submit I18n.t("create") %>
+    <%= form.button :submit, I18n.t("create") %>
     <%= link_to I18n.t("cancel"), chair_project_stages_path(@project.chair, @project) %>
   </fieldset>
 <% end %>

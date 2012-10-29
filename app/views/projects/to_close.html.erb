@@ -16,7 +16,7 @@
 <%= simple_form_for :project, :url => close_chair_project_path(@project.chair, @project), :html => { :method => :put } do | form | %>
   <fieldset>
     <%= form.input :close_reason %>
-    <%= form.submit I18n.t("project.close") %>
+    <%= form.button :submit, I18n.t("project.close") %>
   </fieldset>
 <% end %>
 <%= link_to I18n.t("cancel"), chair_project_path(@project.chair, @project) %>

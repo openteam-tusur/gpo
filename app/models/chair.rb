@@ -15,6 +15,9 @@
 require 'task'
 
 class Chair < ActiveRecord::Base
+
+  attr_accessible :title, :abbr, :chief
+
   validates_presence_of :title, :abbr, :chief
   validates_uniqueness_of :abbr
 

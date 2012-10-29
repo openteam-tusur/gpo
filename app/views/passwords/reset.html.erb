@@ -5,5 +5,5 @@
   <%= form.input :password %>
   <%= form.input :password_confirmation %>
   <%= form.input :reset_code, :as => :hidden, :input_html => { :value => params[:reset_code] } %>
-  <%= form.submit I18n.t("save") %>
+  <%= form.button :submit, I18n.t("save") %>
 <% end %>

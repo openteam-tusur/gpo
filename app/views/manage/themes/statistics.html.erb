@@ -6,5 +6,5 @@
 
 <%= simple_form_for :themes, :url => projects_manage_themes_path, :method => :get do | form | %>
   <%= render_list 'theme', @themes, :id => 'themes' %>
-  <%= form.submit "Показать проекты" %>
+  <%= form.button :submit, "Показать проекты" %>
 <% end %>

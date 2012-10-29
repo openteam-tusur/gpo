@@ -2,7 +2,7 @@
   <div id="go-to-chair">
     <%= simple_form_for chairs_path do | form | %>
       <%= form.input :chair, :label => "Кафедра", :collection => @user_chairs.collect { | chair | [chair.abbr, chair.id] }, :required => false %>
-      <%= form.submit "&raquo;" %>
+      <%= form.button :submit, "&raquo;" %>
     <% end %>
   </div>
 <% end %>

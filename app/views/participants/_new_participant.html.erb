@@ -16,7 +16,7 @@
       <%= form.input :student_id, :as => :hidden, :input_html => { :value => new_participant.student_id } %>
       <%= form.input :edu_group, :as => :hidden, :input_html => { :value => @query[:edu_group] } %>
       <%= form.input :last_name, :as => :hidden, :input_html => { :value => @query[:last_name] } %>
-      <%= form.submit I18n.t("add") %>
+      <%= form.button :submit, I18n.t("add") %>
     <% end %>
   </div>
 <% end %>

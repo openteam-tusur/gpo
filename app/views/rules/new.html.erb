@@ -11,7 +11,7 @@
 <%= simple_form_for @rule do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
-    <%= form.submit I18n.t("create") %>
+    <%= form.button :submit, I18n.t("create") %>
     <%= link_to I18n.t("cancel"), rules_path %>
   </fieldset>
 <% end %>

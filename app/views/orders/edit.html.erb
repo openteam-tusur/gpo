@@ -15,7 +15,7 @@
 <%= simple_form_for :order, @order, :url => chair_order_path(@chair, @order), :html => { :method => :put } do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form, :order => @order } %>
-    <%= form.submit I18n.t("save") %>
+    <%= form.button :submit, I18n.t("save") %>
     <%= link_to I18n.t("cancel"), chair_order_path(@chair, @order) %>
   </fieldset>
 <% end %>

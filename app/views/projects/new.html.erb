@@ -10,7 +10,7 @@
 <%= simple_form_for [@chair, @project] do | form | %>
   <fieldset>
     <%= form.input :title %>
-    <%= form.submit I18n.t("create") %>
+    <%= form.button :submit, I18n.t("create") %>
     <%= link_to I18n.t("back"), chair_projects_path(@chair) %>
   </fieldset>
 <% end %>

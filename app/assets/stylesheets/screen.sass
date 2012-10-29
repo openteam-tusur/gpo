@@ -2,6 +2,7 @@
 @import "compass/css3"
 @import "base"
 @import "forms"
+@import "gh_buttons"
 @import "jquery_ui"
 
 *
@@ -47,12 +48,15 @@ a
     #go-to-chair
       float: left
       width: 170px
-      label
-        +small_text
-        display: inline
-      select
-        width: 80px
-        margin-bottom: 0px
+      .simple_form
+        label
+          +small_text
+          +inline-block
+          margin-right: 5px
+        select
+          width: auto
+          margin-bottom: 0px
+          padding: 0
     #userbox
       float: right
       +clearfix
