@@ -1,6 +1,6 @@
 <% title chair_abbr(@chair), :chair %>
 
-<%= render :partial => "reports/report_action_link", :collection => Report::REPORTS[:chair], :as => :report, :locals => {:type => "chair", :id => @chair.id}  %>
+<%= render :partial => "manage/reports/report_action_link", :collection => Report::REPORTS[:chair], :as => :report, :locals => {:type => "chair", :id => @chair.id}  %>
 <% action_link(link_to(I18n.t("edit"), edit_chair_path(@chair)), "edit", "Позволяет изменить информацию о кафедре") if permitted_to?(:update, @chair) %>
 
 <% content_for :hint do %>
