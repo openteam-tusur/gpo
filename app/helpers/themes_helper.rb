@@ -10,7 +10,7 @@ module ThemesHelper
     else
       out << content_tag(:div, project.theme.name, :class => "theme section")
     end
-    out
+    out.html_safe
   end
 
 end

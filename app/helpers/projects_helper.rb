@@ -7,7 +7,7 @@ module ProjectsHelper
     out << form_tag(reopen_chair_project_path(project.chair, project), :method => :put)
     out << submit_tag(I18n.t("project.reopen"))
     out << "</form>"
-    out
+    out.html_safe
   end
 
   def project_managers(project)
@@ -23,10 +23,10 @@ module ProjectsHelper
       out << content_tag(:h3, I18n.t("project.#{attribute}"))
       out << content_tag(:div, value + "", :class => "section")
     end
-    out
+    out.html_safe
   end
 
   def project_updated(project)
-    "Изменен: #{time_ago(project, :updated_at) || "не известно когда"}"
+    "Изменен: #{time_ago(project, :updated_at) || "не известно когда"}".html_safe
   end
 end

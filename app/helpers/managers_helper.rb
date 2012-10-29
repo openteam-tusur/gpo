@@ -15,7 +15,7 @@ module ManagersHelper
     out << form_tag(url, :method => :put)
     out << submit_tag(button_name)
     out << "</form>"
-    out
+    out.html_safe
   end
 
   def manager_projects(user)

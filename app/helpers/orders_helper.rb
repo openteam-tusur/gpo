@@ -36,7 +36,7 @@ module OrdersHelper
     out << text_area_tag("comment")
     out << submit_tag(caption)
     out << "</form>"
-    out
+    out.html_safe
   end
 
   def link_to_file(order, format, caption)

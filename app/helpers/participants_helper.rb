@@ -14,7 +14,7 @@ module ParticipantsHelper
     out << form_tag(url, :method => :put)
     out << submit_tag(button_name)
     out << "</form>"
-    out
+    out.html_safe
   end
 
   def problem_text(participant)

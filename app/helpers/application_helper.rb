@@ -157,7 +157,7 @@ module ApplicationHelper
   def time_ago(object, method = :created_at)
     unless object.nil? || object.send(method).nil?
       exact_time = object.send method
-      "<span title=\"#{exact_time.to_s(:long)}\">#{distance_of_time_in_words(exact_time, Time.now)} назад</span>".html_safe
+      content_tag :span, "#{distance_of_time_in_words(exact_time, Time.now)} назад", title: I18n.l(exact_time, :format => :long)
     else
       nil
     end
