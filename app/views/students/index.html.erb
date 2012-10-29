@@ -1,11 +1,9 @@
 <% content_for :title, "Студенты" %>
 
-<%  form_tag(students_path, :method => 'get') do %>
-  <%= label_tag(:last_name, "Фамилия") %>
-  <%= text_field_tag :last_name %>
-  <%= label_tag(:edu_group, "Группа") %>
-  <%= text_field_tag :edu_group %>
-  <%= submit_tag 'Искать' %>
+<%= simple_form_for students_path, :method => "get" do | form | %>
+  <%= form.input :last_name %>
+  <%= form.input :edu_group %>
+  <%= form.submit I18n.t("find") %>
 <% end %>
 
 <ul>

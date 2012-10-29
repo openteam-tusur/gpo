@@ -7,14 +7,11 @@
   <p>Если нет необходимости создавать проект нажмите "Отмена" для возврата к списку проектов.</p>
 <% end %>
 
-<% form_for([@chair, @project]) do |form| %>
+<%= simple_form_for [@chair, @project] do | form | %>
   <fieldset>
-    <%= form.error_messages %>
-    <%= form.text_field(:title) %>
-    <p>
-      <%= form.submit I18n.t("create") %>
-      <%= link_to I18n.t("back"), chair_projects_path(@chair) %>
-    </p>
+    <%= form.input :title %>
+    <%= form.submit I18n.t("create") %>
+    <%= link_to I18n.t("back"), chair_projects_path(@chair) %>
   </fieldset>
 <% end %>
 

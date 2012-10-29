@@ -1,3 +1,4 @@
+<%# FIXME remove h wrapper %>
 <% title "Изменение задачи для участника #{h(@participant.name)}", :issues %>
 
 <% content_for :hint do %>
@@ -6,13 +7,11 @@
   <p>Если нет необходимости изменять задачу перейдите по ссылке "Отмена"</p>
 <% end %>
 
-<% form_for([@chair, @project, @participant, @issue]) do |form| %>
+<%= simple_form_for [@chair, @project, @participant, @issue] do | form | %>
   <fieldset>
-    <%= render :partial => "form", :locals => {:form => form} %>
-    <p>
-      <%= form.submit I18n.t("save") %>
-      <%= link_to I18n.t("cancel"), chair_project_issues_path(@chair, @project) %>
-    </p>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.submit I18n.t("save") %>
+    <%= link_to I18n.t("cancel"), chair_project_issues_path(@chair, @project) %>
   </fieldset>
 <% end %>
 

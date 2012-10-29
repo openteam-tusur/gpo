@@ -5,13 +5,10 @@
   <p>Если нет необходимости изменять направление нажмите "Отмена" для возврата к списку направлений.</p>
 <% end %>
 
-<% form_for(@theme) do |f| %>
+<%= simple_form_for(@theme) do | form | %>
   <fieldset>
-    <%= f.error_messages %>
-    <%= f.text_field :name %>
-    <p>
-      <%= f.submit I18n.t("save") %>
-      <%= link_to I18n.t("back"), themes_path %>
-    </p>
+    <%= form.input :name, :input_html => { :autofocus => true } %>
+    <%= form.submit I18n.t("save") %>
+    <%= link_to I18n.t("back"), themes_path %>
   </fieldset>
 <% end %>

@@ -1,17 +1,9 @@
 <% title "Новый пароль", :user %>
 
-<% form_for(:user, :url => { :action => 'update_after_forgetting' }) do |f| %>
-  <%= f.error_messages %>
-
+<%= simple_form_for :user, :url => { :action => 'update_after_forgetting' } do | form | %>
   <p>Введите новый пароль.</p>
-
-    <%= f.password_field :password %>
-
-    <%= f.password_field :password_confirmation %>
-
-  <p>
-    <%= hidden_field_tag :reset_code, params[:reset_code] %>
-    <%= f.submit "Сохранить" %>
-  </p>
+  <%= form.input :password %>
+  <%= form.input :password_confirmation %>
+  <%= form.input :reset_code, :as => :hidden, :input_html => { :value => params[:reset_code] } %>
+  <%= form.submit I18n.t("save") %>
 <% end %>
-

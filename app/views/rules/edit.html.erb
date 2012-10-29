@@ -7,13 +7,11 @@
   <p>Если нет необходимости изменять правило нажмите "Отмена" для возврата к списку правил.</p>
 <% end %>
 
-<% form_for(@rule) do |form| %>
+<%= simple_form_for @rule do | form | %>
   <fieldset>
-    <%= render :partial => "form", :locals => {:form => form} %>
-    <p>
-      <%= form.submit I18n.t("save") %>
-      <%= link_to I18n.t("cancel"), rules_path %>
-    </p>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.submit I18n.t("save") %>
+    <%= link_to I18n.t("cancel"), rules_path %>
   </fieldset>
 <% end %>
 

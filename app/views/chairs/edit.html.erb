@@ -6,10 +6,10 @@
   <p>Если нет необходимости изменять информацию нажмите "Отмена" для возврата к просмотру кафедры.</p>
 <% end %>
 
-<% form_for(@chair) do |form| %>
-  <%= render :partial => "form", :locals => {:form => form} %>
-  <p>
+<%= simple_form_for @chair do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.submit I18n.t("save") %>
     <%= link_to I18n.t("cancel"), chairs_path %>
-  </p>
+  </fieldset>
 <% end %>

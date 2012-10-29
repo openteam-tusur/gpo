@@ -6,13 +6,11 @@
   <p>Если нет необходимости создавать кафедру нажмите "Отмена" для возврата к списку кафедр.</p>
 <% end %>
 
-<% form_for(@chair) do |form| %>
+<%= simple_form_for @chair do | form | %>
   <fieldset>
-    <%= render :partial => "form", :locals => {:form => form} %>
-    <p>
-      <%= form.submit I18n.t("create") %>
-      <%= link_to I18n.t("cancel"), chairs_path %>
-    </p>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.submit I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), chairs_path %>
   </fieldset>
 <% end %>
 

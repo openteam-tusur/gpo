@@ -6,7 +6,7 @@
  * = require_tree .
  */
 
-jQuery(function($){
+function init_datepicker_locale() {
   $.datepicker.regional['ru'] = {
     clearText: 'Очистить',
     clearStatus: '',
@@ -39,7 +39,7 @@ jQuery(function($){
     isRTL: false
   };
   $.datepicker.setDefaults($.datepicker.regional['ru']);
-});
+};
 
 function hint() {
   $('#tray').append("<img class='hint-switcher' src='/assets/icon-help.png' />");
@@ -149,41 +149,14 @@ function gpoday() {
 
 function go_to_chair() {
   $("#go-to-chair input[type=submit]").hide();
-  $("#go_to_chair").change(function() {
-    $(this).parent().submit();
+  $("#go-to-chair select").change(function() {
+    console.log(this);
+    $(this).closest("form").submit();
   });
 }
 
-//$.blockUI.defaults = {
-//  message:  "<p style='margin-bottom: 20px;'><img width='16' height='16' src='/assets/ajax-loader.gif' /></p><p style='font-size: 16px; font-weight: bold;'>Пожалуйста, подождите...</p>",
-//  css: {
-//    padding:    50,
-//    margin:     "auto",
-//    width:      "30%",
-//    top:        "40%",
-//    left:       "31%",
-//    textAlign:  "center",
-//    color:      "#fff",
-//    border:     "5px solid #777",
-//    background: "transparent url('/assets/blockMsg_bg.png') repeat",
-//    behavior:   "url('/stylesheets/iepngfix.htc')",
-//    cursor:     "wait"
-//  },
-//  overlayCSS: {
-//    display:    "block",
-//    background: "transparent url('/assets/blockOverlay_bg.png') repeat",
-//    behavior:   "url('/stylesheets/iepngfix.htc')",
-//    cursor:     "wait"
-//  },
-//  fadeIn:   400,
-//  fadeOut:  400
-//};
-
-//$().ajaxStart($.blockUI).ajaxStop($.unblockUI);
-
-//$.ajaxStart($.blockUI).ajaxStop($.unblockUI);
-
 $(document).ready(function() {
+  init_datepicker_locale();
   $("#hint").css("display", "none");
   $('input.datepicker').datepicker();
   $('.attention').effect("highlight", {color: '#ff0'}, 1000);

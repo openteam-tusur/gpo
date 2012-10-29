@@ -13,6 +13,7 @@ group :default do
   gem 'openteam-commons'
   gem 'rails'
   gem 'russian'
+  gem 'simple_form'
   gem 'state_machine'
 end
 

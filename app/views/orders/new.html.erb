@@ -12,13 +12,11 @@
 <% else %>
 
   <p>Выберите проекты, состояние которых будет утверждено приказом.</p>
-  <% form_for(:order, :url => chair_orders_path(@chair)) do |form| %>
+  <%= simple_form_for :order, :url => chair_orders_path(@chair) do | form | %>
     <fieldset>
-      <%= render :partial => "form", :locals => {:form => form, :order => @order} %>
-      <p>
-        <%= form.submit I18n.t("create") %>
-        <%= link_to I18n.t("cancel"), chair_orders_path(@chair) %>
-      </p>
+      <%= render :partial => "form", :locals => { :form => form, :order => @order } %>
+      <%= form.submit I18n.t("create") %>
+      <%= link_to I18n.t("cancel"), chair_orders_path(@chair) %>
     </fieldset>
   <% end %>
 <% end %>

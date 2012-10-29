@@ -16,12 +16,10 @@
   <p>Если нет необходимости создавать пользователя нажмите "Отмена" для возврата к списку пользователей.</p>
 <% end %>
 
-<% form_for(@chair.nil? ? @user : [@chair, @user]) do |form| %>
+<%= simple_form_for @chair.nil? ? @user : [@chair, @user] do | form | %>
   <fieldset>
-    <%= render :partial => "form", :locals => {:form => form, :show_chair => @chair.nil?} %>
-    <p>
-      <%= form.submit I18n.t("create") %>
-      <%= link_to_back_to_users(@chair) %>
-    </p>
+    <%= render :partial => "form", :locals => { :form => form, :show_chair => @chair.nil? } %>
+    <%= form.submit I18n.t("create") %>
+    <%= link_to_back_to_users(@chair) %>
   </fieldset>
 <% end %>

@@ -7,13 +7,11 @@
   <p>Если нет необходимости создавать этап нажмите "Отмена" для перехода к просмотру календарного плана.</p>
 <% end %>
 
-<% form_for([@project.chair, @project, @stage]) do |form| %>
+<%= simple_form_for [@project.chair, @project, @stage] do | form | %>
   <fieldset>
-    <%= render :partial => "form", :locals => {:form => form} %>
-    <p>
-      <%= form.submit I18n.t("create") %>
-      <%= link_to I18n.t("cancel"), chair_project_stages_path(@project.chair, @project) %>
-    </p>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.submit I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), chair_project_stages_path(@project.chair, @project) %>
   </fieldset>
 <% end %>
 

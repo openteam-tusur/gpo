@@ -5,13 +5,11 @@
   <p>Если нет необходимости создавать новый день ГПО нажмите "Отмена" для возврата к расписанию.</p>
 <% end %>
 
-<% form_for(@gpoday) do |form| %>
+<%= simple_form_for @gpoday do | form | %>
   <fieldset>
-    <%= render :partial => "form", :locals => {:form => form} %>
-    <p>
-      <%= form.submit I18n.t("create") %>
-      <%= link_to I18n.t("cancel"), gpodays_path %>
-    </p>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.submit I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), gpodays_path %>
   </fieldset>
 <% end %>
 

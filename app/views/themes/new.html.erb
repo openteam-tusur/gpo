@@ -5,14 +5,10 @@
   <p>Если нет необходимости создавать новое направление нажмите "Отмена" для возврата к списку существующих направлений.</p>
 <% end %>
 
-<% form_for(@theme) do |f| %>
+<%= simple_form_for @theme do | form | %>
   <fieldset>
-    <%# FIXME remove error_messages %>
-    <%= f.error_messages %>
-    <%= f.text_field :name %>
-    <p>
-      <%= f.submit I18n.t("create") %>
-      <%= link_to I18n.t("cancel"), themes_path %>
-    </p>
+    <%= form.input :name, :input_html => { :autofocus => true } %>
+    <%= form.submit I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), themes_path %>
   </fieldset>
 <% end %>

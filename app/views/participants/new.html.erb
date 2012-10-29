@@ -12,15 +12,12 @@
   <p>У студентов, которых нельзя добавить отображается проект, участником которого он является.</p>
 <% end %>
 
-<% form_tag(new_chair_project_participant_path(@project.chair, @project), :method => 'get') do %>
+<h1 class="section">Поиск студентов</h1>
+<%= simple_form_for new_chair_project_participant_path(@project.chair, @project), :method => "get" do | form | %>
   <fieldset>
-    <h1 class="section">Поиск студентов</h1>
-    <%= label_tag(:last_name, "Фамилия") %>
-    <%= text_field_tag :last_name, h(params[:last_name]) %>
-
-    <%= label_tag(:edu_group, "Группа") %>
-    <%= text_field_tag :edu_group, h(params[:edu_group]) %>
-    <%= submit_tag 'Искать' %>
+    <%= form.input :last_name, :input_html => { :value => params[:last_name] } %>
+    <%= form.input :edu_group, :input_html => { :value => params[:edu_group] } %>
+    <%= form.submit I18n.t("find") %>
   </fieldset>
 <% end %>
 
