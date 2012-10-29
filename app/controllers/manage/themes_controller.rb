@@ -2,6 +2,7 @@
 
 class Manage::ThemesController < Manage::ApplicationController
   inherit_resources
+
   actions :all, except: :show
 
   def statistics
@@ -15,6 +16,4 @@ class Manage::ThemesController < Manage::ApplicationController
       redirect_to statistics_themes_path
     end
   end
-
 end
-

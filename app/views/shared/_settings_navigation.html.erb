@@ -1,5 +1,5 @@
 <ul>
   <%= nav_link link_to("Направления", manage_themes_path), 'themes' %>
-  <%= nav_link link_to("Расписание ГПО", gpodays_path), 'gpodays' if permitted_to?(:index, :gpodays) %>
+  <%= nav_link link_to("Расписание ГПО", manage_gpodays_path), 'gpodays' %>
 </ul>
 

@@ -12,8 +12,10 @@
 #
 
 class Gpoday < ActiveRecord::Base
+  attr_accessible :date, :kt
 
   validates_presence_of :date
+
   has_many :visitations, :dependent => :destroy
 
   scope :ascending, order("date asc")

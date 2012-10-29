@@ -5,11 +5,11 @@
   <p>Если нет необходимости менять дату, нажмите "Отмена" для возврата к расписанию.</p>
 <% end %>
 
-<%= simple_form_for @gpoday  do | form | %>
+<%= simple_form_for resource, url: resource_url do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.submit I18n.t("save") %>
-    <%= link_to I18n.t("cancel"), gpodays_path %>
+    <%= link_to I18n.t("cancel"), manage_gpodays_path %>
   </fieldset>
 <% end %>
 
