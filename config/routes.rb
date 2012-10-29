@@ -3,21 +3,25 @@ Gpo::Application.routes.draw do
     resources :themes, :except => :show do
       get :statistics, :projects, :on => :collection
     end
-    resources :gpodays, :except => :show
-    resources :reports, :only => [:index, :show]
+
+    resources :chairs
+    resources :gpodays,     :except => :show
+    resources :reports,     :only => [:index, :show]
     resources :visitations, :only => :index
   end
 
-
   resources :students, :collection => {:problematic => :get}
-
   resources :rules
+
   resources :chairs do
     get :managers, :on => :member
+
     resources :orders do
       put :update_state, :on => :member
     end
+
     resources :users
+
     resources :projects do
       member do
         get :to_close

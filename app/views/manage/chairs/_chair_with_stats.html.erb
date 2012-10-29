@@ -1,5 +1,5 @@
 <div class="chair_with_stats">
-  <%= render :partial => 'chairs/chair', :object => object %>
+  <%= render :partial => 'chair', :object => object %>
   <div class="inline-stats"><%= render_inline_stats object.stats(:projects), :term => link_to(icon(:project), chair_projects_path(object)) %></div>
   <div class="inline-stats"><%= render_inline_stats object.stats(:participants), :term => icon(:participant) %></div>
 </div>

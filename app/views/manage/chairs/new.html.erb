@@ -6,7 +6,7 @@
   <p>Если нет необходимости создавать кафедру нажмите "Отмена" для возврата к списку кафедр.</p>
 <% end %>
 
-<%= simple_form_for @chair do | form | %>
+<%= simple_form_for resource, url: collection_url do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.button :submit, I18n.t("create") %>
