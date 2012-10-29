@@ -1,0 +1,6 @@
+<%
+action_link(
+  link_to(report[:title], manage_report_path(report[:id], :format => report[:type], type => id)),
+  'report',
+  report[:description])
+%>

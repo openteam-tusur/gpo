@@ -6,3 +6,4 @@
 /config/database.yml
 /config/settings.yml
 bin
+*.swp

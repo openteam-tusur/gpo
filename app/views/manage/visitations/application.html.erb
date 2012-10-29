@@ -1,0 +1,20 @@
+<% title "Журнал посещаемости", :visitations %>
+
+<% content_for :hint do %>
+  <p><b>Для изменения баллов за посещаемость</b> перейдите к журналу посещаемости соответствующего проекта</p>
+<% end %>
+
+<div class="visitationlog">
+  <% Chair.find(:all, :order => :abbr).each_with_index do |chair, ch_index| -%>
+    <div id="chair_<%= ch_index+1 -%>">
+    <%= link_to(chair.abbr, chair_path(chair), :class => 'chair_abbr') %>
+    <% chair.projects.active.each_with_index do |project, index| %>
+      <div class="project_<%= project.id %>" class="project">
+        <%= link_to(project.cipher, chair_project_path(project.chair, project), :class => 'chair_cipher') %>
+        <%= render :partial => 'visitation_for_project', :locals => {:project => project, :show_edit_link => false} %>
+      </div>
+    <% end -%>
+    </div>
+  <% end -%>
+</div>
+

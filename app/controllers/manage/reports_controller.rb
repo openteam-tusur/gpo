@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'better/tempfile'
 
-class ReportsController < ApplicationController
+class Manage::ReportsController < Manage::ApplicationController
   before_filter :find_chair, :find_project, only: :show
 
   def index
