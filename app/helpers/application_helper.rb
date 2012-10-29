@@ -103,7 +103,8 @@ module ApplicationHelper
   def icon(style, options = {})
     options[:class] ||= "icon"
     options[:alt] ||= options[:title] unless options[:title].nil?
-    image_tag("icon_#{style}.png", options, size: "16x16")
+    options[:size] ||= "16x16"
+    image_tag("icon_#{style}.png", options)
   end
 
   def iconed_title(text, icon_style)
