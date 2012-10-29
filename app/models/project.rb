@@ -92,16 +92,6 @@ class Project < ActiveRecord::Base
     visitations_count != days_count*self.participants.active.count
   end
 
-  # FIXME: -l10n
-  def editable_state_description
-    #L10N[:project]["editable_state_#{self.editable_state}"]
-  end
-
-  # FIXME: -l10n
-  def state_description
-    #L10N[:project]["state_#{self.state}"]
-  end
-
   # для приказа
   def text_managers_for_order_report
     arr = self.managers.collect { |manager| manager.text_for_order_report }

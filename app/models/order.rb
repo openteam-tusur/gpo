@@ -58,11 +58,6 @@ class Order < ActiveRecord::Base
     after_transition  any => :being_reviewed, :do => :after_enter_being_reviewed
   end
 
-  # FIXME: - l10n
-  def state_description
-    L10N[:order]["state_#{self.state}".to_sym]
-  end
-
   def title
     raise "Некорректный тип приказа. Невозможно отобразить название приказа."
   end

@@ -43,8 +43,6 @@ ru:
   projects: Проекты
   project:
     new: Новый проект
-    close: Закрыть проект
-    reopen: Возобновить проект
     cipher: Шифр
     title: Название
     chair: Кафедра
@@ -62,11 +60,6 @@ ru:
     goal: Цель проекта
     source_data: Исходные данные для проектирования
     close_reason: Причина
-    state_draft: Черновик проекта
-    state_active: Активный проект
-    state_closed: Проект закрыт
-    editable_state_editable: Правки разрешены
-    editable_state_blocked: Правки запрещены
     archive: Закрытые проекты
     active: Активные проекты
 
@@ -83,19 +76,11 @@ ru:
     new: Добавить руководителя
     user_id: Пользователь
     project_id: Проект
-    state_awaiting_approval: Ожидает утверждения
-    state_approved: Утверждён
-    state_awaiting_removal: Ожидает удаления
-    state_removed: Удален
 
   participants: Участники проекта
   participant:
     new: Новый участник
     student_id: Студент
-    state_awaiting_approval: Ожидает включения
-    state_approved: Участник
-    state_awaiting_removal: На исключение
-    state_removed: Удален
 
   stages: Этапы календарного плана
   stage:
@@ -116,16 +101,8 @@ ru:
     number: Номер
     approved_at: Дата
     file: Файл
-    state_draft: Черновик
-    state_being_reviewed: Отправлен на визирование
-    state_reviewed: Визирован
-    state_approved: Утверждён
     odt_file: Экспорт ODT
     doc_file: Экспорт DOC
-    to_review: Отправить на визирование
-    review: Визировать
-    cancel: Вернуть
-    approve: Утвердить
     hint_draft: Для того, чтобы изменения вступили в силу, приказ нужно отправить на визирование
     hint_being_reviewed: Приказ требует визирования. Вы можете просмотреть изменения в проектах, визировать или вернуть приказ на доработку
     hint_reviewed: Приказ требует утверждения. Вы можете утвердить или вернуть приказ на доработку
@@ -197,34 +174,27 @@ ru:
         chair_id: Кафедра
 
       project:
-        new: Новый проект
-        close: Закрыть проект
-        reopen: Возобновить проект
-        cipher: Шифр
-        title: Название
+        active: Активные проекты
+        analysis: Анализ состояния дел и имеющихся достижений по тематике проекта
+        archive: Закрытые проекты
         chair: Кафедра
         chair_id: Кафедра
-        stakeholders: Заинтересованные структуры
+        cipher: Шифр
+        close_reason: Причина
+        expected_results: Ожидаемые результаты
+        features: Основные характеристики
+        forecast: Прогноз возможных сроков и направлений практической реализации результатов проекта
         funds_required: Потребные ассигнования
         funds_sources: Источники средств
-        purpose: Показатели назначения (технические, научные, экономические и пр.)
-        features: Основные характеристики
-        analysis: Анализ состояния дел и имеющихся достижений по тематике проекта
-        novelty: Новизна предполагаемой разработки
-        expected_results: Ожидаемые результаты
-        release_cost: Оценка возможности реализации разработки и её рыночной ценности
-        forecast: Прогноз возможных сроков и направлений практической реализации результатов проекта
-        close_reason: Причина
-        state_draft: Черновик проекта
-        state_active: Активный проект
-        state_closed: Проект закрыт
-        editable_state_editable: Правки разрешены
-        editable_state_blocked: Правки запрещены
-        archive: Закрытые проекты
-        active: Активные проекты
-        theme_id: Направление
         goal: Цель проекта
+        new: Новый проект
+        novelty: Новизна предполагаемой разработки
+        purpose: Показатели назначения (технические, научные, экономические и пр.)
+        release_cost: Оценка возможности реализации разработки и её рыночной ценности
         source_data: Исходные данные для проектирования
+        stakeholders: Заинтересованные структуры
+        theme_id: Направление
+        title: Название
 
       rule:
         new: Новое правило
@@ -237,19 +207,10 @@ ru:
         new: Добавить руководителя
         user_id: Пользователь
         project_id: Проект
-        state_awaiting_approval: Ожидает утверждения
-        state_approved: Утверждён
-        state_awaiting_removal: Ожидает удаления
-        state_removed: Удален
-
 
       participant:
         new: Новый участник
         student_id: Студент
-        state_awaiting_approval: Ожидает включения
-        state_approved: Участник
-        state_awaiting_removal: На исключение
-        state_removed: Удален
 
       stage:
         new: Новый этап
@@ -269,10 +230,6 @@ ru:
         number: Номер
         approved_at: Дата
         file: Файл
-        state_draft: Черновик
-        state_being_reviewed: Отправлен на визирование
-        state_reviewed: Визирован
-        state_approved: Утверждён
         odt_file: Экспорт ODT
         doc_file: Экспорт DOC
         to_review: Отправить на визирование
@@ -323,3 +280,67 @@ ru:
         results: Полученные результаты
         planned_summ_grade: Запланировано баллов
         fact_summ_grade: Фактическая сумма баллов
+
+    state_machines:
+      manager:
+        state:
+          states:
+            approved:          Утвержден
+            awaiting_approval: Ожидает утверждения
+            awaiting_removal:  Ожидает удаления
+            removed:           Удален
+
+          events:
+            approve: Подтвердить
+            cancel:  Отменить
+            remove:  Удалить
+
+      order:
+        state:
+          states:
+            draft:    Черновик
+            being_reviewed: Отправлен на визирование
+            reviewed: Визирован
+            approved: Утверждён
+            removed:  Удален
+
+          events:
+            to_review: Отправить на визирование
+            review:    Визировать
+            cancel:    Вернуть
+            approve:   Утвердить
+            remove:    Удалить
+
+      participant:
+        state:
+          states:
+            approved: Участник
+            awaiting_approval: Ожидает включения
+            awaiting_removal: На исключение
+            removed: Удален
+
+          events:
+            approve: Подтвердить
+            cancel:  Отменить
+            remove:  Удалить
+
+      project:
+        state:
+          states:
+            draft:  Черновик проекта
+            active: Активный проект
+            closed: Проект закрыт
+
+          events:
+            approve: Утвердить
+            close:   Закрыть проект
+            reopen:  Возобновить проект
+
+        editable_state:
+          states:
+            editable: Правки разрешены
+            blocked:  Правки запрещены
+
+          events:
+            disable_modifications: Запретить правку
+            enable_modifications:  Разрешить правку

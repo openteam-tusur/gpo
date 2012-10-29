@@ -34,8 +34,8 @@
 <h2><%= @project.title %></h2>
 <div class="project">
   <div class="status">
-    <span class="editable_state_<%= @project.editable_state %>"><%= @project.editable_state_description %></span>
-    <span class="state_<%= @project.state %>"><%= @project.state_description %></span>
+    <span class="editable_state_<%= @project.editable_state %>"><%= @project.human_editable_state_name %></span>
+    <span class="state_<%= @project.state %>"><%= @project.human_state_name %></span>
     <span class="date"><%= project_updated(@project) %></span>
   </div>
 </div>

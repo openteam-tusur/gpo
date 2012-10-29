@@ -6,7 +6,7 @@
   </div>
   
   <% unless new_participant.new_record? %>
-  <span class="details"><%= icon(:warning) %> Данный студент числится в проекте <%= link_to(new_participant.project.cipher, chair_project_path(new_participant.project.chair, new_participant.project)) %> со статусом &#x00ab;<%= new_participant.state_description %>&#x00bb;</span>
+  <span class="details"><%= icon(:warning) %> Данный студент числится в проекте <%= link_to(new_participant.project.cipher, chair_project_path(new_participant.project.chair, new_participant.project)) %> со статусом &#x00ab;<%= new_participant.human_state_name %>&#x00bb;</span>
   <% end %>
 </div>
 

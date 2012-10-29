@@ -55,11 +55,6 @@ class Participant < ActiveRecord::Base
     end
   end
 
-  # FIXME: - l10n
-  def state_description
-    #L10N[:participant]["state_#{self.state}"]
-  end
-
   def name
     "#{self.last_name} #{self.first_name} #{self.mid_name}"
   end

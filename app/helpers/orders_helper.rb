@@ -10,7 +10,7 @@ module OrdersHelper
   end
 
   def order_icon(order)
-    image_tag "order_#{order.state}.png", :title => "#{order.state_description}", :class => "icon"
+    image_tag "order_#{order.state}.png", :title => "#{order.human_state_name}", :class => "icon"
   end
 
   def order_title_with_projects(order)

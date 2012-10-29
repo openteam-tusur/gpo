@@ -44,11 +44,6 @@ class Manager < ActiveRecord::Base
     end
   end
 
-  # FIXME: remove L10N
-  def state_description
-    L10N[:manager]["state_#{state}"]
-  end
-
   # для приказа
   def text_for_order_report
     "#{self.user.post} #{self.user.last_name} #{self.user.first_name[0..1]}.#{self.user.mid_name[0..1]}."

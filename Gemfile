@@ -9,10 +9,10 @@ end
 
 group :default do
   gem 'compass-rails'
-  gem 'state_machine'
   gem 'jquery-rails'
   gem 'rails'
   gem 'russian'
+  gem 'state_machine'
 end
 
 group :development do
