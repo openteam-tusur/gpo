@@ -1,0 +1,19 @@
+app:
+  secret:               secret
+
+solr:
+  url:                  http://localhost:8982/solr
+
+errors:
+  key:                  api_key
+  host:                 host
+
+storage:
+  url:                  http://storage.host
+
+deploy:
+  application:          appname.ru
+  domain:               user@host
+  port:                 port
+  solr_domain:          user@host
+  solr_port:            port

@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(:version => 20100916021613) do
     t.integer  "grade"
     t.text     "results"
     t.integer  "participant_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "managers", :force => true do |t|
