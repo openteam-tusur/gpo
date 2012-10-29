@@ -14,6 +14,7 @@ Gpo::Application.routes.draw do
   resources :rules
 
   resources :chairs do
+    resources :visitations, :only => :index
     get :managers, :on => :member
 
     resources :orders do
