@@ -23,6 +23,8 @@ class Manager < ActiveRecord::Base
 
   scope :active, where(:state => %w[approved awaiting_removal])
 
+  scope :approved, where(:state => 'approved')
+
   state_machine :state, :initial => :awaiting_approval do
     event :approve do
       transition :awaiting_approval => :approved, :awaiting_removal => :removed

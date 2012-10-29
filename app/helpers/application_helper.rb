@@ -83,7 +83,10 @@ module ApplicationHelper
       content = items.collect {|item|
         item_class = [cycle("odd", "even")]
         item_class << options[:item_class] if options[:item_class]
-        content_tag(:li, render(:partial => item_partial, :locals => {object => item}), :class => item_class.join(" "))
+        content_tag(:li,
+          render(:partial => item_partial,
+                 :locals => {:object => item, :order => item, :chair_manager => item, :task => item, :activity => item}),
+          :class => item_class.join(" "))
       }.join
 
       css_class = ["listing"]

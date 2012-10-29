@@ -3,11 +3,6 @@
 class VisitationsController < ApplicationController
 
   before_filter :find_context
-    permitted_to!(:read, @project) if @context == 'project'
-    permitted_to!(:read, @chair) if @context == 'chair'
-    permitted_to!(:read, :visitations) if @context == 'application'
-    true
-  end
 
   def index
     render @context, :layout => @context

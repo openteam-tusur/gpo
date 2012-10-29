@@ -24,6 +24,8 @@
 
 
 class User < ActiveRecord::Base
+  attr_accessible :chair_id
+
   validates_presence_of     :first_name, :mid_name, :last_name
 
   belongs_to :chair

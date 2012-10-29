@@ -5,10 +5,6 @@ class OrdersController < ApplicationController
   before_filter :find_order, :except => [:index, :new, :create]
   before_filter :prepare_order, :only => [:new, :create]
   layout 'chair'
-    permitted_to!(:read, @project) if @project
-    permitted_to!(:read, @chair) unless @project
-    true
-  end
 
   def index
     unless @project.nil?
