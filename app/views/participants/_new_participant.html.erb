@@ -4,7 +4,7 @@
   <div class="status">
     <span>гр. <%= new_participant.edu_group %>, <%= new_participant.course %> курс</span>
   </div>
-  
+
   <% unless new_participant.new_record? %>
   <span class="details"><%= icon(:warning) %> Данный студент числится в проекте <%= link_to(new_participant.project.cipher, chair_project_path(new_participant.project.chair, new_participant.project)) %> со статусом &#x00ab;<%= new_participant.human_state_name %>&#x00bb;</span>
   <% end %>
@@ -12,11 +12,11 @@
 
 <% if permitted_to?(:create, @project.participants.build(:student_id => new_participant.student_id)) %>
   <div class="actions">
-    <% form_for([@project.chair, @project, @participant]) do |form| %>
-      <%= form.hidden_field 'student_id', :value => new_participant.student_id %>
-      <%= hidden_field_tag "edu_group", @query[:edu_group] %>
-      <%= hidden_field_tag "last_name", @query[:last_name] %>
-      <%= form.submit "Добавить" %>
+    <%= simple_form_for [@project.chair, @project, @participant] do |form| %>
+      <%= form.input :student_id, :as => :hidden, :input_html => { :value => new_participant.student_id } %>
+      <%= form.input :edu_group, :as => :hidden, :input_html => { :value => @query[:edu_group] } %>
+      <%= form.input :last_name, :as => :hidden, :input_html => { :value => @query[:last_name] } %>
+      <%= form.submit I18n.t("add") %>
     <% end %>
   </div>
 <% end %>

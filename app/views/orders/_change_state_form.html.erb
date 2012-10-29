@@ -1,14 +1,13 @@
-<% form_for(:order, :url => update_state_chair_order_path(order.chair, order), :html => {:method => :put} ) do |form| %>
+<%= simple_form_for :order, :url => update_state_chair_order_path(order.chair, order), :html => { :method => :put } do | form | %>
   <fieldset>
     <% if permitted_to?(:approve, order) %>
-      <%= form.text_field :number %>
-      <%= form.text_field :approved_at, :class => "datepicker"%>
+      <%= form.input :number %>
+      <%= form.input :approved_at, :class => "datepicker"%>
     <% end %>
-    <%= label_tag "comment", I18n.t("activity.comment") %>
-    <%= text_area_tag "comment" %>
-    <%= form.submit(I18n.t("order.to_review"), :name => :to_review) if permitted_to?(:to_review, order) %>
-    <%= form.submit(I18n.t("order.review"), :name => :review) if permitted_to?(:review, order) %>
-    <%= form.submit(I18n.t("order.cancel"), :name => :cancel) if permitted_to?(:cancel, order) %>
-    <%= form.submit(I18n.t("order.approve"), :name => :approve) if permitted_to?(:approve, order) %>
+    <%= form.input :comment %>
+    <%= form.submit I18n.t("order.to_review"), :input_html => { :name => :to_review } if permitted_to?(:to_review, order) %>
+    <%= form.submit I18n.t("order.review"), :input_html => { :name => :review } if permitted_to?(:review, order) %>
+    <%= form.submit I18n.t("order.cancel"), :input_html => { :name => :cancel } if permitted_to?(:cancel, order) %>
+    <%= form.submit I18n.t("order.approve"), :input_html => { :name => :approve } if permitted_to?(:approve, order) %>
   </fieldset>
 <% end %>

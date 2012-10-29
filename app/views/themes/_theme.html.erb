@@ -41,5 +41,3 @@
   <%= link_to(t('edit'), edit_theme_path(theme))  if permitted_to?(:update, theme) %>
   <%= link_to(t('delete'), theme_path(theme), :method=> :delete, :confirm => t('are_you_sure')) if permitted_to?(:delete, theme) %>
 </div>
-
-

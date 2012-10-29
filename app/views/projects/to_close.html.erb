@@ -13,9 +13,9 @@
 
 Вы уверены что хотите закрыть проект?
 
-<% form_for(:project, :url => close_chair_project_path(@project.chair, @project), :html => {:method => :put} ) do |form| %>
+<%= simple_form_for :project, :url => close_chair_project_path(@project.chair, @project), :html => { :method => :put } do | form | %>
   <fieldset>
-    <%= form.text_area :close_reason %>
+    <%= form.input :close_reason %>
     <%= form.submit I18n.t("project.close") %>
   </fieldset>
 <% end %>
