@@ -85,7 +85,9 @@ module ApplicationHelper
         item_class << options[:item_class] if options[:item_class]
         content_tag(:li,
           render(:partial => item_partial,
-                 :locals => {:object => item, :order => item, :chair_manager => item, :task => item, :activity => item}),
+                 :locals => {:object => item, :order => item, :chair_manager => item,
+                             :task => item, :activity => item, :report => item, :theme => item,
+                             :gpoday => item}),
           :class => item_class.join(" "))
       }.join
 
@@ -154,7 +156,7 @@ module ApplicationHelper
   def time_ago(object, method = :created_at)
     unless object.nil? || object.send(method).nil?
       exact_time = object.send method
-      "<span title=\"#{exact_time.to_s(:long)}\">#{distance_of_time_in_words(exact_time, Time.now)} назад</span>"
+      "<span title=\"#{exact_time.to_s(:long)}\">#{distance_of_time_in_words(exact_time, Time.now)} назад</span>".html_safe
     else
       nil
     end

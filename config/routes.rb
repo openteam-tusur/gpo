@@ -1,5 +1,8 @@
 Gpo::Application.routes.draw do
-  resources :themes, :except => :show, :collection => {:projects => :get, :statistics => :get}
+  resources :themes, :except => :show do
+    get :statistics, :projects, :on => :collection
+  end
+
   resources :gpodays, :except => :show
 
   resources :students, :collection => {:problematic => :get}

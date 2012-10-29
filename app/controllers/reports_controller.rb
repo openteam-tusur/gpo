@@ -2,11 +2,6 @@
 
 class ReportsController < ApplicationController
   before_filter [:find_chair, :find_project], :only => :show
-    permitted_to!(:read, @chair) if @chair
-    permitted_to!(:read, @project) if @project
-    permitted_to!(:read, :reports) if @project.nil? && @chair.nil?
-    true
-  end
 
   def index
   end
