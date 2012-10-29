@@ -7,6 +7,6 @@
 <% end %>
 
 
-<% action_link(link_to('Новое направление', new_theme_path), "new", "Позволяет создать новую тематику проекта") if permitted_to?(:create, :themes)%>
+<% action_link(link_to('Новое направление', new_resource_path), "new", "Позволяет создать новую тематику проекта") %>
 
 <%= render_list 'theme_with_actions', @themes, :id => 'themes', :object => :theme %>

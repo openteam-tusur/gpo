@@ -1,6 +1,8 @@
 Gpo::Application.routes.draw do
-  resources :themes, :except => :show do
-    get :statistics, :projects, :on => :collection
+  namespace :manage do
+    resources :themes, :except => :show do
+      get :statistics, :projects, :on => :collection
+    end
   end
 
   resources :gpodays, :except => :show

@@ -4,6 +4,6 @@
   <%#= nav_link link_to("Пользователи", users_path), 'users' if permitted_to?(:index, :users) %>
   <%#= nav_link link_to("Правила", rules_path), 'rules' if permitted_to?(:index, :rules) %>
   <%= nav_link link_to("Отчеты", reports_path), 'reports' if permitted_to?(:index, :reports) %>
-  <%= nav_link link_to("Настройки", themes_path), 'themes' if permitted_to?(:index, :themes) %>
+  <%= nav_link link_to("Настройки", manage_themes_path), 'themes' %>
 </ul>
 

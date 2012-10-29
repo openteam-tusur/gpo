@@ -5,10 +5,10 @@
   <p>Если нет необходимости создавать новое направление нажмите "Отмена" для возврата к списку существующих направлений.</p>
 <% end %>
 
-<%= simple_form_for @theme do | form | %>
+<%= simple_form_for(resource, url: collection_url) do | form | %>
   <fieldset>
     <%= form.input :name, :input_html => { :autofocus => true } %>
     <%= form.submit I18n.t("create") %>
-    <%= link_to I18n.t("cancel"), themes_path %>
+    <%= link_to I18n.t("cancel"), collection_url %>
   </fieldset>
 <% end %>
