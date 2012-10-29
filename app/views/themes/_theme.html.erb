@@ -9,9 +9,7 @@
   </div>
   <div class="inline-stats">
     <dl>
-      <dt>
-        <%= image_tag "icon_project.png", :class => "icon" %>
-      </dt>
+      <dt><%= image_tag "icon_project.png", :class => "icon", :size => "16x16" %></dt>
       <dd class="active_projects" title="Активных проектов"><%= theme.projects.active.count %></dd>
       <dd class="draft_projects" title="Черновиков проектов"><%= theme.projects.closed.count %></dd>
       <dd class="closed_projects" title="Закрытых проектов"><%= theme.projects.draft.count %></dd>
@@ -20,7 +18,7 @@
   <div class="inline-stats">
     <dl>
       <dt>
-        <%= image_tag "icon_participant.png", :class => "icon" %>
+        <%= image_tag "icon_participant.png", :class => "icon", :size => "16x16" %>
       </dt>
       <dd class="participant_total" title="Всего студентов">
         <%= theme.participants.active.count %>

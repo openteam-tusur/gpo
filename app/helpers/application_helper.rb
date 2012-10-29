@@ -20,8 +20,8 @@ module ApplicationHelper
       selected = options[:selected]
     end
     css_class = selected ? "current" : ""
-    img = image_tag "nav_#{id}.png", :class => "icon"
-    content_tag :li, img + link, :class => css_class, :id => "link_to_#{id}"
+    img = image_tag "nav_#{id}.png", class: "icon", size: "16x16"
+    content_tag :li, img + link, class: css_class, id: "link_to_#{id}"
   end
 
   def include_container
@@ -103,7 +103,7 @@ module ApplicationHelper
   def icon(style, options = {})
     options[:class] ||= "icon"
     options[:alt] ||= options[:title] unless options[:title].nil?
-    image_tag("icon_#{style}.png", options)
+    image_tag("icon_#{style}.png", options, size: "16x16")
   end
 
   def iconed_title(text, icon_style)
