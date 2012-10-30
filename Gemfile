@@ -22,6 +22,7 @@ end
 group :development do
   gem 'annotate'
   gem 'capistrano'
+  gem 'curb'
   gem 'hirb'
   gem 'rails-erd'
   gem 'rvm-capistrano'

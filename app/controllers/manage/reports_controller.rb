@@ -56,12 +56,11 @@ class Manage::ReportsController < Manage::ApplicationController
 
     filename = "#{params[:id]}.ods"
     report.render_to_file { |file|
-      #raise Mime::Type.lookup_by_extension('ods').inspect
-      send_file file.path#, :type => Mime::Type.lookup_by_extension('ods'), :filename => filename
-      #raise file.inspect
-      #converted_file = Tempfile.new('converted_file')
-      #system("bash", "#{Rails.root}/script/converter/converter_xls.sh", file.path, converted_file.path, "xls")
-      #send_file converted_file.path, :type => Mime::Type.lookup_by_extension('xls'), :filename => filename
+      curl = Curl::Easy.new("http://docon.openteam.ru/") do |curl|
+        curl.multipart_form_post = true
+      end
+      curl.http_post(Curl::PostField.file('file[]', file.path))
+      send_data curl.body_str
     }
   end
 
@@ -100,11 +99,18 @@ class Manage::ReportsController < Manage::ApplicationController
     system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
     report_filepath = odt_file.path
 
-    if extention == "doc"
-      system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodconverter-cli-2.2.2.jar", odt_file.path, doc_file.path)
-      report_filepath = doc_file.path
+    curl = Curl::Easy.new("http://docon.openteam.ru/")
+    curl.multipart_form_post = true
+    content_type = ""
+    curl.on_header do |header|
+      if match = header.match(/Content-Type: ([^[:space:]]+)/)
+        content_type = match[1]
+      end
+      header.length
     end
-    send_file report_filepath#, :type => MIME::Types.of(extention).first.content_type, :filename => report_filename
+    curl.http_post(Curl::PostField.file('file', odt_file.path), Curl::PostField.content('format', 'doc'))
+    send_data curl.body_str, :filename => File.basename(report_filename, '.*') + ".doc",
+                             :type => content_type
   end
 end
 
