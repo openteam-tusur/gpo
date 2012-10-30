@@ -9,5 +9,6 @@
  * = require attention
  * = require hint
  * = require gpodays
+ * = require actions_form
  * = require main
  */
