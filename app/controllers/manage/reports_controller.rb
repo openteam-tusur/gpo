@@ -93,7 +93,7 @@ class Manage::ReportsController < Manage::ApplicationController
     system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
     report_filepath = odt_file.path
 
-    send_report odt_file, :doc
+    send_report odt_file, :doc, report_filename
   end
 
   def send_report(file, format, filename = nil)
@@ -108,7 +108,9 @@ class Manage::ReportsController < Manage::ApplicationController
       header.length
     end
     curl.http_post(Curl::PostField.file('file', file.path), Curl::PostField.content('format', format.to_s))
-    send_data curl.body_str, :filename => File.basename(file.path, '.*') + ".#{format}",
+    # FIXME: remove this stuff
+    filename ||= File.basename(file.path)
+    send_data curl.body_str, :filename => File.basename(filename, '.*') + ".#{format}",
                              :type => content_type
   end
 end
