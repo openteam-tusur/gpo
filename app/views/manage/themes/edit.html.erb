@@ -7,7 +7,7 @@
 
 <%= simple_form_for(resource, url: resource_url) do | form | %>
   <fieldset>
-    <%= form.input :name, :input_html => { :autofocus => true } %>
+    <%= form.input :name %>
     <%= form.button :submit, I18n.t("save") %>
     <%= link_to I18n.t("back"), :back %>
   </fieldset>

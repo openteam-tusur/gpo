@@ -1,7 +1,7 @@
-<%= form.input :name, :input_html => { :autofocus => true } %>
+<%= form.input :name %>
 <%= form.input :description %>
-<%= form.input :planned_closing_at, :as => :string, :input_html => { :class => "datepicker" } %>
+<%= form.input :planned_closing_at, :as => :datepicker %>
 <%= form.input :planned_grade %>
-<%= form.input :closed_at, :as => :string, :input_html => { :class => "datepicker" } %>
+<%= form.input :closed_at, :as => :datepicker %>
 <%= form.input :grade %>
 <%= form.input :results %>

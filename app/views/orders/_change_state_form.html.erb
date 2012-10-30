@@ -2,7 +2,7 @@
   <fieldset>
     <% if permitted_to?(:approve, order) %>
       <%= form.input :number %>
-      <%= form.input :approved_at, :class => "datepicker"%>
+      <%= form.input :approved_at, :as => :datepicker %>
     <% end %>
     <%= form.input :comment %>
     <%= form.button :submit, Order.human_state_event_name(:to_review), :input_html => { :name => :to_review } if permitted_to?(:to_review, order) %>
