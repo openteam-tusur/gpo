@@ -4,6 +4,7 @@
  * = require jquery_ujs
  * = require scroll_to
  * = require go_to_chair
+ * = require attention
  * = require datepicker
  * = require gpodays
  * = require main
@@ -19,7 +20,5 @@ function hint() {
 };
 
 $(document).ready(function() {
-  $("#hint").css("display", "none");
-  $('.attention').effect("highlight", {color: '#ff0'}, 1000);
   hint();
 });
