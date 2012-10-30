@@ -7,14 +7,14 @@ $background_color: #214478
 $content_background_color: white
 $header_text_color: #b3b3b3
 $header_link_color: #d3d3d3
-$text_color: #333333
+$text_color: #333
 $abbr_color: #880000
 $comment_color: #7a7a7a
 $frame_color: #9dafcb
 $frame_width: 5px
 $local_header_color: white
 $border_color: #dddddd
-$input_border_color: #cccccc
+$input_border_color: #ccc
 
 $block_background_color: white
 $block_alternate_background_color: #f7f7f7
@@ -24,7 +24,7 @@ $block_item_hover_color: #f2f2f2
 $h1_color: #3e3e3e
 $h2_color: #502d16
 $h3_color: #668000
-$title_color: #222222
+$title_color: #222
 
 =wrapped_into($width)
   +clearfix
@@ -93,16 +93,23 @@ $title_color: #222222
   +horizontal-list
   background: transparent image_url("project_navigation_bg.png") repeat-x 0px 100%
   & li
+    border-top: 1px solid transparent
+    border-left: 1px solid transparent
+    border-right: 1px solid transparent
     padding: 5px 8px
+    &:first-child
+      padding-left: 8px
+    &:last-child
+      padding-right: 8px
     a
       +small_text
       +decorate_on_hover
       color: $text_color
   & li.current
     background-color: white
-    border-top: 1px solid #cccccc
-    border-left: 1px solid #cccccc
-    border-right: 1px solid #cccccc
+    border-top: 1px solid $input_border_color
+    border-left: 1px solid $input_border_color
+    border-right: 1px solid $input_border_color
 
 =simple_block
   cursor: default
@@ -119,8 +126,6 @@ $title_color: #222222
   & tr.even
     td
       background-color: $block_alternate_background_color
-  //& li:hover
-    background-color: $block_item_hover_color
 
 =nice_block
   +simple_block
