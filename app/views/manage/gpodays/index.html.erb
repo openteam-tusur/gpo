@@ -8,4 +8,4 @@
 
 <% action_link(link_to('Добавить', new_manage_gpoday_path), "new", "Позволяет добавить день ГПО в расписание")%>
 
-<%= render_list 'gpoday_with_actions', @gpodays, :id => 'gpodays', :object => :gpoday %>
+<%= render_list 'gpoday_with_actions', @gpodays.descending, :id => 'gpodays', :object => :gpoday %>
