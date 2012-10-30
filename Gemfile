@@ -13,6 +13,7 @@ group :default do
   gem 'inherited_resources'
   gem 'jquery-rails'
   gem 'openteam-commons'
+  gem 'progress_bar'
   gem 'rails'
   gem 'russian'
   gem 'simple_form'
