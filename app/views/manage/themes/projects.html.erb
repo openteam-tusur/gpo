@@ -4,8 +4,8 @@
   <p>Даже не знаю какая тут нужна подсказка</p>
 <% end %>
 
-<% @themes.each do |theme| -%>
+<% @themes.each do |theme| %>
   <h3><%= theme.name %></h3>
   <%= render_list 'projects/project_with_stats', theme.projects.active, :id => 'projects' %>
-<% end -%>
+<% end %>
 
