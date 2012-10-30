@@ -3,11 +3,11 @@
 module ManagersHelper
 
   def manager_cancel_state_button(button_name, manager)
-    manager_change_state_form(cancel_chair_project_manager_path(manager.project.chair, manager.project, manager), button_name)
+    manager_change_state_form(cancel_manage_chair_project_manager_path(manager.project.chair, manager.project, manager), button_name)
   end
 
   def manager_approve_state_button(button_name, manager)
-    manager_change_state_form(approve_chair_project_manager_path(manager.project.chair, manager.project, manager), button_name)
+    manager_change_state_form(approve_manage_chair_project_manager_path(manager.project.chair, manager.project, manager), button_name)
   end
 
   def manager_change_state_form(url, button_name)

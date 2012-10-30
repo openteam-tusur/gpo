@@ -13,10 +13,10 @@
 
 Вы уверены что хотите закрыть проект?
 
-<%= simple_form_for :project, :url => close_chair_project_path(@project.chair, @project), :html => { :method => :put } do | form | %>
+<%= simple_form_for :project, :url => close_manage_chair_project_path(@chair, @project), :html => { :method => :put } do | form | %>
   <fieldset>
     <%= form.input :close_reason %>
     <%= form.button :submit, Project.human_state_event_name(:close) %>
   </fieldset>
 <% end %>
-<%= link_to I18n.t("cancel"), chair_project_path(@project.chair, @project) %>
+<%= link_to I18n.t("cancel"), :back %>

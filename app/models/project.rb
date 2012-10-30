@@ -30,7 +30,7 @@
 
 class Project < ActiveRecord::Base
   attr_accessible :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
-    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data
+    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason
 
   belongs_to :chair
   belongs_to :theme
@@ -59,14 +59,28 @@ class Project < ActiveRecord::Base
   scope :closed, where(:state => :closed)
 
   state_machine :initial => :draft do
+    state :closed do
+      validates_presence_of :close_reason
+    end
+
     event :approve do
       transition :draft => :active
     end
+
     event :close do
       transition :active => :closed
     end
+
     event :reopen do
       transition :closed => :active
+    end
+
+    after_transition any => :closed do |project, transition|
+      project.disable_modifications
+    end
+
+    after_transition :closed => :active do |project, transition|
+      project.enable_modifications
     end
   end
 
@@ -74,6 +88,7 @@ class Project < ActiveRecord::Base
     event :disable_modifications do
       transition :editable => :blocked
     end
+
     event :enable_modifications do
       transition :blocked => :editable
     end

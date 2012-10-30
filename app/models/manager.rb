@@ -13,6 +13,8 @@
 #
 
 class Manager < ActiveRecord::Base
+  attr_accessible :user_id
+
   validates_presence_of :user_id
   validates_presence_of :project_id
 
@@ -36,13 +38,17 @@ class Manager < ActiveRecord::Base
       transition :approved => :awaiting_removal
     end
 
-    after_transition any => :removed do
-      Rule.managers.for_project(project).for_user(user).first.destroy
-      destroy
+    after_transition :awaiting_approval => :removed do |manager, transition|
+      manager.destroy
     end
 
-    after_transition any => :awaiting_approval do
-      Rule.build_manager_rule(self.user_id, self.project_id).save
+    after_transition :awaiting_removal => :removed do |manager, transition|
+      Rule.managers.for_project(manager.project).for_user(manager.user).first.destroy
+      manager.destroy
+    end
+
+    after_transition any => :approved do |manager, transition|
+      Rule.build_manager_rule(manager.user, manager.project).save
     end
   end
 

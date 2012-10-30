@@ -4,7 +4,7 @@ module ProjectsHelper
 
   def reopen_project_button(project)
     out = ""
-    out << form_tag(reopen_chair_project_path(project.chair, project), :method => :put)
+    out << form_tag(reopen_manage_chair_project_path(project.chair, project), :method => :put)
     out << submit_tag(Project.human_state_event_name :reopen)
     out << "</form>"
     out.html_safe

@@ -37,13 +37,13 @@
         </div>
         <div id="local-navigation">
           <ul>
-            <%= nav_link link_to("Тематическая карта", chair_project_path(@project.chair, @project)), 'projects', :action => 'show' if permitted_to?(:read, @project)%>
-            <%= nav_link link_to("Календарный план", chair_project_stages_path(@project.chair, @project)), 'stages' if permitted_to?(:read, @project) %>
-            <%= nav_link link_to("Участники", chair_project_participants_path(@project.chair, @project)), 'participants' if permitted_to?(:read, @project) %>
-            <%= nav_link link_to("Руководители", chair_project_managers_path(@project.chair, @project)), 'managers' if permitted_to?(:read, @project) %>
-            <%= nav_link link_to("Посещаемость", chair_project_visitations_path(@project.chair, @project)), 'visitations' if permitted_to?(:read, @project) %>
-            <%= nav_link link_to("Индивидуальные задачи", chair_project_issues_path(@project.chair, @project)), 'issues' if permitted_to?(:read, @project) %>
-            <%= nav_link link_to("Приказы", chair_project_orders_path(@project.chair, @project)), 'orders' if permitted_to?(:read, @project) %>
+            <%= nav_link link_to("Тематическая карта", manage_chair_project_path(@chair, @project)), 'projects', :action => 'show' %>
+            <%= nav_link link_to("Календарный план", chair_project_stages_path(@chair, @project)), 'stages' %>
+            <%= nav_link link_to("Участники", chair_project_participants_path(@chair, @project)), 'participants' %>
+            <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@chair, @project)), 'managers' %>
+            <%= nav_link link_to("Посещаемость", chair_project_visitations_path(@chair, @project)), 'visitations' %>
+            <%= nav_link link_to("Индивидуальные задачи", chair_project_issues_path(@chair, @project)), 'issues' %>
+            <%= nav_link link_to("Приказы", chair_project_orders_path(@chair, @project)), 'orders' %>
           </ul>
         </div>
       </div>

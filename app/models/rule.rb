@@ -14,6 +14,7 @@
 #
 
 class Rule < ActiveRecord::Base
+  attr_accessible :user, :context, :role
 
   belongs_to :user
   belongs_to :context, :polymorphic => true
@@ -75,8 +76,8 @@ class Rule < ActiveRecord::Base
     params
   end
 
-  def self.build_manager_rule(user_id, project_id)
-    Rule.new(:user_id => user_id, :context_type => Project.name, :context_id => project_id, :role => 'manager')
+  def self.build_manager_rule(user, project)
+    Rule.new(:user => user, :context => project, :role => 'manager')
   end
 
   def admin?

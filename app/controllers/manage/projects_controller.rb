@@ -5,32 +5,32 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   belongs_to :chair
 
+  custom_actions resource: [:to_close, :close]
+
   layout 'chair'
 
   layout 'project', only: :show
 
-
-  def to_close
-  end
-
   def close
-    begin
-      @project.close
-      @project.update_attributes!(params[:project])
-      @project.disable_modifications
-      flash[:notice] = 'Проект успешно закрыт'
-      redirect_to(chair_project_path(@chair, @project))
-    rescue
-      @project.state = @project.state_was
-      render :action => :to_close
-    end
+    update! {
+      if @project.close
+        flash[:notice] = 'Проект успешно закрыт'
+
+        redirect_to manage_chair_project_path(@chair, @project) and return
+
+      else
+        render :action => :to_close and return
+      end
+    }
   end
 
   def reopen
-    @project.reopen
-    @project.enable_modifications
-    flash[:notice] = 'Проект успешно возобновлен'
-    redirect_to(chair_project_path(@chair, @project))
+    show! {
+      @project.reopen
+      flash[:notice] = 'Проект успешно возобновлен'
+
+      redirect_to manage_chair_project_path(@chair, @project) and return
+    }
   end
 end
 

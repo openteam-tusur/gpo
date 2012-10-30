@@ -13,7 +13,6 @@
   </dl>
   <p>Статус руководителя нового проекта подтверждает приказом о формировании проекта. Статус руководителя активного проекта может утвердить администратор системы.</p>
 
-  <% if permitted_to?(:create, @project.managers.build) %>
   <dl>
     <dt>"Отменить"</dt>
     <dd>Позволяет отменить действие ранее произведенное над руководителем проекта.</dd>
@@ -24,10 +23,9 @@
     <dt>"Удалить"</dt>
     <dd>Переводит руководителя проекта в статус "Ожидает удаления".</dd>
   </dl>
-  <% end %>
 <% end %>
 
-<% action_link(link_to(I18n.t("manager.new"), new_chair_project_manager_path(@project.chair, @project)), "new", "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) %>
+<% action_link(link_to(I18n.t("manager.new"), new_manage_chair_project_manager_path(@chair, @project)), "new", "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) %>
 
 <%= render_list "manager_with_actions", @managers, :id => "managers" %>
 

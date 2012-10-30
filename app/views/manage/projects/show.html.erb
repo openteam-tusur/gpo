@@ -6,10 +6,9 @@
 <% end %>
 
 <%= render :partial => "manage/reports/report_action_link", :collection => Report::REPORTS[:project], :as => :report, :locals => {:type => "project", :id => @project.id}  %>
-<% action_link(link_to(I18n.t("manager.new"), new_chair_project_manager_path(@project.chair, @project)), "new", "Позволяет добавить руководителя к проекту") %>
 <% action_link(link_to(I18n.t("edit"), edit_manage_chair_project_path(@chair,@project)), "edit", "Позволяет изменить основную информацию о проекте") %>
 <% action_link(link_to_delete(manage_chair_project_path(@chair, @project)), "destroy", "Позволяет удалить проект") %>
-<% action_link(link_to(I18n.t("project.close"), to_close_chair_project_path(@chair,@project)), "сlose", "Позволяет убрать проект в архив") %>
+<% action_link(link_to(I18n.t("project.close"), to_close_manage_chair_project_path(@chair,@project)), "сlose", "Позволяет убрать проект в архив") %>
 <% action_link(reopen_project_button(@project), "reopen", "Возобновляет проект") %>
 
 <% content_for :right do %>

@@ -1,29 +1,35 @@
 Gpo::Application.routes.draw do
   namespace :manage do
-    resources :themes, :except => :show do
-      get :statistics, :projects, :on => :collection
+    resources :themes, except: :show do
+      get :statistics, :projects, on: :collection
     end
 
-    resources :gpodays,     :except => :show
-    resources :reports,     :only => [:index, :show]
-    resources :visitations, :only => :index
+    resources :gpodays,     except: :show
+    resources :reports,     only: [:index, :show]
+    resources :visitations, only: :index
 
     resources :chairs do
       resources :projects do
-      end
+        member do
+          get :to_close
+          put :close, :reopen, :update_visitationlog
+        end
 
-      resources :managers do
+        resources :managers, except: :show do
+          member do
+            put :approve, :cancel
+          end
+        end
       end
     end
-
   end
 
-  resources :students, :collection => {:problematic => :get}
+  resources :students, collection: { problematic: :get }
   resources :rules
 
   resources :chairs do
-    resources :visitations, :only => :index
-    get :managers, :on => :member
+    resources :visitations, only: :index
+    get :managers, on: :member
 
     resources :orders do
       put :update_state, :on => :member
@@ -32,12 +38,12 @@ Gpo::Application.routes.draw do
     resources :users
 
     resources :projects do
-      member do
-        get :to_close
-        put :close
-        put :reopen
-        put :update_visitationlog
-      end
+      #member do
+        #get :to_close
+        #put :close
+        #put :reopen
+        #put :update_visitationlog
+      #end
       resources :participants do
         member do
           put :approve
@@ -47,12 +53,12 @@ Gpo::Application.routes.draw do
           get :export, :on => :collection
         end
       end
-      resources :managers do
-        member do
-          put :approve
-          put :cancel
-        end
-      end
+      #resources :managers do
+        #member do
+          #put :approve
+          #put :cancel
+        #end
+      #end
       resources :stages
       resources :orders
       resources :visitations, :except => [:new, :create, :destroy]
