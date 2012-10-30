@@ -10,6 +10,6 @@
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.button :submit, I18n.t("save") %>
-    <%= link_to I18n.t("cancel"), chairs_path %>
+    <%= link_to I18n.t("cancel"), :back %>
   </fieldset>
 <% end %>

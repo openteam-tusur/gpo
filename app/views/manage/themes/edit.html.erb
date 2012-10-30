@@ -9,6 +9,6 @@
   <fieldset>
     <%= form.input :name, :input_html => { :autofocus => true } %>
     <%= form.button :submit, I18n.t("save") %>
-    <%= link_to I18n.t("back"), collection_url %>
+    <%= link_to I18n.t("back"), :back %>
   </fieldset>
 <% end %>
