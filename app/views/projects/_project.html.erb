@@ -8,7 +8,7 @@
     <span class="state_<%= project.state %>"><%= project.human_state_name %></span>
     <span class="editable_state_<%= project.editable_state %>"><%= project.human_editable_state_name %></span>
     <span class="date"><%= project_updated(project) %></span>
-    <%= "#{I18n.t("project.close_reason")}: #{project.close_reason}" if project.closed? %>
+    <%= "#{Project.human_attribute_name(:close_reason)}: #{project.close_reason}" if project.closed? %>
   </div>
   <div class="details"><%= project_managers(project) %></div>
 </div>

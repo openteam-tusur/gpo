@@ -5,9 +5,9 @@
       <%= form.input :approved_at, :class => "datepicker"%>
     <% end %>
     <%= form.input :comment %>
-    <%= form.button :submit, I18n.t("order.to_review"), :input_html => { :name => :to_review } if permitted_to?(:to_review, order) %>
-    <%= form.button :submit, I18n.t("order.review"), :input_html => { :name => :review } if permitted_to?(:review, order) %>
-    <%= form.button :submit, I18n.t("order.cancel"), :input_html => { :name => :cancel } if permitted_to?(:cancel, order) %>
-    <%= form.button :submit, I18n.t("order.approve"), :input_html => { :name => :approve } if permitted_to?(:approve, order) %>
+    <%= form.button :submit, Order.human_state_event_name(:to_review), :input_html => { :name => :to_review } if permitted_to?(:to_review, order) %>
+    <%= form.button :submit, Order.human_state_event_name(:review), :input_html => { :name => :review } if permitted_to?(:review, order) %>
+    <%= form.button :submit, Order.human_state_event_name(:cancel), :input_html => { :name => :cancel } if permitted_to?(:cancel, order) %>
+    <%= form.button :submit, Order.human_state_event_name(:approve), :input_html => { :name => :approve } if permitted_to?(:approve, order) %>
   </fieldset>
 <% end %>

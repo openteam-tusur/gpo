@@ -148,10 +148,6 @@ ru:
         activity:         Содержание работ
         results:          Ожидаемые результаты
 
-      task:
-        order:            Приказ
-        project:          Проект
-
       theme:
         name:             Название
 

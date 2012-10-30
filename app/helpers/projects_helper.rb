@@ -5,7 +5,7 @@ module ProjectsHelper
   def reopen_project_button(project)
     out = ""
     out << form_tag(reopen_chair_project_path(project.chair, project), :method => :put)
-    out << submit_tag(I18n.t("project.reopen"))
+    out << submit_tag(Project.human_state_event_name :reopen)
     out << "</form>"
     out.html_safe
   end
@@ -20,7 +20,7 @@ module ProjectsHelper
     value = project.respond_to?(attribute) ? project.send(attribute) : nil
     out = ""
     unless value.blank?
-      out << content_tag(:h3, I18n.t("project.#{attribute}"))
+      out << content_tag(:h3, Project.human_attribute_name(attribute))
       out << content_tag(:div, value + "", :class => "section")
     end
     out.html_safe

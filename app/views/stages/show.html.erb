@@ -12,11 +12,11 @@
 <h2><%= @stage.title %></h2>
 <p>с <%= date(@stage.start) %> по <%= date(@stage.finish) %></p>
 
-<h3><%= I18n.t("stage.funds_required") %></h3>
+<h3><%= Stage.human_attribute_name :funds_required %></h3>
 <p><%= @stage.funds_required %></p>
 
-<h3><%= I18n.t("stage.activity") %></h3>
+<h3><%= Stage.human_attribute_name :activity %></h3>
 <p><%= @stage.activity %></p>
 
-<h3><%= I18n.t("stage.results") %></h3>
+<h3><%= Stage.human_attribute_name :results %></h3>
 <p><%= @stage.results %></p>
