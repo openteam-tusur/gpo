@@ -52,6 +52,6 @@ module OrdersHelper
       projects = projects[0..1]
     end
     out = projects.collect {|project| content_tag :span, link_to(project.cipher, chair_project_path(project.chair, project)), :title => project.title }.join(", ")
-    "#{out} #{other_projects}"
+    "#{out} #{other_projects}".html_safe
   end
 end

@@ -7,7 +7,21 @@
 
 <%= simple_form_for chair_project_visitation_path(@project.chair, @project, @gpoday), :method => :put do | form | %>
   <fieldset class="participant_visitation">
-    <%= form.association :rate %>
+    <ul>
+      <% @project.participants.active.each do |participant| %>
+        <li>
+          <div class="input string">
+          <label for="participant_<%= participant.id %>">
+            <%= (participant.name) %>
+            <% if @errors.include?(participant.id) %>
+              <span class="fieldWithErrors">Должно быть введено значение от 0 до 2</span>
+            <% end %>
+          </label>
+          <%= text_field_tag "participant[#{participant.id}]", participant.visitation_for_gpoday(@gpoday).rate, :class => "input string" %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
     <%= form.button :submit, I18n.t("save") %>
     <%= link_to I18n.t("cancel"), chair_project_visitations_path(@project.chair, @project) %>
   </fieldset>
