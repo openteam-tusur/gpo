@@ -47,8 +47,12 @@ a
         margin-right: 10px
     #go-to-chair
       float: left
-      width: 170px
+      width: 180px
       .simple_form
+        +clearfix
+        .input
+          float: left
+          margin-bottom: 0
         label
           +small_text
           +inline-block
@@ -57,6 +61,9 @@ a
           width: auto
           margin-bottom: 0px
           padding: 0
+        input.button
+          width: auto
+          padding: 0 4px 2px
     #userbox
       float: right
       +clearfix

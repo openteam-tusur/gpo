@@ -1,8 +1,12 @@
 <% if @user_chairs.many? %>
   <div id="go-to-chair">
-    <%= simple_form_for chairs_path do | form | %>
-      <%= form.input :chair, :label => "Кафедра", :collection => @user_chairs.collect { | chair | [chair.abbr, chair.id] }, :required => false %>
-      <%= form.button :submit, "&raquo;" %>
+    <%= simple_form_for manage_chairs_path, :method => "get" do | form | %>
+      <%= form.input :chair,
+                     :label => "Кафедра",
+                     :collection => @user_chairs,
+                     :selected => @chair,
+                     :required => false %>
+      <%= form.button :submit, "&raquo;".html_safe %>
     <% end %>
   </div>
 <% end %>

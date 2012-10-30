@@ -3,7 +3,8 @@
  * = require jquery-ui
  * = require jquery_ujs
  * = require scroll_to
- * = require_tree .
+ * = require go_to_chair
+ * = require main
  */
 
 function init_datepicker_locale() {
@@ -147,14 +148,6 @@ function gpoday() {
   });
 };
 
-function go_to_chair() {
-  $("#go-to-chair input[type=submit]").hide();
-  $("#go-to-chair select").change(function() {
-    console.log(this);
-    $(this).closest("form").submit();
-  });
-}
-
 $(document).ready(function() {
   init_datepicker_locale();
   $("#hint").css("display", "none");
@@ -162,5 +155,4 @@ $(document).ready(function() {
   $('.attention').effect("highlight", {color: '#ff0'}, 1000);
   hint();
   gpoday();
-  go_to_chair();
 });
