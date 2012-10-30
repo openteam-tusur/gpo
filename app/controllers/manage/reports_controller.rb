@@ -56,11 +56,7 @@ class Manage::ReportsController < Manage::ApplicationController
 
     filename = "#{params[:id]}.ods"
     report.render_to_file { |file|
-      curl = Curl::Easy.new("http://docon.openteam.ru/") do |curl|
-        curl.multipart_form_post = true
-      end
-      curl.http_post(Curl::PostField.file('file[]', file.path))
-      send_data curl.body_str
+      send_report file, :xls, filename
     }
   end
 
@@ -74,9 +70,7 @@ class Manage::ReportsController < Manage::ApplicationController
   def send_converted_odt(report, format)
     filename = "#{report.id}.#{format.to_s}"
     ReportPrinter.render_to_file(report) { |file|
-      converted_file = Tempfile.new('converted_file')
-      system("bash", "#{RAILS_ROOT}/script/converter/converter.sh", file.path, converted_file.path, format.to_s)
-      send_file converted_file.path, :type => Mime::Type.lookup_by_extension(format.to_s), :filename => filename
+      send_report file, format
     }
   end
 
@@ -99,6 +93,11 @@ class Manage::ReportsController < Manage::ApplicationController
     system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
     report_filepath = odt_file.path
 
+    send_report odt_file, :doc
+  end
+
+  def send_report(file, format, filename = nil)
+    file = File.new(file) if file.is_a?(String)
     curl = Curl::Easy.new("http://docon.openteam.ru/")
     curl.multipart_form_post = true
     content_type = ""
@@ -108,8 +107,8 @@ class Manage::ReportsController < Manage::ApplicationController
       end
       header.length
     end
-    curl.http_post(Curl::PostField.file('file', odt_file.path), Curl::PostField.content('format', 'doc'))
-    send_data curl.body_str, :filename => File.basename(report_filename, '.*') + ".doc",
+    curl.http_post(Curl::PostField.file('file', file.path), Curl::PostField.content('format', format.to_s))
+    send_data curl.body_str, :filename => File.basename(file.path, '.*') + ".#{format}",
                              :type => content_type
   end
 end
