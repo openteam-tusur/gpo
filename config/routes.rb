@@ -4,10 +4,18 @@ Gpo::Application.routes.draw do
       get :statistics, :projects, :on => :collection
     end
 
-    resources :chairs
     resources :gpodays,     :except => :show
     resources :reports,     :only => [:index, :show]
     resources :visitations, :only => :index
+
+    resources :chairs do
+      resources :projects do
+      end
+
+      resources :managers do
+      end
+    end
+
   end
 
   resources :students, :collection => {:problematic => :get}

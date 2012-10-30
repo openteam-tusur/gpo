@@ -7,7 +7,7 @@
   </ul>
 <% end %>
 
-<% action_link(link_to(I18n.t("project.new"), new_chair_project_path(@chair)), "new", "Позволяет создать новый проект на кафедре") if permitted_to?(:chair_manage, @chair)%>
+<% action_link(link_to(I18n.t("project.new"), new_manage_chair_project_path(@chair)), "new", "Позволяет создать новый проект на кафедре") %>
 
 <% content_for :hint do %>
   <% if params[:state].blank? %>
@@ -37,7 +37,7 @@
   <% end %>
 <% end %>
 
-<%= render_list "projects/project_with_stats", @projects, :id => "projects" %>
+<%= render_list "project_with_stats", @projects, :id => "projects" %>
 
 <% content_for :right do %>
   <div id="stats">

@@ -7,10 +7,10 @@
   <p>Если нет необходимости изменять информацию о проекте нажмите "Отмена" для возврата к просмотру проекта.</p>
 <% end %>
 
-<%= simple_form_for [@chair, @project] do | form | %>
+<%= simple_form_for resource, url: resource_url do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.button :submit, I18n.t("save") %>
-    <%= link_to I18n.t("cancel"), chair_project_path(@project.chair, @project) %>
+    <%= link_to I18n.t("cancel"), manage_chair_project_path(@chair, @project) %>
   </fieldset>
 <% end %>

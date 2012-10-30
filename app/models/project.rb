@@ -29,6 +29,9 @@
 #
 
 class Project < ActiveRecord::Base
+  attr_accessible :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
+    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data
+
   belongs_to :chair
   belongs_to :theme
 
