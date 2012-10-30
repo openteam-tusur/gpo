@@ -11,13 +11,17 @@
 <div class="rating">
   <div class="wrapper">
     <% Gpoday.find(:all, :order => :date).each do | gpoday | %>
-      <div class="gpoday <%= gpoday.kt? ? 'kt' : nil %>">
+      <div class="gpoday<%= gpoday.kt? ? ' kt' : nil %>">
         <span class="date"><%= I18n.localize(gpoday.date) + "#{gpoday.kt? ? ' (КТ)' : nil}" %></span>
         <ul>
           <% project.participants.active.each_with_index do |participant, index| %>
             <% visitation = participant.visitation_for_gpoday(gpoday) %>
             <li id="<%= project.chair.id %>_<%= project.id %>_<%= visitation.id %>">
-              <%= visitation.rate.nil? ? "<span class='empty ratio'>&mdash;</span>" : "<span class='ratio'>#{visitation.rate}</span>" %>
+              <% if visitation.rate? %>
+                <%= content_tag(:span, visitation.rate, :class => "ratio") %>
+              <% else %>
+                <%= content_tag(:span, "&mdash;".html_safe, :class => "empty ratio") %>
+              <% end %>
               <% if visitation.kt? %>
                 <%= content_tag :span, visitation.kt_issues_sum, :class=>"kt_issues_sum", :title => "за индивидульные задачи текущего периода" %> /
                 <%= content_tag :span, visitation.kt_sum, :class=>"kt_sum", :title => "за текущий период с учетом индивидульных задач" %> /
