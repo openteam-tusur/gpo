@@ -17,10 +17,13 @@
 #
 
 class Stage < ActiveRecord::Base
+  attr_accessible  :title, :start, :finish, :funds_required, :activity, :results
   belongs_to :project
+
   validates_presence_of :title, :start, :finish
 
   protected
+
   def self.allowed?(user, project)
     user.is_a?(User) && project.updatable_by?(user)
   end

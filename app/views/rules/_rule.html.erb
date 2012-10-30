@@ -1,10 +1,10 @@
 <div class="rule object">
   <%= icon(:rule) %>
-  <h3><%= h(rule.user.name) %></h3>
+  <h3><%= rule.user.name %></h3>
   <div class="status">
     <span class="date">Создано: <%= time_ago rule %></span>
   </div>
-  <div class="details"><%= h(rule.role_with_context) %></div>
+  <div class="details"><%= rule.role_with_context %></div>
 </div>
 <div class="actions">
   <%= link_to I18n.t("edit"), edit_rule_path(rule) if permitted_to?(:update, rule) %>

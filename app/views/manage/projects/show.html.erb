@@ -15,7 +15,7 @@
   <h3>Руководители проекта</h3>
   <ul id="project_managers">
     <% @project.users.each do |user| %>
-      <li><span class="name"><%= h user.name %></span><span class="post"><%= h user.post %></span></li>
+      <li><span class="name"><%= user.name %></span><span class="post"><%= user.post %></span></li>
     <% end %>
   </ul>
 

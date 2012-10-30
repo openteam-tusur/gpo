@@ -5,7 +5,7 @@
 <% end %>
 
 <% @themes.each do |theme| -%>
-  <h3><%= h theme.name %></h3>
+  <h3><%= theme.name %></h3>
   <%= render_list 'projects/project_with_stats', theme.projects.active, :id => 'projects' %>
 <% end -%>
 

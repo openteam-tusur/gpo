@@ -9,7 +9,7 @@
 <ul>
   <% @students.each do |student| %>
     <li>
-      <%= h(student.name) %>
+      <%= student.name %>
       <%= "гр. #{h(student.edu_group)}" %>
       <%= "#{student.course} курс" %>
     </li>

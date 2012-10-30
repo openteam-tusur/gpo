@@ -6,8 +6,8 @@
 <% end %>
 
 
-<% action_link(link_to(I18n.t("edit"), edit_chair_project_stage_path(@project.chair,@project,@stage)), "edit", "Позволяет изменить информацию об этапе") if permitted_to?(:update, @project) %>
-<% action_link(link_to_delete(chair_project_stage_path(@project.chair, @project, @stage)), "destroy", "Позволяет удалить этап") if permitted_to?(:update, @project) %>
+<% action_link(link_to(I18n.t("edit"), edit_manage_chair_project_stage_path(@chair, @project, @stage)), "edit", "Позволяет изменить информацию об этапе") if permitted_to?(:update, @project) %>
+<% action_link(link_to_delete(manage_chair_project_stage_path(@chair, @project, @stage)), "destroy", "Позволяет удалить этап") %>
 
 <h2><%= @stage.title %></h2>
 <p>с <%= date(@stage.start) %> по <%= date(@stage.finish) %></p>

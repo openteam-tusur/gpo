@@ -15,6 +15,8 @@ Gpo::Application.routes.draw do
           put :close, :reopen, :update_visitationlog
         end
 
+        resources :stages
+
         resources :managers, except: :show do
           member do
             put :approve, :cancel
@@ -38,12 +40,6 @@ Gpo::Application.routes.draw do
     resources :users
 
     resources :projects do
-      #member do
-        #get :to_close
-        #put :close
-        #put :reopen
-        #put :update_visitationlog
-      #end
       resources :participants do
         member do
           put :approve
@@ -53,13 +49,6 @@ Gpo::Application.routes.draw do
           get :export, :on => :collection
         end
       end
-      #resources :managers do
-        #member do
-          #put :approve
-          #put :cancel
-        #end
-      #end
-      resources :stages
       resources :orders
       resources :visitations, :except => [:new, :create, :destroy]
       resources :issues, :only => [:index]

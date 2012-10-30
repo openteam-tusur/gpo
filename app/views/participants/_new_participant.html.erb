@@ -1,6 +1,6 @@
 <div class="participant <%= new_participant.new_record? ? 'object' : ''  %>" >
   <%= icon(:participant) %>
-  <h3><%= h(new_participant.name) %></h3>
+  <h3><%= new_participant.name %></h3>
   <div class="status">
     <span>гр. <%= new_participant.edu_group %>, <%= new_participant.course %> курс</span>
   </div>

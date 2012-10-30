@@ -7,10 +7,10 @@
   <p>Если нет необходимости изменять информацию об этапе нажмите "Отмена" для перехода к просмотру этапа.</p>
 <% end %>
 
-<%= simple_form_for [@project.chair, @project, @stage] do | form | %>
+<%= simple_form_for resource, url: resource_url do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.button :submit, I18n.t("save") %>
-    <%= link_to I18n.t("back"), chair_project_stage_path(@project.chair, @project, @stage) %>
+    <%= link_to I18n.t("back"), resource_url %>
   </fieldset>
 <% end %>

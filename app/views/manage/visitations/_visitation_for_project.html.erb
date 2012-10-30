@@ -2,7 +2,7 @@
   <% project.participants.active.each_with_index do |participant, index| %>
     <li class="participant_<%= index+1 %>">
       <div class="participant object">
-        <h3><%= h(participant.name) %></h3>
+        <h3><%= participant.name %></h3>
       </div>
     </li>
   <% end %>

@@ -13,7 +13,7 @@
       <ul>
         <% chair.participants.problematic.each do |participant| %>
           <li>
-            <h3><%= h participant.text_for_order_report %></h3>
+            <h3><%= participant.text_for_order_report %></h3>
             <%= problem_text(participant) %>
             <span>Проект <%= link_to participant.project.cipher, chair_project_path(participant.project.chair, participant.project) %></span>
           </li>

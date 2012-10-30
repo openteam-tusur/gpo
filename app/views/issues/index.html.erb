@@ -14,7 +14,7 @@
 
 <% @project.participants.active.each_with_index do |participant, index| %>
   <div id="participant_<%= index+1 %>" class="issues">
-    <h2><%= h(participant.name) %></h2>
+    <h2><%= participant.name %></h2>
     <div class="header">
       <%= link_to 'Экспорт в XLS', export_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
       <%= link_to I18n.t("add"), new_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
