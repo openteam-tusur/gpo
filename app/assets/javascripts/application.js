@@ -1,46 +1,12 @@
 /*
  * = require jquery
+ * = require datepicker_ru
  * = require jquery-ui
  * = require jquery_ujs
  * = require scroll_to
  * = require go_to_chair
  * = require main
  */
-
-function init_datepicker_locale() {
-  $.datepicker.regional['ru'] = {
-    clearText: 'Очистить',
-    clearStatus: '',
-    closeText: 'Закрыть',
-    closeStatus: '',
-    prevText: '&#x3c;',
-    prevStatus: '',
-    prevBigText: '&#x3c;&#x3c;',
-    prevBigStatus: '',
-    nextText: '&#x3e;',
-    nextStatus: '',
-    nextBigText: '&#x3e;&#x3e;',
-    nextBigStatus: '',
-    currentText: 'Сегодня',
-    currentStatus: '',
-    monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь', 'Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
-    monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
-    monthStatus: '',
-    yearStatus: '',
-    weekHeader: 'Не',
-    weekStatus: '',
-    dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
-    dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
-    dayNamesMin: ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'],
-    dayStatus: 'DD',
-    dateStatus: 'D, M d',
-    dateFormat: 'dd.mm.yy',
-    firstDay: 1,
-    initStatus: '',
-    isRTL: false
-  };
-  $.datepicker.setDefaults($.datepicker.regional['ru']);
-};
 
 function hint() {
   $('#tray').append("<img class='hint-switcher' src='/assets/icon-help.png' />");
@@ -149,7 +115,6 @@ function gpoday() {
 };
 
 $(document).ready(function() {
-  init_datepicker_locale();
   $("#hint").css("display", "none");
   $('input.datepicker').datepicker();
   $('.attention').effect("highlight", {color: '#ff0'}, 1000);
