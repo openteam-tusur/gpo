@@ -1,10 +1,10 @@
 /*
  * = require jquery
- * = require datepicker_ru
  * = require jquery-ui
  * = require jquery_ujs
  * = require scroll_to
  * = require go_to_chair
+ * = require datepicker
  * = require main
  */
 
@@ -116,7 +116,6 @@ function gpoday() {
 
 $(document).ready(function() {
   $("#hint").css("display", "none");
-  $('input.datepicker').datepicker();
   $('.attention').effect("highlight", {color: '#ff0'}, 1000);
   hint();
   gpoday();
