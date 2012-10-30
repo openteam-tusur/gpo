@@ -10,7 +10,7 @@
   <% @students.each do |student| %>
     <li>
       <%= student.name %>
-      <%= "гр. #{h(student.edu_group)}" %>
+      <%= "гр. #{student.edu_group}" %>
       <%= "#{student.course} курс" %>
     </li>
   <% end %>

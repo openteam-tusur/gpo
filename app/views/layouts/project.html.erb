@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title><%= @project.cipher %> <%=h @project.title %> &#x2014; <%= yield(:title) %></title>
+  <title><%= @project.cipher %> <%= @project.title %> &#x2014; <%= yield(:title) %></title>
   <%= csrf_meta_tags %>
   <%= render :partial => 'shared/css_and_js' %>
 </head>
@@ -33,7 +33,7 @@
       <div id="page-header">
         <div id="tray"></div>
         <div id="page-title">
-          <h1><%= iconed_title("Проект #{@project.cipher}", :project) %><span class="subtitle"><%=h @project.title %></span></h1>
+          <h1><%= iconed_title("Проект #{@project.cipher}", :project) %><span class="subtitle"><%= @project.title %></span></h1>
         </div>
         <div id="local-navigation">
           <ul>

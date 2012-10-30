@@ -14,7 +14,7 @@ module UsersHelper
     content_text      = options.delete(:content_text)
     content_text    ||= user.send(options.delete(:content_method))
     options[:title] ||= user.send(options.delete(:title_method))
-    link_to h(content_text), user_path(user), options
+    link_to content_text, user_path(user), options
   end
 
   def link_to_login_with_IP content_text=nil, options={}
@@ -22,9 +22,9 @@ module UsersHelper
     content_text    ||= ip_addr
     options.reverse_merge! :title => ip_addr
     if tag = options.delete(:tag)
-      content_tag tag, h(content_text), options
+      content_tag tag, content_text, options
     else
-      link_to h(content_text), login_path, options
+      link_to content_text, login_path, options
     end
   end
 
@@ -80,8 +80,8 @@ module UsersHelper
 
   def user_post(user)
     post = []
-    post << "Кафедра #{h(user.chair.abbr)}" if user.chair
-    post << h(user.post) unless user.post.blank?
+    post << "Кафедра #{user.chair.abbr}" if user.chair
+    post << user.post unless user.post.blank?
     post.join(", ")
   end
 
