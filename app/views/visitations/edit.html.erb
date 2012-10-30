@@ -23,7 +23,7 @@
       <% end %>
     </ul>
     <%= form.button :submit, I18n.t("save") %>
-    <%= link_to I18n.t("cancel"), chair_project_visitations_path(@project.chair, @project) %>
+    <%= link_to I18n.t("cancel"), :back %>
   </fieldset>
 <% end %>
 
