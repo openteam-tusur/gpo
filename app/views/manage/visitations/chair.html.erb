@@ -7,7 +7,7 @@
 <div class="visitationlog">
   <% @chair.projects.active.each_with_index do |project, index| %>
     <div id="project_<%= project.id %>" class="project">
-      <%= link_to(project.cipher, chair_project_visitations_path(project.chair, project), :class => 'chair_cipher') %>
+      <%= link_to(project.cipher, manage_chair_project_visitations_path(project.chair, project), :class => 'chair_cipher') %>
       <%= render :partial => 'visitation_for_project', :locals => {:project => project, :show_edit_link => false} %>
     </div>
   <% end %>
