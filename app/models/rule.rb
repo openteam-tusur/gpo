@@ -14,7 +14,10 @@
 #
 
 class Rule < ActiveRecord::Base
-  attr_accessible :user, :context, :role
+
+  # FIXME fix this shit!
+  alias_attribute :chair_id, :context_id
+  attr_accessible :user_id, :context_id, :role, :chair_id
 
   belongs_to :user
   belongs_to :context, :polymorphic => true
@@ -32,6 +35,16 @@ class Rule < ActiveRecord::Base
   scope :for_user,        ->(user)    { where(:user_id => user) }
   scope :for_project,     ->(project) { where(:context_type => Project).where(:context_id => project) }
   scope :for_chair,       ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
+
+  # FIXME prepare Rule.roles <- it's stub now
+  def self.roles
+    [
+      [:admin, "Администратор"],
+      [:mentor, 'Ответственный за ГПО на кафедре'],
+      [:manager, 'Руководитель проекта'],
+      [:supervisor, 'Ответственный за ГПО по университету']
+    ]
+  end
 
   def role_with_context
     if context.nil?

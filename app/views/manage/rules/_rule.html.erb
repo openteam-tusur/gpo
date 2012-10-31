@@ -7,6 +7,6 @@
   <div class="details"><%= rule.role_with_context %></div>
 </div>
 <div class="actions">
-  <%= link_to I18n.t("edit"), edit_rule_path(rule) if permitted_to?(:update, rule) %>
-  <%= link_to_delete rule_path(rule) if permitted_to?(:delete, rule) %>
+  <%= link_to I18n.t("edit"), edit_manage_rule_path(rule) if permitted_to?(:update, rule) %>
+  <%= link_to_delete manage_rule_path(rule) if permitted_to?(:delete, rule) %>
 </div>
