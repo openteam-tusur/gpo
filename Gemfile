@@ -33,3 +33,8 @@ end
 group :production do
   gem 'pg'
 end
+
+group :test do
+  gem 'fabrication'
+  gem 'rspec-rails'
+end
