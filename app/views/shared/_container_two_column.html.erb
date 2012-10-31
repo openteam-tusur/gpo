@@ -5,7 +5,7 @@
   </div>
 
   <div id="right">
-    <% if yield(:action_nav) %>
+    <% if content_for?(:action_nav) %>
       <div id="actions">
         <ul>
           <%= yield(:action_nav) %>
