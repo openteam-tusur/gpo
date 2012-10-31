@@ -16,8 +16,8 @@
   <div id="participant_<%= index+1 %>" class="issues">
     <h2><%= participant.name %></h2>
     <div class="header">
-      <%= link_to 'Экспорт в XLS', export_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
-      <%= link_to I18n.t("add"), new_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
+      <%= link_to 'Экспорт в XLS', export_manage_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
+      <%= link_to t("add"), new_manage_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
       <h3 class="planned_summ_grade"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %></h3>
       <h3 class="fact_summ_grade"><%= Issue.human_attribute_name :fact_summ_grade %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
     </div>
@@ -53,8 +53,8 @@
             <td class="name">
               <p><%= issue.name %></p>
               <div class="actions">
-                <%= link_to I18n.t("edit"), edit_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
-                <%= link_to I18n.t("delete"), chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?", :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+                <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?", :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
               </div>
             </td>
             <td class="description"><%= issue.description %></td>

@@ -39,6 +39,7 @@ class Project < ActiveRecord::Base
   has_many :managers, :dependent => :destroy
   has_many :stages, :dependent => :destroy, :order => "start"
   has_many :users, :through => :managers, :order => "last_name"
+  has_many :issues, :through => :participants
 
   has_many :order_projects, :dependent => :destroy
   has_many :orders, :through => :order_projects, :order => "ordinances.id desc"

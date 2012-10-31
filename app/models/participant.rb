@@ -109,11 +109,11 @@ class Participant < ActiveRecord::Base
 
   # суммы для индивидуальных задач
   def issues_planned_summ_grade
-    Participant.sum("issues.planned_grade", :include => :issues, :conditions => {'participants.id' => self.id})
+    Participant.joins(:issues).where('participants.id' => self.id).sum('issues.planned_grade')
   end
 
   def issues_fact_summ_grade
-    Participant.sum("issues.grade", :include => :issues, :conditions => {'participants.id' => self.id})
+    Participant.joins(:issues).where('participants.id' => self.id).sum('issues.grade')
   end
 
 

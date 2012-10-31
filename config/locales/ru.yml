@@ -88,10 +88,10 @@ ru:
         kt:        Контрольная точка
 
       issue:
-        abbr_closed_at:           Факт<br />дата
-        abbr_grade:               Факт<br />баллы
-        abbr_planned_closing_at:  План<br />дата
-        abbr_planned_grade:       План<br />баллы
+        abbr_closed_at:           Факт дата
+        abbr_grade:               Факт баллы
+        abbr_planned_closing_at:  План дата
+        abbr_planned_grade:       План баллы
         closed_at:                Фактическая дата выполнения
         description:              Содержание работ
         fact_summ_grade:          Фактическая сумма баллов

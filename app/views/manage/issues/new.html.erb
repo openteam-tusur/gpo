@@ -5,11 +5,11 @@
   <p>Если нет необходимости создавать задачу перейдите по ссылке "Отмена"</p>
 <% end %>
 
-<%= simple_form_for [@chair, @project, @participant, @issue] do | form | %>
+<%= simple_form_for [:manage, @chair, @project, @participant, @issue] do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
-    <%= form.button :submit, I18n.t("create") %>
-    <%= link_to I18n.t("cancel"), chair_project_issues_path(@chair, @project) %>
+    <%= form.button :submit, t("create") %>
+    <%= link_to t("cancel"), manage_chair_project_issues_path(@chair, @project) %>
   </fieldset>
 <% end %>
 

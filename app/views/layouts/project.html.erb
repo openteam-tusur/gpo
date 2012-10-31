@@ -42,7 +42,7 @@
             <%= nav_link link_to("Участники", manage_chair_project_participants_path(@chair, @project)), 'participants' %>
             <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@chair, @project)), 'managers' %>
             <%= nav_link link_to("Посещаемость", manage_chair_project_visitations_path(@chair, @project)), 'visitations' %>
-            <%= nav_link link_to("Индивидуальные задачи", chair_project_issues_path(@chair, @project)), 'issues' %>
+            <%= nav_link link_to("Индивидуальные задачи", manage_chair_project_issues_path(@chair, @project)), 'issues' %>
             <%= nav_link link_to("Приказы", chair_project_orders_path(@chair, @project)), 'orders' %>
           </ul>
         </div>

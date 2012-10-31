@@ -18,13 +18,14 @@ Gpo::Application.routes.draw do
 
         resources :stages
         resources :visitations, except: [:new, :create, :destroy]
+        resources :issues, :only => [:index]
 
         resources :participants do
           put :approve, :cancel, on: :member
 
-          #resources :issues, :only => [:new, :create, :edit, :update, :destroy] do
-            #get :export, :on => :collection
-          #end
+          resources :issues, :only => [:new, :create, :edit, :update, :destroy] do
+            get :export, :on => :collection
+          end
         end
 
         resources :managers, except: :show do
@@ -56,12 +57,8 @@ Gpo::Application.routes.draw do
           put :approve
           put :cancel
         end
-        #resources :issues, :only => [:new, :create, :edit, :update, :destroy] do
-          #get :export, :on => :collection
-        #end
       end
       resources :orders
-      resources :issues, :only => [:index]
     end
   end
 
