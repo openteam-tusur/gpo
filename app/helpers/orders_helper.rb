@@ -31,10 +31,10 @@ module OrdersHelper
 
   def change_order_state_button(url, caption)
     out = ""
-    out << form_tag(url, :method => :put)
+    out << form_tag(url, :method => :put, :class => "simple_form")
     out << label_tag("comment", I18n.t("activity.comment"))
     out << text_area_tag("comment")
-    out << submit_tag(caption)
+    out << submit_tag(caption, :class => "button")
     out << "</form>"
     out.html_safe
   end

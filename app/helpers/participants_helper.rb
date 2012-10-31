@@ -11,8 +11,8 @@ module ParticipantsHelper
 
   def participant_change_state_form(url, button_name)
     out = ""
-    out << form_tag(url, :method => :put)
-    out << submit_tag(button_name)
+    out << form_tag(url, :method => :put, :class => "simple_form")
+    out << submit_tag(button_name, :class => "button")
     out << "</form>"
     out.html_safe
   end
