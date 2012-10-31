@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class Manage::IssuesController < Manage::ApplicationController
+  include SendReport
   inherit_resources
 
   layout 'project'
@@ -12,11 +13,14 @@ class Manage::IssuesController < Manage::ApplicationController
   end
 
   actions :all, :except => :show
-  custom_actions :collection => [:export]
+  custom_actions :collection => :export
 
   def export
-    # FIXME: Конвертация файла в другом branch о__0
-    #ParticipantIssues.new(@participant).render_to_file{}
+    export!{
+      ParticipantIssues.new(@participant).render_to_file { |file|
+        send_report file, :xls, 'issues.xls' and return
+      }
+    }
   end
 
   def create
