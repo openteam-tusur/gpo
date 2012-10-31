@@ -15,7 +15,10 @@ Gpo::Application.routes.draw do
           get :to_close
           put :close, :reopen, :update_visitationlog
         end
+
         resources :stages
+        resources :visitations, except: [:new, :create, :destroy]
+
         resources :managers, except: :show do
           member do
             put :approve, :cancel
@@ -52,7 +55,6 @@ Gpo::Application.routes.draw do
         end
       end
       resources :orders
-      resources :visitations, :except => [:new, :create, :destroy]
       resources :issues, :only => [:index]
     end
   end

@@ -1,0 +1,39 @@
+<% title "Участники проекта", :participant %>
+
+<% action_link(link_to(I18n.t("participant.new"), new_chair_project_participant_path(@project.chair, @project)), "new", "Позволяет добавить участника в проект") if permitted_to?(:create, @project.participants.build) %>
+
+<%= render_list "participant_with_actions", @participants, :id => "participants" %>
+
+<% content_for :hint do %>
+  <h3>Участники проекта</h3>
+  <p>На странице представлен список участников проекта, статус участника и когда он был изменен.</p>
+  <dl>
+    <dt><%= help_term(:participant_awaiting_approval) %></dt>
+    <dd>Включение участника проекта не подтверждено приказом</dd>
+    <dt><%= help_term(:participant_awaiting_removal) %></dt>
+    <dd>Исключение участника проекта не подтверждено приказом</dd>
+    <dt><%= help_term(:participant_approved) %></dt>
+    <dd>Участника проекта подтвержден приказом</dd>
+  </dl>
+  <p>Статус участника изменяется при утверждении приказа.</p>
+  <% if permitted_to?(:create, @project.participants.build) %>
+    <dl>
+      <dt>"Отменить"</dt>
+      <dd>Позволяет отменить действие ранее произведенное над участником проекта.</dd>
+      <% if current_user.admin? %>
+        <dt>"Утвердить"</dt>
+        <dd>Позволяет утвердить действие над участником проекта, даже не утвержденное приказом.</dd>
+      <% end %>
+      <dt>"Исключить"</dt>
+      <dd>Переводит участника проекта в статус "На исключение".</dd>
+    </dl>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика участников</h3>
+    <%= render_table_stats @project.stats(:participants) %>
+  </div>
+<% end %>
+

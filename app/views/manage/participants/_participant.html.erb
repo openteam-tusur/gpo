@@ -1,0 +1,11 @@
+<div class="participant object">
+  <%= icon(:participant) %>
+  <h3><%= participant.name %></h3>
+  <div class="status">
+    <span class="state_<%= participant.state %>"><%= participant.human_state_name %></span>
+    <span class="date"><%= time_ago(participant, :updated_at) %></span>
+  </div>
+  <div class="details">гр. <%= participant.edu_group %>, <%= participant.course %> курс</div>
+  <div class="details"><%= problem_text(participant) %></div>
+</div>
+

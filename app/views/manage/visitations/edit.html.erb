@@ -4,8 +4,7 @@
   <p>Введите баллы за посещаемость в диапазоне <b>от 0 до 2</b> и нажмите кнопку "Сохранить"</p>
   <p>Если нет необходимости менять баллы, нажмите "Отмена" для возврата к журналу посещаемости.</p>
 <% end %>
-
-<%= simple_form_for chair_project_visitation_path(@project.chair, @project, @gpoday), :method => :put do | form | %>
+<%= simple_form_for :visitation, url: manage_chair_project_visitation_path(@project.chair, @project, @gpoday), :method => :put do | form | %>
   <fieldset class="participant_visitation">
     <ul>
       <% @project.participants.active.each do |participant| %>

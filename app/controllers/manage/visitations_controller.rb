@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Manage::VisitationsController < Manage::ApplicationController
-
   before_filter :find_context
 
   def index
@@ -25,9 +24,10 @@ class Manage::VisitationsController < Manage::ApplicationController
         @errors << participant.id
       end
     end
+
     if @errors.empty?
       flash[:notice] = "Баллы сохранены"
-      redirect_to chair_project_visitations_path(@project.chair, @project)
+      redirect_to manage_chair_project_visitations_path(@project.chair, @project)
     else
       flash[:error] = "Ошибка сохранения баллов"
       render :action => :edit, :layout => 'project'
@@ -35,6 +35,7 @@ class Manage::VisitationsController < Manage::ApplicationController
   end
 
   protected
+
   def find_context
     @context = 'application'
     @chair = Chair.find_by_id(params[:chair_id])
@@ -46,6 +47,5 @@ class Manage::VisitationsController < Manage::ApplicationController
   def find_visitation
     @visitation = Visitation.find(params[:id])
   end
-
 end
 

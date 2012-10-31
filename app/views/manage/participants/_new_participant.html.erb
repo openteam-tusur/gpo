@@ -1,0 +1,22 @@
+<div class="participant <%= new_participant.new_record? ? 'object' : ''  %>" >
+  <%= icon(:participant) %>
+  <h3><%= new_participant.name %></h3>
+  <div class="status">
+    <span>гр. <%= new_participant.edu_group %>, <%= new_participant.course %> курс</span>
+  </div>
+
+  <% unless new_participant.new_record? %>
+  <span class="details"><%= icon(:warning) %> Данный студент числится в проекте <%= link_to(new_participant.project.cipher, chair_project_path(new_participant.project.chair, new_participant.project)) %> со статусом &#x00ab;<%= new_participant.human_state_name %>&#x00bb;</span>
+  <% end %>
+</div>
+
+<% if permitted_to?(:create, @project.participants.build(:student_id => new_participant.student_id)) %>
+  <div class="actions">
+    <%= simple_form_for [@project.chair, @project, @participant] do |form| %>
+      <%= form.input :student_id, :as => :hidden, :input_html => { :value => new_participant.student_id } %>
+      <%= form.input :edu_group, :as => :hidden, :input_html => { :value => @query[:edu_group] } %>
+      <%= form.input :last_name, :as => :hidden, :input_html => { :value => @query[:last_name] } %>
+      <%= form.button :submit, I18n.t("add") %>
+    <% end %>
+  </div>
+<% end %>

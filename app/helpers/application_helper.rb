@@ -135,7 +135,7 @@ module ApplicationHelper
      when ProblematicParticipantsTask
        chair_project_participants_path(task.project.chair, task.project)
      when ProjectVisitationsTask
-       chair_project_visitations_path(task.project.chair, task.project)
+       manage_chair_project_visitations_path(task.project.chair, task.project)
      else
        raise "Неизвестная задача"
     end

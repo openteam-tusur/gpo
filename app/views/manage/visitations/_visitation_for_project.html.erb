@@ -12,7 +12,7 @@
   <div class="wrapper">
     <% Gpoday.find(:all, :order => :date).each do | gpoday | %>
       <div class="gpoday <%= gpoday.kt? ? 'kt' : nil %>">
-        <span class="date"><%= I18n.localize(gpoday.date) + "#{gpoday.kt? ? ' (КТ)' : nil}" %></span>
+        <span class="date"><%= l(gpoday.date) + "#{gpoday.kt? ? ' (КТ)' : nil}" %></span>
         <ul>
           <% project.participants.active.each_with_index do |participant, index| %>
             <% visitation = participant.visitation_for_gpoday(gpoday) %>
@@ -26,7 +26,7 @@
             </li>
           <% end %>
         </ul>
-        <%= link_to t('edit'), edit_chair_project_visitation_path(project.chair, project, gpoday), :class => "edit" if show_edit_link && permitted_to?(:update, project) && !project.participants.empty? %>
+        <%= link_to t('edit'), edit_manage_chair_project_visitation_path(project.chair, project, gpoday), :class => "edit" if show_edit_link && permitted_to?(:update, project) && !project.participants.empty? %>
       </div>
     <% end %>
   </div>
