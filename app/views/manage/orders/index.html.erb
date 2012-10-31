@@ -6,7 +6,7 @@
   <p>По каждому приказу показано состояние приказа и когда оно было изменено и проекты, связаные с приказом.</p>
 <% end %>
 
-<% action_link(link_to(I18n.t("opening_order.new"), new_manage_chair_opening_order_path(@chair)), "new", "Позволяет создать проект приказа о формировании проектов") if permitted_to?(:create, @chair.opening_orders.build) %>
-<% action_link(link_to(I18n.t("workgroup_order.new"), new_manage_chair_order_path(@chair, :type => :workgroup_orders)), "new", "Позволяет создать проект приказа об изменении рабочих групп проектов") if permitted_to?(:create, @chair.workgroup_orders.build) %>
+<% action_link(link_to(I18n.t("opening_order.new"), new_manage_chair_opening_order_path(@chair)), "new", "Позволяет создать проект приказа о формировании проектов") %>
+<% action_link(link_to(I18n.t("workgroup_order.new"), new_manage_chair_workgroup_order_path(@chair)), "new", "Позволяет создать проект приказа об изменении рабочих групп проектов") %>
 
 <%= render_list "order", @orders, :id => "orders" %>

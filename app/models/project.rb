@@ -56,6 +56,7 @@ class Project < ActiveRecord::Base
   scope :active, where(:state => :active)
   scope :draft, where(:state => :draft)
   scope :closed, where(:state => :closed)
+  scope :editable, where(:editable_state => :editable)
 
   state_machine :initial => :draft do
     state :closed do

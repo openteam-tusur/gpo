@@ -39,6 +39,7 @@ Gpo::Application.routes.draw do
         put :update_state, :on => :member
       end
       resources :opening_orders, except: [:index, :destroy, :edit]
+      resources :workgroup_orders, except: [:index, :destroy, :edit]
 
       resources :users, except: :show
     end
