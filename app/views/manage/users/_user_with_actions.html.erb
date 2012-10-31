@@ -1,0 +1,5 @@
+<%= render :partial => 'user', :object => object %>
+<div class="actions">
+  <%= link_to_edit_user(object, @chair) %>
+  <%= link_to_delete_user(object, @chair) %>
+</div>

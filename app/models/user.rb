@@ -24,7 +24,7 @@
 
 
 class User < ActiveRecord::Base
-  attr_accessible :chair_id
+  attr_accessible :chair_id, :last_name, :first_name, :mid_name, :post, :float, :phone, :email
 
   validates_presence_of     :first_name, :mid_name, :last_name
 
@@ -38,15 +38,15 @@ class User < ActiveRecord::Base
 
   has_many :rules, :dependent => :destroy
 
-  def initialize(attributes = {})
-    super(attributes)
-    if attributes.has_key?(:name)
-      name = attributes[:name]
-      self.last_name = name.split(" ")[0]
-      self.first_name = name.split(" ")[1]
-      self.mid_name = name.split(" ")[2]
-    end
-  end
+  #def initialize(attributes = {})
+    #super(attributes)
+    #if attributes.has_key?(:name)
+      #name = attributes[:name]
+      #self.last_name = name.split(" ")[0]
+      #self.first_name = name.split(" ")[1]
+      #self.mid_name = name.split(" ")[2]
+    #end
+  #end
 
   def name
     "#{last_name} #{first_name} #{mid_name}"

@@ -1,7 +1,7 @@
 <ul id="header-navigation">
   <%= nav_link link_to("Моя страница", dashboard_path), 'sessions', :action => 'dashboard' %>
   <%= nav_link link_to("Кафедры", manage_chairs_path), 'chairs' %>
-  <%#= nav_link link_to("Пользователи", users_path), 'users' if permitted_to?(:index, :users) %>
+  <%= nav_link link_to("Пользователи", manage_users_path), 'users' %>
   <%#= nav_link link_to("Правила", rules_path), 'rules' if permitted_to?(:index, :rules) %>
   <%= nav_link link_to("Отчеты", manage_reports_path), 'reports' %>
   <%= nav_link link_to("Настройки", manage_themes_path), 'themes' %>

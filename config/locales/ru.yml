@@ -163,7 +163,9 @@ ru:
         mid_name:              Отчество
         password:              Пароль
         password_confirmation: Подтверждение пароля
-        post:                  Откуда это берется
+        post:                  Должность, уч. звание
+        float:                 Корпус, аудитория
+        phone:                 Контактный телефон
 
     state_machines:
       manager:

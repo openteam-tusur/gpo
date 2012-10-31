@@ -9,21 +9,24 @@ Gpo::Application.routes.draw do
     resources :visitations, only: :index
 
     resources :chairs do
+
       resources :projects do
         member do
           get :to_close
           put :close, :reopen, :update_visitationlog
         end
-
         resources :stages
-
         resources :managers, except: :show do
           member do
             put :approve, :cancel
           end
         end
       end
+
+      resources :users, except: :show
     end
+
+    resources :users, except: :show
   end
 
   resources :students, collection: { problematic: :get }
@@ -37,7 +40,6 @@ Gpo::Application.routes.draw do
       put :update_state, :on => :member
     end
 
-    resources :users
 
     resources :projects do
       resources :participants do

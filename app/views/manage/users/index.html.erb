@@ -1,7 +1,7 @@
 <% title users_title(@chair), :user %>
 
 <% content_for :action_nav do %>
-  <%= action_link(link_to_new_user(@chair), 'new', "Позволяет добавить нового пользователя") if permitted_to?(:create, User.new(:chair_id => @chair ? @chair.id : nil)) %>
+  <%= action_link(link_to(I18n.t("user.new"), new_resource_url), 'new', "Позволяет добавить нового пользователя") %>
 <% end %>
 
 <% content_for :hint do %>
