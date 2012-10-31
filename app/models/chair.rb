@@ -53,17 +53,6 @@ class Chair < ActiveRecord::Base
     managers
   end
 
-  def build_order(type, params = {})
-    case type
-    when "WorkgroupOrder"
-      @order = self.workgroup_orders.build(params)
-    when "OpeningOrder"
-      @order = self.opening_orders.build(params)
-    else
-      raise "Неверный тип приказа"
-    end
-  end
-
   def stats(*types)
     Stat.for_chair(self, *types)
   end

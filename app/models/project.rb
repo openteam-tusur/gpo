@@ -105,6 +105,10 @@ class Project < ActiveRecord::Base
     self.cipher
   end
 
+  def to_s
+    "#{cipher} #{title}"
+  end
+
   def visitations_problem?
     visitations_count = Visitation.count(:include => [:participant, :gpoday], :conditions => ["
         participants.project_id = #{self.id} AND visitations.rate IS NOT NULL

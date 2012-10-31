@@ -5,9 +5,7 @@ class Manage::OrdersController < Manage::ApplicationController
   belongs_to :chair do
     belongs_to :project, optional: true
   end
-  #before_filter :find_chair_and_project
-  #before_filter :find_order, :except => [:index, :new, :create]
-  #before_filter :prepare_order, :only => [:new, :create]
+  actions :all, except: [:new, :create]
   layout 'chair'
 
   def index
@@ -15,14 +13,6 @@ class Manage::OrdersController < Manage::ApplicationController
       render 'project_orders', layout: 'project' and return if @project
     }
   end
-
-  #def index
-    #unless @project.nil?
-      #render :template => "orders/project_orders", :layout => "project"
-      #return
-    #end
-    #@orders = @chair.orders.find(:all)
-  #end
 
   def show
     super do |format|
@@ -32,31 +22,10 @@ class Manage::OrdersController < Manage::ApplicationController
     end
   end
 
-  def new
-  end
-
-  def create
-    @order.update_projects(params[:projects])
-
-    if @order.save
-      flash[:notice] = 'Приказ успешно создан'
-      redirect_to(chair_order_path(@chair, @order))
-    else
-      render :action => "new", :type => @order.class.name
-    end
-  end
-
-  def edit
-  end
-
   def update
-    @order.update_projects(params[:projects]) unless @order.approved?
-
-    if @order.update_attributes(params[:order])
-      flash[:notice] = 'Приказ успешно сохранен'
-      redirect_to chair_order_path(@order.chair, @order)
-    else
-      render :action => "edit"
+    update do |success, failure|
+      success.thml { raise 'success'.inspect }
+      failure.thml { raise 'failure'.inspect }
     end
   end
 
@@ -98,26 +67,6 @@ class Manage::OrdersController < Manage::ApplicationController
         render :action => :show
       end
     end
-  end
-
-  def destroy
-    @order.remove
-    flash[:notice] = 'Приказ успешно удален'
-    redirect_to chair_orders_path(@chair)
-  end
-
-  protected
-  def find_chair_and_project
-    @chair = Chair.find(params[:chair_id])
-    @project = Project.find_by_id(params[:project_id])
-  end
-
-  def find_order
-    @order = @chair.orders.find(params[:id])
-  end
-
-  def prepare_order
-    @order = @chair.build_order(params[:type], params[:order])
   end
 
   def send_odt

@@ -13,7 +13,7 @@ module ApplicationHelper
     current_action = options[:action]
     id = "#{current_controller}"
     id << "_#{current_action}" if current_action
-    controller_match = (current_controller == controller.controller_name)
+    controller_match = (controller.controller_name.include?(current_controller))
     action_match = current_action ? (current_action == controller.action_name) : true
     selected = controller_match && action_match
     unless options[:selected].nil?

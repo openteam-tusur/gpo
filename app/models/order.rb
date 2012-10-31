@@ -24,6 +24,8 @@ class Order < ActiveRecord::Base
 
   attr_accessor :comment
 
+  attr_accessible :project_ids
+
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher desc'
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at desc'
@@ -34,6 +36,8 @@ class Order < ActiveRecord::Base
   #has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
 
   validates_presence_of :number, :approved_at, :if => :approved?
+
+  validates_presence_of :projects
 
   scope :blocking, where(:state => %w[being_reviewed reviewed])
   scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
@@ -124,7 +128,4 @@ class Order < ActiveRecord::Base
     self.projects.each { |p| p.disable_modifications }
   end
 
-  def validate
-    errors.add("projects", "Должен быть выбран хотя бы один проект") if self.projects.empty?
-  end
 end

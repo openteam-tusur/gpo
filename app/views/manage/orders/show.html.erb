@@ -8,8 +8,8 @@
 <% action_link(link_to_file(@order, "odt", I18n.t("order.odt_file")), "odt", "Скачать приказ в формате OpenOffice Document") %>
 <% action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
 
-<% action_link(link_to(I18n.t("edit"), edit_chair_order_path(@order.chair, @order)), "edit", "Позволяет изменить информацию о приказе") if permitted_to?(:update, @order) %>
-<% action_link(link_to_delete(chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if permitted_to?(:delete, @order) %>
+<% action_link(link_to(I18n.t("edit"), edit_manage_chair_order_path(@order.chair, @order)), "edit", "Позволяет изменить информацию о приказе") if permitted_to?(:update, @order) %>
+<% action_link(link_to_delete(manage_chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if permitted_to?(:delete, @order) %>
 
 <% if permitted_to?(:to_review, @order) || permitted_to?(:review, @order) || permitted_to?(:cancel, @order) || permitted_to?(:approve, @order) %>
   <p class="hint"><%= I18n.t("order.hint_#{@order.state}")%> </p>

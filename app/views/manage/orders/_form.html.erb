@@ -1,10 +1,5 @@
 <% unless !form.object.nil? && form.object.approved? %>
-  <%= hidden_field_tag :type, order.class.name %>
-  <% order.available_projects.each do |project|  %>
-    <%= label "projects", "#{project.id}",
-      check_box_tag("projects[]", project.id, order.projects.include?(project),
-      {:id => "projects_#{project.id}"}) + "#{project.cipher} #{project.title}"%>
-  <% end %>
+  <%= form.association :projects, :as => :check_boxes, :collection => order.available_projects, :label_method => :to_s %>
 <% else %>
   <%= form.input :number %>
   <%= form.input :approved_at, :as => :datepicker %>

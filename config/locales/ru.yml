@@ -113,6 +113,7 @@ ru:
         approved_at:      Дата
         file:             Файл
         number:           Номер
+        projects:         Проекты
 
       participant:
         student_id:       Студент
