@@ -26,9 +26,8 @@
             </li>
           <% end %>
         </ul>
-        <%= link_to t('edit'), edit_manage_chair_project_visitation_path(project.chair, project, gpoday), :class => "edit" %>
+        <%= link_to t('edit'), edit_manage_chair_project_visitation_path(project.chair, project, gpoday), :class => "edit" if @context.eql?("project") %>
       </div>
     <% end %>
   </div>
 </div>
-

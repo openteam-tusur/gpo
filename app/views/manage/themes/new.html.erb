@@ -9,6 +9,6 @@
   <fieldset>
     <%= form.input :name %>
     <%= form.button :submit, I18n.t("create") %>
-    <%= link_to I18n.t("cancel"), :back %>
+    <%= link_to I18n.t("cancel"), collection_url %>
   </fieldset>
 <% end %>
