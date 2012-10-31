@@ -5,7 +5,7 @@
       <%= form.input :number %>
       <%= form.input :approved_at, :as => :datepicker %>
     <% end %>
-    <%= form.input :comment, :as => :text %>
+    <%= form.input :comment, :as => :text, :input_html => { :class => "comment_for_change_state_order" } %>
     <%= form.button :submit, Order.human_state_event_name(:to_review), :name => :to_review %>
     <%= form.button :submit, Order.human_state_event_name(:review), :name => :review %>
     <%= form.button :submit, Order.human_state_event_name(:cancel), :name => :cancel %>
