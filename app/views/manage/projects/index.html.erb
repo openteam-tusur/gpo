@@ -2,8 +2,8 @@
 
 <% content_for :inline_navigation do %>
   <ul>
-    <%= inline_nav_link link_to(I18n.t("project.active"), chair_projects_path(@chair)), params[:state].blank? %>
-    <%= inline_nav_link link_to(I18n.t("project.archive"), chair_projects_path(@chair, :state => "close")), params[:state] == "close" %>
+    <%= inline_nav_link link_to(I18n.t("project.active"), manage_chair_projects_path(@chair)), params[:state].blank? %>
+    <%= inline_nav_link link_to(I18n.t("project.archive"), manage_chair_projects_path(@chair, :state => "close")), params[:state] == "close" %>
   </ul>
 <% end %>
 

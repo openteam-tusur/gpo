@@ -9,6 +9,13 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   layout :choose_layout
 
+  def index
+    index! {
+      @projects = @chair.projects.current_active
+      @projects = @chair.projects.closed unless params[:state].blank?
+    }
+  end
+
   def close
     update! {
       if @project.close
