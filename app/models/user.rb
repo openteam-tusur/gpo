@@ -38,15 +38,7 @@ class User < ActiveRecord::Base
 
   has_many :rules, :dependent => :destroy
 
-  #def initialize(attributes = {})
-    #super(attributes)
-    #if attributes.has_key?(:name)
-      #name = attributes[:name]
-      #self.last_name = name.split(" ")[0]
-      #self.first_name = name.split(" ")[1]
-      #self.mid_name = name.split(" ")[2]
-    #end
-  #end
+  default_scope order('last_name, first_name, mid_name')
 
   def name
     "#{last_name} #{first_name} #{mid_name}"
