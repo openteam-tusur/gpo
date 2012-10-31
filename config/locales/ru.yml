@@ -114,6 +114,7 @@ ru:
         file:             Файл
         number:           Номер
         projects:         Проекты
+        comment:          Комментарий
 
       participant:
         student_id:       Студент

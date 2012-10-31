@@ -5,10 +5,10 @@
       <%= form.input :number %>
       <%= form.input :approved_at, :as => :datepicker %>
     <% end %>
-    <%= form.input :comment %>
-    <%= form.button :submit, Order.human_state_event_name(:to_review), :input_html => { :name => :to_review } %>
-    <%= form.button :submit, Order.human_state_event_name(:review), :input_html => { :name => :review } %>
-    <%= form.button :submit, Order.human_state_event_name(:cancel), :input_html => { :name => :cancel } %>
-    <%= form.button :submit, Order.human_state_event_name(:approve), :input_html => { :name => :approve } %>
+    <%= form.input :comment, :as => :text %>
+    <%= form.button :submit, Order.human_state_event_name(:to_review), :name => :to_review %>
+    <%= form.button :submit, Order.human_state_event_name(:review), :name => :review %>
+    <%= form.button :submit, Order.human_state_event_name(:cancel), :name => :cancel %>
+    <%= form.button :submit, Order.human_state_event_name(:approve), :name => :approve %>
   </fieldset>
 <% end %>
