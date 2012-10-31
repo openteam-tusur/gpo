@@ -27,10 +27,10 @@ Gpo::Application.routes.draw do
     end
 
     resources :users, except: :show
+    resources :rules, except: :show
   end
 
   resources :students, collection: { problematic: :get }
-  resources :rules
 
   resources :chairs do
     resources :visitations, only: :index

@@ -87,4 +87,17 @@ class Rule < ActiveRecord::Base
   def manager?
     self.role == 'manager'
   end
+
+  def role_to_s
+    case role
+    when 'admin'
+      'Администратор'
+    when 'mentor'
+      'Ответственный за ГПО на кафедре'
+    when 'manager'
+      'Руководитель проекта'
+    when 'supervisor'
+      'Ответственный за ГПО по университету'
+    end
+  end
 end

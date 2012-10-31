@@ -1,7 +1,7 @@
 <% title "Правила", :rule %>
 
 <% content_for :action_nav do %>
-  <%= action_link(link_to(I18n.t("rule.new"), new_rule_path), "new", "Позволяет создать правило для пользователя") if permitted_to?(:create, :rules) %>
+  <%= action_link(link_to(I18n.t("rule.new"), new_manage_rule_path), "new", "Позволяет создать правило для пользователя") %>
 <% end %>
 
 <% content_for :hint do %>

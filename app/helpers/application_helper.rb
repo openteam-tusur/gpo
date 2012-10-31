@@ -87,7 +87,7 @@ module ApplicationHelper
           render(:partial => item_partial,
                  :locals => {:object => item, :order => item, :chair_manager => item,
                              :task => item, :activity => item, :report => item, :theme => item,
-                             :gpoday => item, :stage => item}),
+                             :gpoday => item, :stage => item, rule: item }),
           :class => item_class.join(" "))
       }.join
 
