@@ -17,7 +17,7 @@
 <% end %>
 
 <h2>Проекты <span>список проектов, проходящих по данному приказу</span></h2>
-<%= render_list "projects/project", @order.projects, :id => "projects" %>
+<%= render_list "manage/projects/project", @order.projects, :id => "projects" %>
 
 <% unless @order.activities.recent.empty? %>
   <h2>Активность по приказу <span>что происходило с данным приказом</span></h2>

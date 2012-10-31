@@ -1,6 +1,6 @@
 <div id="order_<%= order.id %>" class="order object">
   <%= order_icon(order) %>
-  <h3><%= link_to "Приказ #{order_title(order)}", chair_order_path(order.chair, order) %></h3>
+  <h3><%= link_to "Приказ #{order_title(order)}", manage_chair_order_path(order.chair, order) %></h3>
   <div class="status">
     <span class="state_<%= order.state %>"><%= order.human_state_name %></span>
     <span class="date"><%= time_ago(order, :updated_at) %></span>

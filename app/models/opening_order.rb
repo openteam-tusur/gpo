@@ -30,11 +30,6 @@ class OpeningOrder < Order
     end
   end
 
-  # FIXME: - l10n
-  def title
-    self.class.model_name.human
-  end
-
   # для приказа
   def chairs_for_order_report
     chairs = []

@@ -32,6 +32,11 @@ Gpo::Application.routes.draw do
         resources :managers, except: :show do
           put :approve, :cancel, on: :member
         end
+        resources :orders, only: :index
+      end
+
+      resources :orders do
+        put :update_state, :on => :member
       end
 
       resources :users, except: :show
@@ -47,9 +52,6 @@ Gpo::Application.routes.draw do
     resources :visitations, only: :index
     get :managers, on: :member
 
-    resources :orders do
-      put :update_state, :on => :member
-    end
 
 
     resources :projects do
@@ -59,7 +61,6 @@ Gpo::Application.routes.draw do
           put :cancel
         end
       end
-      resources :orders
     end
   end
 

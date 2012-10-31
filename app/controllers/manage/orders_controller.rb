@@ -1,21 +1,31 @@
 # encoding: utf-8
 
-class OrdersController < ApplicationController
-  before_filter :find_chair_and_project
-  before_filter :find_order, :except => [:index, :new, :create]
-  before_filter :prepare_order, :only => [:new, :create]
+class Manage::OrdersController < Manage::ApplicationController
+  inherit_resources
+  belongs_to :chair do
+    belongs_to :project, optional: true
+  end
+  #before_filter :find_chair_and_project
+  #before_filter :find_order, :except => [:index, :new, :create]
+  #before_filter :prepare_order, :only => [:new, :create]
   layout 'chair'
 
   def index
-    unless @project.nil?
-      render :template => "orders/project_orders", :layout => "project"
-      return
-    end
-    @orders = @chair.orders.find(:all)
+    index! {
+      render 'project_orders', layout: 'project' and return if @project
+    }
   end
 
+  #def index
+    #unless @project.nil?
+      #render :template => "orders/project_orders", :layout => "project"
+      #return
+    #end
+    #@orders = @chair.orders.find(:all)
+  #end
+
   def show
-    respond_to do |format|
+    super do |format|
       format.html { render :layout => 'order' }
       format.odt { send_odt } if params[:format] == 'odt'
       format.doc { send_converted_odt(:doc) } if params[:format] == 'doc'

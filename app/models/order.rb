@@ -22,6 +22,8 @@
 class Order < ActiveRecord::Base
   set_table_name "ordinances"
 
+  attr_accessor :comment
+
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher desc'
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at desc'
@@ -60,7 +62,7 @@ class Order < ActiveRecord::Base
   end
 
   def title
-    raise "Некорректный тип приказа. Невозможно отобразить название приказа."
+    self.class.model_name.human
   end
 
   def order_type

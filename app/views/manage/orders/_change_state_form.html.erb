@@ -1,0 +1,14 @@
+<%= simple_form_for @order, :url => update_state_manage_chair_order_path(@chair, @order), :html => { :method => :put } do | form | %>
+  <fieldset>
+    <% # TODO: проверить на разрешение утверждения приказа %>
+    <% if false %>
+      <%= form.input :number %>
+      <%= form.input :approved_at, :as => :datepicker %>
+    <% end %>
+    <%= form.input :comment %>
+    <%= form.button :submit, Order.human_state_event_name(:to_review), :input_html => { :name => :to_review } %>
+    <%= form.button :submit, Order.human_state_event_name(:review), :input_html => { :name => :review } %>
+    <%= form.button :submit, Order.human_state_event_name(:cancel), :input_html => { :name => :cancel } %>
+    <%= form.button :submit, Order.human_state_event_name(:approve), :input_html => { :name => :approve } %>
+  </fieldset>
+<% end %>
