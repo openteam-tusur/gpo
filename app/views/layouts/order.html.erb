@@ -1,51 +1,49 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
-<head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Приказ <%= order_title(@order) %> &#x2014; <%= yield(:title) %></title>
-  <%= csrf_meta_tags %>
-  <%= render :partial => 'shared/css_and_js' %>
-</head>
-<body>
-  <div id="header">
-    <div id="header-wrapper">
-      <%= render :partial => "shared/header" %>
-    </div>
-  </div>
-
-  <div id="wrapper" class="order-level">
-    <div id="navigation">
-      <ul>
-        <%= nav_link link_to(chair_abbr(@order.chair), manage_chair_path(@order.chair)), 'chairs', :action => 'show', :selected => false if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Проекты", manage_chair_projects_path(@order.chair)), 'projects', :selected => false if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Приказы", manage_chair_orders_path(@order.chair)), 'orders', :selected => true if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Пользователи", manage_chair_users_path(@order.chair)), 'users', :selected => false if permitted_to?(:chair_manage, @order.chair) %>
-        <%= nav_link link_to("Руководители", managers_chair_path(@order.chair)), 'chairs', :action => 'managers', :selected => false if permitted_to?(:read, @order.chair) %>
-        <%= nav_link link_to("Журнал посещаемости", chair_visitations_path(@order.chair)), 'visitations', :selected => false if permitted_to?(:read, @order.chair) %>
-      </ul>
-    </div>
-
-    <div id="content">
-      <%= render :partial => 'shared/help' %>
-
-      <div id="page-header">
-        <div id="tray"></div>
-        <div id="page-title">
-          <h1>
-            <%= iconed_title(@order.approved? ? "Приказ №#{@order.number} от #{I18n.l(@order.approved_at)}" : "Приказ", :order) %>
-            <span class="subtitle"><%= @order.title %></span>
-          </h1>
-        </div>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Приказ <%= order_title(@order) %> — <%= yield(:title) %></title>
+    <%= csrf_meta_tags %>
+    <%= render :partial => 'shared/css_and_js' %>
+  </head>
+  <body>
+    <div id="header">
+      <div id="header-wrapper">
+        <%= render :partial => "shared/header" %>
       </div>
-      <%= render :partial => 'shared/container_two_column' %>
     </div>
 
-    <div id="footer">
-      <%= render :partial => 'shared/footer' %>
+    <div id="wrapper" class="order-level">
+      <div id="navigation">
+        <ul>
+          <%= nav_link link_to(chair_abbr(@order.chair), manage_chair_path(@order.chair)), 'chairs', :action => 'show', :selected => false if permitted_to?(:read, @order.chair) %>
+          <%= nav_link link_to("Проекты", manage_chair_projects_path(@order.chair)), 'projects', :selected => false if permitted_to?(:read, @order.chair) %>
+          <%= nav_link link_to("Приказы", manage_chair_orders_path(@order.chair)), 'orders', :selected => true if permitted_to?(:read, @order.chair) %>
+          <%= nav_link link_to("Пользователи", manage_chair_users_path(@order.chair)), 'users', :selected => false if permitted_to?(:chair_manage, @order.chair) %>
+          <%= nav_link link_to("Руководители", managers_chair_path(@order.chair)), 'chairs', :action => 'managers', :selected => false if permitted_to?(:read, @order.chair) %>
+          <%= nav_link link_to("Журнал посещаемости", chair_visitations_path(@order.chair)), 'visitations', :selected => false if permitted_to?(:read, @order.chair) %>
+        </ul>
+      </div>
+
+      <div id="content">
+        <%= render :partial => 'shared/help' %>
+
+        <div id="page-header">
+          <div id="tray"></div>
+          <div id="page-title">
+            <h1>
+              <%= iconed_title(@order.approved? ? "Приказ №#{@order.number} от #{I18n.l(@order.approved_at)}" : "Приказ", :order) %>
+              <span class="subtitle"><%= @order.title %></span>
+            </h1>
+          </div>
+        </div>
+        <%= render :partial => 'shared/container_two_column' %>
+      </div>
+
+      <div id="footer">
+        <%= render :partial => 'shared/footer' %>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
-
