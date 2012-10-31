@@ -7,9 +7,7 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   custom_actions resource: [:to_close, :close]
 
-  layout 'chair'
-
-  layout 'project', only: :show
+  layout :choose_layout
 
   def close
     update! {
@@ -31,6 +29,13 @@ class Manage::ProjectsController < Manage::ApplicationController
 
       redirect_to manage_chair_project_path(@chair, @project) and return
     }
+  end
+
+  private
+
+  def choose_layout
+    return 'project' if %w[show].include? params[:action]
+    'chair'
   end
 end
 
