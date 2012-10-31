@@ -7,10 +7,10 @@
 <div class="visitationlog">
   <% Chair.find(:all, :order => :abbr).each_with_index do |chair, ch_index| %>
     <div id="chair_<%= ch_index+1 %>">
-    <%= link_to(chair.abbr, chair_path(chair), :class => 'chair_abbr') %>
+    <%= link_to chair.abbr, manage_chair_path(chair), :class => 'chair_abbr' %>
     <% chair.projects.active.each_with_index do |project, index| %>
       <div class="project_<%= project.id %>" class="project">
-        <%= link_to(project.cipher, chair_project_path(project.chair, project), :class => 'chair_cipher') %>
+        <%= link_to(project.cipher, manage_chair_project_visitations_path(project.chair, project), :class => 'chair_cipher') %>
         <%= render :partial => 'visitation_for_project', :locals => {:project => project, :show_edit_link => false} %>
       </div>
     <% end %>
