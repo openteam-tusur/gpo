@@ -34,7 +34,7 @@
         <div id="tray"></div>
         <div id="page-title">
           <h1>
-            <%= iconed_title(@order.approved? ? "Приказ №#{@order.number} от #{@order.approved_at}" : "Приказ", :order) %>
+            <%= iconed_title(@order.approved? ? "Приказ №#{@order.number} от #{I18n.l(@order.approved_at)}" : "Приказ", :order) %>
             <span class="subtitle"><%= @order.title %></span>
           </h1>
         </div>

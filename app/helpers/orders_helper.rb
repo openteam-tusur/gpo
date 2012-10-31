@@ -4,7 +4,7 @@ module OrdersHelper
   def order_title(order)
     title = order.title
     if order.approved?
-      title += " №#{order.number} от #{order.approved_at}"
+      title += " №#{order.number} от #{I18n.l(order.approved_at)}"
     end
     title
   end
