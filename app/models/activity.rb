@@ -16,6 +16,7 @@
 #
 
 class Activity < ActiveRecord::Base
+  attr_accessible :action, :comment, :chair_id
   belongs_to :chair
   belongs_to :context, :polymorphic => true
 

@@ -21,7 +21,7 @@
 
 class Order < ActiveRecord::Base
   # TODO: rename table to orders
-  set_table_name "ordinances"
+  self.table_name = "ordinances"
 
   attr_accessor :comment
 
@@ -72,6 +72,10 @@ class Order < ActiveRecord::Base
     after_transition  any => :removed,        :do => :after_enter_removed
     after_transition  any => :approved,       :do => :after_enter_approved
     after_transition  any => :being_reviewed, :do => :after_enter_being_reviewed
+
+    after_transition any => any do |order, transition|
+      order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id
+    end
   end
 
   def title
@@ -105,10 +109,6 @@ class Order < ActiveRecord::Base
     Russian.p(n, 'проект', 'проекта', 'проектов')
   end
 
-  def activity!(action, actor, comment)
-    self.activities.create(:action => action.to_s, :actor => actor, :comment => comment, :chair => self.chair)
-  end
-
   protected
 
   def after_enter_removed
@@ -139,5 +139,4 @@ class Order < ActiveRecord::Base
   def block_projects!
     projects.map(&:disable_modifications!)
   end
-
 end
