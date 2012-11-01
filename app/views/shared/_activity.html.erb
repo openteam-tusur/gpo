@@ -1,7 +1,7 @@
 <div class="activity">
     <%= activity_icon(activity) %>
     <span class="action"><%= activity_order_action(activity) %></span>
-    <span class="object"><%= link_to "приказ #{order_title_with_projects(activity.context)}", chair_order_path(activity.context.chair, activity.context) %></span>
+    <span class="object"><%= link_to "приказ #{order_title_with_projects(activity.context)}", manage_chair_order_path(activity.context.chair, activity.context) %></span>
     <div class="details">
       <% unless activity.comment.blank? %>
         <span class="comment">&#x2014; <%= activity.comment %></span>
