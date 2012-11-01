@@ -29,46 +29,6 @@ class Manage::OrdersController < Manage::ApplicationController
     end
   end
 
-  def update_state
-    unless params[:to_review].blank?
-      permitted_to!(:to_review, @order)
-      if @order.to_review
-        flash[:notice] = "Приказ отправлен на визирование"
-        @order.activity!("to_review", current_user.name, params[:comment])
-      end
-      redirect_to chair_order_path(@order.chair, @order)
-    end
-    unless params[:review].blank?
-      permitted_to!(:review, @order)
-      if @order.review
-        flash[:notice] = "Приказ визирован"
-        @order.activity!("review", current_user.name, params[:comment])
-      end
-      redirect_to chair_order_path(@order.chair, @order)
-    end
-    unless params[:cancel].blank?
-      permitted_to!(:cancel, @order)
-      if @order.cancel
-        flash[:notice] = "Приказ возвращён на доработку"
-        @order.activity!("return", current_user.name, params[:comment])
-      end
-      redirect_to chair_order_path(@order.chair, @order)
-    end
-    unless params[:approve].blank?
-      permitted_to!(:approve, @order)
-      begin
-        @order.state = 'approved'
-        @order.update_attributes!(params[:order])
-        flash[:notice] = "Приказ утвержден"
-        @order.activity!("approve", current_user.name, params[:comment])
-        redirect_to chair_order_path(@order.chair, @order)
-      rescue
-        @order.state = @order.state_was
-        render :action => :show
-      end
-    end
-  end
-
   def send_odt
     filename = "order_#{@order.id}.odt"
     if @order.file?

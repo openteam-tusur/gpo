@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
 
   attr_accessor :comment
 
-  attr_accessible :project_ids
+  attr_accessible :project_ids, :state_event
 
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher DESC'

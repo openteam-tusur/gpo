@@ -40,7 +40,7 @@ module OrdersHelper
   end
 
   def link_to_file(order, format, caption)
-    link_to caption, chair_order_path(order.chair, order, :format => format)
+    link_to caption, manage_chair_order_path(order.chair, order, :format => format)
   end
 
   def order_projects_list(order)
