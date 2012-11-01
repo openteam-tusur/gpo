@@ -32,14 +32,13 @@ Gpo::Application.routes.draw do
         resources :managers, except: :show do
           put :approve, :cancel, on: :member
         end
+
         resources :orders, only: :index
       end
 
-      resources :orders, only: [:index, :destroy, :edit, :show] do
-        put :update_state, :on => :member
-      end
-      resources :opening_orders, except: [:index, :destroy, :edit]
-      resources :workgroup_orders, except: [:index, :destroy, :edit]
+      resources :orders, except: [:new, :create, :update]
+      resources :opening_orders, only: [:new, :create, :update]
+      resources :workgroup_orders, only: [:new, :create, :update]
 
       resources :users, except: :show
     end

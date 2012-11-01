@@ -1,12 +1,14 @@
-<%= simple_form_for @order, :url => update_state_manage_chair_order_path(@chair, @order), :html => { :method => :put } do | form | %>
+<%= simple_form_for @order, :url => resource_url, :html => { :method => :put } do | form | %>
   <fieldset>
     <% p '=' * 80 %>
     <% p "# TODO: проверить на разрешение утверждения приказа" %>
     <% p '=' * 80 %>
+
     <%= form.input :number %>
     <%= form.input :approved_at, :as => :datepicker %>
-    <%= form.input :state_event, :as => :hidden %>
+    <%= form.input :state_event, :as => :hidden, :input_html => { :id => 'order_state_event' } %>
     <%= form.input :comment, :as => :text, :input_html => { :class => "comment_for_change_state_order" } %>
+
     <% @order.state_events.each do | event | %>
       <%= form.button :submit, Order.human_state_event_name(event), :name => event %>
     <% end %>

@@ -2,10 +2,13 @@
 
 class Manage::OrdersController < Manage::ApplicationController
   inherit_resources
+
   belongs_to :chair do
     belongs_to :project, optional: true
   end
-  actions :all, except: [:new, :create]
+
+  actions :all, except: [:new, :create, :update]
+
   layout 'chair'
 
   def index
@@ -19,13 +22,6 @@ class Manage::OrdersController < Manage::ApplicationController
       format.html { render :layout => 'order' }
       format.odt { send_odt } if params[:format] == 'odt'
       format.doc { send_converted_odt(:doc) } if params[:format] == 'doc'
-    end
-  end
-
-  def update
-    update do |success, failure|
-      success.html { raise 'success'.inspect }
-      failure.html { raise 'failure'.inspect }
     end
   end
 

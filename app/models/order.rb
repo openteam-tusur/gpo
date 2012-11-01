@@ -25,7 +25,7 @@ class Order < ActiveRecord::Base
 
   attr_accessor :comment
 
-  attr_accessible :project_ids, :state_event
+  attr_accessible :project_ids, :state_event, :number, :approved_at, :comment
 
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher DESC'
@@ -74,7 +74,7 @@ class Order < ActiveRecord::Base
     after_transition  any => :approved,       :do => :after_enter_approved
     after_transition  any => :being_reviewed, :do => :after_enter_being_reviewed
 
-    after_transition any => any do |order, transition|
+    after_transition any => [:draft, :being_reviewed, :reviewed, :approved] do |order, transition|
       order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id
     end
   end
@@ -113,7 +113,7 @@ class Order < ActiveRecord::Base
   protected
 
   def after_enter_removed
-    release_projects! if was_being_reviewed? || was_reviewed?
+    release_projects! if state_was == 'being_reviewed'
     self.destroy
   end
 
