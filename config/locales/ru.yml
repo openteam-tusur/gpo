@@ -37,7 +37,7 @@ ru:
 
   order_activity:
     approve:    утвержден
-    return:     возвращен на доработку
+    cancel:     возвращен на доработку
     review:     визирован
     to_review:  отправлен на визирование
     unknown:    состояние изменен

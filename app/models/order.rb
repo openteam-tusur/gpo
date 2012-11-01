@@ -37,7 +37,6 @@ class Order < ActiveRecord::Base
   # FIXME: + dragonfly || esp storage
   #has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
 
-
   validates_presence_of :projects
 
   scope :blocking, where(:state => %w[being_reviewed reviewed])
@@ -77,6 +76,10 @@ class Order < ActiveRecord::Base
     after_transition any => [:draft, :being_reviewed, :reviewed, :approved] do |order, transition|
       order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id
     end
+  end
+
+  def state_events_without_remove
+    state_events - [:remove]
   end
 
   def title

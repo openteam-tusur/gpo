@@ -25,7 +25,7 @@ class Manage::OpeningOrdersController < Manage::ApplicationController
   def update
     update! do |success, failure|
       success.html { redirect_to after_order_update_path }
-      failure.html { render 'manage/orders/edit' }
+      failure.html { render resource.state_event ? 'manage/orders/show' : 'manage/orders/edit' }
     end
   end
 end

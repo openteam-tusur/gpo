@@ -25,6 +25,15 @@ class Manage::OrdersController < Manage::ApplicationController
     end
   end
 
+  def destroy
+    show! {
+      @order.remove
+      flash[:notice] = 'Приказ успешно удален'
+
+      redirect_to collection_url and return
+    }
+  end
+
   def send_odt
     filename = "order_#{@order.id}.odt"
     #zip = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{@order.class.name.underscore}.odt")

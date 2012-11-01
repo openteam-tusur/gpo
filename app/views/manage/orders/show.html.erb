@@ -12,7 +12,7 @@
 <% action_link(link_to_delete(manage_chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if permitted_to?(:delete, @order) %>
 
 <p class="hint"><%= I18n.t("order.hint_#{@order.state}")%> </p>
-<%= render :partial => "change_state_form", :locals => {:order => @order} %>
+<%= render :partial => "manage/orders/change_state_form", :locals => {:order => @order} %>
 
 <h2>Проекты <span>список проектов, проходящих по данному приказу</span></h2>
 <%= render_list "manage/projects/project", @order.projects, :id => "projects" %>

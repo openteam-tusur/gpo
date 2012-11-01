@@ -14,6 +14,7 @@
 #
 
 class Rule < ActiveRecord::Base
+  attr_accessible :user, :context
 
   # FIXME fix this shit!
   alias_attribute :chair_id, :context_id
