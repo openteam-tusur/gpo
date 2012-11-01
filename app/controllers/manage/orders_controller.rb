@@ -24,8 +24,8 @@ class Manage::OrdersController < Manage::ApplicationController
 
   def update
     update do |success, failure|
-      success.thml { raise 'success'.inspect }
-      failure.thml { raise 'failure'.inspect }
+      success.html { raise 'success'.inspect }
+      failure.html { raise 'failure'.inspect }
     end
   end
 
