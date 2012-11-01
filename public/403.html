@@ -1,28 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Изменения, внесенные вами, отклонены сервером (ошибка 422)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 40em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
-</head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Доступ запрещён (404)</title>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+    <link href="/assets/application.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
 
-<body>
-  <!-- This file lives in public/422.html -->
-  <div class="dialog">
-    <h1>Изменения, внесенные вами, отклонены сервером.</h1>
-    <p>Возможно, вы пытаетесь ввести некорректные изменения.</p>
-    <p>Служба поддержки <a href='mailto:openteam@tusur.ru'>openteam@tusur.ru</a></p>
-    <p><a href='/'>Перейти на главную страницу</a></p>
-  </div>
-</body>
+    <div id="header">
+      <div id="header-wrapper">
+        <div id="header-navigation">
+          <ul>
+            <li id="link_to_sessions_dashboard">
+              <img alt="Nav_sessions_dashboard" width="16" height="16" class="icon" src="/assets/nav_sessions_dashboard.png" /><a href="/">Моя страница</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="wrapper">
+
+      <div id="navigation">
+        <ul>
+          <li class="current" id="link_to_sessions_dashboard">
+            <img alt="Nav_sessions_dashboard" width="16" height="16" class="icon" src="/assets/nav_sessions_dashboard.png" /><a href="/">Моя страница</a>
+          </li>
+        </ul>
+      </div>
+
+      <div id="content">
+        <div id="page-header">
+          <div id="tray"></div>
+          <div id="page-title">
+            <h1><img alt="Icon_404" width="16" height="16" class="icon" src="/assets/403.png">403 ошибка</h1>
+          </div>
+        </div>
+        <div id="container-one-collumn" class="error_page">
+          <h1>403</h1>
+          <p>Доступ к запрашиваемому Вами ресурсу запрещён</p>
+          <p><a href="/">Перейти на главную страницу</a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="footer">
+      Сделано с любовью в <a target="_blank" href="http://openteam.ru">OpenTeam</a>.
+      Если случилась беда — <a href="mailto:developers@openteam.ru">сообщите об ошибке</a>
+    </div>
+
+  </body>
 </html>
