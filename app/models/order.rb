@@ -20,6 +20,7 @@
 
 
 class Order < ActiveRecord::Base
+  # TODO: rename table to orders
   set_table_name "ordinances"
 
   attr_accessor :comment
@@ -27,15 +28,14 @@ class Order < ActiveRecord::Base
   attr_accessible :project_ids
 
   has_many :order_projects, :dependent => :destroy
-  has_many :projects, :through => :order_projects, :order => 'cipher desc'
-  has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at desc'
+  has_many :projects, :through => :order_projects, :order => 'cipher DESC'
+  has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at DESC'
 
   belongs_to :chair
 
   # FIXME: + dragonfly || esp storage
   #has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
 
-  validates_presence_of :number, :approved_at, :if => :approved?
 
   validates_presence_of :projects
 
@@ -47,18 +47,27 @@ class Order < ActiveRecord::Base
     event :remove do
       transition :draft => :removed, :being_reviewed => :removed, :reviewed => :removed, :approved => :removed
     end
+
     event :to_review do
       transition :draft => :being_reviewed
     end
+
     event :cancel do
       transition :being_reviewed => :draft, :reviewed => :draft
     end
+
     event :review do
       transition :being_reviewed => :reviewed
     end
+
     event :approve do
       transition :reviewed => :approved
     end
+
+    state :approved do
+      validates_presence_of :number, :approved_at
+    end
+
     after_transition  any => :draft,          :do => :after_enter_draft
     after_transition  any => :removed,        :do => :after_enter_removed
     after_transition  any => :approved,       :do => :after_enter_approved
@@ -109,23 +118,26 @@ class Order < ActiveRecord::Base
 
   def after_enter_being_reviewed
     block_projects!
-    assign_file! unless self.file?
+    # TODO: paperclip -> storage
+    # assign_file! unless self.file?
   end
 
   def after_enter_draft
     release_projects!
-    remove_file! if self.file?
+    # TODO: paperclip -> storage
+    # remove_file! if self.file?
   end
 
   def after_enter_approved
+    release_projects!
   end
 
   def release_projects!
-    self.projects.each { |p| p.enable_modifications }
+    projects.map(&:enable_modifications!)
   end
 
   def block_projects!
-    self.projects.each { |p| p.disable_modifications }
+    projects.map(&:disable_modifications!)
   end
 
 end
