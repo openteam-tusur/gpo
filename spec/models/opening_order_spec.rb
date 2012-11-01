@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe OpeningOrder do
   describe 'state machine' do
+    before { Participant.any_instance.stub(:update_from_contingent) }
+
     let(:project) { Fabricate :project }
     let(:opening_order) { Fabricate :opening_order, chair: project.chair, project_ids: [project.id] }
 

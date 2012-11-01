@@ -19,11 +19,6 @@
 #
 
 class OpeningOrder < Order
-
-  def self.state_events
-    Order.state_events
-  end
-
   def available_projects
     chair.projects.draft.find_all do |project|
       project.opening_order.nil? || (project.opening_order == self && self.draft?)
@@ -43,17 +38,6 @@ class OpeningOrder < Order
       "виза заведующего кафедрой #{chairs[0]}; "
     when 2
       "визы заведующих кафедрами #{chairs.join(', ')}; "
-    end
-  end
-
-  private
-
-  # TODO: ensure this method invokes
-  def after_enter_approved
-    self.projects.each do |project|
-      p = Project.find(project.id)
-      p.enable_modifications
-      p.approve
     end
   end
 end

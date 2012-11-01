@@ -19,11 +19,6 @@
 #
 
 class WorkgroupOrder < Order
-
-  def self.state_events
-    Order.state_events
-  end
-
   def available_projects
     self.chair.projects.active.editable.find_all do |project|
       # в проекте есть изменения в участниках
@@ -52,13 +47,13 @@ class WorkgroupOrder < Order
 
   private
 
-  # TODO: ensure this method invokes
   def after_enter_approved
-    self.projects.each do |project|
-      project.enable_modifications
-      project.participants.awaiting.each do |participant|
-        participant.approve
-      end
-    end
+    super
+
+    approve_participants!
+  end
+
+  def approve_participants!
+    participants.map(&:approve!)
   end
 end

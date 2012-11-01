@@ -29,6 +29,7 @@ class Order < ActiveRecord::Base
 
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher DESC'
+  has_many :participants, :through => :projects
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at DESC'
 
   belongs_to :chair
@@ -130,6 +131,11 @@ class Order < ActiveRecord::Base
 
   def after_enter_approved
     release_projects!
+    approve_projects!
+  end
+
+  def approve_projects!
+    projects.map(&:approve!)
   end
 
   def release_projects!
