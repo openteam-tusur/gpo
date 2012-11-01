@@ -18,6 +18,7 @@ group :default do
   gem 'russian'
   gem 'simple_form'
   gem 'state_machine'
+  gem 'tempdir',                                        :require => 'temp_dir'
 end
 
 group :development do
