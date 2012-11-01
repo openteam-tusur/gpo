@@ -1,5 +1,6 @@
 # encoding: utf-8
-# encoding: utf-8
+
+require "rexml/document"
 
 class XlsReport
   def semestr
