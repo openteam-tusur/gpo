@@ -26,6 +26,7 @@ group :development do
   gem 'annotate'
   gem 'capistrano'
   gem 'curb'
+  gem 'debugger'
   gem 'hirb'
   gem 'rails-erd'
   gem 'rvm-capistrano'
