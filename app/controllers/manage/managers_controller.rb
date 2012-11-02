@@ -17,36 +17,6 @@ class Manage::ManagersController < Manage::ApplicationController
     }
   end
 
-  def approve
-    approve! {
-      awaiting_approval = @manager.awaiting_approval?
-      if @manager.approve
-        if awaiting_approval
-          flash[:notice] = "Назначение руководителя проекта подтверждено"
-        else
-          flash[:notice] = "Удаление руководителя проекта подтверждено"
-        end
-      end
-
-      redirect_to collection_url and return
-    }
-  end
-
-  def cancel
-    cancel! {
-      awaiting_approval = @manager.awaiting_approval?
-      if @manager.cancel
-        if awaiting_approval
-          flash[:notice] = "Назначение руководителя отменено"
-        else
-          flash[:notice] = "Удаление руководителя проекта отменено"
-        end
-      end
-
-      redirect_to collection_url and return
-    }
-  end
-
   def destroy
     approve! {
       if @manager.remove

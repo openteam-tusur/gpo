@@ -1,7 +1,10 @@
 <%= render :partial => 'manager', :object => object %>
 
 <div class="actions">
-  <%= manager_approve_state_button("Утвердить", object) %>
-  <%= manager_cancel_state_button("Отменить", object) %>
-  <%= link_to_delete manage_chair_project_manager_path(@chair, @project, object) %>
+  <% object.state_events.each do |event| %>
+    <%= link_to Manager.human_state_event_name(event),
+      manage_chair_project_manager_path(@chair, @project, object, 'manager[state_event]' => event),
+      method: :put,
+      class: 'button' %>
+  <% end %>
 </div>
