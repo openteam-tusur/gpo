@@ -75,8 +75,14 @@ class Project < ActiveRecord::Base
       transition :closed => :active
     end
 
+    after_transition :draft => :active do |project, transition|
+      project.managers.each(&:approve)
+      project.participants.each(&:approve)
+    end
+
     after_transition any => :closed do |project, transition|
       project.disable_modifications
+      project.managers.destroy_all
     end
 
     after_transition :closed => :active do |project, transition|
@@ -125,15 +131,6 @@ class Project < ActiveRecord::Base
   end
 
   private
-
-  def after_enter_active
-    managers.each(&:approve)
-    participants.each(&:approve)
-  end
-
-  def after_enter_closed
-    managers.destroy_all
-  end
 
   def set_cipher
     year = Date.today.year % 100

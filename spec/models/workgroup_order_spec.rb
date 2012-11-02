@@ -17,7 +17,6 @@ describe WorkgroupOrder do
 
       it { project.reload.should be_active }
       it { project.reload.should be_editable }
-      it { project.participants.first.should be_approved }
     end
   end
 end

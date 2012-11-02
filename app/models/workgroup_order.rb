@@ -43,16 +43,4 @@ class WorkgroupOrder < Order
       "визы заведующих кафедрами #{chairs.join(', ')}; "
     end
   end
-
-  private
-
-  def after_enter_approved
-    super
-
-    approve_participants!
-  end
-
-  def approve_participants!
-    participants.map(&:approve!)
-  end
 end
