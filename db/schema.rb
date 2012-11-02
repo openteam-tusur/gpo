@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100916021613) do
+ActiveRecord::Schema.define(:version => 20121102014721) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -75,10 +75,7 @@ ActiveRecord::Schema.define(:version => 20100916021613) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "state"
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.date     "file_updated_at"
+    t.string   "vfs_path"
   end
 
   create_table "participants", :force => true do |t|
