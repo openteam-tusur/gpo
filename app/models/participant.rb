@@ -24,23 +24,21 @@
 class Participant < ActiveRecord::Base
   validates_presence_of :student_id
   validates_presence_of :project_id
+  validates_uniqueness_of :student_id
 
-  belongs_to :student
   belongs_to :project
   belongs_to :chair
   has_many :visitations,  :dependent => :destroy
   has_many :issues,       :order => :planned_closing_at,                                         :dependent => :destroy
 
-  scope :ordered,         order(:last_name)
-  scope :active,          where(:state => %w[approved awaiting_removal]).ordered
-  scope :awaiting,        where(:state => %w[awaiting_approval awaiting_removal])
-  scope :awaiting_approval, where(:state => 'awaiting_approval')
-  scope :awaiting_removal,  where(:state => 'awaiting_removal')
-  scope :problematic,     where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?',  %w[approved awaiting_removal],  false,  false).ordered
-  scope :at_course,       ->(course) { where(:course => course) }
-  scope :for_student,     ->(id)     { where(:student_id => id) }
-
-  before_create :update_from_contingent
+  scope :ordered,            order(:last_name)
+  scope :active,             where(:state => %w[approved awaiting_removal]).ordered
+  scope :awaiting,           where(:state => %w[awaiting_approval awaiting_removal])
+  scope :awaiting_approval,  where(:state => 'awaiting_approval')
+  scope :awaiting_removal,   where(:state => 'awaiting_removal')
+  scope :problematic,        where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered
+  scope :at_course,          ->(course) { where(:course => course) }
+  scope :for_student,        ->(id)     { where(:student_id => id) }
 
   state_machine :initial => :awaiting_approval do
     event :approve do
@@ -68,22 +66,21 @@ class Participant < ActiveRecord::Base
     end
   end
 
-  def update_from_contingent
-    self.first_name        = student.first_name
-    self.mid_name          = student.mid_name
-    self.last_name         = student.last_name
-    self.chair_abbr        = student.chair_abbr
-    self.edu_group         = student.edu_group
-    self.course            = student.course
-    self.contingent_active = student.active
-    self.contingent_gpo    = student.gpo
-    self.chair_id          = project.chair_id
-  end
-
-  def self.update_from_contingent
-    self.find(:all).each do |participant|
-      participant.update_from_contingent
-      participant.save
+  def self.contingent_find(params)
+    url = "#{Settings['students.url']}?format=json&lastname=#{params[:lastname]}&group=#{params[:group]}"
+    JSON.parse(Curl.get(url).body_str).map do |attributes|
+      attributes.symbolize_keys!
+      Participant.find_or_initialize_by_student_id(attributes[:study_id]) do |participant|
+        participant.first_name        = attributes[:firstname]
+        participant.mid_name          = attributes[:patronymic]
+        participant.last_name         = attributes[:lastname]
+        participant.chair_abbr        = attributes[:subfaculty][:abbr]
+        participant.edu_group         = attributes[:group]
+        participant.course            = attributes[:year]
+        participant.contingent_active = attributes[:learns]
+        participant.contingent_gpo    = attributes[:in_gpo]
+        participant.chair_id          = params[:chair_id]
+      end
     end
   end
 
