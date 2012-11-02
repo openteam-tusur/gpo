@@ -32,8 +32,7 @@ class WorkgroupOrder < Order
   def chairs_for_order_report
     chairs = []
     self.projects.each do |project|
-      chairs.concat(project.participants.awaiting_approval.collect {|participant| participant.chair_abbr})
-      chairs.concat(project.participants.awaiting_removal.collect {|participant| participant.chair_abbr})
+      chairs.concat(project.participants.awaiting.collect {|participant| participant.chair_abbr})
     end
     chairs.uniq!
     chairs.delete(self.chair.abbr)

@@ -1,15 +1,17 @@
 # encoding: utf-8
+require 'zip/zip'
 
 class Manage::OrdersController < Manage::ApplicationController
+  include SendReport
   inherit_resources
+
+  layout 'chair'
 
   belongs_to :chair do
     belongs_to :project, optional: true
   end
 
   actions :all, except: [:new, :create, :update]
-
-  layout 'chair'
 
   def index
     index! {
@@ -36,36 +38,28 @@ class Manage::OrdersController < Manage::ApplicationController
 
   def send_odt
     filename = "order_#{@order.id}.odt"
-    #zip = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{@order.class.name.underscore}.odt")
-    #erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", @order.class.name.underscore, "content.xml"))
-    #odt_file = Tempfile.new("my-temp-filename-#{Time.now}")
-    #Zip::ZipOutputStream.open(odt_file.path) do |out|
-      #zip.each do |entry|
-        #out.put_next_entry entry.name
-        #out.print zip.read(entry.name)
-      #end
-    #end
-    #zip.close
-    #send_data odt_file, :filename => filename
-    #return
-    #odt.get_output_stream("content.xml").write file.write erb.result(binding)
-    #odt.close
 
-    TempDir.create do |dir|
-      system("unzip #{Rails.root}/lib/templates/reports/#{@order.class.name.underscore}.odt > /dev/null")
-      erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", @order.class.name.underscore, "content.xml"))
-      File.open("content.xml", "w") do | file |  file.write erb.result(binding)  end
-      send_data `zip -r - .`,
-        :filename => filename
+    zip = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{@order.class.name.underscore}.odt")
+    erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", @order.class.name.underscore, "content.xml"))
+
+    t = Tempfile.new("my-temp-filename-#{Time.now}")
+
+    Zip::ZipOutputStream.open(t.path) do |z|
+      zip.each do |entry|
+        z.put_next_entry entry.name
+        if entry.name == 'content.xml'
+          z.write erb.result(binding)
+        else
+          z.print zip.read(entry.name)
+        end
+      end
     end
 
-    #if @order.file?
-      #send_file @order.file.to_file.path, :type => Mime::Type.lookup_by_extension('odt'), :filename => filename
-    #else
-      #@order.generate_odt_file do |file|
-        #send_file file.path, :type => Mime::Type.lookup_by_extension('odt'), :filename => filename
-      #end
-    #end
+    #TODO: Не генерить файлик, если он есть на файловой системе
+    send_file t.path, :type => 'application/zip', :disposition => 'attachment', :filename => filename
+
+    t.unlink
+    zip.close
   end
 
   def send_converted_odt(format)

@@ -15,6 +15,7 @@ group :default do
   gem 'openteam-commons'
   gem 'progress_bar'
   gem 'rails'
+  gem 'rubyzip'
   gem 'russian'
   gem 'simple_form'
   gem 'state_machine'
