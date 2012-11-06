@@ -1,11 +1,21 @@
 <% title "Факультеты и кафедры", :chair %>
 
-<% @chairs.each do |faculty, chairs| %>
-  <h2><%= faculty %></h2>
-  <% chairs.each do |chair| %>
-    <p><%= link_to "Кафедра #{chair.title} (#{chair.abbr})", chair_projects_path(chair) %></p>
+<div class="faculties_list">
+  <% @chairs.each do |faculty, chairs| %>
+    <h2><%= faculty %></h2>
+    <ul class="chairs_list">
+    <% chairs.each do |chair| %>
+      <li>
+        <h3>
+          <%= icon(:chair) %>
+          <%= link_to "Кафедра #{chair.title} (#{chair.abbr})", chair_projects_path(chair) %>
+        </h3>
+        <div class="mentors"><%= chair_mentors(chair) %></div>
+      </li>
+    <% end %>
+    </ul>
   <% end %>
-<% end %>
+</div>
 
 <% content_for :right do %>
   <div id="stats">
