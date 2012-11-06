@@ -1,4 +1,7 @@
 class Manage::ApplicationController < ApplicationController
+
+  layout 'application'
+
   before_filter :find_user_chairs
 
   def after_order_update_path
