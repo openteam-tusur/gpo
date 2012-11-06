@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106044346) do
+ActiveRecord::Schema.define(:version => 20121106073853) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -86,11 +86,9 @@ ActiveRecord::Schema.define(:version => 20121106044346) do
     t.datetime "updated_at"
     t.integer  "project_id"
     t.integer  "course"
-    t.integer  "chair_id"
     t.string   "first_name"
     t.string   "mid_name"
     t.string   "last_name"
-    t.string   "chair_abbr"
     t.string   "edu_group"
     t.boolean  "contingent_active"
     t.boolean  "contingent_gpo"

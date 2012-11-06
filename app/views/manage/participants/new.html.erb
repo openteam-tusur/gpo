@@ -19,8 +19,8 @@
     <%= form.input :group, :input_html => { :value => params[:search]['group'] }, :label => 'Группа' %>
     <%= form.button :submit, I18n.t("find") %>
   </fieldset>
-<% end %>
+<% end if params[:search] %>
 
 <ul class='listing' id='participants'>
-  <%= render :partial => 'new_participant', :collection => @participants %>
+  <%= render :partial => 'new_participant', :collection => finded_participants %>
 </ul>

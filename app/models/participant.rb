@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: participants
@@ -11,25 +10,25 @@
 #  updated_at        :datetime
 #  project_id        :integer
 #  course            :integer
-#  chair_id          :integer
 #  first_name        :string(255)
 #  mid_name          :string(255)
 #  last_name         :string(255)
-#  chair_abbr        :string(255)
 #  edu_group         :string(255)
 #  contingent_active :boolean
 #  contingent_gpo    :boolean
 #
 
 class Participant < ActiveRecord::Base
+  attr_accessible :first_name, :mid_name, :last_name, :chair_abbr, :edu_group, :course, :contingent_active, :contingent_gpo, :student_id
+  belongs_to :project
+
+  has_one :chair,  :through => :project
+  has_many :visitations,  :dependent => :destroy
+  has_many :issues,       :order => :planned_closing_at,                                         :dependent => :destroy
+
   validates_presence_of :student_id
   validates_presence_of :project_id
   validates_uniqueness_of :student_id
-
-  belongs_to :project
-  belongs_to :chair
-  has_many :visitations,  :dependent => :destroy
-  has_many :issues,       :order => :planned_closing_at,                                         :dependent => :destroy
 
   scope :ordered,            order(:last_name)
   scope :active,             where(:state => %w[approved awaiting_removal]).ordered
@@ -39,6 +38,8 @@ class Participant < ActiveRecord::Base
   scope :problematic,        where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered
   scope :at_course,          ->(course) { where(:course => course) }
   scope :for_student,        ->(id)     { where(:student_id => id) }
+
+  delegate :abbr, :to => :chair, :prefix => true
 
   state_machine :initial => :awaiting_approval do
     event :approve do
@@ -66,7 +67,7 @@ class Participant < ActiveRecord::Base
     end
   end
 
-  def self.contingent_find(params, project)
+  def self.contingent_find(params)
     url = "#{Settings['students.url']}?format=json&lastname=#{params[:lastname]}&group=#{params[:group]}"
     JSON.parse(Curl.get(url).body_str).map do |attributes|
       attributes.symbolize_keys!
@@ -74,13 +75,10 @@ class Participant < ActiveRecord::Base
         participant.first_name        = attributes[:firstname]
         participant.mid_name          = attributes[:patronymic]
         participant.last_name         = attributes[:lastname]
-        participant.chair_abbr        = attributes[:subfaculty][:abbr]
         participant.edu_group         = attributes[:group]
         participant.course            = attributes[:year]
         participant.contingent_active = attributes[:learns]
         participant.contingent_gpo    = attributes[:in_gpo]
-        participant.project_id        = project.id
-        participant.chair_id          = project.chair_id
       end
     end
   end
