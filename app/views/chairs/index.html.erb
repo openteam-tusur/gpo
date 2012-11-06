@@ -6,10 +6,8 @@
     <ul class="chairs_list">
     <% chairs.each do |chair| %>
       <li>
-        <h3>
-          <%= icon(:chair) %>
-          <%= link_to "Кафедра #{chair.title} (#{chair.abbr})", chair_projects_path(chair) %>
-        </h3>
+        <%= icon(:chair) %>
+        <h3><%= link_to "Кафедра #{chair.title} (#{chair.abbr})", chair_projects_path(chair) %></h3>
         <div class="mentors"><%= chair_mentors(chair) %></div>
       </li>
     <% end %>
