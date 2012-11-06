@@ -5,8 +5,11 @@
   <p>На странице отображается сведения о приказе и список проектов, связаных с приказом, а также журнал изменения статуса приказа и комментарии к ним.</p>
 <% end %>
 
-<% action_link(link_to_file(@order, "odt", I18n.t("order.odt_file")), "odt", "Скачать приказ в формате OpenOffice Document") %>
-<% action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
+<% if @order.draft? %>
+  <% action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
+<% else %>
+  <%= action_link(link_to(I18n.t('order.doc_file'), @order.vfs_path), 'doc', "Скачать приказ в формате Microsoft Word") %>
+<% end %>
 
 <% action_link(link_to(I18n.t("edit"), edit_manage_chair_order_path(@order.chair, @order)), "edit", "Позволяет изменить информацию о приказе") if permitted_to?(:update, @order) %>
 <% action_link(link_to_delete(manage_chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if permitted_to?(:delete, @order) %>

@@ -16,6 +16,8 @@
 
 
 class Order < ActiveRecord::Base
+  include UploadDoc
+
   # TODO: rename table to orders
   self.table_name = "ordinances"
 
@@ -30,9 +32,6 @@ class Order < ActiveRecord::Base
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at DESC'
 
   belongs_to :chair
-
-  # FIXME: + dragonfly || esp storage
-  #has_attached_file :file, :path => ":rails_root/public/:attachment/order_:id.:extension", :url => "/:attachment/order_:id.:extension"
 
   validates_presence_of :projects
 
@@ -119,14 +118,12 @@ class Order < ActiveRecord::Base
 
   def after_enter_being_reviewed
     block_projects!
-    # TODO: paperclip -> storage
-    # assign_file! unless self.file?
+    upload_file
   end
 
   def after_enter_draft
     release_projects!
-    # TODO: paperclip -> storage
-    # remove_file! if self.file?
+    remove_file if self.vfs_path?
   end
 
   def after_enter_approved
