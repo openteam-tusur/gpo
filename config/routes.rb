@@ -21,17 +21,13 @@ Gpo::Application.routes.draw do
         resources :visitations, except: [:new, :create, :destroy]
         resources :issues, only: [:index]
 
-        resources :participants do
-          put :approve, :cancel, on: :member
-
+        resources :participants, except: [:show, :destroy] do
           resources :issues, only: [:new, :create, :edit, :update, :destroy] do
             get :export, on: :collection
           end
         end
 
-        resources :managers, except: :show do
-          put :approve, :cancel, on: :member
-        end
+        resources :managers, except: [:show, :destroy]
 
         resources :orders, only: :index
       end

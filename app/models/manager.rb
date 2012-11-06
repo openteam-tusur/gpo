@@ -38,7 +38,7 @@ class Manager < ActiveRecord::Base
       transition :approved => :awaiting_removal
     end
 
-    after_transition :awaiting_approval => :removed do |manager, transition|
+    after_transition :awaiting_approval => :removed do |manager|
       manager.destroy
     end
 
@@ -55,5 +55,9 @@ class Manager < ActiveRecord::Base
   # для приказа
   def text_for_order_report
     "#{self.user.post} #{self.user.last_name} #{self.user.first_name.first}.#{self.user.mid_name.first}."
+  end
+
+  def <=>(other)
+    user.last_name <=> other.user.last_name
   end
 end

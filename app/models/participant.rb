@@ -52,8 +52,8 @@ class Participant < ActiveRecord::Base
     event :remove do
       transition :approved => :awaiting_removal
     end
-    after_transition all => :removed do
-      destroy
+    after_transition all => :removed do |participant|
+      participant.destroy
     end
   end
 

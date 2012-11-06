@@ -3,11 +3,9 @@
 class Manage::ParticipantsController < Manage::ApplicationController
   inherit_resources
 
-  belongs_to :chair do
-    belongs_to :project
-  end
+  belongs_to :chair, :project
 
-  actions :all, :except => :show
+  actions :all, :except => [:show, :destroy]
 
   helper_method :finded_participants
 
