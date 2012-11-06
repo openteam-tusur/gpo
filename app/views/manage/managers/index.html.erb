@@ -25,7 +25,8 @@
   </dl>
 <% end %>
 
-<% action_link(link_to(I18n.t("manager.new"), new_manage_chair_project_manager_path(@chair, @project)), "new", "Позволяет добавить руководителя к проекту") if permitted_to?(:create, @project.managers.build) %>
+<% action_link(link_to(I18n.t("manager.new"), new_manage_chair_project_manager_path(@chair, @project)), "new", "Позволяет добавить руководителя к проекту") if @project %>
 
-<%= render_list "manager_with_actions", @managers, :id => "managers" %>
+<%= render_list "chair_manager", @managers, :id => "managers" unless @project %>
+<%= render_list "manager_with_actions", @managers, :id => "managers" if @project %>
 

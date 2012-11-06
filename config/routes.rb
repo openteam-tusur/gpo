@@ -37,6 +37,7 @@ Gpo::Application.routes.draw do
       resources :workgroup_orders, only: [:new, :create, :update]
 
       resources :users, except: :show
+      resources :managers, only: :index
     end
 
     resources :users, except: :show

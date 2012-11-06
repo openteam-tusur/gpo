@@ -21,6 +21,7 @@ class Chair < ActiveRecord::Base
   validates_uniqueness_of :abbr
 
   has_many :projects, :order => 'cipher desc'
+  has_many :managers, :through => :projects, :conditions => ["managers.state = ?", 'approved']
   has_many :orders, :order => 'id desc'
   has_many :workgroup_orders, :order => 'id desc'
   has_many :opening_orders, :order => 'id desc'
@@ -34,15 +35,6 @@ class Chair < ActiveRecord::Base
 
   def id_to_s
     self.abbr
-  end
-
-  def managers
-    managers = []
-    self.projects.each do |project|
-      managers += project.managers.approved.collect { |m| m.user }
-    end
-    managers.uniq!
-    managers.sort{|a, b| a.last_name <=> b.last_name}
   end
 
   def all_managers

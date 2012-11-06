@@ -7,7 +7,4 @@ class Manage::ChairsController < Manage::ApplicationController
 
   layout 'chair', only: :show
 
-  def managers
-    render :layout => 'chair'
-  end
 end
