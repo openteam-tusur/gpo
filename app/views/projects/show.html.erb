@@ -1,0 +1,37 @@
+<% title "Проект #{@project.cipher}", :project %>
+
+
+<% content_for :right do %>
+  <h3>Руководители проекта</h3>
+  <ul id="project_managers">
+    <% @project.users.each do |user| %>
+      <li><span class="name"><%= user.name %></span><span class="post"><%= user.post %></span></li>
+    <% end %>
+  </ul>
+
+  <h3>Участники проекта</h3>
+  <ul id="project_managers">
+    <% @project.participants.active.each do |participant| %>
+      <li><span class="name"><%= participant.name %></span><span class="post"><%= "гр. #{participant.edu_group}, каф. #{participant.chair_abbr}" %></span></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2><%= @project.title %></h2>
+
+<div class="detailed_info comment">
+  <%= project_theme @project, true %>
+  <%= project_section @project, :goal %>
+  <%= project_section @project, :stakeholders %>
+  <%= project_section @project, :funds_required %>
+  <%= project_section @project, :funds_sources %>
+  <%= project_section @project, :purpose %>
+  <%= project_section @project, :features %>
+  <%= project_section @project, :analysis %>
+  <%= project_section @project, :novelty %>
+  <%= project_section @project, :expected_results %>
+  <%= project_section @project, :release_cost %>
+  <%= project_section @project, :forecast %>
+  <%= project_section @project, :source_data %>
+</div>
+

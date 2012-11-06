@@ -1,14 +1,8 @@
 <div id="project_<%= project.id %>" class="project object">
   <%= icon(:project) %>
-  <h3><%= link_to "#{project.cipher} #{project.title}", manage_chair_project_path(@chair, project) %></h3>
+  <h3><%= link_to "#{project.cipher} #{project.title}", chair_project_path(@chair, project) %></h3>
   <div class="theme">
   <%= project_theme(project) %>
-  </div>
-  <div class="status">
-    <span class="state_<%= project.state %>"><%= project.human_state_name %></span>
-    <span class="editable_state_<%= project.editable_state %>"><%= project.human_editable_state_name %></span>
-    <span class="date"><%= project_updated(project) %></span>
-    <%= "#{Project.human_attribute_name(:close_reason)}: #{project.close_reason}" if project.closed? %>
   </div>
   <div class="details"><%= project_managers(project) %></div>
 </div>
