@@ -25,7 +25,7 @@ class Chair < ActiveRecord::Base
   has_many :workgroup_orders, :order => 'id desc'
   has_many :opening_orders, :order => 'id desc'
   has_many :users, :order => 'last_name'
-  has_many :participants, :order => 'last_name'
+  has_many :participants, :order => 'last_name', :through => :projects
   has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
   has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
 
