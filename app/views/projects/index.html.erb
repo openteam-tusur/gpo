@@ -1,0 +1,11 @@
+<% title "Проекты", :project %>
+
+<%= render_list "project_with_stats", @projects, :id => "projects" %>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика по студентам</h3>
+    <%= render_table_stats @chair.stats(:participants) %>
+  </div>
+<% end %>
+
