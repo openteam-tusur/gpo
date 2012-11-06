@@ -2,17 +2,4 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
-  before_filter :find_user_chairs
-
-  def dashboard
-    @chair = @user_chairs.first
-    redirect_to manage_chair_path(@chair)
-  end
-
-  protected
-
-  def find_user_chairs
-    @user_chairs = Chair.all
-  end
 end

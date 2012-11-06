@@ -45,28 +45,15 @@ Gpo::Application.routes.draw do
 
     resources :users, except: :show
     resources :rules, except: :show
+
+    get '/dashboard' => 'application#dashboard', :as => :dashboard
+    root :to => 'application#dashboard'
   end
 
-  resources :students, collection: { problematic: :get }
-
-  resources :chairs do
-    resources :visitations, only: :index
-    get :managers, on: :member
-
-
-
-    resources :projects do
-      resources :participants do
-        member do
-          put :approve
-          put :cancel
-        end
-      end
-    end
+  resources :chairs, :only => [:index] do
+    resources :projects, :only => [:index, :show]
   end
 
-
-  get '/dashboard' => 'application#dashboard', :as => :dashboard
-  root :to => 'application#dashboard'
+  root :to => 'chairs#index'
 end
 

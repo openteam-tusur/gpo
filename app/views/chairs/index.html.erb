@@ -1,0 +1,15 @@
+<% title "Кафедры", :chair %>
+
+<% @chairs.each do |faculty, chairs| %>
+  <h2><%= faculty %></h2>
+  <% chairs.each do |chair| %>
+    <%= link_to chair.abbr, chair_projects_path(chair) %>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика</h3>
+    <%= render_table_stats Stat.global %>
+  </div>
+<% end %>
