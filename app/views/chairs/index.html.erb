@@ -1,9 +1,9 @@
-<% title "Кафедры", :chair %>
+<% title "Факультеты и кафедры", :chair %>
 
 <% @chairs.each do |faculty, chairs| %>
   <h2><%= faculty %></h2>
   <% chairs.each do |chair| %>
-    <%= link_to chair.abbr, chair_projects_path(chair) %>
+    <p><%= link_to "Кафедра #{chair.title} (#{chair.abbr})", chair_projects_path(chair) %></p>
   <% end %>
 <% end %>
 
