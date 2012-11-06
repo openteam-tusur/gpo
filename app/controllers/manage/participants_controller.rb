@@ -12,6 +12,8 @@ class Manage::ParticipantsController < Manage::ApplicationController
     @participants = @project.participants.find(:all)
   end
 
+  def new
+  end
 
   def create
     participant = Participant.find_by_student_id(@participant.student_id)
@@ -76,29 +78,7 @@ class Manage::ParticipantsController < Manage::ApplicationController
   end
 
   def find_students
-    @students = []
-    @query = Hash.new
-    if params.has_key?("commit")
-      @query[:last_name] = params[:last_name].strip unless params[:last_name].blank?
-      @query[:edu_group] = params[:edu_group].strip unless params[:edu_group].blank?
-      if @query.empty?
-        flash[:error] = "Не указаны параметры поиска"
-      else
-        @students = Student.find(:all, :params => @query) unless @query.empty?
-        @participants = []
-        @students.each do |student|
-          participant = Participant.find_by_student_id(student.id) ||
-            @project.participants.build(:student_id => student.id,
-            :last_name => student.last_name,
-            :first_name => student.first_name,
-            :mid_name => student.mid_name,
-            :edu_group => student.edu_group,
-            :course => student.course)
-   #       participant.project = @project if participant.new_record?
-          @participants << participant
-        end
-      end
-    end
+    @participants = Participant.contingent_find(params[:search] || {}, @project)
   end
 
 end

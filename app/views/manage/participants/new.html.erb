@@ -13,16 +13,14 @@
 <% end %>
 
 <h1 class="section">Поиск студентов</h1>
-<%= simple_form_for new_chair_project_participant_path(@project.chair, @project), :method => "get" do | form | %>
+<%= simple_form_for :search, :url => new_manage_chair_project_participant_path(@project.chair, @project), :method => "get" do | form | %>
   <fieldset>
-    <%= form.input :last_name, :input_html => { :value => params[:last_name] } %>
-    <%= form.input :edu_group, :input_html => { :value => params[:edu_group] } %>
+    <%= form.input :lastname, :input_html => { :value => params[:search]['lastname'] }, :label => 'Фамилия студента' %>
+    <%= form.input :group, :input_html => { :value => params[:search]['group'] }, :label => 'Группа' %>
     <%= form.button :submit, I18n.t("find") %>
   </fieldset>
 <% end %>
 
-<% if @students.empty? && !@query.empty? %>
-  <p class="hint">Не найдено студентов, удовлетворяющих критериям</p>
-<% end %>
-
-<%= render_list 'new_participant', @participants, :id => 'participants' %>
+<ul class='listing' id='participants'>
+  <%= render :partial => 'new_participant', :collection => @participants %>
+</ul>

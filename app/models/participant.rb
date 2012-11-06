@@ -66,7 +66,7 @@ class Participant < ActiveRecord::Base
     end
   end
 
-  def self.contingent_find(params)
+  def self.contingent_find(params, project)
     url = "#{Settings['students.url']}?format=json&lastname=#{params[:lastname]}&group=#{params[:group]}"
     JSON.parse(Curl.get(url).body_str).map do |attributes|
       attributes.symbolize_keys!
@@ -79,7 +79,8 @@ class Participant < ActiveRecord::Base
         participant.course            = attributes[:year]
         participant.contingent_active = attributes[:learns]
         participant.contingent_gpo    = attributes[:in_gpo]
-        participant.chair_id          = params[:chair_id]
+        participant.project_id        = project.id
+        participant.chair_id          = project.chair_id
       end
     end
   end

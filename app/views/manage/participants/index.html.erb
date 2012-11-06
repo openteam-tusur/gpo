@@ -1,6 +1,6 @@
 <% title "Участники проекта", :participant %>
 
-<% action_link(link_to(I18n.t("participant.new"), new_chair_project_participant_path(@project.chair, @project)), "new", "Позволяет добавить участника в проект") if permitted_to?(:create, @project.participants.build) %>
+<% action_link(link_to(I18n.t("participant.new"), new_manage_chair_project_participant_path(@project.chair, @project, :search => {:group => ''})), "new", "Позволяет добавить участника в проект") if permitted_to?(:create, @project.participants.build) %>
 
 <%= render_list "participant_with_actions", @participants, :id => "participants" %>
 
