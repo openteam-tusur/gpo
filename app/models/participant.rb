@@ -19,7 +19,8 @@
 #
 
 class Participant < ActiveRecord::Base
-  attr_accessible :first_name, :mid_name, :last_name, :chair_abbr, :edu_group, :course, :contingent_active, :contingent_gpo, :student_id
+  attr_accessible :first_name, :mid_name, :last_name, :edu_group, :course, :contingent_active, :contingent_gpo, :student_id
+  attr_accessible :state_event
   belongs_to :project
 
   has_one :chair,  :through => :project

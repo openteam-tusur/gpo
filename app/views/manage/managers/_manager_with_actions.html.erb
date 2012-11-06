@@ -2,9 +2,9 @@
 
 <div class="actions">
   <% object.state_events.each do |event| %>
-    <%= link_to Manager.human_state_event_name(event),
-      manage_chair_project_manager_path(@chair, @project, object, 'manager[state_event]' => event),
-      method: :put,
-      class: 'button' %>
+    <%= simple_form_for [:manage, @chair, @project, object] do |form|%>
+      <%= form.input :state_event, :as => :hidden, :input_html => { :value => event } %>
+      <%= form.button :submit, Manager.human_state_event_name(event) %>
+    <% end %>
   <% end %>
 </div>

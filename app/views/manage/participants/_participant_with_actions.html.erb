@@ -1,6 +1,9 @@
 <%= render :partial => 'participant', :object => object %>
 <div class="actions">
-  <%= link_to_delete manage_chair_project_participant_path(@project.chair, @project, object), "Исключить" if permitted_to?(:delete, object) %>
-  <%= participant_approve_state_button("Утвердить", object) if permitted_to?(:approve, object) %>
-  <%= participant_cancel_state_button("Отменить", object) if permitted_to?(:cancel, object) %>
+  <% object.state_events.each do |event| %>
+    <%= simple_form_for [:manage, @chair, @project, object] do |form| %>
+      <%= form.input :state_event, :as => :hidden, :input_html => { :value => event } %>
+      <%= form.button :submit, Participant.human_state_event_name(event) %>
+    <% end %>
+  <% end %>
 </div>
