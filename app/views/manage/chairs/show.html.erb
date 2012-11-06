@@ -24,7 +24,7 @@
 
 <% unless @chair.orders.blocking.empty? %>
   <h2>Приказы <span>следующие приказы ещё не вступили в силу</span></h2>
-  <%= render_list "orders/order", @chair.orders.blocking, :id => "awaiting-orders" %>
+  <%= render_list "manage/orders/order", @chair.orders.blocking, :id => "awaiting-orders" %>
 <% end %>
 
 <% unless @chair.activities.orders.empty? %>

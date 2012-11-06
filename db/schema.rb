@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121102014721) do
+ActiveRecord::Schema.define(:version => 20121106044346) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20121102014721) do
     t.string   "chief"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "faculty"
   end
 
   create_table "gpodays", :force => true do |t|

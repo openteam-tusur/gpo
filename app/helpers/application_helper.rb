@@ -131,9 +131,9 @@ module ApplicationHelper
   def task_path(task)
     case task
      when OrderTask
-       chair_order_path(task.order.chair, task.order)
+       manage_chair_order_path(task.order.chair, task.order)
      when ProblematicParticipantsTask
-       chair_project_participants_path(task.project.chair, task.project)
+       manage_chair_project_participants_path(task.project.chair, task.project)
      when ProjectVisitationsTask
        manage_chair_project_visitations_path(task.project.chair, task.project)
      else
