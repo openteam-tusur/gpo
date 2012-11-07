@@ -126,6 +126,13 @@ ru:
       participant:
         student_id:       Студент
 
+      permission:
+        chair:            Кафедра
+        context:          Контекст
+        project:          Проект
+        role:             Роль
+        user:             Пользователь
+
       project:
         analysis:         Анализ состояния дел и имеющихся достижений по тематике проекта
         chair:            Кафедра
@@ -145,12 +152,6 @@ ru:
         stakeholders:     Заинтересованные структуры
         theme_id:         Направление
         title:            Название
-
-      permission:
-        chair_id:         Кафедра
-        project_id:       Проект
-        role:             Роль
-        user_id:          Пользователь
 
       stage:
         title:            Название
