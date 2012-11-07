@@ -12,6 +12,6 @@ storage:
   url:                  http://storage.host
 
 deploy:
-   gateway:             user@host
-   application:         appname
-   domain:              user@host
+  gateway:              user@host
+  application:          appname
+  domain:               user@host
