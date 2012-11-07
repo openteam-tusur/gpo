@@ -1,9 +1,0 @@
-<% title "Забыли ваш пароль?", :user %>
-
-<%= simple_form_for @password do | form | %>
-  <fieldset>
-    <p>Укажите e-mail адрес, который вы использовали при регистрации и мы вышлем вам ссылку для сброса пароля.</p>
-    <%= form.input :email %>
-    <%= form.button :submit, "Напомнить пароль" %>
-  </fieldset>
-<% end %>

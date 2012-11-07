@@ -45,12 +45,12 @@ class Manager < ActiveRecord::Base
     end
 
     after_transition :awaiting_removal => :removed do |manager, transition|
-      Rule.managers.for_project(manager.project).for_user(manager.user).first.destroy
+      Permission.managers.for_project(manager.project).for_user(manager.user).first.destroy
       manager.destroy
     end
 
     after_transition any => :approved do |manager, transition|
-      Rule.build_manager_rule(manager.user, manager.project).save
+      Permission.build_manager_permission(manager.user, manager.project).save
     end
   end
 

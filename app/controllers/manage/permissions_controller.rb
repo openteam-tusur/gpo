@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Manage::RulesController < Manage::ApplicationController
+class Manage::PermissionsController < Manage::ApplicationController
   inherit_resources
   actions :all, except: :show
 

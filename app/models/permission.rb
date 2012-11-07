@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: rules
+# Table name: permissions
 #
 #  id           :integer          not null, primary key
 #  user_id      :integer
@@ -13,21 +13,18 @@
 #  updated_at   :datetime
 #
 
-class Rule < ActiveRecord::Base
+class Permission < ActiveRecord::Base
   attr_accessible :user, :context
 
   # FIXME fix this shit!
   alias_attribute :chair_id, :context_id
   attr_accessible :user_id, :context_id, :role, :chair_id
 
-  belongs_to :user
-  belongs_to :context, :polymorphic => true
-
   validates_presence_of   :user_id
   validates_uniqueness_of :user_id, :scope => [:role, :context_type, :context_id], :message => 'уже имеет такое правило'
 
-  validates_presence_of   :chair_id,    :if => Proc.new { |rule| rule.role == 'mentor' }
-  validates_presence_of   :project_id,  :if => Proc.new { |rule| rule.role == 'manager' }
+  validates_presence_of   :chair_id,    :if => Proc.new { |permission| permission.role == 'mentor' }
+  validates_presence_of   :project_id,  :if => Proc.new { |permission| permission.role == 'manager' }
 
   scope :administrators,  where(:role => :admin)
   scope :supervisors,     where(:role => :supervisors)
@@ -37,22 +34,10 @@ class Rule < ActiveRecord::Base
   scope :for_project,     ->(project) { where(:context_type => Project).where(:context_id => project) }
   scope :for_chair,       ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
-  # FIXME prepare Rule.roles <- it's stub now
-  def self.roles
-    [
-      [:admin, "Администратор"],
-      [:mentor, 'Ответственный за ГПО на кафедре'],
-      [:manager, 'Руководитель проекта'],
-      [:supervisor, 'Ответственный за ГПО по университету']
-    ]
-  end
+  esp_auth_permission
 
   def role_with_context
-    if context.nil?
-      role_to_s
-    else
-     "#{role_to_s} #{context.id_to_s}"
-    end
+    [human_role, context.id_to_s].compact.join(' ') rescue p self
   end
 
   def chair
@@ -90,28 +75,7 @@ class Rule < ActiveRecord::Base
     params
   end
 
-  def self.build_manager_rule(user, project)
-    Rule.new(:user => user, :context => project, :role => 'manager')
-  end
-
-  def admin?
-    self.role == 'admin'
-  end
-
-  def manager?
-    self.role == 'manager'
-  end
-
-  def role_to_s
-    case role
-    when 'admin'
-      'Администратор'
-    when 'mentor'
-      'Ответственный за ГПО на кафедре'
-    when 'manager'
-      'Руководитель проекта'
-    when 'supervisor'
-      'Ответственный за ГПО по университету'
-    end
+  def self.build_manager_permission(user, project)
+    Permission.new(:user => user, :context => project, :role => 'manager')
   end
 end

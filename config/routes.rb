@@ -43,10 +43,11 @@ Gpo::Application.routes.draw do
     end
 
     resources :users, except: :show
-    resources :rules, except: :show
+    resources :permissions, except: :show
 
-    get '/dashboard' => 'application#dashboard', :as => :dashboard
-    root :to => 'application#dashboard'
+    resource :dashboard, :only => :show
+
+    root :to => 'dashboards#show'
   end
 
   resources :chairs, :only => [:index] do

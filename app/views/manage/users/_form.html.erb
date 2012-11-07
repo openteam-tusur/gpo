@@ -1,8 +1,8 @@
-<%= form.input :last_name %>
-<%= form.input :first_name %>
-<%= form.input :mid_name %>
-<%= form.input :post %>
-<%= form.input :float %>
-<%= form.input :phone %>
-<%= form.input :email %>
+<%= form.input :last_name, :as => :string %>
+<%= form.input :first_name, :as => :string %>
+<%= form.input :mid_name, :as => :string %>
+<%= form.input :post, :as => :string %>
+<%= form.input :float, :as => :string %>
+<%= form.input :phone, :as => :string %>
+<%= form.input :email, :as => :string %>
 <%= form.input :chair_id, :collection => Chair.find(:all).collect { | chair | [chair.abbr, chair.id] }, :include_blank => true if show_chair %>

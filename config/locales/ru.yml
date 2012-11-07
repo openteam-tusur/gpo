@@ -43,7 +43,7 @@ ru:
     unknown:    состояние изменен
     return:     возвращен на доработку
 
-  rule:
+  permission:
     new:        Новое правило
 
   stage:
@@ -76,7 +76,7 @@ ru:
       workgroup_order: об изменении рабочих групп проектов
       participant: Участник
       project:     Проект
-      rule:        Правило
+      permission:        Правило
       stage:       Этап
       theme:       Направление
       user:        Пользователь
@@ -146,7 +146,7 @@ ru:
         theme_id:         Направление
         title:            Название
 
-      rule:
+      permission:
         chair_id:         Кафедра
         project_id:       Проект
         role:             Роль

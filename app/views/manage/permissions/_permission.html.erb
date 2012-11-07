@@ -1,0 +1,12 @@
+<div class="permission object">
+  <%= icon(:permission) %>
+  <h3><%= permission.user.name %></h3>
+  <div class="status">
+    <span class="date">Создано: <%= time_ago permission %></span>
+  </div>
+  <div class="details"><%= permission.role_with_context %></div>
+</div>
+<div class="actions">
+  <%= link_to I18n.t("edit"), edit_manage_permission_path(permission) if permitted_to?(:update, permission) %>
+  <%= link_to_delete manage_permission_path(permission) if permitted_to?(:delete, permission) %>
+</div>

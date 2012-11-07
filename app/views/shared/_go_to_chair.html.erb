@@ -1,9 +1,9 @@
-<% if @user_chairs.many? %>
+<% if current_user.available_chairs.many? %>
   <div id="go-to-chair">
     <%= simple_form_for manage_chairs_path, :method => "get" do | form | %>
       <%= form.input :chair,
                      :label => "Кафедра",
-                     :collection => @user_chairs,
+                     :collection => current_user.available_chairs,
                      :selected => @chair,
                      :required => false %>
       <%= form.button :submit, "&raquo;".html_safe %>

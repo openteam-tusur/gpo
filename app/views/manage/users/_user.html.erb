@@ -2,8 +2,7 @@
   <%= icon(:user) %>
   <h3><%= user.name %></h3>
   <div class="status">
-    <span><%= user.login? ? user.login : "нет логина" %>,</span>
-    <span><%= user.email? ? mail_to(user.email) : "нет email" %></span>
+    <span><%= mail_to(user.email) %></span>
   </div>
   <div class="details"><%= user_post(user) %></div>
 </div>

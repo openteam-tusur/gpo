@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107020426) do
+ActiveRecord::Schema.define(:version => 20121107113044) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(:version => 20121107020426) do
     t.datetime "updated_at"
     t.string   "faculty"
   end
+
+  create_table "contexts", :force => true do |t|
+    t.string   "title"
+    t.string   "ancestry"
+    t.string   "weight"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "contexts", ["ancestry"], :name => "index_contexts_on_ancestry"
+  add_index "contexts", ["weight"], :name => "index_contexts_on_weight"
 
   create_table "gpodays", :force => true do |t|
     t.date     "date"
@@ -95,13 +106,16 @@ ActiveRecord::Schema.define(:version => 20121107020426) do
     t.string   "email"
   end
 
-  create_table "passwords", :force => true do |t|
+  create_table "permissions", :force => true do |t|
     t.integer  "user_id"
-    t.string   "reset_code"
-    t.datetime "expiration_date"
+    t.string   "role"
+    t.string   "context_type"
+    t.integer  "context_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "permissions", ["user_id", "role", "context_id", "context_type"], :name => "by_user_and_role_and_context"
 
   create_table "projects", :force => true do |t|
     t.string   "cipher"
@@ -127,15 +141,6 @@ ActiveRecord::Schema.define(:version => 20121107020426) do
     t.text     "source_data"
   end
 
-  create_table "rules", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "role"
-    t.string   "context_type"
-    t.integer  "context_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "stages", :force => true do |t|
     t.integer  "project_id"
     t.text     "title"
@@ -155,24 +160,30 @@ ActiveRecord::Schema.define(:version => 20121107020426) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "login",                     :limit => 40
-    t.string   "email",                     :limit => 100
-    t.string   "crypted_password",          :limit => 40
-    t.string   "salt",                      :limit => 40
+    t.text     "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "remember_token",            :limit => 40
-    t.datetime "remember_token_expires_at"
     t.string   "mid_name"
-    t.string   "first_name"
-    t.string   "last_name"
+    t.text     "first_name"
+    t.text     "last_name"
     t.string   "post"
     t.integer  "chair_id"
     t.string   "float"
-    t.string   "phone"
+    t.text     "phone"
+    t.string   "uid"
+    t.text     "name"
+    t.text     "nickname"
+    t.text     "location"
+    t.text     "description"
+    t.text     "image"
+    t.text     "urls"
+    t.text     "raw_info"
+    t.integer  "sign_in_count"
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
-
-  add_index "users", ["login"], :name => "index_users_on_login", :unique => true
 
   create_table "visitations", :force => true do |t|
     t.integer  "participant_id"

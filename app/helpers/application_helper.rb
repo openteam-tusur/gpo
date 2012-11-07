@@ -6,7 +6,7 @@ module ApplicationHelper
   end
 
   def current_user
-    User.find_by_login(:admin)
+    User.find(1)
   end
 
   def nav_link(link, current_controller, options = {})
@@ -37,7 +37,7 @@ module ApplicationHelper
 
   def submenu
     case controller.controller_name
-    when "users", "rules"
+    when "users", "permissions"
       "user_navigation"
     when "reports"
       "report_navigation"
@@ -87,7 +87,7 @@ module ApplicationHelper
           render(:partial => item_partial,
                  :locals => {:object => item, :order => item, :chair_manager => item,
                              :task => item, :activity => item, :report => item, :theme => item,
-                             :gpoday => item, :stage => item, rule: item, project: item, :manager => item }),
+                             :gpoday => item, :stage => item, permission: item, project: item, :manager => item }),
           :class => item_class.join(" "))
       }.join
 

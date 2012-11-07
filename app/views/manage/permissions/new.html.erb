@@ -1,4 +1,4 @@
-<% title "Добавление нового правила", :rule %>
+<% title "Добавление нового правила", :permission %>
 
 <% content_for :hint do %>
   <p>Для добавления правила заполните поля формы и нажмите кнопку "Создать"</p>
@@ -8,7 +8,7 @@
   <p>Если нет необходимости добавлять правило нажмите "Отмена" для возврата к списку правил.</p>
 <% end %>
 
-<%= simple_form_for @rule, :url => manage_rules_path do | form | %>
+<%= simple_form_for @permission, :url => manage_permissions_path do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.button :submit, I18n.t("create") %>

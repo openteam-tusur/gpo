@@ -30,8 +30,8 @@ class Chair < ActiveRecord::Base
   has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
   has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
 
-  has_many :rules, :as => :context
-  has_many :mentors, :through => :rules, :conditions => ["rules.role = ?", 'mentor'], :source => :user, :order => "last_name"
+  has_many :permissions, :as => :context
+  has_many :mentors, :through => :permissions, :conditions => ["permissions.role = ?", 'mentor'], :source => :user, :order => "last_name"
 
   scope :ordered_by_abbr, :order => "abbr"
   scope :ordered_by_title, :order => "title"
