@@ -1,33 +1,16 @@
-require 'rake'
-require 'rake/testtask'
-require 'rake/rdoctask'
-require 'activesupport'
+# encoding: utf-8
 
-namespace :students do
+require 'progress_bar'
+
+namespace :contingent do
   desc "Synchronize students from contingent"
-  task :synchronize => :environment do
-    Project.delete_observers
-    Participant.delete_observers
-    ret = []
-    id = ""
-    participants = ENV["PROJECT_ID"].blank? ? Participant.find(:all) : Project.find(ENV["PROJECT_ID"]).participants
-    begin
-      participants.each do |participant|
-        id = participant.id
-        p participant
-        participant.update_from_contingent
-        participant.save!
-      end
-      ret << "все успешно обновлено"
-    rescue Exception => e
-      ret << "ошибка обновления #{id}\n"
-      ret << e.backtrace.join("\n")
-    end
-    if ENV["PROJECT_ID"].blank?
-      ReportMailer.deliver_contingent_sync(ret)
-    else
-      puts ret.join("\n")
+  task :sync => :environment do
+    Participant.observers.disable :all
+    bar = ProgressBar.new(Participant.count)
+    Participant.find_each do |participant|
+      Participant.contingent_find(:study_id => participant.student_id, :include_inactive => true).first.save!
+      bar.increment!
+      sleep(1)
     end
   end
-
 end

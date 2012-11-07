@@ -81,8 +81,15 @@ class Participant < ActiveRecord::Base
   end
 
   def self.contingent_find(params)
-    url = "#{Settings['students.url']}?format=json&lastname=#{params[:lastname]}&group=#{params[:group]}"
-    JSON.parse(Curl.get(url).body_str).map do |attributes|
+    url = "#{Settings['students.url']}?#{params.to_query}"
+    body = nil
+    Curl::Easy.new("#{url}") do |curl|
+      curl.headers['Accept'] = 'application/json'
+      curl.http_get
+      body = curl.body_str
+      curl.close
+    end
+    JSON.parse(body).map do |attributes|
       attributes.symbolize_keys!
       Participant.find_or_initialize_by_student_id(attributes[:study_id]) do |participant|
         participant.first_name        = attributes[:firstname]
