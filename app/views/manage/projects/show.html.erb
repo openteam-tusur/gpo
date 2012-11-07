@@ -27,7 +27,7 @@
 
 <% unless @project.orders.blocking.empty? %>
   <h2>Ожидаемые приказы <span>данный проект проходит по следующим приказам, которые ещё не уверждены</span></h2>
-  <%= render_list "orders/order", @project.orders.blocking, :id => "awaiting-orders" %>
+  <%= render_list "manage/orders/order", @project.orders.blocking, :id => "awaiting-orders" %>
 <% end %>
 
 <h2><%= @project.title %></h2>
