@@ -9,7 +9,7 @@ namespace :contingent do
     Participant.observers.disable :all
     bar = ProgressBar.new(Participant.count)
     Participant.find_each do |participant|
-      Participant.contingent_find(:study_id => participant.student_id, :include_inactive => true).first.save!
+      Participant.contingent_find(:study_id => participant.student_id, :include_inactive => true).first.save!(:validate => false)
       bar.increment!
       sleep(1) # FIXME: remove this line when nginx stops random crashing
     end
