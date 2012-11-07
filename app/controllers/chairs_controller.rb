@@ -5,7 +5,7 @@ class ChairsController < ApplicationController
   layout 'public'
 
   def index
-    @chairs = Chair.all.group_by(&:faculty)
+    @chairs = Chair.ordered_by_faculty.group_by(&:faculty)
   end
 
 end

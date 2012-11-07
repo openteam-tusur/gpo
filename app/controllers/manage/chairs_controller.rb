@@ -5,6 +5,8 @@ class Manage::ChairsController < Manage::ApplicationController
 
   actions :all
 
+  has_scope :ordered_by_title, :only => :index, :default => true, :type => :boolean
+
   layout 'chair', only: :show
 
 end

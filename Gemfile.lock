@@ -222,6 +222,7 @@ DEPENDENCIES
   debugger
   fabrication
   forgery
+  has_scope
   hirb
   inherited_resources
   jquery-rails

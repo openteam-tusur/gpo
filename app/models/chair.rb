@@ -33,6 +33,10 @@ class Chair < ActiveRecord::Base
   has_many :rules, :as => :context
   has_many :mentors, :through => :rules, :conditions => ["rules.role = ?", 'mentor'], :source => :user, :order => "last_name"
 
+  scope :ordered_by_abbr, :order => "abbr"
+  scope :ordered_by_title, :order => "title"
+  scope :ordered_by_faculty, :order => "faculty, title"
+
   def id_to_s
     self.abbr
   end

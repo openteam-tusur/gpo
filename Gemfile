@@ -10,6 +10,7 @@ end
 group :default do
   gem 'better'
   gem 'compass-rails'
+  gem 'has_scope'
   gem 'inherited_resources'
   gem 'jquery-rails'
   gem 'openteam-commons'
@@ -19,7 +20,7 @@ group :default do
   gem 'russian'
   gem 'simple_form'
   gem 'state_machine'
-  gem 'tempdir',                                        :require => 'temp_dir'
+  gem 'tempdir', :require => 'temp_dir'
   gem 'validates_email_format_of'
 end
 

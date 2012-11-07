@@ -188,20 +188,36 @@ a
   .faculties_list
     h2
       margin-bottom: 1em
-      margin-left: 23px
+      margin-left: 25px
     .chairs_list
       margin-bottom: 2em
       li
+        +clearfix
         margin-bottom: 1em
         border-bottom: 1px solid #ddd
         padding-bottom: 1em
-      img
-        float: left
-      h3
-        margin-left: 25px
-      .mentors
-        margin-left: 25px
-
+        .title
+          float: left
+          width: 400px
+          margin-right: 10px
+          img
+            float: left
+            margin-top: 2px
+          h3
+            margin-left: 25px
+          .mentors
+            margin-left: 25px
+        .stats
+          float: left
+          dl
+            width: 145px
+            +clearfix
+            dt
+              float: left
+            dd
+              cursor: help
+              font-weight: bold
+              float: left
 
 .project-level, .order-level
   #content
