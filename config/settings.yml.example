@@ -12,8 +12,6 @@ storage:
   url:                  http://storage.host
 
 deploy:
-  application:          appname.ru
-  domain:               user@host
-  port:                 port
-  solr_domain:          user@host
-  solr_port:            port
+   gateway:             user@host
+   application:         appname
+   domain:              user@host

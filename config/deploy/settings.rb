@@ -5,20 +5,19 @@ application = config['deploy']["application"]
 raise "not found deploy.application key in settings.yml. see settings.yml.example" unless application
 domain = config['deploy']["domain"]
 raise "not found deploy.domain key in settings.yml. see settings.yml.example" unless domain
-port = config['deploy']["port"]
-raise "not found deploy.port key in settings.yml. see settings.yml.example" unless port
+gateway = config['deploy']["gateway"]
+raise "not found deploy.gateway key in settings.yml. see settings.yml.example" unless gateway
 
 set :application, application
 set :domain, domain
-set :port, port
 
 set :rails_env, "production"
-set :deploy_to, "/srv/#{application}"
+set :deploy_to, "/srv/tusur/#{application}"
 set :use_sudo, false
-set :unicorn_instance_name, "unicorn"
+set :unicorn_instance_name, "tusur-gpo"
 
 set :scm, :git
-set :repository, "https://github.com/openteam-com/znaigorod.git"
+set :repository, "https://github.com/openteam-tusur/gpo.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 
