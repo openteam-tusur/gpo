@@ -204,6 +204,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    validates_email_format_of (1.5.3)
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
@@ -240,3 +241,4 @@ DEPENDENCIES
   tempdir
   therubyracer
   uglifier
+  validates_email_format_of

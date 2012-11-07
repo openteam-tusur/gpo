@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: chairs
@@ -10,6 +9,7 @@
 #  chief      :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  faculty    :string(255)
 #
 
 require 'task'

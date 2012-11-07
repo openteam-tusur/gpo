@@ -5,11 +5,15 @@ class Manage::ParticipantsController < Manage::ApplicationController
 
   belongs_to :chair, :project
 
-  actions :all, :except => [:show, :destroy]
+  actions :all, :except => :destroy
 
   helper_method :finded_participants
 
-  layout 'project'
+  layout :resolve_layout
+
+  def create
+    create! { collection_path }
+  end
 
   private
 
@@ -17,4 +21,9 @@ class Manage::ParticipantsController < Manage::ApplicationController
     @finded_participants ||= Participant.contingent_find(params[:search] || {})
   end
 
+  def resolve_layout
+    return false if ['edit', 'update', 'show'].include?(action_name)
+
+    'project'
+  end
 end

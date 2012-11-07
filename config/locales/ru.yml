@@ -60,6 +60,11 @@ ru:
   user:
     new: Добавление пользователя
 
+  activemodel:
+    errors:
+      messages:
+        invalid_email_address: имеет неверное значение
+
   activerecord:
     models:
       activity:    Активность

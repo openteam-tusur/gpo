@@ -11,5 +11,6 @@
  * = require gpodays
  * = require actions_form
  * = require order_state
+ * = require email_handler
  * = require main
  */

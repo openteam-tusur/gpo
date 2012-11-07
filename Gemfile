@@ -20,6 +20,7 @@ group :default do
   gem 'simple_form'
   gem 'state_machine'
   gem 'tempdir',                                        :require => 'temp_dir'
+  gem 'validates_email_format_of'
 end
 
 group :development do

@@ -1,0 +1,7 @@
+<% if resource.email? %>
+  <%= mail_to resource.email %>
+<% else %>
+  <span class="error">Не указан email</span>
+<% end %>
+
+<%= link_to "Изменить", [:edit, :manage, association_chain, resource].flatten, :remote => true %>

@@ -16,20 +16,32 @@
 #  edu_group         :string(255)
 #  contingent_active :boolean
 #  contingent_gpo    :boolean
+#  email             :string(255)
 #
 
 class Participant < ActiveRecord::Base
-  attr_accessible :first_name, :mid_name, :last_name, :edu_group, :course, :contingent_active, :contingent_gpo, :student_id
-  attr_accessible :state_event
+  attr_accessible :contingent_active,
+                  :contingent_gpo,
+                  :course,
+                  :edu_group,
+                  :email,
+                  :first_name,
+                  :last_name,
+                  :mid_name,
+                  :state_event,
+                  :student_id
+
   belongs_to :project
 
   has_one :chair,  :through => :project
   has_many :visitations,  :dependent => :destroy
-  has_many :issues,       :order => :planned_closing_at,                                         :dependent => :destroy
+  has_many :issues,       :order => :planned_closing_at, :dependent => :destroy
 
   validates_presence_of :student_id
   validates_presence_of :project_id
   validates_uniqueness_of :student_id
+
+  validates_email_format_of :email, :on => :update
 
   scope :ordered,            order(:last_name)
   scope :active,             where(:state => %w[approved awaiting_removal]).ordered

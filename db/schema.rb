@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106073853) do
+ActiveRecord::Schema.define(:version => 20121107020426) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20121106073853) do
     t.string   "edu_group"
     t.boolean  "contingent_active"
     t.boolean  "contingent_gpo"
+    t.string   "email"
   end
 
   create_table "passwords", :force => true do |t|
