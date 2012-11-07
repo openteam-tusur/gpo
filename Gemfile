@@ -11,6 +11,7 @@ group :default do
   gem 'grape'
   gem 'better'
   gem 'compass-rails'
+  gem 'esp-auth'
   gem 'has_scope'
   gem 'inherited_resources'
   gem 'jquery-rails'
