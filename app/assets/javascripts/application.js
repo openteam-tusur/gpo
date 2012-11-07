@@ -5,6 +5,7 @@
  * = require sugar
  * = require scroll_to
  * = require datepicker
+ * = require jquery_nested_form
  * = require go_to_chair
  * = require attention
  * = require hint

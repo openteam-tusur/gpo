@@ -16,6 +16,7 @@ group :default do
   gem 'jquery-rails'
   gem 'openteam-commons'
   gem 'progress_bar'
+  gem 'nested_form'
   gem 'rails'
   gem 'rubyzip'
   gem 'russian'
