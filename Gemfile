@@ -8,6 +8,7 @@ group :assets do
 end
 
 group :default do
+  gem 'grape'
   gem 'better'
   gem 'compass-rails'
   gem 'has_scope'

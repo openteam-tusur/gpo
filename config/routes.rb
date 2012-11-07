@@ -1,4 +1,6 @@
 Gpo::Application.routes.draw do
+  mount API::Gpo => '/'
+
   namespace :manage do
     resources :themes, except: :show do
       get :statistics, :projects, on: :collection
