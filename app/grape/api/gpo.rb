@@ -11,8 +11,8 @@ class API::Gpo < Grape::API
       @themes ||= Theme.all
     end
 
-    def projects
-      @projects ||= Project.all
+    def active_projects
+      @active_projects ||= Project.active
     end
   end
 
@@ -33,7 +33,7 @@ class API::Gpo < Grape::API
   resource :projects do
     desc 'Returns projects'
     get do
-      present projects, with: API::Entities::ProjectEntity
+      present active_projects, with: API::Entities::ProjectEntity
     end
   end
 end
