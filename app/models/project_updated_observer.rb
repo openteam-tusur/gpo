@@ -1,5 +1,5 @@
 class ProjectUpdatedObserver < ActiveRecord::Observer
-  observe :participant, :manager, :stage
+  observe :participant, :project_manager, :stage
 
   def after_save(record)
     record.project.updated_at = Time.now

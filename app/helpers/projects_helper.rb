@@ -10,10 +10,10 @@ module ProjectsHelper
     out.html_safe
   end
 
-  def project_managers(project)
-    managers = project.users.collect {|user| user.name}.to_sentence
-    managers = "не назначен" if managers.blank?
-    managers
+  def project_project_managers(project)
+    project_managers = project.users.collect {|user| user.name}.to_sentence
+    project_managers = "не назначен" if project_managers.blank?
+    project_managers
   end
 
   def project_section(project, attribute)

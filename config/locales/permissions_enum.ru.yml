@@ -4,6 +4,7 @@ ru:
       permission:
         role_enum:
           manager:              Менеджер
+          project_manager:      Менеджер проекта
           mentor:               Ментор
           admin:                Администратор
           supervisor:           Суперпользователь

@@ -24,11 +24,11 @@ class Permission < ActiveRecord::Base
   validates_uniqueness_of :user_id, :scope => [:role, :context_type, :context_id], :message => 'уже имеет такое правило'
 
   validates_presence_of   :chair_id,    :if => Proc.new { |permission| permission.role == 'mentor' }
-  validates_presence_of   :project_id,  :if => Proc.new { |permission| permission.role == 'manager' }
+  validates_presence_of   :project_id,  :if => Proc.new { |permission| permission.role == 'project_manager' }
 
   scope :administrators,  where(:role => :admin)
   scope :supervisors,     where(:role => :supervisors)
-  scope :managers,        where(:role => :manager)
+  scope :project_managers,        where(:role => :project_manager)
   scope :mentors,         where(:role => :mentor)
   scope :for_user,        ->(user)    { where(:user_id => user) }
   scope :for_project,     ->(project) { where(:context_type => Project).where(:context_id => project) }
@@ -66,7 +66,7 @@ class Permission < ActiveRecord::Base
       when "mentor"
         context_type = Chair.name
         context_id = chair_id
-      when "manager"
+      when "project_manager"
         context_type = Project.name
         context_id = project_id
     end
@@ -75,7 +75,7 @@ class Permission < ActiveRecord::Base
     params
   end
 
-  def self.build_manager_permission(user, project)
-    Permission.new(:user => user, :context => project, :role => 'manager')
+  def self.build_project_manager_permission(user, project)
+    Permission.new(:user => user, :context => project, :role => 'project_manager')
   end
 end

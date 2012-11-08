@@ -3,14 +3,14 @@
 
 <% content_for :right do %>
   <h3>Руководители проекта</h3>
-  <ul id="project_managers">
+  <ul id="project_project_managers">
     <% @project.users.each do |user| %>
       <li><span class="name"><%= user.name %></span><span class="post"><%= user.post %></span></li>
     <% end %>
   </ul>
 
   <h3>Участники проекта</h3>
-  <ul id="project_managers">
+  <ul id="project_project_managers">
     <% @project.participants.active.each do |participant| %>
       <li><span class="name"><%= participant.name %></span><span class="post"><%= "гр. #{participant.edu_group}, каф. #{participant.chair_abbr}" %></span></li>
     <% end %>

@@ -81,9 +81,9 @@ module ApplicationHelper
         item_class << options[:item_class] if options[:item_class]
         content_tag(:li,
           render(:partial => item_partial,
-                 :locals => {:object => item, :order => item, :chair_manager => item,
+                 :locals => {:object => item, :order => item, :chair_project_manager => item,
                              :task => item, :activity => item, :report => item, :theme => item,
-                             :gpoday => item, :stage => item, permission: item, project: item, :manager => item }),
+                             :gpoday => item, :stage => item, permission: item, project: item, :project_manager => item }),
           :class => item_class.join(" "))
       }.join
 

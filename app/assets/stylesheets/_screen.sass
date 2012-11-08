@@ -441,11 +441,11 @@ img.icon
   #order-activities
     .object
       display: none
-  #users, #permissions, #participants, #managers, #themes, #gpodays
+  #users, #permissions, #participants, #project_managers, #themes, #gpodays
     +listing_with_actions(10px 0px)
     .kt
       font-style: italic
-  #chair-managers
+  #chair-project_managers
     +listing(5px 20px 10px)
   #chairs, #projects
     +listing_with_stats(10px 0px)
@@ -502,7 +502,7 @@ img.icon
       background-color: #faee35
     .state_approved
       padding: 1px 5px 1px 0px
-  .participant, .manager
+  .participant, .project_manager
     +looks_like_object
     .state_approved
       +normal_state
@@ -609,7 +609,7 @@ img.icon
     +message_box(#f7a7a7, "error_background.png", #d65d5d, maroon)
   #chair_mentors
     margin-bottom: 1.5em
-  #project_managers
+  #project_project_managers
     margin-bottom: 1.5em
     li
       margin-bottom: 0.2em

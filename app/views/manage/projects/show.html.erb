@@ -13,7 +13,7 @@
 
 <% content_for :right do %>
   <h3>Руководители проекта</h3>
-  <ul id="project_managers">
+  <ul id="project_project_managers">
     <% @project.users.each do |user| %>
       <li><span class="name"><%= user.name %></span><span class="post"><%= user.post %></span></li>
     <% end %>

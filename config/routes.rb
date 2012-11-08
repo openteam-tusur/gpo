@@ -29,7 +29,7 @@ Gpo::Application.routes.draw do
           end
         end
 
-        resources :managers, except: [:show, :destroy]
+        resources :project_managers, except: [:show, :destroy]
 
         resources :orders, only: :index
       end
@@ -39,7 +39,7 @@ Gpo::Application.routes.draw do
       resources :workgroup_orders, only: [:new, :create, :update]
 
       resources :users, except: [:show, :new, :create]
-      resources :managers, only: :index
+      resources :project_managers, only: :index
     end
 
     resources :users, except: :show

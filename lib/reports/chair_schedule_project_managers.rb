@@ -1,5 +1,5 @@
 # encoding: utf-8
-class ChairScheduleManagers < XlsReport
+class ChairScheduleProjectManagers < XlsReport
   attr_accessor :chair
 
   def initialize chair
@@ -14,16 +14,16 @@ class ChairScheduleManagers < XlsReport
     document = REXML::Document.new(xml)
     table = document.elements["//table:table"]
     row = table.delete_element('//table:table-row[7]')
-    @chair.managers.each do |manager|
+    @chair.project_managers.each do |project_manager|
       i = 1
-      manager.managable_projects.each do |project|
+      project_manager.managable_projects.each do |project|
         tmp_row = row.deep_clone
         if i == 1
-          tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => manager.managable_projects.size.to_s})
-          tmp_row.elements[2].add_attributes({"table:number-rows-spanned" => manager.managable_projects.size.to_s})
+          tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => project_manager.managable_projects.size.to_s})
+          tmp_row.elements[2].add_attributes({"table:number-rows-spanned" => project_manager.managable_projects.size.to_s})
         end
-        tmp_row.elements[1][1].text = manager.name
-        tmp_row.elements[2][1].text = manager.post
+        tmp_row.elements[1][1].text = project_manager.name
+        tmp_row.elements[2][1].text = project_manager.post
         tmp_row.elements[3][1].text = project.cipher
         table.add_element tmp_row
         i += 1
@@ -33,7 +33,7 @@ class ChairScheduleManagers < XlsReport
   end
 
   def render_to_file(&block)
-    super('chair_schedule_managers', &block)
+    super('chair_schedule_project_managers', &block)
   end
 
 

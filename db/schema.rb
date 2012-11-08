@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107113044) do
+ActiveRecord::Schema.define(:version => 20121108080950) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -64,14 +64,6 @@ ActiveRecord::Schema.define(:version => 20121107113044) do
     t.datetime "updated_at"
   end
 
-  create_table "managers", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "state"
-  end
-
   create_table "order_projects", :force => true do |t|
     t.integer  "order_id"
     t.integer  "project_id"
@@ -116,6 +108,14 @@ ActiveRecord::Schema.define(:version => 20121107113044) do
   end
 
   add_index "permissions", ["user_id", "role", "context_id", "context_type"], :name => "by_user_and_role_and_context"
+
+  create_table "project_managers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "state"
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "cipher"

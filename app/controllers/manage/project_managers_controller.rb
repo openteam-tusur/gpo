@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Manage::ManagersController < Manage::ApplicationController
+class Manage::ProjectManagersController < Manage::ApplicationController
   inherit_resources
 
   belongs_to :chair do
@@ -13,7 +13,7 @@ class Manage::ManagersController < Manage::ApplicationController
 
   def index
     index! {
-      @managers.sort!
+      @project_managers.sort!
       render :layout => 'chair' and return unless @project
     }
   end

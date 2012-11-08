@@ -18,7 +18,7 @@ class Task
     if user.mentor_of?(chair)
       ret = mentor_tasks(chair)
     end
-    if user.manager_of?(chair) && !user.mentor_of?(chair)
+    if user.project_manager_of?(chair) && !user.mentor_of?(chair)
       ret = problematic_participants_tasks(user.managable_projects)
       ret += project_visitations_task(user.managable_projects)
     end

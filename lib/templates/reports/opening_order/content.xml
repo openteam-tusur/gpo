@@ -84,7 +84,7 @@
                        <text:list-item>
                            <text:p text:style-name="P4">Руководителей проектной группы:
                                <text:span text:style-name="T1">
-                                   <%= project.text_managers_for_order_report %>
+                                   <%= project.text_project_managers_for_order_report %>
                                </text:span>
                            </text:p>
                        </text:list-item>

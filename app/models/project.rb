@@ -36,9 +36,9 @@ class Project < ActiveRecord::Base
   belongs_to :theme
 
   has_many :participants, :dependent => :destroy, :order => "last_name"
-  has_many :managers, :dependent => :destroy
+  has_many :project_managers, :dependent => :destroy
   has_many :stages, :dependent => :destroy, :order => "start"
-  has_many :users, :through => :managers, :order => "last_name"
+  has_many :users, :through => :project_managers, :order => "last_name"
   has_many :issues, :through => :participants
 
   has_many :order_projects, :dependent => :destroy
@@ -76,13 +76,13 @@ class Project < ActiveRecord::Base
     end
 
     after_transition :draft => :active do |project, transition|
-      project.managers.each(&:approve)
+      project.project_managers.each(&:approve)
       project.participants.each(&:approve)
     end
 
     after_transition any => :closed do |project, transition|
       project.disable_modifications
-      project.managers.destroy_all
+      project.project_managers.destroy_all
     end
 
     after_transition :closed => :active do |project, transition|
@@ -125,8 +125,8 @@ class Project < ActiveRecord::Base
   end
 
   # для приказа
-  def text_managers_for_order_report
-    arr = self.managers.collect { |manager| manager.text_for_order_report }
+  def text_project_managers_for_order_report
+    arr = self.project_managers.collect { |project_manager| project_manager.text_for_order_report }
     arr.join("; ")
   end
 

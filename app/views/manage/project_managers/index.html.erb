@@ -4,11 +4,11 @@
   <h3>Руководители проекта</h3>
   <p>На странице отображается список руководителей проекта.</p>
   <dl>
-    <dt><%= help_term(:manager_awaiting_approval) %></dt>
+    <dt><%= help_term(:project_manager_awaiting_approval) %></dt>
     <dd>Включение участника проекта не подтверждено приказом</dd>
-    <dt><%= help_term(:manager_awaiting_removal) %></dt>
+    <dt><%= help_term(:project_manager_awaiting_removal) %></dt>
     <dd>Исключение участника проекта не подтверждено приказом</dd>
-    <dt><%= help_term(:manager_approved) %></dt>
+    <dt><%= help_term(:project_manager_approved) %></dt>
     <dd>Участника проекта подтвержден приказом</dd>
   </dl>
   <p>Статус руководителя нового проекта подтверждает приказом о формировании проекта. Статус руководителя активного проекта может утвердить администратор системы.</p>
@@ -25,8 +25,8 @@
   </dl>
 <% end %>
 
-<% action_link(link_to(I18n.t("manager.new"), new_manage_chair_project_manager_path(@chair, @project)), "new", "Позволяет добавить руководителя к проекту") if @project %>
+<% action_link(link_to(I18n.t("project_manager.new"), new_manage_chair_project_project_manager_path(@chair, @project)), "new", "Позволяет добавить руководителя к проекту") if @project %>
 
-<%= render_list "chair_manager", @managers, :id => "managers" unless @project %>
-<%= render_list "manager_with_actions", @managers, :id => "managers" if @project %>
+<%= render_list "chair_project_manager", @project_managers, :id => "project_managers" unless @project %>
+<%= render_list "project_manager_with_actions", @project_managers, :id => "project_managers" if @project %>
 

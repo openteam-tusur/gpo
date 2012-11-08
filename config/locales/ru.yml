@@ -12,7 +12,7 @@ ru:
   chair:
     new:        Новая кафедра
 
-  manager:
+  project_manager:
     new:        Добавить руководителя
 
   participant:
@@ -70,7 +70,7 @@ ru:
       activity:    Активность
       chair:       Кафедра
       issue:       Индивидуальная задача
-      manager:     Руководитель
+      project_manager:     Руководитель
       order:       Приказ
       opening_order:  о формировании проектов
       workgroup_order: об изменении рабочих групп проектов
@@ -112,7 +112,7 @@ ru:
         planned_summ_grade:       Запланировано баллов
         results:                  Полученные результаты
 
-      manager:
+      project_manager:
         project_id:       Проект
         user_id:          Пользователь
 
@@ -181,7 +181,7 @@ ru:
         phone:                 Контактный телефон
 
     state_machines:
-      manager:
+      project_manager:
         state:
           states:
             approved:          Утвержден

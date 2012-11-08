@@ -2,11 +2,11 @@
 
 <h1><%= @project.cipher %> <%= @project.title %></h1>
 
-<% unless @project.managers.empty? %>
+<% unless @project.project_managers.empty? %>
   <h2>Будут удалены руководители проекта:</h2>
   <ul>
-    <% @project.managers.each do |manager| %>
-      <li><%= manager.text_for_order_report %></li>
+    <% @project.project_managers.each do |project_manager| %>
+      <li><%= project_manager.text_for_order_report %></li>
     <% end %>
   </ul>
 <% end %>

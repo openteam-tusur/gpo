@@ -10,6 +10,6 @@
     <span class="date"><%= project_updated(project) %></span>
     <%= "#{Project.human_attribute_name(:close_reason)}: #{project.close_reason}" if project.closed? %>
   </div>
-  <div class="details"><%= project_managers(project) %></div>
+  <div class="details"><%= project_project_managers(project) %></div>
 </div>
 

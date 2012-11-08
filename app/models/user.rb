@@ -4,6 +4,27 @@ class User < ActiveRecord::Base
 
   belongs_to :chair
 
+  has_many :leaderships, :class_name => 'ProjectManager'
+  has_many :approved_leaderships, :class_name => 'ProjectManager', :conditions => {:state => ["approved", "awaiting_removal"]}
+  has_many :projects, :through => :leaderships
+  has_many :managable_projects, :source => :project, :through => :approved_leaderships, :order => 'cipher desc'
+
+  has_many :permissions, :dependent => :destroy
+
+  default_scope order('last_name, first_name, mid_name')
+
+  def initials_name
+    "#{last_name} #{first_name.split(//u)[0,1].join}.#{mid_name.split(//u)[0,1].join}."
+  end
+
+  def manage_not_closed_projects?
+    !(self.projects.active.empty? && self.projects.draft.empty?)
+  end
+
+  def chairs_for_mentor
+    self.rules.mentors.collect {|rule| rule.chair}
+  end
+
   def available_chairs
     Chair.ordered_by_abbr
   end

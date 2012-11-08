@@ -43,10 +43,10 @@ class Manage::ReportsController < Manage::ApplicationController
       report = ChairProjectsList.new(@chair) if @chair
     when 'chair_projects_stat'
       report = ChairProjectsStat.new(@chair) if @chair
-    when 'chair_managers_list'
-      report = ChairManagersList.new(@chair) if @chair
-    when 'chair_schedule_managers'
-      report = ChairScheduleManagers.new(@chair) if @chair
+    when 'chair_project_managers_list'
+      report = ChairProjectManagersList.new(@chair) if @chair
+    when 'chair_schedule_project_managers'
+      report = ChairScheduleProjectManagers.new(@chair) if @chair
     when 'chair_attestation'
       report = ChairAttestation.new(@chair) if @chair
     when 'university_participants'

@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: managers
+# Table name: project_managers
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -12,7 +12,7 @@
 #  state      :string(255)
 #
 
-class Manager < ActiveRecord::Base
+class ProjectManager < ActiveRecord::Base
   attr_accessible :user_id, :state_event
 
   validates_presence_of :user_id
@@ -40,17 +40,17 @@ class Manager < ActiveRecord::Base
       transition :approved => :awaiting_removal
     end
 
-    after_transition :awaiting_approval => :removed do |manager|
-      manager.destroy
+    after_transition :awaiting_approval => :removed do |project_manager|
+      project_manager.destroy
     end
 
-    after_transition :awaiting_removal => :removed do |manager, transition|
-      Permission.managers.for_project(manager.project).for_user(manager.user).first.destroy
-      manager.destroy
+    after_transition :awaiting_removal => :removed do |project_manager, transition|
+      Permission.project_managers.for_project(project_manager.project).for_user(project_manager.user).first.destroy
+      project_manager.destroy
     end
 
-    after_transition any => :approved do |manager, transition|
-      Permission.build_manager_permission(manager.user, manager.project).save
+    after_transition any => :approved do |project_manager, transition|
+      Permission.build_project_manager_permission(project_manager.user, project_manager.project).save
     end
   end
 

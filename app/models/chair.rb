@@ -21,7 +21,6 @@ class Chair < ActiveRecord::Base
   validates_uniqueness_of :abbr
 
   has_many :projects, :order => 'cipher desc'
-  has_many :managers, :through => :projects, :conditions => ["managers.state = ?", 'approved']
   has_many :orders, :order => 'id desc'
   has_many :workgroup_orders, :order => 'id desc'
   has_many :opening_orders, :order => 'id desc'
@@ -41,12 +40,21 @@ class Chair < ActiveRecord::Base
     self.abbr
   end
 
-  def all_managers
-    managers = []
+  def project_managers
+    project_managers = []
     self.projects.each do |project|
-      managers += project.managers.collect { |m| m.user }
+      project_managers += project.project_managers.approved.collect { |m| m.user }
     end
-    managers
+    project_managers.uniq!
+    project_managers.sort{|a, b| a.last_name <=> b.last_name}
+  end
+
+  def all_project_managers
+    project_managers = []
+    self.projects.each do |project|
+      project_managers += project.project_managers.collect { |m| m.user }
+    end
+    project_managers
   end
 
   def stats(*types)
@@ -65,22 +73,22 @@ class Chair < ActiveRecord::Base
       xml.count_participants_3_4 self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
       xml.count_participants_3 self.participants.active.at_course(3).count
       xml.count_participants_4 self.participants.active.at_course(4).count
-      xml.count_managers User.count(:conditions => {:id => Manager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)})
+      xml.count_project_managers User.count(:conditions => {:id => ProjectManager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)})
       xml.count_projects self.projects.current_active.count
       xml.mentor self.mentors.first.name
       xml.projects do |xml_project|
         self.projects.current_active.each do |project|
           xml.project do
             xml.cipher project.cipher
-            xml.managers project.managers.active.active.map(&:user).map(&:name).join(", ")
+            xml.project_managers project.project_managers.active.active.map(&:user).map(&:name).join(", ")
             xml.count_participants_3 project.participants.active.at_course(3).count
             xml.count_participants_4 project.participants.active.at_course(4).count
           end
         end
       end
-      xml.managers do |xml_manager|
-        User.find(:all, :conditions => {:id => Manager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)}).each do |user|
-          xml.manager do
+      xml.project_managers do |xml_project_manager|
+        User.find(:all, :conditions => {:id => ProjectManager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)}).each do |user|
+          xml.project_manager do
             xml.name user.name
           end
         end
