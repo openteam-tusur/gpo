@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   default_scope order('last_name, first_name, mid_name')
 
   def initials_name
-    "#{last_name} #{first_name.split(//u)[0,1].join}.#{mid_name.split(//u)[0,1].join}."
+    "#{last_name} #{first_name[0]}.#{mid_name[0]}."
   end
 
   def manage_not_closed_projects?
