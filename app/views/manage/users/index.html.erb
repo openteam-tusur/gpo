@@ -1,9 +1,5 @@
 <% title users_title(@chair), :user %>
 
-<% content_for :action_nav do %>
-  <%= action_link(link_to(I18n.t("user.new"), new_resource_url), 'new', "Позволяет добавить нового пользователя") %>
-<% end %>
-
 <% content_for :hint do %>
   <% if @chair.nil? %>
     <p>На странице отображаются все пользователи системы.</p>

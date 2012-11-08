@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessible :mid_name, :post, :float, :chair_id
   esp_auth_user
 
   belongs_to :chair

@@ -5,10 +5,6 @@ module ApplicationHelper
     true
   end
 
-  def current_user
-    User.find(1)
-  end
-
   def nav_link(link, current_controller, options = {})
     current_action = options[:action]
     id = "#{current_controller}"

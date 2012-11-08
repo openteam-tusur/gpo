@@ -29,7 +29,7 @@ class ChangeUsers < ActiveRecord::Migration
 
       t.remove :login, :crypted_password, :salt, :remember_token, :remember_token_expires_at
     end
-    User.find_each {|user| user.update_attribute :name, [user.first_name, user.mid_name, user.last_name].compact.join(' ')}
+    User.find_each {|user| user.update_attribute :name, [user.last_name, user.first_name, user.mid_name].compact.join(' ')}
   end
 
 

@@ -1,8 +1,8 @@
-<%= form.input :last_name, :as => :string %>
-<%= form.input :first_name, :as => :string %>
+<%= form.input :email, :as => :string, :readonly => true %>
+<%= form.input :last_name, :as => :string, :readonly => true %>
+<%= form.input :first_name, :as => :string, :readonly => true %>
 <%= form.input :mid_name, :as => :string %>
 <%= form.input :post, :as => :string %>
 <%= form.input :float, :as => :string %>
 <%= form.input :phone, :as => :string %>
-<%= form.input :email, :as => :string %>
 <%= form.association :chair, :collection => Chair.ordered_by_title if show_chair %>

@@ -1,2 +1,6 @@
-<span class="login">Администраторов Админ Рутович</span>
-<a href="#/logout" class="logout">Выйти</a>
+<% if current_user %>
+  <span class='login'><%= current_user.name %></span>
+  <%= link_to 'Выход', esp_auth.destroy_user_session_path, :class => :logout %>
+<% else %>
+  <%= link_to 'Вход в систему', user_omniauth_authorize_path(:identity), :class => :login  %>
+<% end %>

@@ -25,6 +25,11 @@ group :default do
   gem 'state_machine'
   gem 'tempdir', :require => 'temp_dir'
   gem 'validates_email_format_of'
+
+  # HACK FOR HACK
+  gem 'oauth2', '0.6.1'
+  gem 'omniauth',  '1.1.0'
+  gem 'omniauth-oauth2', '1.0.2'
 end
 
 group :development do
