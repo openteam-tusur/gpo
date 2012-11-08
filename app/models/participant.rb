@@ -70,7 +70,13 @@ class Participant < ActiveRecord::Base
   end
 
   def name
-    "#{self.last_name} #{self.first_name} #{self.mid_name}"
+    "#{self.last_name} #{self.first_name} #{self.mid_name}".squish
+  end
+
+  def name_with_abbr
+    name = "#{self.last_name} #{self.first_name[0]}."
+    name += " #{self.mid_name[0]}." if self.mid_name.present?
+    name.squish
   end
 
   def problems
