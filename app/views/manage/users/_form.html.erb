@@ -5,4 +5,4 @@
 <%= form.input :float, :as => :string %>
 <%= form.input :phone, :as => :string %>
 <%= form.input :email, :as => :string %>
-<%= form.input :chair_id, :collection => Chair.find(:all).collect { | chair | [chair.abbr, chair.id] }, :include_blank => true if show_chair %>
+<%= form.association :chair, :collection => Chair.ordered_by_title if show_chair %>

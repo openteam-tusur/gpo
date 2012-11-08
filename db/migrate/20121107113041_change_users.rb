@@ -1,3 +1,8 @@
+if defined?(User)
+  Object.send(:remove_const, :User)
+end
+class User < ActiveRecord::Base; end
+
 class ChangeUsers < ActiveRecord::Migration
   def change
     change_table :users do | t |
@@ -24,6 +29,7 @@ class ChangeUsers < ActiveRecord::Migration
 
       t.remove :login, :crypted_password, :salt, :remember_token, :remember_token_expires_at
     end
+    User.find_each {|user| user.update_attribute :name, [user.first_name, user.mid_name, user.last_name].compact.join(' ')}
   end
 
 

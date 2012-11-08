@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   belongs_to :chair
 
   def available_chairs
-    Chair.ordered
+    Chair.ordered_by_abbr
   end
 end
 
