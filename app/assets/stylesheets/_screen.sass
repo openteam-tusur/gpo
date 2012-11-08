@@ -68,12 +68,18 @@ a
     #userbox
       float: right
       +clearfix
-      .login
+      a.login
+        display: block
+        float: left
+        background: transparent image_url("icon_login.png") no-repeat right
+        padding-right: 20px
+
+      span.login
         display: block
         float: left
         color: $header_text_color
         margin-right: 10px
-      .logout
+      a.logout
         display: block
         float: left
         width: 16px
