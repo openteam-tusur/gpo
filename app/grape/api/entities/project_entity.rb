@@ -13,6 +13,5 @@ class API::Entities::ProjectEntity < Grape::Entity
   expose :source_data
   expose :stakeholders
   expose :theme_id
-  expose(:participants) { |project, options| API::Entities::ParticipantEntity.represent project.participants }
   expose :title
 end

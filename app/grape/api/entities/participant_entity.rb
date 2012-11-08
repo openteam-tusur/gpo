@@ -6,4 +6,5 @@ class API::Entities::ParticipantEntity < Grape::Entity
   expose :id
   expose :last_name
   expose :mid_name
+  expose :project_id
 end
