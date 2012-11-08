@@ -27,7 +27,7 @@ class Manager < ActiveRecord::Base
 
   scope :approved, where(:state => 'approved')
 
-  delegate :first_name, :last_name, :mid_name, :email, :chair_id, to: :user
+  delegate :first_name, :last_name, :mid_name, :email, to: :user
 
   state_machine :state, :initial => :awaiting_approval do
     event :approve do

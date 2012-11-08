@@ -5,5 +5,4 @@ class API::Entities::ManagerEntity < Grape::Entity
   expose :first_name
   expose :last_name
   expose :mid_name
-  expose :chair_id
 end
