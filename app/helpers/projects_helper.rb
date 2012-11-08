@@ -21,7 +21,7 @@ module ProjectsHelper
     out = ""
     unless value.blank?
       out << content_tag(:h3, Project.human_attribute_name(attribute))
-      out << content_tag(:div, value + "", :class => "section")
+      out << content_tag(:div, simple_format(value), :class => "section")
     end
     out.html_safe
   end
