@@ -8,10 +8,11 @@ group :assets do
 end
 
 group :default do
-  gem 'grape'
   gem 'better'
   gem 'compass-rails'
+  gem 'curb'
   gem 'esp-auth'
+  gem 'grape'
   gem 'has_scope'
   gem 'inherited_resources'
   gem 'jquery-rails'
@@ -30,12 +31,12 @@ group :default do
   gem 'oauth2', '0.6.1'
   gem 'omniauth',  '1.1.0'
   gem 'omniauth-oauth2', '1.0.2'
+  gem 'has_searcher', '< 0.0.90'
 end
 
 group :development do
   gem 'annotate'
   gem 'capistrano'
-  gem 'curb'
   gem 'debugger'
   gem 'hirb'
   gem 'rails-erd'
@@ -51,4 +52,6 @@ group :test do
   gem 'fabrication'
   gem 'forgery'
   gem 'rspec-rails'
+  gem 'sunspot_matchers'
+  gem 'shoulda-matchers'
 end

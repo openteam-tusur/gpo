@@ -76,8 +76,8 @@ class Project < ActiveRecord::Base
     end
 
     after_transition :draft => :active do |project, transition|
-      project.project_managers.each(&:approve)
-      project.participants.each(&:approve)
+      project.project_managers.each(&:approve!)
+      project.participants.each(&:approve!)
     end
 
     after_transition any => :closed do |project, transition|

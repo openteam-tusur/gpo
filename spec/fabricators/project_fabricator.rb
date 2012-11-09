@@ -31,6 +31,6 @@ Fabricator(:project) do
   cipher 'Project chiper'
   title 'Project title'
 
-  after_create { |project| project.participants << Fabricate.build(:participant) }
-  after_create { |project| Fabricate(:manager, project: project) }
+  after_create { |project| project.participants << Fabricate(:participant, project: project) }
+  after_create { |project| Fabricate(:project_manager, project: project) }
 end

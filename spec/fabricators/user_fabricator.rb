@@ -21,6 +21,7 @@
 #
 
 Fabricator(:user) do
+  uid { Fabricate.sequence :uid }
   email { Forgery(:internet).email_address }
   first_name 'First name'
   mid_name 'Middle name'

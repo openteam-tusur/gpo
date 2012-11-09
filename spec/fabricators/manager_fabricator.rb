@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: managers
+# Table name: project_managers
 #
 #  id         :integer          not null, primary key
 #  user_id    :integer
@@ -10,6 +10,6 @@
 #  state      :string(255)
 #
 
-Fabricator(:manager) do
+Fabricator(:project_manager) do
   user
 end
