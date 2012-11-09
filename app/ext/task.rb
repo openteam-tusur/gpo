@@ -12,8 +12,8 @@ class Task
 
   def self.tasks_for(user, chair, context = nil)
     ret = []
-    if user.admin? || user.supervisor?
-      ret = admin_tasks(chair, context)
+    if user.manager?
+      ret = manager_tasks(chair, context)
     end
     if user.mentor_of?(chair)
       ret = mentor_tasks(chair)
@@ -25,7 +25,7 @@ class Task
     ret
   end
 
-  def self.admin_tasks(chair, context = nil)
+  def self.manager_tasks(chair, context = nil)
     ret = []
     chair.orders.blocking.each do | order |
       ret << OrderTask.new(order)

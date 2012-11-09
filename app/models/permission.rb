@@ -26,13 +26,13 @@ class Permission < ActiveRecord::Base
   validates_presence_of   :chair_id,    :if => Proc.new { |permission| permission.role == 'mentor' }
   validates_presence_of   :project_id,  :if => Proc.new { |permission| permission.role == 'project_manager' }
 
-  scope :administrators,  where(:role => :admin)
-  scope :supervisors,     where(:role => :supervisors)
-  scope :project_managers,        where(:role => :project_manager)
-  scope :mentors,         where(:role => :mentor)
-  scope :for_user,        ->(user)    { where(:user_id => user) }
-  scope :for_project,     ->(project) { where(:context_type => Project).where(:context_id => project) }
-  scope :for_chair,       ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
+  scope :managers,          where(:role => :manager)
+  scope :supervisors,       where(:role => :supervisors)
+  scope :project_managers,  where(:role => :project_manager)
+  scope :mentors,           where(:role => :mentor)
+  scope :for_user,          ->(user)    { where(:user_id => user) }
+  scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
+  scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
   esp_auth_permission
 
@@ -60,7 +60,7 @@ class Permission < ActiveRecord::Base
     chair_id = params.delete(:chair_id)
     project_id = params.delete(:project_id)
     case params[:role]
-      when "admin"
+      when "manager"
         context_type = nil
         context_id = nil
       when "mentor"
