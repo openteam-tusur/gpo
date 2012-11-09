@@ -27,9 +27,8 @@ class Permission < ActiveRecord::Base
   validates_presence_of   :project_id,  :if => Proc.new { |permission| permission.role == 'project_manager' }
 
   scope :managers,          where(:role => :manager)
-  scope :supervisors,       where(:role => :supervisors)
-  scope :project_managers,  where(:role => :project_manager)
   scope :mentors,           where(:role => :mentor)
+  scope :project_managers,  where(:role => :project_manager)
   scope :for_user,          ->(user)    { where(:user_id => user) }
   scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
   scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
