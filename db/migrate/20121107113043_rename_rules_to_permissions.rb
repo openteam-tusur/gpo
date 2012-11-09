@@ -8,6 +8,6 @@ class RenameRulesToPermissions < ActiveRecord::Migration
     Permission.where(:updated_at => nil).update_all('updated_at = created_at')
     add_index :permissions, [:user_id, :role, :context_id, :context_type], :name => 'by_user_and_role_and_context'
     Permission.where(:role => :admin).update_all(:role => :manager)
-    User.find(1).update_attribute :uid, 1
+    User.find_by_id(1).try :update_attribute, :uid, 1
   end
 end
