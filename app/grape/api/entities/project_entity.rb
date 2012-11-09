@@ -1,17 +1,21 @@
 class API::Entities::ProjectEntity < Grape::Entity
-  expose :analysis
-  expose :expected_results
-  expose :featutes
-  expose :forecast
-  expose :funds_required
-  expose :funds_sources
-  expose :goal
   expose :id
-  expose :novelty
-  expose :purpose
-  expose :release_cost
-  expose :source_data
-  expose :stakeholders
   expose :theme_id
-  expose :title
+
+  expose :analysis,         if: ->(project, options) { !!options[:full] }
+  expose :expected_results, if: ->(project, options) { !!options[:full] }
+  expose :featutes,         if: ->(project, options) { !!options[:full] }
+  expose :forecast,         if: ->(project, options) { !!options[:full] }
+  expose :funds_required,   if: ->(project, options) { !!options[:full] }
+  expose :funds_sources,    if: ->(project, options) { !!options[:full] }
+  expose :goal,             if: ->(project, options) { !!options[:full] }
+  expose :novelty,          if: ->(project, options) { !!options[:full] }
+  expose :purpose,          if: ->(project, options) { !!options[:full] }
+  expose :release_cost,     if: ->(project, options) { !!options[:full] }
+  expose :source_data,      if: ->(project, options) { !!options[:full] }
+  expose :stakeholders,     if: ->(project, options) { !!options[:full] }
+  expose :title,            if: ->(project, options) { !!options[:full] }
+
+  expose(:participants)     { |project, options| API::Entities::ParticipantEntity.represent project.participants if !!options[:full] }
+  expose(:project_managers) { |project, options| API::Entities::ProjectManagerEntity.represent project.project_managers if !!options[:full] }
 end
