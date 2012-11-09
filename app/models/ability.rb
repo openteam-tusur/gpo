@@ -15,5 +15,9 @@ class Ability
     can :manage, Project do |project|
       user.mentor_of? project.chair
     end
+
+    can :manage, Stage do |stage|
+      can? :manage, stage.project
+    end
   end
 end

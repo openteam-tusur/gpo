@@ -41,20 +41,7 @@ class Chair < ActiveRecord::Base
   end
 
   def project_managers
-    project_managers = []
-    self.projects.each do |project|
-      project_managers += project.project_managers.approved.collect { |m| m.user }
-    end
-    project_managers.uniq!
-    project_managers.sort{|a, b| a.last_name <=> b.last_name}
-  end
-
-  def all_project_managers
-    project_managers = []
-    self.projects.each do |project|
-      project_managers += project.project_managers.collect { |m| m.user }
-    end
-    project_managers
+    User.joins(:project_managers).joins(:projects).where(:projects => { :chair_id => self }, :project_managers => { :state => :approved }).uniq
   end
 
   def stats(*types)

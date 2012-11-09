@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   esp_auth_user
 
   belongs_to :chair
+  has_many :project_managers
 
   has_many :leaderships, :class_name => 'ProjectManager'
   has_many :approved_leaderships, :class_name => 'ProjectManager', :conditions => {:state => ["approved", "awaiting_removal"]}

@@ -13,7 +13,6 @@ class Manage::ProjectManagersController < Manage::ApplicationController
 
   def index
     index! {
-      @project_managers.sort!
       render :layout => 'chair' and return unless @project
     }
   end
