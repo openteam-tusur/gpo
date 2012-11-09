@@ -19,6 +19,6 @@
 #
 
 Fabricator(:participant) do
-  student_id 1
+  student_id { Fabricate.sequence :student_id }
   email 'ololo@mail.com'
 end

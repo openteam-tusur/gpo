@@ -43,14 +43,17 @@ class Participant < ActiveRecord::Base
 
   validates_email_format_of :email, :on => :update
 
+  before_save :set_undergraduate
+
   scope :ordered,            order(:last_name)
   scope :active,             where(:state => %w[approved awaiting_removal]).ordered
   scope :awaiting,           where(:state => %w[awaiting_approval awaiting_removal])
   scope :awaiting_approval,  where(:state => 'awaiting_approval')
   scope :awaiting_removal,   where(:state => 'awaiting_removal')
   scope :problematic,        where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered
-  scope :at_course,          ->(course) { where(:course => course) }
+  scope :at_course,          ->(course) { where('course = ? AND undergraduate != true', course) }
   scope :for_student,        ->(id)     { where(:student_id => id) }
+  scope :undergraduates,     where(undergraduate: true)
 
   delegate :abbr, :to => :chair, :prefix => true
 
@@ -85,6 +88,7 @@ class Participant < ActiveRecord::Base
       problems << %q(Не числится в ГПО в АИС "Контингент") if (approved? || awaiting_removal?) && !contingent_gpo?
     end
   end
+
 
   def self.contingent_find(params)
     url = "#{Settings['students.url']}?#{params.to_query}"
@@ -151,4 +155,10 @@ class Participant < ActiveRecord::Base
     Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', self.id, Gpoday.find(:first, :order => "date").date]).to_f
   end
 
+  private
+
+  def set_undergraduate
+    self.undergraduate = !!(self.edu_group =~ /(m|м)/i)
+    true
+  end
 end
