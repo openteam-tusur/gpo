@@ -32,6 +32,7 @@ group :default do
   gem 'omniauth',  '1.1.0'
   gem 'omniauth-oauth2', '1.0.2'
   gem 'has_searcher', '< 0.0.90'
+  gem 'sunspot_matchers'
 end
 
 group :development do
