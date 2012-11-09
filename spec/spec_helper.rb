@@ -40,5 +40,13 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.before do
+    Order.any_instance.stub(:upload_file)
+  end
+
+  config.before do
+    Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
+  end
+
   config.include EspAuth::SpecHelper
 end
