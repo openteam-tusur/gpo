@@ -3,10 +3,9 @@
 require 'spec_helper'
 
 describe Ability do
-  context 'менеджер проекта' do
-    let(:project) { Fabricate(:project) }
-    subject { ability_for(project_manager_of(project)) }
+  context 'менеджер' do
+    subject { ability_for(manager_of(root)) }
 
-    it { should_not be_able_to(:manage, another_manager_of(project).permissions.first) }
+    it { should be_able_to(:manage, :all) }
   end
 end

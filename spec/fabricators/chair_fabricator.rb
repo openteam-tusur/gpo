@@ -12,7 +12,7 @@
 #
 
 Fabricator(:chair)  do
-  abbr 'ABBR'
-  chief 'Chair chief'
-  title 'Chair title'
+  abbr  {"ABBR#{Fabricate.sequence(:abbr)}"}
+  chief 'chief'
+  title 'title'
 end

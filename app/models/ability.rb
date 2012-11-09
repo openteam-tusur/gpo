@@ -12,5 +12,8 @@ class Ability
 
     ## app specific
 
+    can :manage, Project do |project|
+      user.mentor_of? project.chair
+    end
   end
 end
