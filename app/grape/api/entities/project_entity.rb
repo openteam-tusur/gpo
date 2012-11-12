@@ -1,6 +1,8 @@
 class API::Entities::ProjectEntity < Grape::Entity
+  expose :chair_id
   expose :id
   expose :theme_id
+  expose :title
 
   expose :analysis,         if: ->(project, options) { !!options[:full] }
   expose :expected_results, if: ->(project, options) { !!options[:full] }
@@ -14,7 +16,6 @@ class API::Entities::ProjectEntity < Grape::Entity
   expose :release_cost,     if: ->(project, options) { !!options[:full] }
   expose :source_data,      if: ->(project, options) { !!options[:full] }
   expose :stakeholders,     if: ->(project, options) { !!options[:full] }
-  expose :title,            if: ->(project, options) { !!options[:full] }
 
   expose(:participants)     { |project, options| API::Entities::ParticipantEntity.represent project.participants if !!options[:full] }
   expose(:project_managers) { |project, options| API::Entities::ProjectManagerEntity.represent project.project_managers if !!options[:full] }
