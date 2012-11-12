@@ -5,7 +5,7 @@ class Manage::ParticipantsController < Manage::ApplicationController
 
   belongs_to :chair, :project
 
-  actions :all, :except => :destroy
+  actions :all, :except => [:destroy, :show]
 
   helper_method :finded_participants
 

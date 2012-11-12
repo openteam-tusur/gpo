@@ -24,7 +24,6 @@ class Participant < ActiveRecord::Base
                   :contingent_gpo,
                   :course,
                   :edu_group,
-                  :email,
                   :first_name,
                   :last_name,
                   :mid_name,
