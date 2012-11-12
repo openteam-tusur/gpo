@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def permitted_to?(*args)
-    true
+    can? *args
   end
 
   def nav_link(link, current_controller, options = {})
@@ -126,11 +126,11 @@ module ApplicationHelper
 
   def task_path(task)
     case task
-     when OrderTask
+     when OrderTaskManager
        manage_chair_order_path(task.order.chair, task.order)
-     when ProblematicParticipantsTask
+     when ProblematicParticipantsTaskManager
        manage_chair_project_participants_path(task.project.chair, task.project)
-     when ProjectVisitationsTask
+     when ProjectVisitationsTaskManager
        manage_chair_project_visitations_path(task.project.chair, task.project)
      else
        raise "Неизвестная задача"

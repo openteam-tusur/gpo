@@ -9,11 +9,12 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   layout :choose_layout
 
-  def index
-    index! {
-      @projects = @chair.projects.current_active
-      @projects = @chair.projects.closed unless params[:state].blank?
-    }
+  has_scope :filtered_by_state, :default => true, :type => :boolean do |controller, scope|
+     controller.params[:state] == 'close' ? scope.closed : scope.current_active
+  end
+
+  has_scope :authorized_projects, :default => true, :type => :boolean, :only => :index do |controller, scope|
+    scope.for_user(controller.send(:current_user))
   end
 
   def close
@@ -22,7 +23,6 @@ class Manage::ProjectsController < Manage::ApplicationController
         flash[:notice] = 'Проект успешно закрыт'
 
         redirect_to manage_chair_project_path(@chair, @project) and return
-
       else
         render :action => :to_close and return
       end
@@ -31,7 +31,7 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   def reopen
     show! {
-      @project.reopen
+      @project.reopen!
       flash[:notice] = 'Проект успешно возобновлен'
 
       redirect_to manage_chair_project_path(@chair, @project) and return

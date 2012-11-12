@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Task
+class TaskManager
   attr_accessor :date, :category, :description, :priority
 
   def initialize(description)
@@ -14,11 +14,9 @@ class Task
     ret = []
     if user.manager?
       ret = manager_tasks(chair, context)
-    end
-    if user.mentor_of?(chair)
+    elsif user.mentor_of?(chair)
       ret = mentor_tasks(chair)
-    end
-    if user.project_manager_of?(chair) && !user.mentor_of?(chair)
+    elsif user.managable_projects.joins(:chair).where(:chair_id => chair).any?
       ret = problematic_participants_tasks(user.managable_projects)
       ret += project_visitations_task(user.managable_projects)
     end
@@ -28,7 +26,7 @@ class Task
   def self.manager_tasks(chair, context = nil)
     ret = []
     chair.orders.blocking.each do | order |
-      ret << OrderTask.new(order)
+      ret << OrderTaskManager.new(order)
     end
     ret += problematic_participants_tasks(chair.projects.active+chair.projects.draft)
     ret += project_visitations_task(chair.projects.active) if context != "dashboard"
@@ -38,7 +36,7 @@ class Task
   def self.mentor_tasks(chair)
     ret = []
     chair.orders.draft.each do | order |
-      ret << OrderTask.new(order)
+      ret << OrderTaskManager.new(order)
     end
     ret += problematic_participants_tasks(chair.projects.active+chair.projects.draft)
     ret += project_visitations_task(chair.projects.active)
@@ -47,7 +45,7 @@ class Task
   def self.problematic_participants_tasks(projects)
     ret = []
     projects.each do | project |
-      ret << ProblematicParticipantsTask.new(project) unless project.participants.problematic.empty?
+      ret << ProblematicParticipantsTaskManager.new(project) unless project.participants.problematic.empty?
     end
     ret
   end
@@ -55,13 +53,13 @@ class Task
   def self.project_visitations_task(projects)
     ret = []
     projects.each do | project |
-      ret << ProjectVisitationsTask.new(project) if project.visitations_problem?
+      ret << ProjectVisitationsTaskManager.new(project) if project.visitations_problem?
     end
     ret
   end
 end
 
-class OrderTask < Task
+class OrderTaskManager < TaskManager
   attr_reader :order
 
   def initialize(order)
@@ -86,7 +84,7 @@ class OrderTask < Task
   end
 end
 
-class ProblematicParticipantsTask < Task
+class ProblematicParticipantsTaskManager < TaskManager
   attr_reader :project
 
   def initialize(project)
@@ -99,7 +97,7 @@ class ProblematicParticipantsTask < Task
   end
 end
 
-class ProjectVisitationsTask < Task
+class ProjectVisitationsTaskManager < TaskManager
   attr_reader :project
 
   def initialize(project)

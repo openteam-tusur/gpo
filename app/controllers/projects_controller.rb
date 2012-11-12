@@ -7,9 +7,5 @@ class ProjectsController < ApplicationController
 
   actions :index, :show
 
-  def index
-    index! {
-      @projects = @chair.projects.current_active
-    }
-  end
+  has_scope :current_active, :default => true, :type => :boolean
 end

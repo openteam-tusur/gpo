@@ -38,6 +38,7 @@ class Order < ActiveRecord::Base
   scope :blocking, where(:state => %w[being_reviewed reviewed])
   scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
   scope :approved, where(:state => :approved)
+  scope :draft, where(:state => :draft)
 
   state_machine :initial => :draft do
     event :remove do

@@ -1,6 +1,6 @@
 <% title "Кафедры", :chair %>
 
-<% action_link(link_to(I18n.t("chair.new"), new_manage_chair_path), "new", "Позволяет добавить новую кафедру") %>
+<% action_link(link_to(I18n.t("chair.new"), new_manage_chair_path), "new", "Позволяет добавить новую кафедру") if can?(:create, Chair) %>
 
 <% content_for :hint do %>
   <h3>Список кафедр</h3>

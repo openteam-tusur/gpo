@@ -12,7 +12,7 @@
 #  faculty    :string(255)
 #
 
-require 'task'
+#require 'task_mana'
 
 class Chair < ActiveRecord::Base
   attr_accessible :title, :abbr, :chief
@@ -49,7 +49,7 @@ class Chair < ActiveRecord::Base
   end
 
   def tasks(user, context = nil)
-    Task.tasks_for(user, self, context)
+    TaskManager.tasks_for(user, self, context)
   end
 
   def xml_for_chair_statement_checkup

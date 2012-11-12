@@ -27,7 +27,15 @@ class User < ActiveRecord::Base
   end
 
   def available_chairs
-    Chair.ordered_by_abbr
+    if manager?
+      Chair.ordered_by_abbr
+    elsif mentor?
+      Chair.ordered_by_abbr.joins(:permissions).where(:permissions => {:user_id => self}).uniq
+    elsif project_manager?
+      Chair.ordered_by_abbr.joins(:projects).where(:projects => {:id => permissions.where(:context_type => 'Project').pluck(:context_id)}).uniq
+    else
+      Chair.where('1=0')
+    end
   end
 end
 

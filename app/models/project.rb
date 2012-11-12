@@ -53,10 +53,20 @@ class Project < ActiveRecord::Base
 
   before_create :set_cipher, :unless => :cipher?
 
+  before_destroy :destroyable?
+
   scope :active, where(:state => :active)
   scope :draft, where(:state => :draft)
   scope :closed, where(:state => :closed)
   scope :editable, where(:editable_state => :editable)
+
+  scope :for_user, ->(user) do
+    if user.project_manager?
+      joins(:project_managers).where(:project_managers => { :user_id => user }).uniq
+    elsif user.mentor?
+      where(:chair_id => user.available_chairs)
+    end
+  end
 
   state_machine :initial => :draft do
     state :closed do
@@ -68,7 +78,7 @@ class Project < ActiveRecord::Base
     end
 
     event :close do
-      transition :active => :closed
+      transition :active => :closed, :if => :closeable?
     end
 
     event :reopen do
@@ -128,6 +138,14 @@ class Project < ActiveRecord::Base
   def text_project_managers_for_order_report
     arr = self.project_managers.collect { |project_manager| project_manager.text_for_order_report }
     arr.join("; ")
+  end
+
+  def closeable?
+    participants.empty?
+  end
+
+  def destroyable?
+    closed?
   end
 
   private
