@@ -41,7 +41,7 @@ class Participant < ActiveRecord::Base
   validates_presence_of :project_id
   validates_uniqueness_of :student_id
 
-  validates_email_format_of :email, :on => :update
+  validates_email_format_of :email, :on => :update, :allow_blank => true
 
   before_save :set_undergraduate
 
