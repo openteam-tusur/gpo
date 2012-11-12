@@ -18,14 +18,6 @@ class API::Gpo < Grape::API
     def project
       @project ||= active_projects.find(params[:id])
     end
-
-    def participants
-      @participants ||= Participant.where(project_id: active_projects.pluck('projects.id'))
-    end
-
-    def managers
-      @managers ||= Manager.where(project_id: active_projects.pluck('projects.id'))
-    end
   end
 
   resources :chairs do
@@ -50,6 +42,14 @@ class API::Gpo < Grape::API
 
     get ':id' do
       present project, with: API::Entities::ProjectEntity, full: true
+    end
+
+    get ':id/participants' do
+      present project.participants, with: API::Entities::ParticipantEntity
+    end
+
+    get ':id/project_managers' do
+      present project.project_managers, with: API::Entities::ProjectManagerEntity
     end
   end
 end
