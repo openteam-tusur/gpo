@@ -9,7 +9,7 @@ class Manage::ProjectsController < Manage::ApplicationController
 
   layout :choose_layout
 
-  has_scope :filtered_by_state, :default => true, :type => :boolean do |controller, scope|
+  has_scope :filtered_by_state, :default => true, :type => :boolean, :only => :index do |controller, scope|
      controller.params[:state] == 'close' ? scope.closed : scope.current_active
   end
 

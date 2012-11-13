@@ -30,12 +30,28 @@ class Ability
       user.project_manager_of?(project)
     end
 
-    can :manage, [Stage, ProjectManager, Participant, Visitation, Issue] do |object|
+    can :manage, [Stage, Visitation, Issue] do |object|
       can? :update, object.project
+    end
+
+    can :read, [ProjectManager, Participant] do |object|
+      can?(:update, object.project) && !object.state_event?
+    end
+
+    can :update, [ProjectManager, Participant] do |object|
+      can?(:update, object.project) && !object.state_event
+    end
+
+    can :update, [ProjectManager, Participant] do |object|
+      can?(:update, object.project) && object.state_event && can?(object.state_event, object.project)
     end
 
     can :modify, Order do |order|
       user.mentor_of? order.chair
+    end
+
+    can [:create, :remove], Participant do |participant|
+      can?(:update, participant.project)
     end
   end
 end
