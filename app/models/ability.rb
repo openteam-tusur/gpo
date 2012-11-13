@@ -22,6 +22,8 @@ class Ability
       user.available_chairs.include?(chair)
     end
 
+    can :read, [Issue, Order, Participant, ProjectManager, Stage, Visitation]
+
     can :manage, Project do |project|
       user.mentor_of? project.chair
     end
@@ -30,14 +32,16 @@ class Ability
       user.project_manager_of?(project)
     end
 
-    can :manage, [Stage, Visitation, Issue] do |object|
-      can? :update, object.project
-    end
-
     can [:create, :update, :remove, :cancel], Participant do |participant|
       can?(:update, participant.project)
     end
 
-    can :read, [Issue, Order, Participant, ProjectManager, Stage, Visitation]
+    can [:create, :update, :remove, :cancel], ProjectManager  do |project_manager|
+      can? :manage_projects, project_manager.project.chair
+    end
+
+    can :manage, [Stage, Issue] do |object|
+      can? :update, object.project
+    end
   end
 end
