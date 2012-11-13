@@ -34,23 +34,7 @@ class Ability
       can? :update, object.project
     end
 
-    can :read, [ProjectManager, Participant] do |object|
-      can?(:update, object.project) && !object.state_event?
-    end
-
-    can :update, [ProjectManager, Participant] do |object|
-      can?(:update, object.project) && !object.state_event
-    end
-
-    can :update, [ProjectManager, Participant] do |object|
-      can?(:update, object.project) && object.state_event && can?(object.state_event, object.project)
-    end
-
-    can :modify, Order do |order|
-      user.mentor_of? order.chair
-    end
-
-    can [:create, :remove], Participant do |participant|
+    can [:read, :create, :update, :remove, :cancel], Participant do |participant|
       can?(:update, participant.project)
     end
   end

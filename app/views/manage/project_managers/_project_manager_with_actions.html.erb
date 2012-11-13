@@ -5,6 +5,6 @@
     <%= simple_form_for [:manage, @chair, @project, object] do |form|%>
       <%= form.input :state_event, :as => :hidden, :input_html => { :value => event } %>
       <%= form.button :submit, ProjectManager.human_state_event_name(event) %>
-    <% end %>
+    <% end if can?(event, object) %>
   <% end %>
 </div>
