@@ -1,16 +1,19 @@
 # encoding: utf-8
 
-class Manage::VisitationsController < Manage::ApplicationController
+class Manage::VisitationsController < ApplicationController
   before_filter :find_context
+  before_filter :authorize_resource
+  helper_method :resource
+
+  layout :resource_name
 
   def index
-    render @context, :layout => @context
+    render resource_name
   end
 
   def edit
     @errors = []
     @gpoday = Gpoday.find(params[:id])
-    render :layout => 'project'
   end
 
   def update
@@ -30,22 +33,27 @@ class Manage::VisitationsController < Manage::ApplicationController
       redirect_to manage_chair_project_visitations_path(@project.chair, @project)
     else
       flash[:error] = "Ошибка сохранения баллов"
-      render :action => :edit, :layout => 'project'
+      render :edit
     end
   end
 
   protected
 
-  def find_context
-    @context = 'application'
-    @chair = Chair.find_by_id(params[:chair_id])
-    @context = 'chair' if @chair
-    @project = Project.find_by_id(params[:project_id])
-    @context = 'project' if @project
+  def authorize_resource
+    authorize! :update, resource
   end
 
-  def find_visitation
-    @visitation = Visitation.find(params[:id])
+  def find_context
+    @chair = Chair.find_by_id(params[:chair_id])
+    @project = Project.find_by_id(params[:project_id])
+  end
+
+  def resource
+    @project || @chair
+  end
+
+  def resource_name
+    resource.class.model_name.underscore
   end
 end
 

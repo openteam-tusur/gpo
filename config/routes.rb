@@ -8,7 +8,6 @@ Gpo::Application.routes.draw do
 
     resources :gpodays,     except: :show
     resources :reports,     only: [:index, :show]
-    resources :visitations, only: :index
 
     resources :chairs do
       resources :visitations, only: :index
@@ -20,7 +19,7 @@ Gpo::Application.routes.draw do
         end
 
         resources :stages
-        resources :visitations, except: [:new, :create, :destroy]
+        resources :visitations, only: [:index, :edit, :update]
         resources :issues, only: [:index]
 
         resources :participants, except: [:destroy] do
