@@ -34,8 +34,10 @@ class Ability
       can? :update, object.project
     end
 
-    can [:read, :create, :update, :remove, :cancel], Participant do |participant|
+    can [:create, :update, :remove, :cancel], Participant do |participant|
       can?(:update, participant.project)
     end
+
+    can :read, [Issue, Order, Participant, ProjectManager, Stage, Visitation]
   end
 end
