@@ -40,6 +40,7 @@ group :development do
   gem 'capistrano'
   gem 'debugger'
   gem 'hirb'
+  gem 'looksee'
   gem 'rails-erd'
   gem 'rvm-capistrano'
   gem 'sqlite3'

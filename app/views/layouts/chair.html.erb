@@ -9,7 +9,7 @@
         <%= nav_link link_to(chair_abbr(@chair), manage_chair_path(@chair)), 'chairs' %>
         <%= nav_link link_to("Проекты", manage_chair_projects_path(@chair)), 'projects'  %>
         <%= nav_link link_to("Приказы", manage_chair_orders_path(@chair)), 'orders'  %>
-        <% if can?(:update, @chair) %>
+        <% if can?(:manage_projects, @chair) %>
           <%= nav_link link_to("Пользователи", manage_chair_users_path(@chair)), 'users' %>
           <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@chair)), 'project_managers' %>
           <%= nav_link link_to("Посещаемость", manage_chair_visitations_path(@chair)), 'visitations' %>

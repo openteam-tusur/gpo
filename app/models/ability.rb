@@ -14,12 +14,12 @@ class Ability
 
     ## app specific
 
-    can :read, Chair do |chair|
+    can :manage_projects, Chair do |chair|
       user.mentor_of?(chair)
     end
 
     can :read, Chair do |chair|
-      user.managable_projects.where(:chair_id => chair).any?
+      user.available_chairs.include?(chair)
     end
 
     can :manage, Project do |project|

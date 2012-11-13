@@ -5,12 +5,20 @@ require 'spec_helper'
 describe Ability do
   context 'project_manager' do
     let(:chair) { Fabricate(:chair) }
+    let(:another_chair) { Fabricate(:chair) }
     let(:project) { Fabricate(:project, chair: chair) }
     let(:another_project) { Fabricate(:project, chair: chair) }
     let(:stage) { Fabricate(:stage, project: project) }
     let(:participant) { Fabricate(:participant, project: project) }
 
     subject { ability_for(project_manager_of(project)) }
+
+    context 'chairs' do
+      it { should     be_able_to :read, project.chair }
+      it { should_not be_able_to :manage_projects, project.chair }
+
+      it { should_not be_able_to :read, another_chair }
+    end
 
     context 'projects' do
       it { should     be_able_to :read, project }
