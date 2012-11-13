@@ -26,7 +26,7 @@ class Ability
       user.mentor_of? project.chair
     end
 
-    can [:update, :read, :manage], Project do |project|
+    can [:update, :read], Project do |project|
       user.project_manager_of?(project)
     end
 
