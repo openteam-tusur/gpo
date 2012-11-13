@@ -43,13 +43,5 @@ class API::Gpo < Grape::API
     get ':id' do
       present project, with: API::Entities::ProjectEntity, full: true
     end
-
-    get ':id/participants' do
-      present project.participants, with: API::Entities::ParticipantEntity
-    end
-
-    get ':id/project_managers' do
-      present project.project_managers, with: API::Entities::ProjectManagerEntity
-    end
   end
 end

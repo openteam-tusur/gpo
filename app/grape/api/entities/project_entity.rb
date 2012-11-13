@@ -1,5 +1,6 @@
 class API::Entities::ProjectEntity < Grape::Entity
   expose :chair_id
+  expose :cipher
   expose :id
   expose :theme_id
   expose :title
