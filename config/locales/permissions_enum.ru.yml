@@ -3,6 +3,6 @@ ru:
     attributes:
       permission:
         role_enum:
-          manager:              Менеджер
+          manager:              Администратор
           project_manager:      Менеджер проекта
           mentor:               Ответственный за ГПО на кафедре

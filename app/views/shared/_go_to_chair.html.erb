@@ -5,6 +5,7 @@
                      :label => "Кафедра",
                      :collection => current_user.available_chairs,
                      :selected => @chair,
+                     :include_blank => true,
                      :required => false %>
       <%= form.button :submit, "&raquo;".html_safe %>
     <% end %>

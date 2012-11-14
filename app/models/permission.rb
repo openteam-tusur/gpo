@@ -16,15 +16,11 @@
 class Permission < ActiveRecord::Base
   attr_accessible :user, :context
 
-  # FIXME fix this shit!
-  alias_attribute :chair_id, :context_id
-  attr_accessible :user_id, :context_id, :role, :chair_id
+  attr_accessible :user_id, :context_id, :role, :context_type
 
-  validates_presence_of   :user_id
+  validates_presence_of   :user, :context
+
   validates_uniqueness_of :user_id, :scope => [:role, :context_type, :context_id], :message => 'уже имеет такое правило'
-
-  validates_presence_of   :chair_id,    :if => Proc.new { |permission| permission.role == 'mentor' }
-  validates_presence_of   :project_id,  :if => Proc.new { |permission| permission.role == 'project_manager' }
 
   scope :managers,          where(:role => :manager)
   scope :mentors,           where(:role => :mentor)
@@ -49,10 +45,6 @@ class Permission < ActiveRecord::Base
 
   def project
     self.context if self.context_type == Project.name
-  end
-
-  def project_id
-    context_id unless project.nil?
   end
 
   def self.attributes_from_params(params)

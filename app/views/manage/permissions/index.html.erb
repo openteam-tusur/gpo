@@ -1,7 +1,8 @@
 <% title "Правила", :permission %>
 
 <% content_for :action_nav do %>
-  <%= action_link(link_to(I18n.t("permission.new"), new_manage_permission_path), "new", "Позволяет создать правило для пользователя") %>
+  <%= action_link(link_to('Добавить ответственного за ГПО на кафедре', new_manage_permission_path(:permission => {:role => :mentor})), "new", "Позволяет создать ответственного за ГПО на кафедре") %>
+  <%= action_link(link_to('Добавить администратора', new_manage_permission_path(:permission => {:role => :admin})), "new", "Позволяет создать администратора") %>
 <% end %>
 
 <% content_for :hint do %>
