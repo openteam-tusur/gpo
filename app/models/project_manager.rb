@@ -45,7 +45,7 @@ class ProjectManager < ActiveRecord::Base
     end
 
     after_transition :awaiting_removal => :removed do |project_manager, transition|
-      Permission.project_managers.for_project(project_manager.project).for_user(project_manager.user).first.destroy
+      Permission.project_managers.for_project(project_manager.project).for_user(project_manager.user).destroy_all
       project_manager.destroy
     end
 

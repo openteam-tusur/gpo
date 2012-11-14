@@ -25,6 +25,8 @@ class Order < ActiveRecord::Base
 
   attr_accessible :project_ids, :state_event, :number, :approved_at, :comment
 
+  before_destroy :unlock_projects!, :if => :being_reviewed?
+
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher DESC'
   has_many :participants, :through => :projects
@@ -35,12 +37,10 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :projects
 
-  scope :locking, where(:state => %w[being_reviewed reviewed])
+  scope :blocking, where(:state => %w[being_reviewed reviewed])
   scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
   scope :approved, where(:state => :approved)
   scope :draft, where(:state => :draft)
-
-  before_destroy :unlock_projects!, :if => :being_reviewed?
 
   state_machine :initial => :draft do
     event :to_review do

@@ -3,19 +3,19 @@ class ChairProjectManagersList < XlsReport
   attr_accessor :chair
 
   def initialize chair
-    @chair = chair    
+    @chair = chair
   end
 
   def process_xml_template(xml)
     # меняем статический контент в шаблоне
     xml = xml.gsub("CHAIR_ABBR", @chair.abbr)
-    
+
     # наполняем проектами
     document = REXML::Document.new(xml)
-    table = document.elements["//table:table"]    
+    table = document.elements["//table:table"]
     row = table.delete_element('//table:table-row[4]')
     i = 1
-    @chair.project_managers.each do |project_manager|
+    @chair.project_manager_users.each do |project_manager|
       tmp_row = row.deep_clone
       tmp_row.elements[1][1].text = i
       tmp_row.elements[2][1].text = project_manager.name

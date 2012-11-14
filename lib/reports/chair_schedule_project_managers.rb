@@ -3,7 +3,7 @@ class ChairScheduleProjectManagers < XlsReport
   attr_accessor :chair
 
   def initialize chair
-    @chair = chair    
+    @chair = chair
   end
 
   def process_xml_template(xml)
@@ -14,7 +14,7 @@ class ChairScheduleProjectManagers < XlsReport
     document = REXML::Document.new(xml)
     table = document.elements["//table:table"]
     row = table.delete_element('//table:table-row[7]')
-    @chair.project_managers.each do |project_manager|
+    @chair.project_manager_users.each do |project_manager|
       i = 1
       project_manager.managable_projects.each do |project|
         tmp_row = row.deep_clone

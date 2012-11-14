@@ -12,9 +12,7 @@ class Manage::ProjectManagersController < Manage::ApplicationController
   layout 'project'
 
   def index
-    index! {
-      render :layout => 'chair' and return unless @project
-    }
+    index! { render :layout => 'chair' and return unless @project }
   end
 
 end

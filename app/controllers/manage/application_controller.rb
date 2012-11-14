@@ -19,9 +19,4 @@ class Manage::ApplicationController < ApplicationController
   def authorize_state_transition
     authorize! resource_params.first[:state_event].to_sym, resource if resource_params.first[:state_event]
   end
-
-  def after_order_update_path
-    resource.removed? ? manage_chair_orders_path(@chair) : manage_chair_order_path(@chair, resource)
-  end
-
 end

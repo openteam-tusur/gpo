@@ -26,16 +26,17 @@ class Ability
       user.mentor_of? project.chair
     end
 
+    # TODO: руководитель может закрыть проект
     can [:update, :read], Project do |project|
       user.project_manager_of?(project)
     end
 
     can [:create, :update, :remove, :cancel], Participant do |participant|
-      can?(:update, participant.project)
+      can?(:update, participant.project) && participant.project.editable?
     end
 
     can [:create, :update, :remove, :cancel], ProjectManager  do |project_manager|
-      can? :manage_projects, project_manager.project.chair
+      can?(:manage_projects, project_manager.project.chair) && project_manager.project.editable?
     end
 
     can :manage, [Stage, Issue] do |object|
@@ -57,5 +58,6 @@ class Ability
     can :manage, User do |another_user|
       user.mentor? && another_user.permissions.where(:chair_id => user.permissions.where(:role => :mentor).map(&:context))
     end
+
   end
 end

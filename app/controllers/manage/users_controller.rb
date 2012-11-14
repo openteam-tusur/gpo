@@ -2,9 +2,10 @@
 
 class Manage::UsersController < Manage::ApplicationController
   inherit_resources
-  actions :all, except: [:show, :new, :create]
 
   belongs_to :chair, optional: true
+
+  actions :all, except: [:show, :new, :create]
 
   layout :choose_layout
 

@@ -10,9 +10,7 @@ class Manage::WorkgroupOrdersController < Manage::ApplicationController
   layout 'chair'
 
   def new
-    new! {
-      render 'manage/orders/new' and return
-    }
+    new! { render 'manage/orders/new' and return }
   end
 
   def create
@@ -24,7 +22,7 @@ class Manage::WorkgroupOrdersController < Manage::ApplicationController
 
   def update
     update! do |success, failure|
-      success.html { redirect_to after_order_update_path }
+      success.html { redirect_to manage_chair_order_path(@chair, resource) }
       failure.html { render 'manage/orders/edit' }
     end
   end

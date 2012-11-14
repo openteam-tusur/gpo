@@ -40,7 +40,8 @@ class Manage::VisitationsController < ApplicationController
   protected
 
   def authorize_resource
-    authorize! :update, resource
+    resource.is_a?(Project) && authorize!(:update, resource)
+    resource.is_a?(Chair) && authorize!(:manage_projects, resource)
   end
 
   def find_context

@@ -27,6 +27,8 @@ class Chair < ActiveRecord::Base
   has_many :users, :order => 'last_name'
   has_many :participants, :order => 'last_name', :through => :projects
   has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
+  has_many :project_managers, :through => :projects, :conditions => { :state => :approved }
+  has_many :project_manager_users, :class_name => User, :through => :project_managers, :source => :user, :uniq => true
   has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
 
   has_many :permissions, :as => :context
@@ -38,10 +40,6 @@ class Chair < ActiveRecord::Base
 
   def id_to_s
     self.abbr
-  end
-
-  def project_managers
-    User.joins(:project_managers).joins(:projects).where(:projects => { :chair_id => self }, :project_managers => { :state => :approved }).uniq
   end
 
   def stats(*types)
