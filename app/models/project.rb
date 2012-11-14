@@ -91,12 +91,12 @@ class Project < ActiveRecord::Base
     end
 
     after_transition any => :closed do |project, transition|
-      project.disable_modifications
+      project.disable_modifications!
       project.project_managers.destroy_all
     end
 
     after_transition :closed => :active do |project, transition|
-      project.enable_modifications
+      project.enable_modifications!
     end
   end
 

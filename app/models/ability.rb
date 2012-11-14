@@ -22,17 +22,28 @@ class Ability
 
     can :read, [Issue, Order, Participant, ProjectManager, Stage, Visitation]
 
-    can :manage, Project do |project|
-      user.mentor_of? project.chair
+    can :read, Project do |project|
+      user.mentor_of?(project.chair)
     end
 
-    # TODO: руководитель может закрыть проект
-    can [:update, :read], Project do |project|
+    can :read, Project do |project|
       user.project_manager_of?(project)
     end
 
+    can :update, Project do |project|
+      can?(:read, project) && project.editable?
+    end
+
+    can [:create, :to_close, :close], Project do |project|
+      can?(:update, project) && user.mentor_of?(project.chair)
+    end
+
+    can [:destroy], Project do |project|
+      can?(:close, project) && project.draft?
+    end
+
     can [:create, :update, :remove, :cancel], Participant do |participant|
-      can?(:update, participant.project) && participant.project.editable?
+      can?(:update, participant.project)
     end
 
     can [:create, :update, :remove, :cancel], ProjectManager  do |project_manager|
