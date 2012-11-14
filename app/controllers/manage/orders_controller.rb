@@ -13,7 +13,7 @@ class Manage::OrdersController < Manage::ApplicationController
     belongs_to :project, optional: true
   end
 
-  actions :all, except: [:new, :create, :update]
+  actions :show, :index, :edit, :destroy
 
   def index
     index! {
@@ -25,15 +25,6 @@ class Manage::OrdersController < Manage::ApplicationController
     show! { |format|
       format.html { render :layout => 'order' }
       format.doc  { send_converted_odt(:doc) and return }
-    }
-  end
-
-  def destroy
-    show! {
-      @order.remove
-      flash[:notice] = 'Приказ успешно удален'
-
-      redirect_to collection_url and return
     }
   end
 

@@ -43,5 +43,13 @@ class Ability
     can :manage, [Stage, Issue] do |object|
       can? :update, object.project
     end
+
+    can :create, Order do |order|
+      can? :manage_projects, order.chair
+    end
+
+    can [:update, :to_review], Order do |order|
+      can?(:manage_projects, order.chair) && order.draft?
+    end
   end
 end

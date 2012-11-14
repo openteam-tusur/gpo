@@ -11,8 +11,8 @@
   <%= action_link(link_to(I18n.t('order.doc_file'), @order.vfs_path), 'doc', "Скачать приказ в формате Microsoft Word") %>
 <% end %>
 
-<% action_link(link_to(I18n.t("edit"), edit_manage_chair_order_path(@order.chair, @order)), "edit", "Позволяет изменить информацию о приказе") if permitted_to?(:update, @order) %>
-<% action_link(link_to_delete(manage_chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if permitted_to?(:delete, @order) %>
+<% action_link(link_to(I18n.t("edit"), edit_manage_chair_order_path(@order.chair, @order)), "edit", "Позволяет изменить информацию о приказе") if can?(:update, @order) %>
+<% action_link(link_to_delete(manage_chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if can?(:destroy, @order) %>
 
 <p class="hint"><%= I18n.t("order.hint_#{@order.state}")%> </p>
 <%= render :partial => "manage/orders/change_state_form", :locals => {:order => @order} %>

@@ -35,16 +35,14 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :projects
 
-  scope :blocking, where(:state => %w[being_reviewed reviewed])
+  scope :locking, where(:state => %w[being_reviewed reviewed])
   scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
   scope :approved, where(:state => :approved)
   scope :draft, where(:state => :draft)
 
-  state_machine :initial => :draft do
-    event :remove do
-      transition :draft => :removed, :being_reviewed => :removed, :reviewed => :removed, :approved => :removed
-    end
+  before_destroy :unlock_projects!, :if => :being_reviewed?
 
+  state_machine :initial => :draft do
     event :to_review do
       transition :draft => :being_reviewed
     end
@@ -66,17 +64,12 @@ class Order < ActiveRecord::Base
     end
 
     after_transition  any => :draft,          :do => :after_enter_draft
-    after_transition  any => :removed,        :do => :after_enter_removed
     after_transition  any => :approved,       :do => :after_enter_approved
     after_transition  any => :being_reviewed, :do => :after_enter_being_reviewed
 
     after_transition any => [:draft, :being_reviewed, :reviewed, :approved] do |order, transition|
       order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id
     end
-  end
-
-  def state_events_without_remove
-    state_events - [:remove]
   end
 
   def title
@@ -110,25 +103,24 @@ class Order < ActiveRecord::Base
     Russian.p(n, 'проект', 'проекта', 'проектов')
   end
 
-  protected
-
-  def after_enter_removed
-    release_projects! if state_was == 'being_reviewed'
-    self.destroy
+  def state_events_for(user)
+    state_events.select{ |event| Ability.new(user).can?(event.to_sym, self) }
   end
 
+  protected
+
   def after_enter_being_reviewed
-    block_projects!
+    lock_projects!
     upload_file
   end
 
   def after_enter_draft
-    release_projects!
+    unlock_projects!
     remove_file if self.vfs_path?
   end
 
   def after_enter_approved
-    release_projects!
+    unlock_projects!
     approve_projects!
   end
 
@@ -136,11 +128,11 @@ class Order < ActiveRecord::Base
     projects.map(&:approve!)
   end
 
-  def release_projects!
+  def unlock_projects!
     projects.map(&:enable_modifications!)
   end
 
-  def block_projects!
+  def lock_projects!
     projects.map(&:disable_modifications!)
   end
 end
