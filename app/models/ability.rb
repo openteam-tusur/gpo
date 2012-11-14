@@ -49,5 +49,13 @@ class Ability
     can [:update, :destroy, :to_review], Order do |order|
       can?(:manage_projects, order.chair) && order.draft?
     end
+
+    can :manage, User do |another_user|
+      another_user == user
+    end
+
+    can :manage, User do |another_user|
+      user.mentor? && another_user.permissions.where(:chair_id => user.permissions.where(:role => :mentor).map(&:context))
+    end
   end
 end

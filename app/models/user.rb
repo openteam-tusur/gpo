@@ -18,14 +18,6 @@ class User < ActiveRecord::Base
     "#{last_name} #{first_name[0]}.#{mid_name[0]}."
   end
 
-  def manage_not_closed_projects?
-    !(self.projects.active.empty? && self.projects.draft.empty?)
-  end
-
-  def chairs_for_mentor
-    self.rules.mentors.collect {|rule| rule.chair}
-  end
-
   def available_chairs
     if manager?
       Chair.ordered_by_abbr
