@@ -4,8 +4,6 @@ class Ability
   def initialize(user)
     return unless user
 
-    alias_action :read, :create, :update, :destroy, :to => :modify
-
     can :manage, :all if user.manager?
 
     can :manage, :application do
@@ -48,7 +46,7 @@ class Ability
       can? :manage_projects, order.chair
     end
 
-    can [:update, :to_review], Order do |order|
+    can [:update, :destroy, :to_review], Order do |order|
       can?(:manage_projects, order.chair) && order.draft?
     end
   end

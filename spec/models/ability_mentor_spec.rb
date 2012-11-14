@@ -39,14 +39,25 @@ describe Ability do
       it { should_not be_able_to :approve,    chair.opening_orders.new }
 
       def order(state)
-        chair.opening_orders.new.tap {|c| c.stub(:state).and_return(state) }
+        chair.opening_orders.new.tap do |order|
+          order.stub(:state => state)
+          order.stub(:draft? => false)
+          order.stub("#{state}?" => true)
+        end
       end
 
       context '#update' do
-        it { should     be_able_to :update,   chair.opening_orders.new }
+        it { should     be_able_to :update,   order(:draft) }
         it { should_not be_able_to :update,   order(:being_reviewed) }
         it { should_not be_able_to :update,   order(:reviewed) }
         it { should_not be_able_to :update,   order(:approved) }
+      end
+
+      context '#destroy' do
+        it { should     be_able_to :destroy,  order(:draft) }
+        it { should_not be_able_to :destroy,  order(:being_reviewed) }
+        it { should_not be_able_to :destroy,  order(:reviewed) }
+        it { should_not be_able_to :destroy,  order(:approved) }
       end
     end
   end
