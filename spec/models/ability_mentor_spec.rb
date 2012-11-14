@@ -21,7 +21,10 @@ describe Ability do
       it { should     be_able_to :to_close,  project }
       it { should     be_able_to :close,     project }
       it { should     be_able_to :create,    project }
-      it { should     be_able_to :destroy,   project }
+      context '#destroy' do
+        it { should     be_able_to :destroy,   project }
+        it { should_not be_able_to :destroy,   project.tap {|p| p.stub(:draft?)} }
+      end
     end
 
     context 'project_managers' do
