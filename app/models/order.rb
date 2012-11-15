@@ -30,6 +30,7 @@ class Order < ActiveRecord::Base
   has_many :order_projects, :dependent => :destroy
   has_many :projects, :through => :order_projects, :order => 'cipher DESC'
   has_many :participants, :through => :projects
+  has_many :project_managers, :through => :projects
   has_many :chairs, :through => :participants, :uniq => true
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at DESC'
 
@@ -64,10 +65,10 @@ class Order < ActiveRecord::Base
     end
 
     after_transition  any => :draft,          :do => :after_enter_draft
-    after_transition  any => :approved,       :do => :after_enter_approved
     after_transition  any => :being_reviewed, :do => :after_enter_being_reviewed
+    after_transition  any => :approved,       :do => :after_enter_approved
 
-    after_transition any => [:draft, :being_reviewed, :reviewed, :approved] do |order, transition|
+    after_transition do |order, transition|
       order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id
     end
   end
@@ -78,15 +79,6 @@ class Order < ActiveRecord::Base
 
   def order_type
     self.class.name
-  end
-
-  def update_projects(ids)
-    self.projects = []
-    unless ids.nil?
-      ids.each { |id|
-        self.projects << Project.find(id)
-      }
-    end
   end
 
   def projects_to_s
@@ -116,16 +108,12 @@ class Order < ActiveRecord::Base
 
   def after_enter_draft
     unlock_projects!
-    remove_file if self.vfs_path?
+    remove_file if vfs_path?
   end
 
   def after_enter_approved
     unlock_projects!
-    approve_projects!
-  end
-
-  def approve_projects!
-    projects.map(&:approve!)
+    approve_awaiting_project_managers_and_participants!
   end
 
   def unlock_projects!
@@ -134,5 +122,10 @@ class Order < ActiveRecord::Base
 
   def lock_projects!
     projects.map(&:disable_modifications!)
+  end
+
+  def approve_awaiting_project_managers_and_participants!
+    project_managers.awaiting.each(&:approve!)
+    participants.awaiting.each(&:approve!)
   end
 end

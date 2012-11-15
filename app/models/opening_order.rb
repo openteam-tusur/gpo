@@ -36,4 +36,12 @@ class OpeningOrder < Order
       "визы заведующих кафедрами #{chairs.join(', ')}; "
     end
   end
+
+  private
+
+  def after_enter_approved
+    super
+    projects.map(&:approve!)
+  end
+
 end

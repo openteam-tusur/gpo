@@ -1,6 +1,5 @@
-<% unless !form.object.nil? && form.object.approved? %>
-  <%= form.association :projects, :as => :check_boxes, :collection => order.available_projects, :label_method => :to_s %>
-<% else %>
+<%= form.association :projects, :as => :check_boxes, :collection => (order.available_projects + order.projects), :label_method => :to_s %>
+<% unless @order.draft? %>
   <%= form.input :number %>
   <%= form.input :approved_at, :as => :datepicker %>
 <% end %>
