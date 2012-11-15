@@ -10,7 +10,6 @@ end
 group :default do
   gem 'better'
   gem 'compass-rails'
-  gem 'curb'
   gem 'esp-auth'
   gem 'grape'
   gem 'has_scope'
@@ -40,7 +39,6 @@ group :development do
   gem 'capistrano'
   gem 'debugger'
   gem 'hirb'
-  gem 'looksee'
   gem 'rails-erd'
   gem 'rvm-capistrano'
   gem 'sqlite3'

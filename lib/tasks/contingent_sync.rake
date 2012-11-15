@@ -8,10 +8,9 @@ namespace :contingent do
     ActiveRecord::Base # FIXME: remove this line when https://github.com/rails/rails/issues/882 will be resolved
     Participant.observers.disable :all
     bar = ProgressBar.new(Participant.count)
-    Participant.find_each do |participant|
-      Participant.contingent_find(:study_id => participant.student_id, :include_inactive => true).first.save!(:validate => false)
+    Participant.pluck(:student_id) do |student_id|
+      Participant.contingent_find(:study_id => student_id, :include_inactive => true).map{|p| p.save!(:validate => false)}
       bar.increment!
-      sleep(1) # FIXME: remove this line when nginx stops random crashing
     end
   end
 end

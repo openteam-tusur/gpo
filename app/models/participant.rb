@@ -19,6 +19,8 @@
 #  email             :string(255)
 #
 
+require 'open-uri'
+
 class Participant < ActiveRecord::Base
   attr_accessible :contingent_active,
                   :contingent_gpo,
@@ -38,7 +40,6 @@ class Participant < ActiveRecord::Base
 
   validates_presence_of :student_id
   validates_presence_of :project_id
-  validates_uniqueness_of :student_id
 
   validates_email_format_of :email, :on => :update, :allow_blank => true
 
@@ -90,17 +91,11 @@ class Participant < ActiveRecord::Base
 
 
   def self.contingent_find(params)
-    url = "#{Settings['students.url']}?#{params.to_query}"
-    body = nil
-    Curl::Easy.new("#{url}") do |curl|
-      curl.headers['Accept'] = 'application/json'
-      curl.http_get
-      body = curl.body_str
-      curl.close
-    end
-    JSON.parse(body).map do |attributes|
+    JSON.parse(self.contingent_response(params)).flat_map do |attributes|
       attributes.symbolize_keys!
-      Participant.find_or_initialize_by_student_id(attributes[:study_id]) do |participant|
+      participants = Participant.where(:student_id => attributes[:study_id]).all
+      participants << Participant.new(:student_id => attributes[:study_id]) if participants.empty?
+      participants.each do |participant|
         participant.first_name        = attributes[:firstname]
         participant.mid_name          = attributes[:patronymic]
         participant.last_name         = attributes[:lastname]
@@ -155,6 +150,10 @@ class Participant < ActiveRecord::Base
   end
 
   private
+
+  def self.contingent_response(params)
+    open("#{Settings['students.url']}?#{params.to_query}", 'Accept' => 'application/json').read
+  end
 
   def set_undergraduate
     self.undergraduate = !!(self.edu_group =~ /(m|м)/i)
