@@ -10,15 +10,14 @@
 #  project_id        :integer
 #  course            :integer
 #  first_name        :string(255)
-#  mid_name          :string(255)
+#  middle_name       :string(255)
 #  last_name         :string(255)
 #  edu_group         :string(255)
 #  contingent_active :boolean
 #  contingent_gpo    :boolean
-#  email             :string(255)
+#  undergraduate     :boolean
 #
 
 Fabricator(:participant) do
   student_id { Fabricate.sequence :student_id }
-  email 'ololo@mail.com'
 end

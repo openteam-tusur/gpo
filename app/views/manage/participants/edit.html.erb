@@ -1,9 +1,0 @@
-<%= simple_form_for [:manage, association_chain, resource].flatten, :remote => true do |f| %>
-  <%= f.input :email %>
-
-  <div class="buttons">
-    <%= f.submit 'Сохранить' %>
-    <%= link_to 'Отмена', [:manage, association_chain, resource].flatten, :remote => true %>
-  </div>
-
-<% end %>

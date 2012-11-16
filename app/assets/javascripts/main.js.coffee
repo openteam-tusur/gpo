@@ -6,5 +6,4 @@ $ ->
   init_hint() if $("#hint").length
   init_actions_form() if $("#right #actions form").length
   init_opening_order_state_event() if $("input#order_state_event").length
-  init_email_handler() if $('.email').length
   true
