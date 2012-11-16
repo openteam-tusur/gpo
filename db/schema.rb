@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109062255) do
+ActiveRecord::Schema.define(:version => 20121116100823) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -32,17 +32,6 @@ ActiveRecord::Schema.define(:version => 20121109062255) do
     t.datetime "updated_at"
     t.string   "faculty"
   end
-
-  create_table "contexts", :force => true do |t|
-    t.string   "title"
-    t.string   "ancestry"
-    t.string   "weight"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "contexts", ["ancestry"], :name => "index_contexts_on_ancestry"
-  add_index "contexts", ["weight"], :name => "index_contexts_on_weight"
 
   create_table "gpodays", :force => true do |t|
     t.date     "date"
@@ -90,12 +79,11 @@ ActiveRecord::Schema.define(:version => 20121109062255) do
     t.integer  "project_id"
     t.integer  "course"
     t.string   "first_name"
-    t.string   "mid_name"
+    t.string   "middle_name"
     t.string   "last_name"
     t.string   "edu_group"
     t.boolean  "contingent_active"
     t.boolean  "contingent_gpo"
-    t.string   "email"
     t.boolean  "undergraduate"
   end
 
@@ -161,24 +149,17 @@ ActiveRecord::Schema.define(:version => 20121109062255) do
   end
 
   create_table "users", :force => true do |t|
-    t.text     "email"
+    t.string   "email",              :limit => 100
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "mid_name"
-    t.text     "first_name"
-    t.text     "last_name"
+    t.string   "middle_name"
+    t.string   "first_name"
+    t.string   "last_name"
     t.string   "post"
     t.integer  "chair_id"
     t.string   "float"
-    t.text     "phone"
+    t.string   "phone"
     t.string   "uid"
-    t.text     "name"
-    t.text     "nickname"
-    t.text     "location"
-    t.text     "description"
-    t.text     "image"
-    t.text     "urls"
-    t.text     "raw_info"
     t.integer  "sign_in_count"
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"

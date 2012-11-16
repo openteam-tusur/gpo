@@ -29,7 +29,7 @@ class ProjectManager < ActiveRecord::Base
 
   scope :awaiting, where(:state => %w[awaiting_approval awaiting_removal])
 
-  delegate :first_name, :last_name, :mid_name, :email, to: :user
+  delegate :first_name, :last_name, :middle_name, :email, to: :user
 
   state_machine :state, :initial => :awaiting_approval do
     event :approve do
@@ -58,7 +58,7 @@ class ProjectManager < ActiveRecord::Base
 
   # для приказа
   def text_for_order_report
-    "#{self.user.post} #{self.user.last_name} #{self.user.first_name.first}.#{self.user.mid_name.first}."
+    "#{self.user.post} #{self.user.last_name} #{self.user.first_name.first}.#{self.user.middle_name.first}."
   end
 
   def <=>(other)

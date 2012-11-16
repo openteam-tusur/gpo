@@ -11,12 +11,12 @@
 #  project_id        :integer
 #  course            :integer
 #  first_name        :string(255)
-#  mid_name          :string(255)
+#  middle_name       :string(255)
 #  last_name         :string(255)
 #  edu_group         :string(255)
 #  contingent_active :boolean
 #  contingent_gpo    :boolean
-#  email             :string(255)
+#  undergraduate     :boolean
 #
 
 require 'open-uri'
@@ -28,7 +28,7 @@ class Participant < ActiveRecord::Base
                   :edu_group,
                   :first_name,
                   :last_name,
-                  :mid_name,
+                  :middle_name,
                   :state_event,
                   :student_id
 
@@ -40,8 +40,6 @@ class Participant < ActiveRecord::Base
 
   validates_presence_of :student_id
   validates_presence_of :project_id
-
-  validates_email_format_of :email, :on => :update, :allow_blank => true
 
   before_save :set_undergraduate
 
@@ -73,12 +71,12 @@ class Participant < ActiveRecord::Base
   end
 
   def name
-    "#{self.last_name} #{self.first_name} #{self.mid_name}".squish
+    "#{self.last_name} #{self.first_name} #{self.middle_name}".squish
   end
 
   def name_with_abbr
     name = "#{self.last_name} #{self.first_name[0]}."
-    name += " #{self.mid_name[0]}." if self.mid_name.present?
+    name += " #{self.middle_name[0]}." if self.middle_name.present?
     name.squish
   end
 
@@ -97,7 +95,7 @@ class Participant < ActiveRecord::Base
       participants << Participant.new(:student_id => attributes[:study_id]) if participants.empty?
       participants.each do |participant|
         participant.first_name        = attributes[:firstname]
-        participant.mid_name          = attributes[:patronymic]
+        participant.middle_name       = attributes[:patronymic]
         participant.last_name         = attributes[:lastname]
         participant.edu_group         = attributes[:group]
         participant.course            = attributes[:year]

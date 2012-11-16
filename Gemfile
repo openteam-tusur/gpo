@@ -10,7 +10,7 @@ end
 group :default do
   gem 'better'
   gem 'compass-rails'
-  gem 'esp-auth'
+  gem 'sso-auth'
   gem 'grape'
   gem 'has_scope'
   gem 'inherited_resources'
@@ -25,13 +25,6 @@ group :default do
   gem 'state_machine'
   gem 'tempdir', :require => 'temp_dir'
   gem 'validates_email_format_of'
-
-  # HACK FOR HACK
-  gem 'oauth2', '0.6.1'
-  gem 'omniauth',  '1.1.0'
-  gem 'omniauth-oauth2', '1.0.2'
-  gem 'has_searcher', '< 0.0.90'
-  gem 'sunspot_matchers'
 end
 
 group :development do

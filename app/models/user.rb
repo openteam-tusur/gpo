@@ -1,9 +1,34 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id                 :integer          not null, primary key
+#  email              :string(100)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  middle_name        :string(255)
+#  first_name         :string(255)
+#  last_name          :string(255)
+#  post               :string(255)
+#  chair_id           :integer
+#  float              :string(255)
+#  phone              :string(255)
+#  uid                :string(255)
+#  sign_in_count      :integer
+#  current_sign_in_at :datetime
+#  last_sign_in_at    :datetime
+#  current_sign_in_ip :string(255)
+#  last_sign_in_ip    :string(255)
+#
+
 class User < ActiveRecord::Base
-  attr_accessible :mid_name, :post, :float, :chair_id
-  esp_auth_user
+  attr_accessible :first_name, :middle_name, :last_name, :post, :float, :chair_id
+
+  sso_auth_user
 
   belongs_to :chair
   has_many :project_managers
+
 
   has_many :leaderships, :class_name => 'ProjectManager'
   has_many :approved_leaderships, :class_name => 'ProjectManager', :conditions => {:state => ["approved", "awaiting_removal"]}
@@ -12,10 +37,14 @@ class User < ActiveRecord::Base
 
   has_many :permissions, :dependent => :destroy
 
-  default_scope order('last_name, first_name, mid_name')
+  default_scope order('last_name, first_name, middle_name')
 
   def initials_name
-    "#{last_name} #{first_name[0]}.#{mid_name[0]}."
+    "#{last_name} #{first_name[0]}.#{middle_name[0]}."
+  end
+
+  def name
+    [last_name, first_name, middle_name].reject_if(&:blank?).join(' ')
   end
 
   def available_chairs
@@ -29,31 +58,8 @@ class User < ActiveRecord::Base
       Chair.where('1=0')
     end
   end
+
+  def from_sso?
+    uid?
+  end
 end
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id                 :integer         not null, primary key
-#  uid                :string(255)
-#  name               :text
-#  email              :text
-#  nickname           :text
-#  first_name         :text
-#  last_name          :text
-#  location           :text
-#  description        :text
-#  image              :text
-#  phone              :text
-#  urls               :text
-#  raw_info           :text
-#  sign_in_count      :integer         default(0)
-#  current_sign_in_at :datetime
-#  last_sign_in_at    :datetime
-#  current_sign_in_ip :string(255)
-#  last_sign_in_ip    :string(255)
-#  created_at         :datetime        not null
-#  updated_at         :datetime        not null
-#
-

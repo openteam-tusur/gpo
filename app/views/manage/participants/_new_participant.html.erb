@@ -13,7 +13,7 @@
   <%= content_tag :div, :class => :actions do %>
     <%= simple_form_for [:manage, @project.chair, @project, new_participant] do |form| %>
       <%= form.input :first_name, :as => :hidden %>
-      <%= form.input :mid_name, :as => :hidden %>
+      <%= form.input :middle_name, :as => :hidden %>
       <%= form.input :last_name, :as => :hidden %>
       <%= form.input :edu_group, :as => :hidden %>
       <%= form.input :course, :as => :hidden %>

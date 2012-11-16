@@ -173,7 +173,7 @@ ru:
         first_name:            Имя
         last_name:             Фамилия
         login:                 Логин
-        mid_name:              Отчество
+        middle_name:           Отчество
         password:              Пароль
         password_confirmation: Подтверждение пароля
         post:                  Должность, уч. звание
