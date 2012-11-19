@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [last_name, first_name, middle_name].reject_if(&:blank?).join(' ')
+    [last_name, first_name, middle_name].reject(&:blank?).join(' ')
   end
 
   def available_chairs

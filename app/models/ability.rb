@@ -7,7 +7,7 @@ class Ability
     can :manage, :all if user.manager?
 
     can :manage, :application do
-      user.have_permissions?
+      user.permissions.any?
     end
 
     ## app specific
