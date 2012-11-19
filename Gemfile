@@ -24,10 +24,8 @@ group :default do
   gem 'rubyzip'
   gem 'russian'
   gem 'simple_form'
-  gem 'sso-auth', :path => '../../esp/sso-auth'
+  gem 'sso-auth'
   gem 'state_machine'
-  gem 'tempdir', :require => 'temp_dir'
-  gem 'validates_email_format_of'
 end
 
 group :development do
