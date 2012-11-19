@@ -3,10 +3,9 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
-require 'esp_auth/spec_helper'
+require 'sso-auth/spec_helper'
 require 'cancan/matchers'
 require 'shoulda-matchers'
-require 'sunspot_matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -44,9 +43,7 @@ RSpec.configure do |config|
     Order.any_instance.stub(:upload_file)
   end
 
-  config.before do
-    Sunspot.session = SunspotMatchers::SunspotSessionSpy.new(Sunspot.session)
-  end
+  config.include SsoAuth::SpecHelper
 
-  config.include EspAuth::SpecHelper
+  config.include AttributeNormalizer::RSpecMatcher, :type => :model
 end

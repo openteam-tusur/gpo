@@ -22,7 +22,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :middle_name, :last_name, :email, :post, :float, :chair_id
+  attr_accessible :first_name, :middle_name, :last_name, :email, :phone, :post, :float, :chair_id
 
   sso_auth_user
 
@@ -37,9 +37,11 @@ class User < ActiveRecord::Base
 
   has_many :permissions, :dependent => :destroy
 
-  validates_presence_of :first_name, :middle_name, :last_name
+  validates_presence_of :first_name, :middle_name, :last_name, :unless => :from_sso?
 
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, :allow_nil => true
+
+  normalize_attribute :email, :first_name, :middle_name, :last_name, :post, :float, :phone
 
   default_scope order('last_name, first_name, middle_name')
 

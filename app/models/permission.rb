@@ -18,7 +18,7 @@ class Permission < ActiveRecord::Base
 
   attr_accessible :user_id, :context_id, :role, :context_type
 
-  validates_presence_of   :user, :context
+  validates_presence_of   :user
 
   validates_uniqueness_of :user_id, :scope => [:role, :context_type, :context_id], :message => 'уже имеет такое правило'
 

@@ -17,6 +17,7 @@ group :default do
   gem 'inherited_resources'
   gem 'jquery-rails'
   gem 'nested_form'
+  gem 'attribute_normalizer'
   gem 'openteam-commons'
   gem 'progress_bar'
   gem 'rails'
@@ -47,6 +48,5 @@ group :test do
   gem 'fabrication'
   gem 'forgery'
   gem 'rspec-rails'
-  gem 'sunspot_matchers'
   gem 'shoulda-matchers'
 end

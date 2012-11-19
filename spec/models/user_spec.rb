@@ -24,14 +24,27 @@
 require 'spec_helper'
 
 describe User do
+
+  it { should normalize_attribute(:email) }
+  it { should normalize_attribute(:first_name) }
+  it { should normalize_attribute(:middle_name) }
+  it { should normalize_attribute(:last_name) }
+  it { should normalize_attribute(:post) }
+  it { should normalize_attribute(:float) }
+  it { should normalize_attribute(:phone) }
+
   context 'with uid' do
-    subject { User.new :uid => 1 }
+    subject { User.new do |u| u.uid = '1' end }
     its(:from_sso?) { should be_true }
     it { should_not validate_presence_of :first_name }
+    it { should_not validate_presence_of :middle_name }
+    it { should_not validate_presence_of :last_name }
   end
 
   context 'without uid' do
     its(:from_sso?) { should be_false }
-    it { should validate_presence_of :first_name }
+    it { should     validate_presence_of :first_name }
+    it { should     validate_presence_of :middle_name }
+    it { should     validate_presence_of :last_name }
   end
 end
