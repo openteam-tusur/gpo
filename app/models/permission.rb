@@ -69,4 +69,8 @@ class Permission < ActiveRecord::Base
   def self.build_project_manager_permission(user, project)
     Permission.new(:user => user, :context => project, :role => 'project_manager')
   end
+
+  def to_s
+    [I18n.t(role, :scope => :role), context.try(&:id_to_s)].compact.join(' ')
+  end
 end

@@ -5,7 +5,7 @@
   <p>На странице представлены этапы календарного плана реализации проекта.</p>
 <% end %>
 
-<% action_link(link_to(I18n.t("stage.new"), new_manage_chair_project_stage_path(@chair, @project)), "new", "Позволяет добавить этап") %>
+<% action_link(link_to(I18n.t("stage.new"), new_manage_chair_project_stage_path(@chair, @project)), "new", "Позволяет добавить этап") if can?(:create, @project.stages.new) %>
 
 <%= render_list "stage", @stages, :id => "stages" %>
 
