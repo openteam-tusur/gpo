@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Manage::ParticipantsController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::ParticipantsController < Manage::InheritedResourcesController
   belongs_to :chair, :project
 
   actions :all, :except => [:destroy, :show]

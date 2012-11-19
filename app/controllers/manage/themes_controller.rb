@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Manage::ThemesController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::ThemesController < Manage::InheritedResourcesController
   actions :all, except: :show
 
   def statistics

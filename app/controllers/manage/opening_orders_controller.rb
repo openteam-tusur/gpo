@@ -1,6 +1,4 @@
-class Manage::OpeningOrdersController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::OpeningOrdersController < Manage::InheritedResourcesController
   belongs_to :chair
 
   actions :new, :create, :update

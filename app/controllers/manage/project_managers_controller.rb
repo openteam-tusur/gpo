@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Manage::ProjectManagersController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::ProjectManagersController < Manage::InheritedResourcesController
   belongs_to :chair do
     belongs_to :project, optional: true
   end

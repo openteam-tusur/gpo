@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Manage::ProjectsController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::ProjectsController < Manage::InheritedResourcesController
   belongs_to :chair
 
   custom_actions resource: [:to_close, :close]

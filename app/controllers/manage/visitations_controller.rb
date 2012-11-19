@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Manage::VisitationsController < ApplicationController
+class Manage::VisitationsController < Manage::ApplicationController
   before_filter :find_context
   before_filter :authorize_resource
   helper_method :resource

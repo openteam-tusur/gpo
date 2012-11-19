@@ -1,8 +1,7 @@
 # encoding: utf-8
 
-class Manage::IssuesController < Manage::ApplicationController
+class Manage::IssuesController < Manage::InheritedResourcesController
   include SendReport
-  inherit_resources
 
   layout 'project'
 

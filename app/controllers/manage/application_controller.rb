@@ -1,22 +1,5 @@
 class Manage::ApplicationController < ApplicationController
-  esp_load_and_authorize_resource
-
-  before_filter :authorize_read_chain, :only => :index
-  before_filter :authorize_state_transition, :only => :update
+  sso_authenticate_and_authorize
 
   layout 'application'
-
-  private
-
-  def authorize_read_chain
-    if respond_to?(:association_chain)
-      association_chain.each do |object|
-        authorize! :read, object
-      end
-    end
-  end
-
-  def authorize_state_transition
-    authorize! resource_params.first[:state_event].to_sym, resource if resource_params.first[:state_event]
-  end
 end

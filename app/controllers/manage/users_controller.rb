@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class Manage::UsersController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::UsersController < Manage::InheritedResourcesController
   belongs_to :chair, optional: true
 
   actions :all, except: [:show, :new, :create]

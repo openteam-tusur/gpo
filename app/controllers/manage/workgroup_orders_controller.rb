@@ -1,6 +1,4 @@
-class Manage::WorkgroupOrdersController < Manage::ApplicationController
-  inherit_resources
-
+class Manage::WorkgroupOrdersController < Manage::InheritedResourcesController
   belongs_to :chair
 
   actions :new, :create, :update

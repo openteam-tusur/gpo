@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'better/tempfile'
 
-class Manage::ReportsController < ApplicationController
+class Manage::ReportsController < Manage::ApplicationController
   include SendReport
 
   before_filter :find_chair, :find_project, only: :show
