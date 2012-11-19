@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116100823) do
+ActiveRecord::Schema.define(:version => 20121119040910) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -166,6 +166,9 @@ ActiveRecord::Schema.define(:version => 20121116100823) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
   end
+
+  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["uid"], :name => "index_users_on_uid"
 
   create_table "visitations", :force => true do |t|
     t.integer  "participant_id"

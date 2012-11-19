@@ -22,7 +22,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :middle_name, :last_name, :post, :float, :chair_id
+  attr_accessible :first_name, :middle_name, :last_name, :email, :post, :float, :chair_id
 
   sso_auth_user
 
@@ -36,6 +36,10 @@ class User < ActiveRecord::Base
   has_many :managable_projects, :source => :project, :through => :approved_leaderships, :order => 'cipher desc'
 
   has_many :permissions, :dependent => :destroy
+
+  validates_presence_of :first_name, :middle_name, :last_name
+
+  validates_uniqueness_of :email
 
   default_scope order('last_name, first_name, middle_name')
 
