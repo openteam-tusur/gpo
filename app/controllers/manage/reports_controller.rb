@@ -18,8 +18,6 @@ class Manage::ReportsController < Manage::ApplicationController
     else
       respond_to do |format|
         format.html { render :action => :index }
-        format.odt { send_odt(report) } if params[:format] == 'odt'
-        format.doc { send_converted_odt(report, :doc) } if params[:format] == 'doc'
         format.xls { send_xls(params[:id]) } if params[:format] == 'xls'
       end
     end
@@ -62,21 +60,8 @@ class Manage::ReportsController < Manage::ApplicationController
     }
   end
 
-  def send_odt(report)
-    filename = "#{report.id}.odt"
-    ReportPrinter.render_to_file(report) { |file|
-      send_file file.path, :type => Mime::Type.lookup_by_extension('odt'), :filename => filename
-    }
-  end
-
-  def send_converted_odt(report, format)
-    filename = "#{report.id}.#{format.to_s}"
-    ReportPrinter.render_to_file(report) { |file|
-      send_report file, format
-    }
-  end
-
   private
+
   def send_report_throught_jod(report)
     report_name = report.id
     template_path = "#{Rails.root}/lib/templates/reports/#{report_name}.odt"

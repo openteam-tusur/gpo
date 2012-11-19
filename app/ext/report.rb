@@ -19,10 +19,6 @@ class Report
 
   REPORTS = {
     :university => [
-      {:id => :all_projects,
-        :title => "Список действующих проектов",
-        :description => "Список с полной информацией по всем действующим проектам ГПО",
-        :type => "doc"},
       {:id => :university_participants,
         :title => "Списки студентов",
         :description => "Списки студентов участвующих в ГПО, в формате MS Excel",
