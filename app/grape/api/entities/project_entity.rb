@@ -19,5 +19,5 @@ class API::Entities::ProjectEntity < Grape::Entity
   expose :stakeholders,     if: ->(project, options) { !!options[:full] }
 
   expose(:participants)     { |project, options| API::Entities::ParticipantEntity.represent project.participants if !!options[:full] }
-  expose(:project_managers) { |project, options| API::Entities::ProjectManagerEntity.represent project.project_managers if !!options[:full] }
+  expose(:managers)         { |project, options| API::Entities::ProjectManagerEntity.represent project.project_managers if !!options[:full] }
 end
