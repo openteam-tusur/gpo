@@ -1,5 +1,5 @@
 class API::Entities::ParticipantEntity < Grape::Entity
-  expose :first_name
-  expose :last_name
-  expose :middle_name
+  expose :first_name,   :format_with => ->(s) { s.squish }
+  expose :last_name,    :format_with => ->(s) { s.squish }
+  expose :middle_name,  :format_with => ->(s) { s.squish }
 end
