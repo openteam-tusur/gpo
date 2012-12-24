@@ -30,7 +30,6 @@ end
 
 group :development do
   gem 'annotate'
-  gem 'capistrano'
   gem 'debugger'
   gem 'hirb'
   gem 'rails-erd'
