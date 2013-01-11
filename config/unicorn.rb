@@ -13,12 +13,15 @@ end
 worker_processes  (dir.settings['workers'] || ENV['UNICORN_WORKERS'] || 2).to_i
 timeout           (dir.settings['timeout'] || ENV['UNICORN_TIMEOUT'] || 300).to_i
 preload_app       true
-pid               dir.pid_file
+#pid               dir.pid_file
+
+pid	"/srv/tusur/gpo/shared/pids/unicorn.pid"
 
 listen            ENV['PORT'].to_i, :tcp_nopush => false if ENV['PORT'].to_i > 0
 
 unless dir.heroku?
-  listen            "/tmp/#{dir.group}-#{dir.project}.sock", :backlog => 64
+#  listen            "/tmp/#{dir.group}-#{dir.project}.sock", :backlog => 64
+  listen            "/srv/tusur/gpo/shared/sockets/unicorn.sock", :backlog => 1024
 
   stdout_path       dir.log('stdout.log')
   stderr_path       dir.log('stderr.log')
