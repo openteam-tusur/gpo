@@ -111,7 +111,7 @@ class Order < ActiveRecord::Base
 
   def after_enter_draft
     unlock_projects!
-    remove_file if vfs_path?
+    update_attributes({:file => nil}, {:without_protection => true})
   end
 
   def after_enter_approved

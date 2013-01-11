@@ -35,7 +35,8 @@ namespace :deploy do
     run "ln -s #{deploy_to}/shared/bin/sync #{deploy_to}/current/bin/sync"
     run "ln -s #{deploy_to}/shared/public/files #{deploy_to}/current/public/files"
     run "cd #{deploy_to}/current && bin/sync"
-    run "cd #{deploy_to}/current && bin/rake db:migrate RAILS_ENV=production"
+    run "cd #{deploy_to}/current && bin/rake migrate_orders RAILS_ENV=production"
+    run "cd #{deploy_to}/current && bin/rake set_faculties RAILS_ENV=production"
     sudo "/etc/init.d/#{unicorn_instance_name} start"
   end
 end

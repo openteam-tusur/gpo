@@ -15,20 +15,18 @@ def bar
   @bar ||= ProgressBar.new(orders.count)
 end
 
-namespace :legacy do
-  desc "Миграция приказов"
-  task :migrate_orders => :environment do
-    Order.record_timestamps = false
+desc "Миграция приказов"
+task :migrate_orders => :environment do
+  Order.record_timestamps = false
 
-    orders.find_each do |order|
-      if File.exist?(odt_filepath(order))
-        Timecop.freeze order.approved_at do
-          order.update_attributes!({:file => File.new(odt_filepath(order))}, {:without_protection => true})
-        end
-      else
-        puts "нет файла приказа #{order.id}"
+  orders.find_each do |order|
+    if File.exist?(odt_filepath(order))
+      Timecop.freeze order.approved_at do
+        order.update_attributes!({:file => File.new(odt_filepath(order))}, {:without_protection => true})
       end
-      bar.increment!
+    else
+      puts "нет файла приказа #{order.id}"
     end
+    bar.increment!
   end
 end
