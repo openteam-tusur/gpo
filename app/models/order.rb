@@ -1,17 +1,21 @@
 # encoding: utf-8
 # == Schema Information
 #
-# Table name: ordinances
+# Table name: orders
 #
-#  id          :integer          not null, primary key
-#  number      :string(255)
-#  approved_at :date
-#  chair_id    :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#  type        :string(255)
-#  state       :string(255)
-#  vfs_path    :string(255)
+#  id                :integer          not null, primary key
+#  number            :string(255)
+#  approved_at       :date
+#  chair_id          :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#  type              :string(255)
+#  state             :string(255)
+#  file_file_name    :string(255)
+#  file_content_type :string(255)
+#  file_file_size    :integer
+#  file_updated_at   :date
+#  file_url          :text
 #
 
 
@@ -39,6 +43,8 @@ class Order < ActiveRecord::Base
   scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
   scope :approved, where(:state => :approved)
   scope :draft, where(:state => :draft)
+
+  has_attached_file :file, :storage => :elvfs, :elvfs_url => Settings['storage.url']
 
   state_machine :initial => :draft do
     event :to_review do

@@ -8,6 +8,7 @@ group :assets do
 end
 
 group :default do
+  gem 'attribute_normalizer'
   gem 'better'
   gem 'compass-rails'
   gem 'curb'
@@ -17,12 +18,13 @@ group :default do
   gem 'inherited_resources'
   gem 'jquery-rails'
   gem 'nested_form'
-  gem 'attribute_normalizer'
   gem 'openteam-commons'
+  gem 'paperclip-elvfs'
   gem 'progress_bar'
   gem 'rails'
   gem 'rubyzip'
   gem 'russian'
+  gem 'timecop',              :require => false
   gem 'simple_form'
   gem 'sso-auth'
   gem 'state_machine'
