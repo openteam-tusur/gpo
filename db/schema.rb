@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(:version => 20121119040910) do
     t.datetime "updated_at"
   end
 
-  create_table "ordinances", :force => true do |t|
+  create_table "orders", :force => true do |t|
     t.string   "number"
     t.date     "approved_at"
     t.integer  "chair_id"
@@ -68,7 +68,11 @@ ActiveRecord::Schema.define(:version => 20121119040910) do
     t.datetime "updated_at"
     t.string   "type"
     t.string   "state"
-    t.string   "vfs_path"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.date     "file_updated_at"
+    t.text     "file_url"
   end
 
   create_table "participants", :force => true do |t|
