@@ -2,7 +2,7 @@ module SendReport
 
   def convert_report(file, format)
     file = File.new(file) if file.is_a?(String)
-    curl = Curl::Easy.new("http://docon.openteam.ru/")
+    curl = Curl::Easy.new(Settings['converter.url'])
     curl.multipart_form_post = true
     content_type = ""
     curl.on_header do |header|

@@ -10,3 +10,6 @@ errors:
 
 storage:
   url:                  http://storage.host
+
+converter:
+  url:                  http://docon.openteam.ru
