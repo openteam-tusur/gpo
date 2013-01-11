@@ -20,7 +20,9 @@
 
 
 class Order < ActiveRecord::Base
-  include UploadDoc
+  include SendReport
+  include GenerateOdt
+
 
   attr_accessor :comment
 
@@ -130,5 +132,20 @@ class Order < ActiveRecord::Base
   def approve_awaiting_project_managers_and_participants!
     project_managers.awaiting.each(&:approve!)
     participants.awaiting.each(&:approve!)
+  end
+
+  def upload_file
+    generated_odt ||= generate_odt(self).path
+    report = {}
+    while report[:content_type] != 'application/msword'
+      report = convert_report(generated_odt, :doc)
+    end
+
+    docfile.write(report[:body])
+    docfile.close
+
+    update_attributes! :file => docfile
+
+    File.unlink docfile.path
   end
 end
