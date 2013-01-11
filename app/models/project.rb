@@ -42,9 +42,9 @@ class Project < ActiveRecord::Base
   has_many :issues, :through => :participants
 
   has_many :order_projects, :dependent => :destroy
-  has_many :orders, :through => :order_projects, :order => "ordinances.id desc"
-  has_many :opening_orders, :through => :order_projects, :conditions => ["ordinances.type = ?", OpeningOrder.name], :source => :order
-  has_many :workgroup_orders, :through => :order_projects, :conditions => ["ordinances.type = ?", WorkgroupOrder.name], :source => :order, :order => "ordinances.approved_at desc"
+  has_many :orders, :through => :order_projects, :order => "orders.id desc"
+  has_many :opening_orders, :through => :order_projects, :conditions => ["orders.type = ?", OpeningOrder.name], :source => :order
+  has_many :workgroup_orders, :through => :order_projects, :conditions => ["orders.type = ?", WorkgroupOrder.name], :source => :order, :order => "orders.approved_at desc"
 
   validates_presence_of :title
   validates_presence_of :chair_id

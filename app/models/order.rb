@@ -18,9 +18,6 @@
 class Order < ActiveRecord::Base
   include UploadDoc
 
-  # TODO: rename table to orders
-  self.table_name = "ordinances"
-
   attr_accessor :comment
 
   attr_accessible :project_ids, :state_event, :number, :approved_at, :comment
