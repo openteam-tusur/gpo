@@ -3,7 +3,7 @@
 namespace :chair do
 
   desc "Update faculty for chair unless exist"
-  task :set_faculty => :environment do
+  task :set_faculties => :environment do
 
     def update_chair(abbr, faculty_name)
       chair = Chair.find_by_abbr(abbr)
