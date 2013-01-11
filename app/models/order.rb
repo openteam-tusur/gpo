@@ -18,11 +18,10 @@
 #  file_url          :text
 #
 
+require 'zip/zip'
 
 class Order < ActiveRecord::Base
-  include SendReport
-  include GenerateOdt
-
+  include ConvertedReport
 
   attr_accessor :comment
 
@@ -135,17 +134,38 @@ class Order < ActiveRecord::Base
   end
 
   def upload_file
-    generated_odt ||= generate_odt(self).path
-    report = {}
-    while report[:content_type] != 'application/msword'
-      report = convert_report(generated_odt, :doc)
+    converted_report(generated_odt.path, :doc) do |file|
+      update_attributes! :file => file
     end
+  end
 
-    docfile.write(report[:body])
-    docfile.close
+  def report_prefix
+    self.class.model_name.underscore
+  end
 
-    update_attributes! :file => docfile
+  def report_basename
+    "#{report_prefix}_#{id}"
+  end
 
-    File.unlink docfile.path
+  def generated_odt
+    @generated_odt ||= Tempfile.new([report_basename, '.odt']) do |generated_odt|
+      zip = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{report_prefix}.odt")
+
+      @order = self
+      @chair = self.projects.first.chair
+
+      erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", report_prefix, "content.xml"))
+
+      Zip::ZipOutputStream.open(generated_odt.path) do |z|
+        zip.each do |entry|
+          z.put_next_entry entry.name
+          if entry.name == 'content.xml'
+            z.write erb.result(binding)
+          else
+            z.print zip.read(entry.name)
+          end
+        end
+      end
+    end
   end
 end

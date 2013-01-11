@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class Manage::OrdersController < Manage::InheritedResourcesController
-  include GenerateOdt
   include SendReport
 
   layout 'chair'
@@ -30,8 +29,7 @@ class Manage::OrdersController < Manage::InheritedResourcesController
   private
     def send_converted_odt(format)
       filename = "order_#{@order.id}.doc"
-      generated_odt = generate_odt(@order)
-      send_report generated_odt.path, :doc, filename
-      generated_odt.unlink
+      send_report order.generated_odt.path, :doc, filename
+      order.generated_odt.unlink
     end
 end
