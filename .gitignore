@@ -1,11 +1,13 @@
 *.swp
 /.bundle
+/bin
 /config/database.yml
 /config/deploy.yml
 /config/settings.yml
+/config/users.yml
 /db/*.sqlite3
+/emails
 /erd.pdf
 /log/*.log
 /public/files
 /tmp
-bin
