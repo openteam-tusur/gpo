@@ -54,10 +54,9 @@ class Manage::ReportsController < Manage::ApplicationController
 
     raise "Неверные параметры для отчета" unless report
 
-    filename = "#{params[:id]}.ods"
-    report.render_to_file { |file|
-      send_report file, :xls, filename
-    }
+    report.render_to_file do |file|
+      send_report file, :xls, "#{params[:id]}.xls"
+    end
   end
 
   private
@@ -70,9 +69,7 @@ class Manage::ReportsController < Manage::ApplicationController
       file << report.model.send("xml_for_#{report_name}")
     end
 
-    extention = Rails::env.production? ? "doc": "odt"
-
-    report_filename = "#{report_name}_#{report.model.id}.#{extention}"
+    report_filename = "#{report_name}_#{report.model.id}.doc"
     odt_file = Better::Tempfile.new([report_filename, ".odt"])
     doc_file = Better::Tempfile.new([report_filename, ".doc"])
 

@@ -10,20 +10,26 @@ module ConvertedReport
       converted = true
     end
 
-    3.times do
+    file_to_format = "#{file.path} to #{format} format"
+    3.times do |i|
+      attempt = "[attempt #{i+1}]"
+      Rails.logger.info("#{attempt} converting #{file_to_format}")
       curl.http_post(Curl::PostField.file('file', file.path), Curl::PostField.content('format', format.to_s))
       if converted
+        Rails.logger.info("#{attempt} converting #{file_to_format} successfully completed")
         Dir.mktmpdir do |dir|
           File.open("#{dir}/#{File.basename(file.path, '.*')}.#{format}", 'wb') do |converted_file|
             converted_file.write(curl.body_str)
             converted_file.rewind
+            Rails.logger.info("#{attempt} converted file #{converted_file.path} stored")
             yield converted_file
           end
         end
         return
+      else
+        Rails.logger.warn("#{attempt} converting #{file_to_format} failed [reason: #{curl.body_str}]")
       end
     end
-
     throw "Cann't convert #{File.basename(file.path)} to #{format} format"
   end
 

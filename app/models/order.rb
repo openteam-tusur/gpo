@@ -104,6 +104,7 @@ class Order < ActiveRecord::Base
   end
 
   def generate_odt(&block)
+    Rails.logger.info("generate #{report_basename}.odt")
     template = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{report_prefix}.odt")
 
     @order = self
@@ -115,12 +116,14 @@ class Order < ActiveRecord::Base
       report_filepath = "#{dir}/#{report_basename}.odt"
       Zip::ZipOutputStream.open(report_filepath) do |zip_entry|
         template.each do |entry|
+          Rails.logger.debug("[#{report_basename}.odt]: generating #{zip_entry} started")
           zip_entry.put_next_entry entry.name
           if entry.name == 'content.xml'
             zip_entry.write erb.result(binding)
           else
             zip_entry.print template.read(entry.name)
           end
+          Rails.logger.debug("[#{report_basename}.odt]: generating #{zip_entry} completed")
         end
       end
       yield File.new(report_filepath)
