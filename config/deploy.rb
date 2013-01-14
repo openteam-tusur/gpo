@@ -31,10 +31,11 @@ namespace :deploy do
   desc 'Load data from old system'
   task :load_old_data do
     sudo "/etc/init.d/#{unicorn_instance_name} stop"
-    run "rm #{deploy_to}/current/bin/sync #{deploy_to}/current/public/files"
+    run "rm -f #{deploy_to}/current/bin/sync #{deploy_to}/current/public/files"
     run "ln -s #{deploy_to}/shared/bin/sync #{deploy_to}/current/bin/sync"
     run "ln -s #{deploy_to}/shared/public/files #{deploy_to}/current/public/files"
     run "cd #{deploy_to}/current && bin/sync"
+    run "cd #{deploy_to}/current && bin/rake db:migrate RAILS_ENV=production"
     run "cd #{deploy_to}/current && bin/rake migrate_orders RAILS_ENV=production"
     run "cd #{deploy_to}/current && bin/rake set_faculties RAILS_ENV=production"
     sudo "/etc/init.d/#{unicorn_instance_name} start"
