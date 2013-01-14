@@ -28,8 +28,8 @@ class Manage::OrdersController < Manage::InheritedResourcesController
 
   private
     def send_converted_odt(format)
-      filename = "order_#{@order.id}.doc"
-      send_report order.generated_odt.path, :doc, filename
-      order.generated_odt.unlink
+      @order.generate_odt do |generated_odt|
+        send_report generated_odt, :doc
+      end
     end
 end

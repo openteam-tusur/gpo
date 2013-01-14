@@ -5,8 +5,8 @@
   <p>На странице отображается сведения о приказе и список проектов, связаных с приказом, а также журнал изменения статуса приказа и комментарии к ним.</p>
 <% end %>
 
-<% if @order.draft? %>
-  <% action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
+<% if @order.draft? || @order.being_reviewed? %>
+  <%= action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
 <% else %>
   <%= action_link(link_to(I18n.t('order.doc_file'), @order.file_url), 'doc', "Скачать приказ в формате Microsoft Word") %>
 <% end %>

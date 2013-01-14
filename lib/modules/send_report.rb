@@ -1,10 +1,11 @@
 module SendReport
   include ConvertedReport
-  # TODO: check this
+
   def send_report(file, format, filename = nil)
-    filename ||= File.basename(file.path)
-    converted_report(file, format) do |file|
-      send_file file
+    converted_report(file, format) do |converted_file|
+      send_data File.open(converted_file) {|f| f.read},
+                :filename => filename || File.basename(converted_file.path),
+                :type => Paperclip::ContentTypeDetector.new(converted_file.path).detect
     end
   end
 end

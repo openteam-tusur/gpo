@@ -103,6 +103,30 @@ class Order < ActiveRecord::Base
     state_events.select{ |event| Ability.new(user).can?(event.to_sym, self) }
   end
 
+  def generate_odt(&block)
+    template = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{report_prefix}.odt")
+
+    @order = self
+    @chair = self.projects.first.chair
+
+    erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", report_prefix, "content.xml"))
+
+    Dir.mktmpdir do |dir|
+      report_filepath = "#{dir}/#{report_basename}.odt"
+      Zip::ZipOutputStream.open(report_filepath) do |zip_entry|
+        template.each do |entry|
+          zip_entry.put_next_entry entry.name
+          if entry.name == 'content.xml'
+            zip_entry.write erb.result(binding)
+          else
+            zip_entry.print template.read(entry.name)
+          end
+        end
+      end
+      yield File.new(report_filepath)
+    end
+  end
+
   protected
 
   def after_enter_being_reviewed
@@ -134,8 +158,10 @@ class Order < ActiveRecord::Base
   end
 
   def upload_file
-    converted_report(generated_odt.path, :doc) do |file|
-      update_attributes! :file => file
+    generate_odt do |generated_odt|
+      converted_report(generated_odt.path, :doc) do |converted_report|
+        update_attributes! :file => converted_report
+      end
     end
   end
 
@@ -145,27 +171,5 @@ class Order < ActiveRecord::Base
 
   def report_basename
     "#{report_prefix}_#{id}"
-  end
-
-  def generated_odt
-    @generated_odt ||= Tempfile.new([report_basename, '.odt']) do |generated_odt|
-      zip = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{report_prefix}.odt")
-
-      @order = self
-      @chair = self.projects.first.chair
-
-      erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", report_prefix, "content.xml"))
-
-      Zip::ZipOutputStream.open(generated_odt.path) do |z|
-        zip.each do |entry|
-          z.put_next_entry entry.name
-          if entry.name == 'content.xml'
-            z.write erb.result(binding)
-          else
-            z.print zip.read(entry.name)
-          end
-        end
-      end
-    end
   end
 end
