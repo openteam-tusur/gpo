@@ -163,7 +163,7 @@ class Order < ActiveRecord::Base
   def upload_file
     generate_odt do |generated_odt|
       converted_report(generated_odt.path, :doc) do |converted_report|
-        update_attributes! :file => converted_report
+        update_attributes!({:file => converted_report}, {:without_protection => true})
       end
     end
   end
