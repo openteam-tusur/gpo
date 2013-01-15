@@ -61,10 +61,10 @@ class Project < ActiveRecord::Base
   scope :editable, where(:editable_state => :editable)
 
   scope :for_user, ->(user) do
-    if user.project_manager?
-      joins(:project_managers).where(:project_managers => { :user_id => user }).uniq
-    elsif user.mentor?
+    if user.mentor?
       where(:chair_id => user.available_chairs.all)
+    elsif user.project_manager?
+      joins(:project_managers).where(:project_managers => { :user_id => user }).uniq
     end
   end
 
