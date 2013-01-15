@@ -23,7 +23,7 @@ require 'zip/zip'
 class Order < ActiveRecord::Base
   include ConvertedReport
 
-  attr_accessor :comment
+  attr_accessor :comment, :actor
 
   attr_accessible :project_ids, :state_event, :number, :approved_at, :comment
 
@@ -73,7 +73,7 @@ class Order < ActiveRecord::Base
     after_transition  any => :approved,       :do => :after_enter_approved
 
     after_transition do |order, transition|
-      order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id
+      order.activities.create! action: transition.event, comment: order.comment, chair_id: order.chair_id, actor: order.actor
     end
   end
 

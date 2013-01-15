@@ -19,6 +19,7 @@ class Manage::WorkgroupOrdersController < Manage::InheritedResourcesController
   end
 
   def update
+    resource.actor = current_user.name
     update! do |success, failure|
       success.html { redirect_to manage_chair_order_path(@chair, resource) }
       failure.html { render 'manage/orders/edit' }

@@ -19,6 +19,7 @@ class Manage::OpeningOrdersController < Manage::InheritedResourcesController
   end
 
   def update
+    resource.actor = current_user.name
     update! do |success, failure|
       success.html { redirect_to manage_chair_order_path(@chair, resource) }
       failure.html { render resource.state_event ? 'manage/orders/show' : 'manage/orders/edit' }
