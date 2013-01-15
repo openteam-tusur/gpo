@@ -13,6 +13,7 @@ group :default do
   gem 'compass-rails'
   gem 'curb'
   gem 'devise-russian'
+  gem 'decent_exposure'
   gem 'grape'
   gem 'has_scope'
   gem 'inherited_resources'

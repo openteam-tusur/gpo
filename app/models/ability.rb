@@ -67,8 +67,7 @@ class Ability
     end
 
     can :manage, User do |another_user|
-      user.mentor? && another_user.permissions.where(:chair_id => user.permissions.where(:role => :mentor).map(&:context))
+      user.mentor? && user.permissions.where(:role => :mentor).map(&:context).include?(another_user.chair)
     end
-
   end
 end
