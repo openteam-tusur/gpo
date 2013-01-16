@@ -25,22 +25,6 @@ class OpeningOrder < Order
     end
   end
 
-  # для приказа
-  def chairs_for_order_report
-    chairs = []
-    self.projects.each do |project|
-      chairs.concat(project.participants.collect {|participant| participant.chair_abbr})
-    end
-    chairs.uniq!
-    chairs.delete(self.chair.abbr)
-    case chairs.length
-    when 1
-      "виза заведующего кафедрой #{chairs[0]}; "
-    when 2
-      "визы заведующих кафедрами #{chairs.join(', ')}; "
-    end
-  end
-
   private
 
   def after_enter_approved

@@ -68,12 +68,12 @@
         студентов и согласия руководителей
         проектных групп и по представлению
         заведующего профилирующей кафедрой
-        <%= @chair.abbr %>
+        <%= chair.abbr %>
         разрешить переход студентов в следующие
         группы проектного обучения:
       </text:p>
       <text:list text:style-name="Numbering_20_1">
-        <% @order.projects.each do |project| %>
+        <% projects.each do |project| %>
             <text:list-item>
               <text:p text:style-name="P4">Проектная группа <text:span text:style-name="T1"><%= project.cipher %></text:span>:</text:p>
               <text:list>
@@ -112,24 +112,10 @@
       </text:list>
       <text:p text:style-name="P2"/>
       <text:p text:style-name="P2"/>
-      <text:p text:style-name="P3">
-        ОСНОВАНИЕ: Представление заведующего
-        кафедрой
-        <%= @chair.abbr %>
-        ;<%= @order.chairs_for_order_report %>
-        виза декана; виза ЦИОТ.
-      </text:p>
+      <text:p text:style-name="P3">ОСНОВАНИЕ: <%= order_reason %></text:p>
       <text:p text:style-name="P2"/>
       <text:p text:style-name="P2"/>
-      <text:p text:style-name="P2">
-        Первый проректор - проректор по УР
-        <text:tab/>
-        <text:tab/>
-        <text:tab/>
-        <text:tab/>
-        <text:tab/>
-        Л.А. Боков
-      </text:p>
+      <text:p text:style-name="P2">Первый проректор - проректор по УР <text:tab/> <text:tab/> <text:tab/> <text:tab/> <text:tab/> Л.А. Боков</text:p>
     </office:text>
   </office:body>
 </office:document-content>

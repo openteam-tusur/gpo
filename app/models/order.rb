@@ -107,9 +107,6 @@ class Order < ActiveRecord::Base
     Rails.logger.info("generate #{report_basename}.odt")
     template = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{report_prefix}.odt")
 
-    @order = self
-    @chair = self.projects.first.chair
-
     erb = ERB.new File.read(Rails.root.join("lib", "templates", "reports", report_prefix, "content.xml"))
 
     Dir.mktmpdir do |dir|
@@ -130,7 +127,22 @@ class Order < ActiveRecord::Base
     end
   end
 
+  def order_reason
+    "Представление заведующего кафедрой #{chair.abbr}; #{another_chair_abbrs} виза декана; виза ЦИОТ.".squish
+  end
+
   protected
+
+  def another_chair_abbrs
+    chair_abbrs = chairs.pluck(:abbr).delete(chair.abbr)
+    case chair_abbrs.length
+    when 1
+      "виза заведующего кафедрой #{chair_abbrs[0]}; "
+    when 2
+      "визы заведующих кафедрами #{chair_abbrs.join(', ')}; "
+    end
+  end
+
 
   def after_enter_being_reviewed
     lock_projects!
