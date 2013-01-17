@@ -7,7 +7,7 @@ module ConvertedReport
 
     converted = false
     curl.on_success do |easy|
-      converted = true
+      converted = true if curl.body_str.present?
     end
 
     file_to_format = "#{file.path} to #{format} format"
@@ -27,7 +27,13 @@ module ConvertedReport
         end
         return
       else
-        Rails.logger.warn("#{attempt} converting #{file_to_format} failed [reason: #{curl.body_str}]")
+        if curl.body_str.empty?
+          reason = "[reason: empty response]"
+        else
+          splitter = '-' * 20
+          reason = "response:\n#{splitter}\n#{curl.body_str}\n#{splitter}"
+        end
+        Rails.logger.warn("#{attempt} converting #{file_to_format} failed #{reason}")
       end
     end
     throw "Cann't convert #{File.basename(file.path)} to #{format} format"

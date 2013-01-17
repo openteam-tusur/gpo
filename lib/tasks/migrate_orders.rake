@@ -9,7 +9,7 @@ def odt_filepath(order)
 end
 
 def orders
-  @orders ||= Order.where("state != 'draft'").where('file_url IS NULL')
+  @orders ||= Order.where("state != 'draft'").where('file_url IS NULL OR file_file_size = 0')
 end
 
 def bar
