@@ -134,12 +134,14 @@ class Order < ActiveRecord::Base
   protected
 
   def another_chair_abbrs
-    chair_abbrs = chairs.pluck(:abbr).delete(chair.abbr)
-    case chair_abbrs.length
-    when 1
-      "виза заведующего кафедрой #{chair_abbrs[0]}; "
-    when 2
-      "визы заведующих кафедрами #{chair_abbrs.join(', ')}; "
+    chair_abbrs = chairs.pluck(:abbr)
+    chair_abbrs.delete(chair.abbr)
+    if chair_abbrs.size > 0
+      if chair_abbrs.size == 1
+        "виза заведующего кафедрой #{chair_abbrs.first};"
+      else
+        "визы заведующих кафедрами #{chair_abbrs.join(', ')};"
+      end
     end
   end
 
