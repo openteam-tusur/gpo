@@ -1,5 +1,6 @@
 # encoding: utf-8
 
+require 'zip/zip'
 require "rexml/document"
 
 class XlsReport
@@ -15,21 +16,29 @@ class XlsReport
     Date.today.year.to_s
   end
 
-  def render_to_file(template, &block)
-    tmp_dir = %x[/bin/mktemp -d].strip + "/"
-    file_name = 'report.ods'
-    FileUtils.mkpath("#{tmp_dir}1/")
-    system("unzip #{Rails.root}/lib/templates/reports/#{template}.ods -d #{tmp_dir}1/ > /dev/null")
-    xml = File.read("#{tmp_dir}1/content.xml")
+  # TODO: merge with Order#generate_odt
+  def render_to_file(report_basename, &block)
+    Rails.logger.info("generate #{report_basename}.odt")
+    template = Zip::ZipFile.open("#{Rails.root}/lib/templates/reports/#{report_basename}.ods")
 
-    file_content = File.new("#{tmp_dir}1/content.xml", "w+")
-    file_content.write(process_xml_template(xml))
-    file_content.close
-    system("cd #{tmp_dir}1/; zip -r ../#{file_name} .  > /dev/null")
-    if block_given?
-      block.call(File.new("#{tmp_dir}#{file_name}"))
+    Dir.mktmpdir do |dir|
+      report_filepath = "#{dir}/#{report_basename}.ods"
+      Zip::ZipOutputStream.open(report_filepath) do |zip_entry|
+        template.each do |entry|
+          zip_entry.put_next_entry entry.name
+          if entry.name == 'content.xml'
+            start = Time.now
+            zip_entry.write process_xml_template(template.read(entry.name).force_encoding('utf-8'))
+            time = (Time.now - start) / 1000.0
+            Rails.logger.debug("[#{report_basename}.ods]: generated #{entry.name} in #{time.round(1)}ms")
+          else
+            Rails.logger.debug("[#{report_basename}.ods]: copy #{entry.name}")
+            zip_entry.print template.read(entry.name)
+          end
+        end
+      end
+      yield File.new(report_filepath)
     end
-    FileUtils.remove_entry(tmp_dir, true)
   end
 
   def process_xml_template(xml)
