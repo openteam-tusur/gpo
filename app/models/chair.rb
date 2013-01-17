@@ -31,7 +31,7 @@ class Chair < ActiveRecord::Base
   has_many :project_manager_users, :class_name => User, :through => :project_managers, :source => :user, :uniq => true
   has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
 
-  has_many :permissions, :as => :context
+  has_many :permissions, :as => :context, :dependent => :destroy
   has_many :mentors, :through => :permissions, :conditions => ["permissions.role = ?", 'mentor'], :source => :user, :order => "last_name"
 
   scope :ordered_by_abbr, :order => "abbr"

@@ -46,6 +46,8 @@ class Project < ActiveRecord::Base
   has_many :opening_orders, :through => :order_projects, :conditions => ["orders.type = ?", OpeningOrder.name], :source => :order
   has_many :workgroup_orders, :through => :order_projects, :conditions => ["orders.type = ?", WorkgroupOrder.name], :source => :order, :order => "orders.approved_at desc"
 
+  has_many :permissions, :as => :context, :dependent => :destroy
+
   validates_presence_of :title
   validates_presence_of :chair_id
 
