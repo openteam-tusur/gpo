@@ -1,2 +1,2 @@
 desc 'Execute periodical tasks'
-task :cron => 'contingent:sync'
+task :cron => :contingent_sync
