@@ -75,7 +75,7 @@ GEM
       debugger-ruby_core_source (~> 1.1.5)
     debugger-linecache (1.1.2)
       debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.1.5)
+    debugger-ruby_core_source (1.1.7)
     decent_exposure (2.0.1)
     devise (2.1.2)
       bcrypt-ruby (~> 3.0)
