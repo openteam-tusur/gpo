@@ -41,6 +41,7 @@ class Participant < ActiveRecord::Base
   validates_presence_of :student_id
   validates_presence_of :project_id
 
+  before_create :check_createable
   before_save :set_undergraduate
 
   scope :ordered,            order(:last_name)
@@ -87,6 +88,12 @@ class Participant < ActiveRecord::Base
     end
   end
 
+  def self.contingent_find_for_manage(params)
+    contingent_find(params[:search] || {}).map! do |participant|
+      participant.project_id = params[:project_id] if participant.new_record? || participant.awaiting_removal?
+      participant.awaiting_removal? ? participant.dup : participant
+    end
+  end
 
   def self.contingent_find(params)
     JSON.parse(self.contingent_response(params)).flat_map do |attributes|
@@ -118,13 +125,10 @@ class Participant < ActiveRecord::Base
     Russian.p(count, 'участник', 'участника', 'участников')
   end
 
-  def can_create?
-    unless self.student.nil?
-      result = self.class.for_student(self.student.id).empty? # нет упоминаний о студенте
-      result = result || (self.class.approved.for_student(self.student.id).empty? && self.class.awaiting_approval.for_student(self.student.id).empty? && self.project.active? )# или студент не утвержден в активном проекте
-    else
-      true
-    end
+  def createable?
+    new_record? &&
+      similar_participants.where(:state => [:approved, :awaiting_approval]).empty? &&
+      similar_participants.where(:project_id => project_id).empty?
   end
 
   # суммы для индивидуальных задач
@@ -149,12 +153,21 @@ class Participant < ActiveRecord::Base
 
   private
 
+  def similar_participants
+    Participant.where(:student_id => student_id)
+  end
+
   def self.contingent_response(params)
     open("#{Settings['students.url']}?#{params.to_query}", 'Accept' => 'application/json').read
   end
 
   def set_undergraduate
     self.undergraduate = !!(self.edu_group =~ /(m|м)/i)
+    true
+  end
+
+  def check_createable
+    raise "Cann't create participant" unless createable?
     true
   end
 end

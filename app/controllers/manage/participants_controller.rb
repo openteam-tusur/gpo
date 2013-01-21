@@ -3,20 +3,16 @@
 class Manage::ParticipantsController < Manage::InheritedResourcesController
   belongs_to :chair, :project
 
-  actions :all, :except => [:destroy, :show]
+  actions :index, :new, :create, :edit, :update
 
   helper_method :finded_participants
 
   layout :resolve_layout
 
-  def create
-    create! { collection_path }
-  end
-
   private
 
   def finded_participants
-    @finded_participants ||= Participant.contingent_find(params[:search] || {})
+    @finded_participants ||= Participant.contingent_find_for_manage(params)
   end
 
   def resolve_layout
