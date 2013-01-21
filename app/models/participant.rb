@@ -128,7 +128,8 @@ class Participant < ActiveRecord::Base
   def createable?
     new_record? &&
       similar_participants.where(:state => [:approved, :awaiting_approval]).empty? &&
-      similar_participants.where(:project_id => project_id).empty?
+      similar_participants.where(:project_id => project_id).empty? &&
+      project.active?
   end
 
   # суммы для индивидуальных задач
