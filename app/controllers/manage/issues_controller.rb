@@ -17,8 +17,9 @@ class Manage::IssuesController < Manage::InheritedResourcesController
   def export
     export!{
       ParticipantIssues.new(@participant).render_to_file { |file|
-        send_report file, :xls, 'issues.xls' and return
+        send_report file, :xls, 'issues.xls'
       }
+      return
     }
   end
 

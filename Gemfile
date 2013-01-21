@@ -3,7 +3,7 @@ source :rubygems
 group :assets do
   gem 'coffee-rails'
   gem 'sass-rails'
-  gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer',         :platforms => :ruby
   gem 'uglifier'
 end
 
@@ -35,9 +35,11 @@ group :development do
   gem 'annotate'
   gem 'debugger'
   gem 'hirb'
+  gem 'quiet_assets'
   gem 'rails-erd'
   gem 'rvm-capistrano'
   gem 'sqlite3'
+  gem 'thin',                 :require => false
 end
 
 group :production do
