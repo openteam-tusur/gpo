@@ -20,11 +20,11 @@ class Chair < ActiveRecord::Base
   validates_presence_of :title, :abbr, :chief
   validates_uniqueness_of :abbr
 
-  has_many :projects, :order => 'cipher desc'
-  has_many :orders, :order => 'id desc'
-  has_many :workgroup_orders, :order => 'id desc'
-  has_many :opening_orders, :order => 'id desc'
-  has_many :users, :order => 'last_name'
+  has_many :projects, :order => 'cipher desc', :dependent => :destroy
+  has_many :orders, :order => 'id desc', :dependent => :destroy
+  has_many :workgroup_orders, :order => 'id desc', :dependent => :destroy
+  has_many :opening_orders, :order => 'id desc', :dependent => :destroy
+  has_many :users, :order => 'last_name', :dependent => :destroy
   has_many :participants, :order => 'last_name', :through => :projects
   has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
   has_many :project_managers, :through => :projects, :conditions => { :state => :approved }
