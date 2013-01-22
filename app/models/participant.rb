@@ -129,7 +129,7 @@ class Participant < ActiveRecord::Base
     new_record? &&
       similar_participants.where(:state => [:approved, :awaiting_approval]).empty? &&
       similar_participants.where(:project_id => project_id).empty? &&
-      project.active?
+      ((project.draft? && 'awaiting_approval') || (project.active?))
   end
 
   # суммы для индивидуальных задач
