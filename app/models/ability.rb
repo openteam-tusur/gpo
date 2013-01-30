@@ -34,6 +34,10 @@ class Ability
       can?(:read, project) && project.editable?
     end
 
+    can :rename, Project do |project|
+      can?(:update, project) && project.draft?
+    end
+
     can [:create, :to_close, :close], Project do |project|
       can?(:update, project) && user.mentor_of?(project.chair)
     end

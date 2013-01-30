@@ -9,6 +9,8 @@ describe Ability do
 
     let(:chair) { Fabricate(:chair) }
     let(:project) { Fabricate(:project, chair: chair) }
+    let(:active_project) { Fabricate(:project, chair: chair, state: 'active') }
+    let(:closed_project) { mock_model("Project", :state => 'closed', :chair => chair) }
 
     it_should_behave_like 'project manager'
 
@@ -18,6 +20,11 @@ describe Ability do
     end
 
     context 'projects' do
+      context 'rename' do
+        it { should be_able_to :rename, project }
+        it { should_not be_able_to :rename, active_project }
+        it { should_not be_able_to :rename, closed_project }
+      end
       it { should_not be_able_to :to_close, project }
       it { should_not be_able_to :close, project }
       it { should_not be_able_to :create, project }

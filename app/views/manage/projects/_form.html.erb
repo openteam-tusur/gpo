@@ -1,4 +1,8 @@
-<%= form.input :title if permitted_to?(:rename, form.object) %>
+<% if permitted_to?(:rename, form.object) %>
+  <%= form.input :title if permitted_to?(:rename, form.object) %>
+<% else %>
+  <%= form.input :title, :disabled => true %>
+<% end %>
 <%= form.input :theme_id, :collection => Theme.find(:all, :order => "name").collect { | theme | [theme.name, theme.id] }, :include_blank => true %>
 <%= form.input :goal %>
 <%= form.input :stakeholders %>
