@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.text     "comment"
     t.string   "context_type"
     t.integer  "context_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.integer  "chair_id"
     t.string   "actor"
   end
@@ -28,15 +28,15 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.string   "title"
     t.string   "abbr"
     t.string   "chief"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "faculty"
   end
 
   create_table "gpodays", :force => true do |t|
     t.date     "date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.boolean  "kt",         :default => false
   end
 
@@ -49,23 +49,23 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.integer  "grade"
     t.text     "results"
     t.integer  "participant_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "order_projects", :force => true do |t|
     t.integer  "order_id"
     t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "orders", :force => true do |t|
     t.string   "number"
     t.date     "approved_at"
     t.integer  "chair_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.string   "type"
     t.string   "state"
     t.string   "file_file_name"
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
   create_table "participants", :force => true do |t|
     t.integer  "student_id"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "project_id"
     t.integer  "course"
     t.string   "first_name"
@@ -96,8 +96,8 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.string   "role"
     t.string   "context_type"
     t.integer  "context_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "permissions", ["user_id", "role", "context_id", "context_type"], :name => "by_user_and_role_and_context"
@@ -105,16 +105,16 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
   create_table "project_managers", :force => true do |t|
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "state"
   end
 
   create_table "projects", :force => true do |t|
     t.string   "cipher"
     t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "chair_id"
     t.text     "stakeholders"
     t.text     "funds_required"
@@ -142,20 +142,20 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.text     "funds_required"
     t.text     "activity"
     t.text     "results"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "themes", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
     t.string   "email",              :limit => 100
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.string   "middle_name"
     t.string   "first_name"
     t.string   "last_name"
@@ -178,8 +178,8 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.integer  "participant_id"
     t.integer  "gpoday_id"
     t.float    "rate"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
 end

@@ -5,8 +5,7 @@ class CreateSchema < ActiveRecord::Migration
       t.text     "comment"
       t.string   "context_type"
       t.integer  "context_id"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.integer  "chair_id"
       t.string   "actor"
     end
@@ -15,38 +14,33 @@ class CreateSchema < ActiveRecord::Migration
       t.string   "title"
       t.string   "abbr"
       t.string   "chief"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
     create_table "gpodays", :force => true do |t|
       t.date     "date"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.boolean  "kt",         :default => false
     end
 
     create_table "managers", :force => true do |t|
       t.integer  "user_id"
       t.integer  "project_id"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.string   "state"
     end
 
     create_table "order_projects", :force => true do |t|
       t.integer  "order_id"
       t.integer  "project_id"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
     create_table "ordinances", :force => true do |t|
       t.string   "number"
       t.date     "approved_at"
       t.integer  "chair_id"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.string   "type"
       t.string   "state"
       t.string   "file_file_name"
@@ -58,8 +52,7 @@ class CreateSchema < ActiveRecord::Migration
     create_table "participants", :force => true do |t|
       t.integer  "student_id"
       t.string   "state"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.integer  "project_id"
       t.integer  "course"
       t.integer  "chair_id"
@@ -76,15 +69,13 @@ class CreateSchema < ActiveRecord::Migration
       t.integer  "user_id"
       t.string   "reset_code"
       t.datetime "expiration_date"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
     create_table "projects", :force => true do |t|
       t.string   "cipher"
       t.string   "title"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.integer  "chair_id"
       t.text     "stakeholders"
       t.text     "funds_required"
@@ -107,8 +98,7 @@ class CreateSchema < ActiveRecord::Migration
       t.string   "role"
       t.string   "context_type"
       t.integer  "context_id"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
     create_table "stages", :force => true do |t|
@@ -119,14 +109,12 @@ class CreateSchema < ActiveRecord::Migration
       t.text     "funds_required"
       t.text     "activity"
       t.text     "results"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
     create_table "themes", :force => true do |t|
       t.string   "name"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
 
     create_table "users", :force => true do |t|
@@ -134,8 +122,7 @@ class CreateSchema < ActiveRecord::Migration
       t.string   "email",                     :limit => 100
       t.string   "crypted_password",          :limit => 40
       t.string   "salt",                      :limit => 40
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
       t.string   "remember_token",            :limit => 40
       t.datetime "remember_token_expires_at"
       t.string   "mid_name"
@@ -153,8 +140,7 @@ class CreateSchema < ActiveRecord::Migration
       t.integer  "participant_id"
       t.integer  "gpoday_id"
       t.float    "rate"
-      t.datetime "created_at"
-      t.datetime "updated_at"
+      t.timestamps
     end
   end
 
