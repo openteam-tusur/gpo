@@ -24,7 +24,7 @@ class API::Gpo < Grape::API
   end
 
   resources :chairs do
-    desc 'Returns chairs'
+    desc 'Retrieve chairs'
     get do
       present chairs, with: API::Entities::ChairEntity
     end
@@ -33,6 +33,11 @@ class API::Gpo < Grape::API
       requires :id, :type => Integer, :desc => 'Chair ID'
     end
     namespace ':id' do
+      desc 'Retrieve chair'
+      get do
+        present chair, with: API::Entities::ChairEntity
+      end
+
       desc 'Retrieve project list for chair'
       get :projects do
         present chair.projects.active, with: API::Entities::ProjectEntity, extra: true, url: true
@@ -41,18 +46,19 @@ class API::Gpo < Grape::API
   end
 
   resources :themes do
-    desc 'Returns themes'
+    desc 'Retrieve themes'
     get do
       present themes, with: API::Entities::ThemeEntity
     end
   end
 
   resources :projects do
-    desc 'Returns projects'
+    desc 'Retrieve projects'
     get do
       present active_projects, with: API::Entities::ProjectEntity
     end
 
+    desc 'Retrieve project'
     get ':id' do
       present project, with: API::Entities::ProjectEntity, extra: true, participants: true
     end
