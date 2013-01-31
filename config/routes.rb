@@ -1,5 +1,5 @@
 Gpo::Application.routes.draw do
-  mount API::Gpo => '/'
+  mount API::Gpo => '/api'
 
   namespace :manage do
     resources :themes, except: :show do

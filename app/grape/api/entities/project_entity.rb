@@ -5,19 +5,21 @@ class API::Entities::ProjectEntity < Grape::Entity
   expose :theme_id
   expose :title
 
-  expose :analysis,         if: ->(project, options) { !!options[:full] }
-  expose :expected_results, if: ->(project, options) { !!options[:full] }
-  expose :featutes,         if: ->(project, options) { !!options[:full] }
-  expose :forecast,         if: ->(project, options) { !!options[:full] }
-  expose :funds_required,   if: ->(project, options) { !!options[:full] }
-  expose :funds_sources,    if: ->(project, options) { !!options[:full] }
-  expose :goal,             if: ->(project, options) { !!options[:full] }
-  expose :novelty,          if: ->(project, options) { !!options[:full] }
-  expose :purpose,          if: ->(project, options) { !!options[:full] }
-  expose :release_cost,     if: ->(project, options) { !!options[:full] }
-  expose :source_data,      if: ->(project, options) { !!options[:full] }
-  expose :stakeholders,     if: ->(project, options) { !!options[:full] }
+  expose :analysis,         if: {extra: true}
+  expose :expected_results, if: {extra: true}
+  expose :featutes,         if: {extra: true}
+  expose :forecast,         if: {extra: true}
+  expose :funds_required,   if: {extra: true}
+  expose :funds_sources,    if: {extra: true}
+  expose :goal,             if: {extra: true}
+  expose :novelty,          if: {extra: true}
+  expose :purpose,          if: {extra: true}
+  expose :release_cost,     if: {extra: true}
+  expose :source_data,      if: {extra: true}
+  expose :stakeholders,     if: {extra: true}
 
-  expose(:participants)     { |project, options| API::Entities::ParticipantEntity.represent project.participants if !!options[:full] }
-  expose(:managers)         { |project, options| API::Entities::ProjectManagerEntity.represent project.project_managers if !!options[:full] }
+  expose(:participants,     if: {participants: true}) { |project, options| API::Entities::ParticipantEntity.represent project.participants }
+  expose(:managers,         if: {participants: true}) { |project, options| API::Entities::ProjectManagerEntity.represent project.project_managers }
+
+  expose(:url,              if: {url: true})          { |project, options| "http://gpo.tusur.ru/chairs/#{project.chair_id}/projects/#{project.id}" }
 end

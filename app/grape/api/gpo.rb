@@ -1,14 +1,13 @@
 class API::Gpo < Grape::API
-  prefix :api
   format :json
 
   helpers do
     def chairs
-      @chairs ||= Chair.all
+      @chairs ||= Chair.scoped
     end
 
     def themes
-      @themes ||= Theme.all
+      @themes ||= Theme.scoped
     end
 
     def active_projects
@@ -18,12 +17,26 @@ class API::Gpo < Grape::API
     def project
       @project ||= active_projects.find(params[:id])
     end
+
+    def chair
+      @chair ||= chairs.find(params[:id])
+    end
   end
 
   resources :chairs do
     desc 'Returns chairs'
     get do
       present chairs, with: API::Entities::ChairEntity
+    end
+
+    params do
+      requires :id, :type => Integer, :desc => 'Chair ID'
+    end
+    namespace ':id' do
+      desc 'Retrieve project list for chair'
+      get :projects do
+        present chair.projects.active, with: API::Entities::ProjectEntity, extra: true, url: true
+      end
     end
   end
 
@@ -41,7 +54,7 @@ class API::Gpo < Grape::API
     end
 
     get ':id' do
-      present project, with: API::Entities::ProjectEntity, full: true
+      present project, with: API::Entities::ProjectEntity, extra: true, participants: true
     end
   end
 end
