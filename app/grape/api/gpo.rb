@@ -40,7 +40,7 @@ class API::Gpo < Grape::API
 
       desc 'Retrieve project list for chair'
       get :projects do
-        present chair.projects.active, with: API::Entities::ProjectEntity, extra: true, url: true
+        present chair.projects.active, with: API::Entities::ProjectEntity, extra: true, participants: true, url: true
       end
     end
   end
