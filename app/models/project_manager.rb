@@ -58,7 +58,7 @@ class ProjectManager < ActiveRecord::Base
 
   # для приказа
   def text_for_order_report
-    "#{self.user.post} #{self.user.last_name} #{self.user.first_name.first}.#{self.user.middle_name.first}."
+    "#{self.user.post} #{self.user.initials_name}"
   end
 
   def <=>(other)

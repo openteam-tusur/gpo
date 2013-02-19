@@ -46,7 +46,11 @@ class User < ActiveRecord::Base
   default_scope order('last_name, first_name, middle_name')
 
   def initials_name
-    "#{last_name} #{first_name[0]}.#{middle_name[0]}."
+    @initials_name ||= "#{last_name} #{initials}"
+  end
+
+  def initials
+    @initials ||= [first_name.try(:first), middle_name.try(:first)].select(&:present?).map{|letter| "#{letter}."}.join
   end
 
   def name
