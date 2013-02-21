@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   has_many :project_managers
 
 
-  has_many :leaderships, :class_name => 'ProjectManager'
+  has_many :leaderships, :class_name => 'ProjectManager', :dependent => :destroy
   has_many :approved_leaderships, :class_name => 'ProjectManager', :conditions => {:state => ["approved", "awaiting_removal"]}
   has_many :projects, :through => :leaderships
   has_many :managable_projects, :source => :project, :through => :approved_leaderships, :order => 'cipher desc'
