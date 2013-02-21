@@ -10,7 +10,9 @@ class Manage::ProjectManagersController < Manage::InheritedResourcesController
   layout 'project'
 
   def index
-    index! { render :layout => 'chair' and return unless @project }
+    index! do
+      @project_managers = @project ? collection : @chair.project_manager_users
+      render :layout => 'chair' and return unless @project
+    end
   end
-
 end
