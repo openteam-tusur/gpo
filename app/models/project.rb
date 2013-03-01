@@ -152,7 +152,7 @@ class Project < ActiveRecord::Base
 
   def set_cipher
     year = Date.today.year % 100
-    last_project = Project.where("cipher like '#{chair.abbr}-#{year}%'").order('cipher DESC').first
+    last_project = Project.where("cipher like ?", "#{chair.abbr}-#{year}%").order('cipher DESC').first
     last_number = last_project.try(:cipher).try(:[], -2..-1).to_i
     self.cipher = sprintf "%s-%d%02d", chair.abbr, year, last_number + 1
   end

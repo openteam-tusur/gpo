@@ -20,7 +20,7 @@ set :use_sudo, false
 set :unicorn_instance_name, "tusur-gpo"
 
 set :scm, :git
-set :repository, "https://github.com/openteam-tusur/gpo.git"
+set :repository, "git://github.com/openteam-tusur/gpo.git"
 set :branch, "master"
 set :deploy_via, :remote_cache
 

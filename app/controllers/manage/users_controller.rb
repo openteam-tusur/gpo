@@ -28,6 +28,6 @@ class Manage::UsersController < Manage::InheritedResourcesController
 
   def user_finded_by_email
     @user_finded_by_email ||=
-      User.where(:chair_id => nil).find_by_email(params[:user].try(:[], :email))
+      User.where(:chair_id => nil).where(:email => params[:user][:email]).first
   end
 end
