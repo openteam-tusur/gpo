@@ -22,7 +22,7 @@ group :default do
   gem 'openteam-commons'
   gem 'paperclip-elvfs'
   gem 'progress_bar'
-  gem 'rails', '~> 3.2.12'
+  gem 'rails',                '~> 3.2.13'
   gem 'rubyzip'
   gem 'russian'
   gem 'timecop',              :require => false
