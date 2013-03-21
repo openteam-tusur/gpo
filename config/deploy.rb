@@ -3,6 +3,7 @@ require "rvm/capistrano"
 
 load "config/deploy/settings"
 load "config/deploy/assets"
+load "config/deploy/database"
 load "config/deploy/tag"
 load "config/deploy/caprake"
 
