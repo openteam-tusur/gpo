@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 group :assets do
   gem 'coffee-rails'
   gem 'sass-rails'
-  gem 'therubyracer',         :platforms => :ruby
+  gem 'turbo-sprockets-rails3'
   gem 'uglifier'
 end
 
