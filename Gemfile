@@ -1,4 +1,4 @@
-source :rubygems
+source 'https://rubygems.org'
 
 group :assets do
   gem 'coffee-rails'
@@ -34,11 +34,13 @@ end
 group :development do
   gem 'annotate'
   gem 'brakeman'
-  gem 'debugger'
+  gem 'capistrano-db-tasks', :git => 'git://github.com/openteam/capistrano-db-tasks'
+  gem 'capistrano-unicorn',  :git => 'git://github.com/sosedoff/capistrano-unicorn'
+  gem 'debugger',             '~> 1.4'
   gem 'hirb'
+  gem 'openteam-capistrano'
   gem 'quiet_assets'
   gem 'rails-erd'
-  gem 'rvm-capistrano'
   gem 'sqlite3'
   gem 'thin',                 :require => false
 end
