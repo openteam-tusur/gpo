@@ -104,8 +104,8 @@ class Participant < ActiveRecord::Base
         participant.first_name        = attributes[:firstname]
         participant.middle_name       = attributes[:patronymic]
         participant.last_name         = attributes[:lastname]
-        participant.edu_group         = attributes[:group]
-        participant.course            = attributes[:year]
+        participant.edu_group         = attributes[:group]['number']
+        participant.course            = attributes[:group]['course']
         participant.contingent_active = attributes[:learns]
         participant.contingent_gpo    = attributes[:in_gpo]
       end
@@ -159,7 +159,7 @@ class Participant < ActiveRecord::Base
   end
 
   def self.contingent_response(params)
-    open("#{Settings['students.url']}?#{params.to_query}", 'Accept' => 'application/json').read
+    open("#{Settings['students.url']}/api/v1/students?#{params.to_query}").read
   end
 
   def set_undergraduate
