@@ -58,7 +58,7 @@ class Chair < ActiveRecord::Base
       xml.count_participants_3_4 self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
       xml.count_participants_3 self.participants.active.at_course(3).count
       xml.count_participants_4 self.participants.active.at_course(4).count
-      xml.count_project_managers User.count(:conditions => {:id => ProjectManager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)})
+      xml.count_project_managers project_manager_users.count
       xml.count_projects self.projects.current_active.count
       xml.mentor self.mentors.first.name
       xml.projects do |xml_project|
@@ -72,7 +72,7 @@ class Chair < ActiveRecord::Base
         end
       end
       xml.project_managers do |xml_project_manager|
-        User.find(:all, :conditions => {:id => ProjectManager.active.find(:all, :conditions => {:project_id => self.projects.current_active.map(&:id)}).map(&:user_id)}).each do |user|
+        project_manager_users.each do |user|
           xml.project_manager do
             xml.name user.name
           end
