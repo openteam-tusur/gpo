@@ -55,7 +55,8 @@ class Chair < ActiveRecord::Base
       xml.chair_abbr self.abbr
       xml.chair_chief self.chief
       xml.count_participants self.participants.active.count
-      xml.count_participants_3_4 self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
+      xml.count_participants_2_4 self.participants.active.at_course(2).count + self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
+      xml.count_participants_2 self.participants.active.at_course(2).count
       xml.count_participants_3 self.participants.active.at_course(3).count
       xml.count_participants_4 self.participants.active.at_course(4).count
       xml.count_project_managers project_manager_users.count
@@ -66,6 +67,7 @@ class Chair < ActiveRecord::Base
           xml.project do
             xml.cipher project.cipher
             xml.project_managers project.project_managers.active.active.map(&:user).map(&:name).join(", ")
+            xml.count_participants_2 project.participants.active.at_course(2).count
             xml.count_participants_3 project.participants.active.at_course(3).count
             xml.count_participants_4 project.participants.active.at_course(4).count
           end
