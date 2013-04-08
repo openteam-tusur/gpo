@@ -53,6 +53,7 @@ class Participant < ActiveRecord::Base
   scope :at_course,          ->(course) { where('course = ? AND undergraduate != true', course) }
   scope :for_student,        ->(id)     { where(:student_id => id) }
   scope :undergraduates,     where(undergraduate: true)
+  scope :undergraduates_at_course,          ->(course) { where('course = ? AND undergraduate = true', course) }
 
   delegate :abbr, :to => :chair, :prefix => true
 
