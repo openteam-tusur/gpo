@@ -16,12 +16,16 @@ module ProjectsHelper
     project_managers
   end
 
-  def project_section(project, attribute)
+  def project_section(project, attribute, rendered = false)
     value = project.respond_to?(attribute) ? project.send(attribute) : nil
     out = ""
-    unless value.blank?
+    if !value.blank? || rendered
       out << content_tag(:h3, Project.human_attribute_name(attribute))
-      out << content_tag(:div, simple_format(value), :class => "section")
+      if value.blank?
+        out << content_tag(:div, "Не заполнено", :class => "section blank")
+      else
+        out << content_tag(:div, simple_format(value), :class => "section")
+      end
     end
     out.html_safe
   end
