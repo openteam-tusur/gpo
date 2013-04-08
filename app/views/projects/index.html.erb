@@ -4,8 +4,8 @@
 
 <% content_for :right do %>
   <div id="stats">
-    <h3>Статистика по студентам</h3>
-    <%= render_table_stats @chair.stats(:participants) %>
+    <h3>Статистика</h3>
+    <%= render_table_stats @chair.stats %>
   </div>
 <% end %>
 

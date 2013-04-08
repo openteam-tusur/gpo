@@ -22,6 +22,9 @@ class Stat
         Stat.new(:draft_projects,  Project.draft.count,  "Черновиков проектов"),
         Stat.new(:closed_projects, Project.closed.count, "Закрытых проектов")
       ],
+      :managers => [
+        Stat.new(:managers, ProjectManager.approved.map(&:user).uniq.count, "Руководителей проектов")
+      ],
       :participants => [
         Stat.new(:participant_total,    Participant.active.count,              "Всего студентов"),
         Stat.new(:participant_course_1, Participant.active.at_course(1).count, "Студентов 1 курса"),
@@ -43,6 +46,9 @@ class Stat
         Stat.new(:active_projects, chair.projects.active.count, "Активных проектов"),
         Stat.new(:draft_projects,  chair.projects.draft.count,  "Черновиков проектов"),
         Stat.new(:closed_projects, chair.projects.closed.count, "Закрытых проектов")
+      ],
+      :managers => [
+        Stat.new(:managers, chair.project_managers.approved.map(&:user).uniq.count, "Руководителей проектов")
       ],
       :participants => [
         Stat.new(:participant_total,    chair.participants.active.count,              "Всего студентов"),
