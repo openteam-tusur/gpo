@@ -27,27 +27,33 @@ class ChairAttestation < XlsReport
 
         # deep_clone не всегда deep :(
         # поэтому используем этот хитрый хак, чтобы формулы прокопировались правильно
-        tmp_row.elements[8].attributes.inspect
         tmp_row.elements[10].attributes.inspect
-        tmp_row.elements[11].attributes.inspect
+        tmp_row.elements[12].attributes.inspect
+        tmp_row.elements[13].attributes.inspect
 
         if i == 1
           tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
           tmp_row.elements[2].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
           tmp_row.elements[3].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
+          tmp_row.elements[4].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
+          tmp_row.elements[5].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
+
         end
         tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.users.collect {|user| user.name}.join(", ")}"
-        tmp_row.elements[4][1].text = i
-        tmp_row.elements[5][1].text = participant.name
-        tmp_row.elements[6][1].text = participant.course
-        tmp_row.elements[7][1].text = participant.edu_group
-        tmp_row.elements[8][1].text = participant.total_term_mark
-        tmp_row.elements[8].attributes['value'].gsub!("0", participant.total_term_mark.to_s)
+        (2..6).each do |column_index|
+          tmp_row.elements[column_index][1].text = ''
+        end
+        tmp_row.elements[6][1].text = i
+        tmp_row.elements[7][1].text = participant.name
+        tmp_row.elements[8][1].text = participant.course
+        tmp_row.elements[9][1].text = participant.edu_group
+        tmp_row.elements[10][1].text = participant.total_term_mark
+        tmp_row.elements[10].attributes['value'].gsub!("0", participant.total_term_mark.to_s)
 
 
-        tmp_row.elements[10].attributes["formula"].gsub!("7", formula_index.to_s)
-        tmp_row.elements[11].attributes["formula"].gsub!("I7", "I#{formula_index.to_s}")
-        tmp_row.elements[11].attributes["formula"].gsub!("J7", "J#{formula_index.to_s}")
+        tmp_row.elements[12].attributes["formula"].gsub!("7", formula_index.to_s)
+        tmp_row.elements[13].attributes["formula"].gsub!("K7", "K#{formula_index.to_s}")
+        tmp_row.elements[13].attributes["formula"].gsub!("L7", "L#{formula_index.to_s}")
 
         table.insert_after("//table:table-row[6+#{participant_index}]", tmp_row)
         participant_index += 1
