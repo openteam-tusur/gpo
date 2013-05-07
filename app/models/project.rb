@@ -29,8 +29,9 @@
 #
 
 class Project < ActiveRecord::Base
+  extend Enumerize
   attr_accessible :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
-    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason
+    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing
 
   belongs_to :chair
   belongs_to :theme
@@ -61,6 +62,7 @@ class Project < ActiveRecord::Base
   scope :draft, where(:state => :draft)
   scope :closed, where(:state => :closed)
   scope :editable, where(:editable_state => :editable)
+  scope :sbi_residents, ->{ where(:sbi_placing => :resident) }
 
   scope :for_user, ->(user) do
     if user.mentor?
@@ -69,6 +71,8 @@ class Project < ActiveRecord::Base
       joins(:project_managers).where(:project_managers => { :user_id => user }).uniq
     end
   end
+
+  enumerize :sbi_placing, in: [:resident, :not_related], predicates: { prefix: true }
 
   state_machine :initial => :draft do
     state :closed do

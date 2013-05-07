@@ -17,7 +17,8 @@ module ProjectsHelper
   end
 
   def project_section(project, attribute, rendered = false)
-    value = project.respond_to?(attribute) ? project.send(attribute) : nil
+    value = project.respond_to?(attribute) ?
+      (project.respond_to?("#{attribute}_text") ? project.send("#{attribute}_text") : project.send(attribute)) : nil
     out = ""
     if !value.blank? || rendered
       out << content_tag(:h3, Project.human_attribute_name(attribute))

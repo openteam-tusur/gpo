@@ -157,6 +157,7 @@ ru:
         stakeholders:     Заинтересованные структуры
         theme_id:         Направление
         title:            Название
+        sbi_placing:      Размещение в СБИ
 
       stage:
         title:            Название
@@ -248,3 +249,10 @@ ru:
           events:
             disable_modifications: Запретить правку
             enable_modifications:  Разрешить правку
+
+  enumerize:
+    project:
+      sbi_placing:
+        resident: Резидент СБИ
+        not_related: Нет
+

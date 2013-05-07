@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117032833) do
+ActiveRecord::Schema.define(:version => 20130507012344) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
   create_table "projects", :force => true do |t|
     t.string   "cipher"
     t.string   "title"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
     t.integer  "chair_id"
     t.text     "stakeholders"
     t.text     "funds_required"
@@ -132,6 +132,8 @@ ActiveRecord::Schema.define(:version => 20130117032833) do
     t.integer  "theme_id"
     t.text     "goal"
     t.text     "source_data"
+    t.string   "sbi_placing"
+    t.string   "interdisciplinary"
   end
 
   create_table "stages", :force => true do |t|

@@ -4,6 +4,7 @@
   <div class="theme">
   <%= project_theme(project) %>
   </div>
+  <%= content_tag :div, project.sbi_placing_text, class: :sbi_placing if project.sbi_placing_resident? %>
   <div class="details"><%= project_project_managers(project) %></div>
 </div>
 

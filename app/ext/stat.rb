@@ -19,6 +19,7 @@ class Stat
     stats_collection = {
       :projects => [
         Stat.new(:active_projects, Project.active.count, "Активных проектов"),
+        Stat.new(:active_projects, Project.active.sbi_residents.count, "Резидентов СБИ"),
         Stat.new(:draft_projects,  Project.draft.count,  "Черновиков проектов"),
         Stat.new(:closed_projects, Project.closed.count, "Закрытых проектов")
       ],
@@ -44,6 +45,7 @@ class Stat
      stats_collection = {
       :projects => [
         Stat.new(:active_projects, chair.projects.active.count, "Активных проектов"),
+        Stat.new(:active_projects, chair.projects.active.sbi_residents.count, "Резидентов СБИ"),
         Stat.new(:draft_projects,  chair.projects.draft.count,  "Черновиков проектов"),
         Stat.new(:closed_projects, chair.projects.closed.count, "Закрытых проектов")
       ],
