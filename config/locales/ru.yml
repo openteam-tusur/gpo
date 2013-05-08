@@ -255,4 +255,7 @@ ru:
       sbi_placing:
         resident: Резидент СБИ
         not_related: Нет
+      interdisciplinary:
+        interfaculty: Межфакультетский проект
+        intersubfaculty: Межкафедральный проект
 

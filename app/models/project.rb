@@ -73,6 +73,7 @@ class Project < ActiveRecord::Base
   end
 
   enumerize :sbi_placing, in: [:resident, :not_related], predicates: { prefix: true }
+  enumerize :interdisciplinary, in: [:intersubfaculty, :interfaculty, :not_interdisciplinary], default: :not_interdisciplinary, predicates: true
 
   state_machine :initial => :draft do
     state :closed do
@@ -150,6 +151,13 @@ class Project < ActiveRecord::Base
 
   def destroyable?
     closed?
+  end
+
+  def update_interdisciplinary
+    self.interdisciplinary = 'not_interdisciplinary'
+    self.interdisciplinary = 'interfaculty' if participants.active.group_by(&:faculty).size > 1
+    self.interdisciplinary = 'intersubfaculty' if participants.active.group_by(&:subfaculty).size > 1
+    save if self.interdisciplinary_changed?
   end
 
   private

@@ -109,6 +109,8 @@ class Participant < ActiveRecord::Base
         participant.course            = attributes[:group]['course']
         participant.contingent_active = attributes[:learns]
         participant.contingent_gpo    = attributes[:in_gpo]
+        participant.subfaculty        = attributes[:education]['params']['sub_faculty']['short_name']
+        participant.faculty           = attributes[:education]['params']['faculty']['short_name']
       end
     end
   end

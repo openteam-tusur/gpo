@@ -11,4 +11,9 @@ task :contingent_sync => :environment do
     Participant.contingent_find(:study_id => student_id, :include_inactive => true).map{|p| p.save!(:validate => false)}
     bar.increment!
   end
+  bar = ProgressBar.new(Project.active.count)
+  Project.active.each do |project|
+    project.update_interdisciplinary
+    bar.increment!
+  end
 end
