@@ -18,6 +18,7 @@
 <% end %>
 
 <h2><%= @project.title %></h2>
+<%= content_tag :span, @project.interdisciplinary_text, class: :interdisciplinary unless @project.not_interdisciplinary? %>
 
 <div class="detailed_info comment">
   <%= project_theme @project, true %>
