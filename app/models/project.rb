@@ -63,6 +63,9 @@ class Project < ActiveRecord::Base
   scope :closed, where(:state => :closed)
   scope :editable, where(:editable_state => :editable)
   scope :sbi_residents, ->{ where(:sbi_placing => :resident) }
+  scope :interdisciplinary, ->{ where(:interdisciplinary => [:interfaculty, :intersubfaculty]) }
+  scope :interfaculty, -> {where(:interdisciplinary => :interfaculty)}
+  scope :intersubfaculty, -> {where(:interdisciplinary => :intersubfaculty)}
 
   scope :for_user, ->(user) do
     if user.mentor?

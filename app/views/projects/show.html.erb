@@ -12,7 +12,7 @@
   <h3>Участники проекта</h3>
   <ul id="project_project_managers">
     <% @project.participants.active.each do |participant| %>
-      <li><span class="name"><%= participant.name %></span><span class="post"><%= "гр. #{participant.edu_group}, каф. #{participant.chair_abbr}" %></span></li>
+      <li><span class="name"><%= participant.name %></span><span class="post"><%= "гр. #{participant.edu_group}, каф. #{participant.subfaculty}" %></span></li>
     <% end %>
   </ul>
 <% end %>

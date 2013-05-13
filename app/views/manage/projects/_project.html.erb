@@ -5,6 +5,7 @@
   <%= project_theme(project) %>
   </div>
   <%= content_tag :div, project.sbi_placing_text, class: 'sbi_placing' if project.sbi_placing_resident? %>
+  <%= content_tag :div, project.interdisciplinary_text, class: :interdisciplinary unless project.not_interdisciplinary? %>
   <div class="status">
     <span class="state_<%= project.state %>"><%= project.human_state_name %></span>
     <span class="editable_state_<%= project.editable_state %>"><%= project.human_editable_state_name %></span>

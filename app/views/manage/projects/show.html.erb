@@ -36,6 +36,7 @@
     <span class="editable_state_<%= @project.editable_state %>"><%= @project.human_editable_state_name %></span>
     <span class="state_<%= @project.state %>"><%= @project.human_state_name %></span>
     <span class="date"><%= project_updated(@project) %></span>
+    <%= content_tag :span, @project.interdisciplinary_text, class: :interdisciplinary unless @project.not_interdisciplinary? %>
   </div>
 </div>
 
