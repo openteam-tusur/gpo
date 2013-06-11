@@ -91,7 +91,7 @@ class Participant < ActiveRecord::Base
 
   def self.contingent_find_for_manage(params)
     contingent_find(params[:search] || {}).map! do |participant|
-      participant.project_id = params[:project_id] if participant.new_record? || participant.awaiting_removal?
+      participant.project_id = params[:project_id] if participant.new_record?
       participant.awaiting_removal? ? participant.dup : participant
     end
   end
@@ -128,10 +128,10 @@ class Participant < ActiveRecord::Base
     Russian.p(count, 'участник', 'участника', 'участников')
   end
 
-  def createable?
+  def createable?(project = self.project)
     new_record? &&
       similar_participants.where(:state => [:approved, :awaiting_approval]).empty? &&
-      similar_participants.where(:project_id => project_id).empty? &&
+      similar_participants.where(:project_id => project.id).empty? &&
       ((project.draft? && awaiting_approval?) || (project.active?))
   end
 

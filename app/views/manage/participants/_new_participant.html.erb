@@ -7,7 +7,7 @@
     </div>
 
     <% unless new_participant.new_record? && new_participant.awaiting_approval? %>
-      <span class="details"><%= icon(:warning) %> Данный студент числится в проекте <%= link_to(new_participant.project.cipher, chair_project_path(new_participant.project.chair, new_participant.project)) %> со статусом &#x00ab;<%= new_participant.human_state_name %>&#x00bb;</span>
+      <span class="details"><%= icon(:warning) %> Данный студент числится в проекте <%= link_to(new_participant.project.cipher, manage_chair_project_path(new_participant.project.chair, new_participant.project)) %> со статусом &#x00ab;<%= new_participant.human_state_name %>&#x00bb;</span>
     <% end %>
   </div>
   <%= content_tag :div, :class => :actions do %>
@@ -22,5 +22,5 @@
       <%= form.input :student_id, :as => :hidden %>
       <%= form.button :submit, I18n.t("add") %>
     <% end %>
-  <% end if new_participant.createable? %>
+  <% end if new_participant.createable?(@project) %>
 </li>
