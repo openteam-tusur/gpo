@@ -153,7 +153,7 @@ class Project < ActiveRecord::Base
   end
 
   def destroyable?
-    closed?
+    (draft? && participants.empty?) || closed?
   end
 
   def update_interdisciplinary
