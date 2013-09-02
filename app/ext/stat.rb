@@ -35,7 +35,6 @@ class Stat
         Stat.new(:participant_course_3, Participant.active.at_course(3).count, "Студентов 3 курса"),
         Stat.new(:participant_course_4, Participant.active.at_course(4).count, "Студентов 4 курса"),
         Stat.new(:participant_course_5, Participant.active.at_course(5).count, "Студентов 5 курса"),
-        Stat.new(:participant_course_6, Participant.active.at_course(6).count, "Студентов 6 курса"),
         Stat.new(:undergraduates_at_course_1, Participant.undergraduates_at_course(1).count,      "Магистрантов 1 курса"),
         Stat.new(:undergraduates_at_course_2, Participant.undergraduates_at_course(2).count,      "Магистрантов 2 курса")
       ]
@@ -63,7 +62,6 @@ class Stat
         Stat.new(:participant_course_3, chair.participants.active.at_course(3).count, "Студентов 3 курса"),
         Stat.new(:participant_course_4, chair.participants.active.at_course(4).count, "Студентов 4 курса"),
         Stat.new(:participant_course_5, chair.participants.active.at_course(5).count, "Студентов 5 курса"),
-        Stat.new(:participant_course_6, chair.participants.active.at_course(6).count, "Студентов 6 курса"),
         Stat.new(:undergraduates_at_course_1, chair.participants.active.undergraduates_at_course(1).count,      "Магистрантов 1 курса"),
         Stat.new(:undergraduates_at_course_2, chair.participants.active.undergraduates_at_course(2).count,      "Магистрантов 2 курса")
       ]
@@ -82,7 +80,6 @@ class Stat
         Stat.new(:participant_course_3, project.participants.active.at_course(3).count, "Студентов 3 курса"),
         Stat.new(:participant_course_4, project.participants.active.at_course(4).count, "Студентов 4 курса"),
         Stat.new(:participant_course_5, project.participants.active.at_course(5).count, "Студентов 5 курса"),
-        Stat.new(:participant_course_6, project.participants.active.at_course(6).count, "Студентов 6 курса"),
         Stat.new(:undergraduates_at_course_1, project.participants.active.undergraduates_at_course(1).count,      "Магистрантов 1 курса"),
         Stat.new(:undergraduates_at_course_2, project.participants.active.undergraduates_at_course(2).count,      "Магистрантов 2 курса")
       ]
