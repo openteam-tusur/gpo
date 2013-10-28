@@ -37,7 +37,6 @@ group :development do
   gem 'brakeman'
   gem 'capistrano-db-tasks', :git => 'git://github.com/sgruhier/capistrano-db-tasks'
   gem 'capistrano-unicorn'
-  gem 'debugger',             '~> 1.4'
   gem 'hirb'
   gem 'openteam-capistrano'
   gem 'quiet_assets'
