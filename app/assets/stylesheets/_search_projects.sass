@@ -1,0 +1,43 @@
+.search_projects
+  .search_input
+    width: 400px
+
+  .chair_theme
+    margin: 10px 0 10px 0
+
+.projects_list
+  margin-top: 15px
+  li
+    margin-top: 15px
+    padding-bottom: 5px
+    border-bottom: 1px solid #cccccc
+
+    &:last-child
+      border-bottom: none
+
+    .project
+      +looks_like_object
+      .state_draft
+        +normal_state
+        background-color: #d3d3d3
+      .state_active
+        display: none
+      .state_closed
+        +important_state
+      .editable_state_editable
+        display: none
+      .editable_state_blocked
+        +important_state
+      .sbi_placing, .interdisciplinary
+        color: #214478
+        margin: 0.3em 0 0 22px
+        line-height: 1.5em
+      .theme
+        color: #3b7704
+        margin: 0.3em 0 0 11px
+        line-height: 1.5em
+      +theme_error
+
+    .details
+      span
+        margin-right: 5px

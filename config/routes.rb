@@ -6,6 +6,8 @@ Gpo::Application.routes.draw do
       get :statistics, :projects, on: :collection
     end
 
+    get 'search_projects' => 'search_projects#index'
+
     resources :gpodays,     except: :show
     resources :reports,     only: [:index, :show]
 
