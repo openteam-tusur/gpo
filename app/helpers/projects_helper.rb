@@ -16,6 +16,14 @@ module ProjectsHelper
     project_managers
   end
 
+  def project_participants(project)
+    if project.participants.any?
+      project_participants = project.participants.sort_by(&:last_name).map(&:name).join(', ')
+    else
+      project_participants = 'не назначены'
+    end
+  end
+
   def project_section(project, attribute, rendered = false)
     value = project.respond_to?(attribute) ?
       (project.respond_to?("#{attribute}_text") ? project.send("#{attribute}_text") : project.send(attribute)) : nil
