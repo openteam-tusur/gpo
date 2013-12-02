@@ -30,6 +30,7 @@ group :default do
   gem 'simple_form'
   gem 'sso-auth'
   gem 'state_machine'
+  gem 'sunspot_rails',        '~> 2.0.0'
 end
 
 group :development do
@@ -41,6 +42,7 @@ group :development do
   gem 'openteam-capistrano'
   gem 'quiet_assets'
   gem 'rails-erd'
+  gem 'sunspot_solr',        '~> 2.0.0'
   gem 'sqlite3'
   gem 'thin',                 :require => false
 end
