@@ -9,5 +9,9 @@
 /emails
 /erd.pdf
 /log/*.log
+/log/*.lck
 /public/files
 /tmp
+/solr/data
+/solr/pids
+/solr/data/development/*
