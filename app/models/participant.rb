@@ -121,7 +121,7 @@ class Participant < ActiveRecord::Base
 
   # для приказа
   def text_for_order_report
-    "#{self.name}, гр. #{self.edu_group}, каф. #{self.chair_abbr}"
+    "#{self.name}, гр. #{self.edu_group}, каф. #{self.subfaculty}"
   end
 
   def self.pluralized_string(count)
