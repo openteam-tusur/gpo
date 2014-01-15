@@ -30,7 +30,9 @@ class Participant < ActiveRecord::Base
                   :last_name,
                   :middle_name,
                   :state_event,
-                  :student_id
+                  :student_id,
+                  :subfaculty,
+                  :faculty
 
   belongs_to :project
 
