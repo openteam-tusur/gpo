@@ -5,7 +5,6 @@
     <% unless chair.tasks(current_user, "dashboard").empty? %>
       <span class="reminder">есть задачи!</span>
     <% end %>
-    <span class="date">Активность: <%= time_ago(chair.last_activity) || 'не было' %></span>
   </div>
   <div class="details"><%= chair_mentors(chair) %></div>
 </div>
