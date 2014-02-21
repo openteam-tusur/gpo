@@ -6,6 +6,7 @@ class Manage::SearchProjectsController < Manage::ApplicationController
     @themes = Theme.all
     chair = params[:chair].present? ? params[:chair] : nil
     theme = params[:theme].present? ? params[:theme] : nil
+    category = params[:category].present? ? params[:category] : nil
     interdisciplinary = params[:interdisciplinary].present? ? params[:interdisciplinary] : nil
 
     @projects = if params[:search].present? 
@@ -15,6 +16,7 @@ class Manage::SearchProjectsController < Manage::ApplicationController
                     with :theme, theme if theme
                     with :state, 'active' if params[:active].present?
                     with :interdisciplinary, interdisciplinary if interdisciplinary
+                    with :category, category if category
                   }.results
                 else
                   []

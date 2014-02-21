@@ -5,7 +5,10 @@
     <%= hidden_field_tag 'search', true %>
     <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по названию, руководителю, направлению, кафедре', :class => 'search_input' %>
     <span>Только активные:</span><%= check_box_tag 'active', 'yes', params[:active] %>
-    <span>Кафедра:</span><%= select_tag 'chair', options_from_collection_for_select(@chairs, 'abbr', 'abbr', params[:chair]), :include_blank => true %>
+    <div class='chair_theme'>
+      <span>Кафедра:</span><%= select_tag 'chair', options_from_collection_for_select(@chairs, 'abbr', 'abbr', params[:chair]), :include_blank => true %>
+      <span>Категория:</span><%= select_tag 'category', options_from_collection_for_select(Project.category.options, 'second', 'first', params[:category]), include_blank: true %>
+    </div>
     <div class='chair_theme'>
       <span>Направление:</span><%= select_tag 'theme', options_from_collection_for_select(@themes, 'name', 'name', params[:theme]), :include_blank => true %>
     <span>Тип</span>

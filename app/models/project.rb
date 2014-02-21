@@ -30,7 +30,7 @@
 
 class Project < ActiveRecord::Base
   extend Enumerize
-  attr_accessible :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
+  attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
     :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing
 
   belongs_to :chair
@@ -74,6 +74,7 @@ class Project < ActiveRecord::Base
     string(:chair)              { chair.abbr if chair}
     string(:theme)              { theme.name if theme }
     string(:state)              { state }
+    string(:category)           { category }
     string(:interdisciplinary)  { self.interdisciplinary }
   end
 
@@ -87,6 +88,7 @@ class Project < ActiveRecord::Base
 
   enumerize :sbi_placing, in: [:resident, :not_related], predicates: { prefix: true }
   enumerize :interdisciplinary, in: [:intersubfaculty, :interfaculty, :not_interdisciplinary], default: :not_interdisciplinary, predicates: true
+  enumerize :category, in: [:business, :research, :by_request, :for_university, :social], predicates: true
 
   state_machine :initial => :draft do
     state :closed do

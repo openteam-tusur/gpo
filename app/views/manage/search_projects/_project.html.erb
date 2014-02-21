@@ -13,6 +13,9 @@
     <%= "#{Project.human_attribute_name(:close_reason)}: #{project.close_reason}" if project.closed? %>
   </div>
   <div class='details'>
+    <div class='category'>
+      <span>Категория:</span><%= project.category_text %>
+    </div>
     <div class="project_managers">
       <span>Руководитель:</span><%= project_project_managers(project) %>
     </div>

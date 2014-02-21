@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508082253) do
+ActiveRecord::Schema.define(:version => 20140221085217) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20130508082253) do
     t.text     "source_data"
     t.string   "sbi_placing"
     t.string   "interdisciplinary"
+    t.string   "category"
   end
 
   create_table "stages", :force => true do |t|

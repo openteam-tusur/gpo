@@ -140,6 +140,7 @@ ru:
 
       project:
         analysis:         Анализ состояния дел и имеющихся достижений по тематике проекта
+        category:         Категория
         chair:            Кафедра
         chair_id:         Кафедра
         cipher:           Шифр
@@ -252,6 +253,13 @@ ru:
 
   enumerize:
     project:
+      category:
+        business:         бизнес
+        research:         исследовательский
+        by_request:       по заказу предприятия
+        for_university:   для использования в университете
+        social:           социальный
+
       sbi_placing:
         resident: Резидент СБИ
         not_related: Нет
