@@ -68,14 +68,14 @@ class Project < ActiveRecord::Base
   scope :intersubfaculty, -> {where(:interdisciplinary => :intersubfaculty)}
 
   searchable do
-    text :title
-    text(:project_managers)     { project_managers.map(&:user).map(&:name).join(' ') }
-    text(:participants)         { participants.map(&:name).join(' ')}
-    string(:chair)              { chair.abbr if chair}
-    string(:theme)              { theme.name if theme }
-    string(:state)              { state }
-    string(:category)           { category }
-    string(:interdisciplinary)  { self.interdisciplinary }
+    text(:title, :stored => true)
+    text(:project_managers)         { project_managers.map(&:user).map(&:name).join(' ') }
+    text(:participants)             { participants.map {|p| p.name_with_group }.join(' ') }
+    string(:chair)                  { chair.abbr if chair}
+    string(:theme)                  { theme.name if theme }
+    string(:state)                  { state }
+    string(:category)               { category }
+    string(:interdisciplinary)      { self.interdisciplinary }
   end
 
   scope :for_user, ->(user) do

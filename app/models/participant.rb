@@ -84,6 +84,12 @@ class Participant < ActiveRecord::Base
     name.squish
   end
 
+  def name_with_group
+    name_with_group = name
+    name_with_group += " (гр. #{edu_group})" if edu_group.present?
+    name_with_group.squish
+  end
+
   def problems
     [].tap do | problems |
       problems << %q(Не числится учащимся в АИС "Контингент") unless contingent_active?

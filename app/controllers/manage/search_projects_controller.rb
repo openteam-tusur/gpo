@@ -4,22 +4,38 @@ class Manage::SearchProjectsController < Manage::ApplicationController
   def index
     @chairs = Chair.all
     @themes = Theme.all
-    chair = params[:chair].present? ? params[:chair] : nil
-    theme = params[:theme].present? ? params[:theme] : nil
-    category = params[:category].present? ? params[:category] : nil
-    interdisciplinary = params[:interdisciplinary].present? ? params[:interdisciplinary] : nil
 
-    @projects = if params[:search].present? 
-                  Project.search {
-                    keywords params[:q]
-                    with :chair, chair if chair
-                    with :theme, theme if theme
-                    with :state, 'active' if params[:active].present?
-                    with :interdisciplinary, interdisciplinary if interdisciplinary
-                    with :category, category if category
-                  }.results
-                else
-                  []
-                end
+    @search_results = if params[:search].present?
+                        search = Project.search {
+                          keywords params[:q] do
+                            highlight :title
+                          end
+                          if params[:chair].present?
+                            with :chair, params[:chair]
+                          end
+                          if params[:theme].present?
+                            with :theme, params[:theme]
+                          end
+                          if params[:active].present?
+                            with :state, 'active'
+                          end
+                          if params[:interdisciplinary].present?
+                            with :interdisciplinary, params[:interdisciplinary]
+                          end
+                          if params[:category].present?
+                            with :category, params[:category]
+                          end
+                        }
+
+                        search.each_hit_with_result do |hit, project|
+                          project[:title] = hit.highlights(:title).first.format do |word|
+                            "<span class='search_highlight'>#{word}</span>"
+                          end if hit.highlights(:title).any?
+                        end
+
+                        search.results
+                      else
+                        []
+                      end
   end
 end

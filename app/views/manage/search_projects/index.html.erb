@@ -21,7 +21,7 @@
 </div>
 
 <ul class='projects_list'>
-  <% @projects.each do |project| %>
+  <% @search_results.each do |project| %>
     <li>
     <%= render :partial => 'project', :locals => {:project => project} %>
     </li>
