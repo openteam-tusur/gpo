@@ -26,6 +26,7 @@ class Participant < ActiveRecord::Base
                   :contingent_gpo,
                   :course,
                   :edu_group,
+                  :executive,
                   :first_name,
                   :last_name,
                   :middle_name,
@@ -56,6 +57,7 @@ class Participant < ActiveRecord::Base
   scope :for_student,        ->(id)     { where(:student_id => id) }
   scope :undergraduates,     where(undergraduate: true)
   scope :undergraduates_at_course,          ->(course) { where('course = ? AND undergraduate = true', course) }
+  scope :as_executive,       -> { where(:executive => true) }
 
   delegate :abbr, :to => :chair, :prefix => true
 
@@ -71,6 +73,14 @@ class Participant < ActiveRecord::Base
     end
     after_transition all => :removed do |participant|
       participant.destroy
+    end
+  end
+
+  def current_state
+    if self.executive
+      'ответственный исполнитель'
+    else
+      self.human_state_name
     end
   end
 

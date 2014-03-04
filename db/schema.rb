@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140221085217) do
+ActiveRecord::Schema.define(:version => 20140303084648) do
 
   create_table "activities", :force => true do |t|
     t.text     "action"
@@ -78,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20140221085217) do
   create_table "participants", :force => true do |t|
     t.integer  "student_id"
     t.string   "state"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "project_id"
     t.integer  "course"
     t.string   "first_name"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20140221085217) do
     t.boolean  "undergraduate"
     t.string   "subfaculty"
     t.string   "faculty"
+    t.boolean  "executive",         :default => false
   end
 
   create_table "permissions", :force => true do |t|

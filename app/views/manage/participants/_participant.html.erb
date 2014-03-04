@@ -1,8 +1,14 @@
 <div class="participant object">
   <%= icon(:participant) %>
   <h3><%= participant.name %></h3>
+  <% if can?(:make_executive, participant) %>
+    <%= link_to "Назначить ответственным",
+      make_executive_manage_chair_project_participant_path(@chair, @project, participant),
+      :method => :put,
+      :class => 'button executive' if (participant.approved? && !participant.executive)%>
+  <% end %>
   <div class="status">
-    <span class="state_<%= participant.state %>"><%= participant.human_state_name %></span>
+    <span class="state_<%= participant.state %>"><%= participant.current_state %></span>
     <span class="date"><%= time_ago(participant, :updated_at) %></span>
   </div>
   <div class="details">гр. <%= participant.edu_group %>, <%= participant.course %> курс, каф. <%= participant.subfaculty %> <%= participant.faculty %></div>
