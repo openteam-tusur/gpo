@@ -18,7 +18,7 @@ module ProjectsHelper
 
   def project_participants(project)
     if project.participants.any?
-      project_participants = project.participants.sort_by(&:last_name).map {|p| "#{p.name} (гр. #{p.edu_group})"}.join(', ')
+      project_participants = project.participants.sort_by(&:last_name).map {|p| "#{p.name} (гр. #{p.edu_group}, каф. #{p.subfaculty})"}.join(', ')
     else
       project_participants = 'не назначены'
     end
