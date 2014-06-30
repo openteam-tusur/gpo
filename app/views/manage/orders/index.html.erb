@@ -8,5 +8,6 @@
 
 <% action_link(link_to(I18n.t("opening_order.new"), new_manage_chair_opening_order_path(@chair)), "new", "Позволяет создать проект приказа о формировании проектов") if can?(:create, @chair.opening_orders.new) %>
 <% action_link(link_to(I18n.t("workgroup_order.new"), new_manage_chair_workgroup_order_path(@chair)), "new", "Позволяет создать проект приказа об изменении рабочих групп проектов") if can?(:create, @chair.workgroup_orders.new) %>
+<% action_link(link_to(I18n.t("workgroup_order.instruction"), 'http://www.tusur.ru/ru/education/edu-process/gpo/instructions/form.doc'), "new", "Инструкция по формированию приказов в АИС ГПО") %>
 
 <%= render_list "order", @orders, :id => "orders" %>
