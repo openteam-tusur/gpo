@@ -268,3 +268,24 @@ ru:
         interfaculty: Межфакультетский проект
         intersubfaculty: Межкафедральный проект
 
+  statistics:
+    active_projects:                Активных проектов
+    sbi_projects:                   Резидентов СБИ
+    interfaculty_projects:          Межфакультетских проектов
+    intersubfaculty_projects:       Межкафедральных проектов
+    draft_projects:                 Черновиков проектов
+    closed_projects:                Закрытых проектов
+    managers:                       Руководителей проектов
+    participant_total:              Всего студентов
+    participant_sbi:                Студентов в проектах резидентах СБИ
+    participant_interfaculty:       Студентов в межфакультетских проектах
+    participant_intersubfaculty:    Студентов в межкафедральных проектах
+    participant_course_1:           Студентов 1 курса
+    participant_course_2:           Студентов 2 курса
+    participant_course_3:           Студентов 3 курса
+    participant_course_4:           Студентов 4 курса
+    participant_course_5:           Студентов 5 курса
+    undergraduates_at_course_1:     Магистрантов 1 курса
+    undergraduates_at_course_2:     Магистрантов 2 курса
+
+
