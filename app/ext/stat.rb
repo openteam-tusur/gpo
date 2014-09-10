@@ -18,28 +18,28 @@ class Stat
   def self.global(*types)
     stats_collection = {
       :projects => [
-        Stat.new(:active_projects, Project.active.count,                  'Активных проектов'),
-        Stat.new(:active_projects, Project.active.sbi_residents.count,    'Резидентов СБИ'),
-        Stat.new(:active_projects, Project.active.interfaculty.count,     'Межфакультетских проектов'),
-        Stat.new(:active_projects, Project.active.intersubfaculty.count,  'Межкафедральных проектов'),
-        Stat.new(:draft_projects,  Project.draft.count,                   'Черновиков проектов'),
-        Stat.new(:closed_projects, Project.closed.count,                  'Закрытых проектов')
+        Stat.new(:active_projects,          Project.active.count,                  I18n.t('statistics.active_projects')),
+        Stat.new(:sbi_projects,             Project.active.sbi_residents.count,    I18n.t('statistics.sbi_projects')),
+        Stat.new(:interfaculty_projects,    Project.active.interfaculty.count,     I18n.t('statistics.interfaculty_projects')),
+        Stat.new(:intersubfaculty_projects, Project.active.intersubfaculty.count,  I18n.t('statistics.intersubfaculty_projects')),
+        Stat.new(:draft_projects,           Project.draft.count,                   I18n.t('statistics.draft_projects')),
+        Stat.new(:closed_projects,          Project.closed.count,                  I18n.t('statistics.closed_projects'))
       ],
       :managers => [
-        Stat.new(:managers, ProjectManager.approved.map(&:user).uniq.count, 'Руководителей проектов')
+        Stat.new(:managers, ProjectManager.approved.map(&:user).uniq.count, I18n.t('statistics.managers'))
       ],
       :participants => [
-        Stat.new(:participant_total,            Participant.active.count,                       'Всего студентов'),
-        Stat.new(:participant_sbi,              Participant.sbi_residents.count,                'Студентов в проектах резидентах СБИ'),
-        Stat.new(:participant_interfaculty,     Participant.interfaculty.count,                 'Студентов в межфакультетских проектах'),
-        Stat.new(:participant_intersubfaculty,  Participant.intersubfaculty.count,              'Студентов в межкафедральных проектах'),
-        Stat.new(:participant_course_1,         Participant.active.at_course(1).count,          'Студентов 1 курса'),
-        Stat.new(:participant_course_2,         Participant.active.at_course(2).count,          'Студентов 2 курса'),
-        Stat.new(:participant_course_3,         Participant.active.at_course(3).count,          'Студентов 3 курса'),
-        Stat.new(:participant_course_4,         Participant.active.at_course(4).count,          'Студентов 4 курса'),
-        Stat.new(:participant_course_5,         Participant.active.at_course(5).count,          'Студентов 5 курса'),
-        Stat.new(:undergraduates_at_course_1,   Participant.undergraduates_at_course(1).count,  'Магистрантов 1 курса'),
-        Stat.new(:undergraduates_at_course_2,   Participant.undergraduates_at_course(2).count,  'Магистрантов 2 курса')
+        Stat.new(:participant_total,            Participant.active.count,                       I18n.t('statistics.participant_total')),
+        Stat.new(:participant_sbi,              Participant.sbi_residents.count,                I18n.t('statistics.participant_sbi')),
+        Stat.new(:participant_interfaculty,     Participant.interfaculty.count,                 I18n.t('statistics.participant_interfaculty')),
+        Stat.new(:participant_intersubfaculty,  Participant.intersubfaculty.count,              I18n.t('statistics.participant_intersubfaculty')),
+        Stat.new(:participant_course_1,         Participant.active.at_course(1).count,          I18n.t('statistics.participant_course_1')),
+        Stat.new(:participant_course_2,         Participant.active.at_course(2).count,          I18n.t('statistics.participant_course_2')),
+        Stat.new(:participant_course_3,         Participant.active.at_course(3).count,          I18n.t('statistics.participant_course_3')),
+        Stat.new(:participant_course_4,         Participant.active.at_course(4).count,          I18n.t('statistics.participant_course_4')),
+        Stat.new(:participant_course_5,         Participant.active.at_course(5).count,          I18n.t('statistics.participant_course_5')),
+        Stat.new(:undergraduates_at_course_1,   Participant.undergraduates_at_course(1).count,  I18n.t('statistics.undergraduates_at_course_1')),
+        Stat.new(:undergraduates_at_course_2,   Participant.undergraduates_at_course(2).count,  I18n.t('statistics.undergraduates_at_course_2'))
       ]
     }
     Stat.get_stats(stats_collection, *types)
@@ -48,28 +48,28 @@ class Stat
   def self.for_chair(chair, *types)
      stats_collection = {
       :projects => [
-        Stat.new(:active_projects, chair.projects.active.count,                   'Активных проектов'),
-        Stat.new(:active_projects, chair.projects.active.sbi_residents.count,     'Резидентов СБИ'),
-        Stat.new(:active_projects, chair.projects.active.interfaculty.count,      'Межфакультетских проектов'),
-        Stat.new(:active_projects, chair.projects.active.intersubfaculty.count,   'Межкафедральных проектов'),
-        Stat.new(:draft_projects,  chair.projects.draft.count,                    'Черновиков проектов'),
-        Stat.new(:closed_projects, chair.projects.closed.count,                   'Закрытых проектов')
+        Stat.new(:active_projects,          chair.projects.active.count,                   I18n.t('statistics.active_projects')),
+        Stat.new(:sbi_projects,             chair.projects.active.sbi_residents.count,     I18n.t('statistics.sbi_projects')),
+        Stat.new(:interfaculty_projects,    chair.projects.active.interfaculty.count,      I18n.t('statistics.interfaculty_projects')),
+        Stat.new(:intersubfaculty_projects, chair.projects.active.intersubfaculty.count,   I18n.t('statistics.intersubfaculty_projects')),
+        Stat.new(:draft_projects,           chair.projects.draft.count,                    I18n.t('statistics.draft_projects')),
+        Stat.new(:closed_projects,          chair.projects.closed.count,                   I18n.t('statistics.closed_projects'))
       ],
       :managers => [
-        Stat.new(:managers, chair.project_managers.approved.map(&:user).uniq.count, 'Руководителей проектов')
+        Stat.new(:managers, chair.project_managers.approved.map(&:user).uniq.count, I18n.t('statistics.managers'))
       ],
       :participants => [
-        Stat.new(:participant_total,            chair.participants.active.count,                                'Всего студентов'),
-        Stat.new(:participant_sbi,              chair.participants.sbi_residents.count,                         'Студентов в проектах резидентах СБИ'),
-        Stat.new(:participant_interfaculty,     chair.participants.interfaculty.count,                          'Студентов в межфакультетских проектах'),
-        Stat.new(:participant_intersubfaculty,  chair.participants.intersubfaculty.count,                       'Студентов в межкафедральных проектах'),
-        Stat.new(:participant_course_1,         chair.participants.active.at_course(1).count,                   'Студентов 1 курса'),
-        Stat.new(:participant_course_2,         chair.participants.active.at_course(2).count,                   'Студентов 2 курса'),
-        Stat.new(:participant_course_3,         chair.participants.active.at_course(3).count,                   'Студентов 3 курса'),
-        Stat.new(:participant_course_4,         chair.participants.active.at_course(4).count,                   'Студентов 4 курса'),
-        Stat.new(:participant_course_5,         chair.participants.active.at_course(5).count,                   'Студентов 5 курса'),
-        Stat.new(:undergraduates_at_course_1,   chair.participants.active.undergraduates_at_course(1).count,    'Магистрантов 1 курса'),
-        Stat.new(:undergraduates_at_course_2,   chair.participants.active.undergraduates_at_course(2).count,    'Магистрантов 2 курса')
+        Stat.new(:participant_total,            chair.participants.active.count,                                I18n.t('statistics.participant_total')),
+        Stat.new(:participant_sbi,              chair.participants.sbi_residents.count,                         I18n.t('statistics.participant_sbi')),
+        Stat.new(:participant_interfaculty,     chair.participants.interfaculty.count,                          I18n.t('statistics.participant_interfaculty')),
+        Stat.new(:participant_intersubfaculty,  chair.participants.intersubfaculty.count,                       I18n.t('statistics.participant_intersubfaculty')),
+        Stat.new(:participant_course_1,         chair.participants.active.at_course(1).count,                   I18n.t('statistics.participant_course_1')),
+        Stat.new(:participant_course_2,         chair.participants.active.at_course(2).count,                   I18n.t('statistics.participant_course_2')),
+        Stat.new(:participant_course_3,         chair.participants.active.at_course(3).count,                   I18n.t('statistics.participant_course_3')),
+        Stat.new(:participant_course_4,         chair.participants.active.at_course(4).count,                   I18n.t('statistics.participant_course_4')),
+        Stat.new(:participant_course_5,         chair.participants.active.at_course(5).count,                   I18n.t('statistics.participant_course_5')),
+        Stat.new(:undergraduates_at_course_1,   chair.participants.active.undergraduates_at_course(1).count,    I18n.t('statistics.undergraduates_at_course_1')),
+        Stat.new(:undergraduates_at_course_2,   chair.participants.active.undergraduates_at_course(2).count,    I18n.t('statistics.undergraduates_at_course_1'))
       ]
     }
     Stat.get_stats(stats_collection, *types)
@@ -80,14 +80,14 @@ class Stat
       :general => [
       ],
       :participants => [
-        Stat.new(:participant_total,    project.participants.active.count,              "Всего студентов"),
-        Stat.new(:participant_course_1, project.participants.active.at_course(1).count, "Студентов 1 курса"),
-        Stat.new(:participant_course_2, project.participants.active.at_course(2).count, "Студентов 2 курса"),
-        Stat.new(:participant_course_3, project.participants.active.at_course(3).count, "Студентов 3 курса"),
-        Stat.new(:participant_course_4, project.participants.active.at_course(4).count, "Студентов 4 курса"),
-        Stat.new(:participant_course_5, project.participants.active.at_course(5).count, "Студентов 5 курса"),
-        Stat.new(:undergraduates_at_course_1, project.participants.active.undergraduates_at_course(1).count,      "Магистрантов 1 курса"),
-        Stat.new(:undergraduates_at_course_2, project.participants.active.undergraduates_at_course(2).count,      "Магистрантов 2 курса")
+        Stat.new(:participant_total,    project.participants.active.count,                                   I18n.t('statistics.participant_total')),
+        Stat.new(:participant_course_1, project.participants.active.at_course(1).count,                      I18n.t('statistics.participant_course_1')),
+        Stat.new(:participant_course_2, project.participants.active.at_course(2).count,                      I18n.t('statistics.participant_course_2')),
+        Stat.new(:participant_course_3, project.participants.active.at_course(3).count,                      I18n.t('statistics.participant_course_3')),
+        Stat.new(:participant_course_4, project.participants.active.at_course(4).count,                      I18n.t('statistics.participant_course_4')),
+        Stat.new(:participant_course_5, project.participants.active.at_course(5).count,                      I18n.t('statistics.participant_course_5')),
+        Stat.new(:undergraduates_at_course_1, project.participants.active.undergraduates_at_course(1).count, I18n.t('statistics.undergraduates_at_course_1')),
+        Stat.new(:undergraduates_at_course_2, project.participants.active.undergraduates_at_course(2).count, I18n.t('statistics.undergraduates_at_course_2'))
       ]
     }
     Stat.get_stats(stats_collection, *types)
