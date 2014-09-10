@@ -76,6 +76,7 @@ class Project < ActiveRecord::Base
     string(:state)                  { state }
     string(:category)               { category }
     string(:interdisciplinary)      { self.interdisciplinary }
+    boolean(:sbi_resident)          { self.sbi_placing.resident? }
   end
 
   scope :for_user, ->(user) do
