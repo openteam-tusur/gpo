@@ -58,6 +58,9 @@ class Participant < ActiveRecord::Base
   scope :undergraduates,     where(undergraduate: true)
   scope :undergraduates_at_course,          ->(course) { where('course = ? AND undergraduate = true', course) }
   scope :as_executive,       -> { where(:executive => true) }
+  scope :sbi_residents,      -> { joins(:project).where 'projects.sbi_placing' => :resident }
+  scope :interfaculty,       -> { joins(:project).where 'projects.interdisciplinary' => :interfaculty }
+  scope :intersubfaculty,    -> { joins(:project).where 'projects.interdisciplinary' => :intersubfaculty }
 
   delegate :abbr, :to => :chair, :prefix => true
 
