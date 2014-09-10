@@ -10,6 +10,7 @@ Gpo::Application.routes.draw do
 
     resources :gpodays,     except: :show
     resources :reports,     only: [:index, :show]
+    resources :statistics
 
     resources :chairs do
       resources :visitations, only: :index
