@@ -1,0 +1,46 @@
+.tables
+  +clearfix
+
+  .table1,
+  .table2
+    +clearfix
+    float: left
+
+  .table1
+    width: 250px
+
+    table
+      width: 100%
+
+  .table2
+    overflow: auto
+    width: 580px
+
+.table1, .table2
+  td, th
+    padding: 5px
+    border: 1px solid #DDD
+    height: 30px
+
+    &.indicator
+      text-align: right
+
+  .current
+    border-left: none
+
+  th
+    font-weight: bold
+
+
+.statistics_manipulations
+  +clearfix
+  margin-bottom: 10px
+
+  .select_statistics
+    float: left
+
+    span
+      font-weight: bold
+
+  .save_statistics
+    float: right

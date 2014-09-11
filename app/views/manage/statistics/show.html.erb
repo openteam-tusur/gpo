@@ -1,6 +1,73 @@
-<% title 'Статистика', :statistics %>
-
-<%= form_tag manage_statistics_snapshot_path do %>
-  <%= submit_tag 'Сохранить статистику' %>
+<% if @chair %>
+  <% title "Статистика #{@chair.abbr}", :statistics %>
+<% else %>
+  <% title 'Статистика', :statistics %>
 <% end %>
 
+
+<div class="statistics_manipulations">
+  <div class="select_statistics">
+    <%= form_tag manage_statistics_path, :method => "get", :class => 'go-to-chair-statistics' do %>
+      <span>Кафедра:</span>
+      <%= select_tag :statistics,
+        options_for_select([['Вся статистика', manage_statistics_path]] + @chairs.map {|c| [c.abbr, manage_chair_statistics_path(c)]}, request.fullpath),
+        :include_blank => false, :class => 'select' %>
+    <% end %>
+  </div>
+
+  <div class="save_statistics">
+    <%= form_tag manage_statistics_snapshot_path do %>
+      <%= submit_tag 'Сохранить текущую статистику' %>
+    <% end %>
+  </div>
+</div>
+
+<div class="tables">
+  <div class='statistics_table table1'>
+    <table>
+      <thead>
+        <tr>
+          <th>Показатели</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @indicators.each_with_index do |indicator, index| %>
+          <tr>
+            <td><%= I18n.t("statistics.#{indicator}") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="statistics_table table2">
+    <table>
+      <thead>
+        <tr>
+          <th class='current'>Текущая</th>
+          <% @dates.each do |date| %>
+            <th><%= I18n.l(date, :format => '%d.%m.%Y') %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @indicators.each_with_index do |indicator, index| %>
+          <tr>
+            <td class='indicator current'><%= @current_statistics[index].value %></td>
+            <% @statistics.each do |statistic| %>
+              <td class='indicator'>
+                <% if @chair %>
+                  <%= statistic.data[@chair.id][indicator] %>
+                <% else %>
+                  <%= statistic.data[:global][indicator] %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
