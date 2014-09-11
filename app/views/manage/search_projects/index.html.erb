@@ -1,4 +1,7 @@
 <% title "Поиск проектов", :search_projects %>
+<%= content_for :page_title do %>
+  <%= link_to "Cкачать результаты", manage_search_projects_path(params.merge(:format => :xls)), :class => 'button' %>
+<% end if @search_results.any? %>
 
 <div class='search_projects'>
   <%= form_tag manage_search_projects_path, :method => :get do %>
@@ -17,10 +20,9 @@
       options_from_collection_for_select([['intersubfaculty', 'Межкафедральный проект'],['interfaculty', 'Межфакультетский проект']], 'first', 'second', params[:interdisciplinary]),
       :include_blank => true %>
     </div>
-    <%= submit_tag 'Найти', :class => 'search_submit' %>
+    <%= submit_tag 'Найти', :class => 'search_submit button' %>
   <% end %>
 </div>
-<%= link_to "скачать", manage_search_projects_path(params.merge(:format => :xls)) %>
 
 <ul class='projects_list'>
   <% @search_results.each do |project| %>
