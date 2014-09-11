@@ -14,7 +14,7 @@ class Manage::StatisticsController < Manage::ApplicationController
                 Stat.global
               end
     @statistics = StatisticsSnapshot.order('created_at desc')
-    @indicators = @statistics.first.data[:global].map {|k,v| k}
+    @indicators = @current_statistics.map(&:key)
     @dates = @statistics.map(&:created_at)
   end
 end
