@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: visitations
@@ -8,8 +7,8 @@
 #  participant_id :integer
 #  gpoday_id      :integer
 #  rate           :float
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class Visitation < ActiveRecord::Base

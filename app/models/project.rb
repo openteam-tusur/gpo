@@ -1,37 +1,42 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: projects
 #
-#  id               :integer          not null, primary key
-#  cipher           :string(255)
-#  title            :string(255)
-#  created_at       :datetime
-#  updated_at       :datetime
-#  chair_id         :integer
-#  stakeholders     :text
-#  funds_required   :text
-#  funds_sources    :text
-#  purpose          :text
-#  features         :text
-#  analysis         :text
-#  novelty          :text
-#  expected_results :text
-#  release_cost     :text
-#  forecast         :text
-#  state            :string(255)
-#  editable_state   :string(255)
-#  close_reason     :text
-#  theme_id         :integer
-#  goal             :text
-#  source_data      :text
+#  id                :integer          not null, primary key
+#  cipher            :string(255)
+#  title             :string(255)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  chair_id          :integer
+#  stakeholders      :text
+#  funds_required    :text
+#  funds_sources     :text
+#  purpose           :text
+#  features          :text
+#  analysis          :text
+#  novelty           :text
+#  expected_results  :text
+#  release_cost      :text
+#  forecast          :text
+#  state             :string(255)
+#  editable_state    :string(255)
+#  close_reason      :text
+#  theme_id          :integer
+#  goal              :text
+#  source_data       :text
+#  sbi_placing       :string(255)
+#  interdisciplinary :string(255)
+#  category          :string(255)
+#  result            :string(255)
+#  closed_on         :date
 #
 
 class Project < ActiveRecord::Base
   extend Enumerize
   attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
-    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing
+    :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing,
+    :result, :closed_on
 
   belongs_to :chair
   belongs_to :theme
@@ -90,10 +95,11 @@ class Project < ActiveRecord::Base
   enumerize :sbi_placing, in: [:resident, :not_related], predicates: { prefix: true }
   enumerize :interdisciplinary, in: [:intersubfaculty, :interfaculty, :not_interdisciplinary], default: :not_interdisciplinary, predicates: true
   enumerize :category, in: [:business, :research, :by_request, :for_university, :social], predicates: true
+  enumerize :result, :in => [:programm, :device, :model, :method, :technology, :none, :other]
 
   state_machine :initial => :draft do
     state :closed do
-      validates_presence_of :close_reason
+      validates_presence_of :close_reason, :result
     end
 
     event :approve do
@@ -114,10 +120,12 @@ class Project < ActiveRecord::Base
     after_transition any => :closed do |project, transition|
       project.disable_modifications!
       project.project_managers.destroy_all
+      project.set_closed_on
     end
 
     after_transition :closed => :active do |project, transition|
       project.enable_modifications!
+      project.reset_result_and_closed_on
     end
   end
 
@@ -174,6 +182,14 @@ class Project < ActiveRecord::Base
     self.interdisciplinary = 'intersubfaculty' if participants.active.group_by(&:subfaculty).size > 1
     self.interdisciplinary = 'interfaculty' if participants.active.group_by(&:faculty).size > 1
     save if self.interdisciplinary_changed?
+  end
+
+  def set_closed_on
+    update_attribute :closed_on, Date.today
+  end
+
+  def reset_result_and_closed_on
+    update_attributes :result => nil, :closed_on => nil
   end
 
   private

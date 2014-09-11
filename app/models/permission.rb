@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: permissions
@@ -9,8 +8,8 @@
 #  role         :string(255)
 #  context_type :string(255)
 #  context_id   :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 
 class Permission < ActiveRecord::Base

@@ -7,8 +7,8 @@
 #  title      :string(255)
 #  abbr       :string(255)
 #  chief      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  faculty    :string(255)
 #
 

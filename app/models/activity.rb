@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: activities
@@ -9,8 +8,8 @@
 #  comment      :text
 #  context_type :string(255)
 #  context_id   :integer
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #  chair_id     :integer
 #  actor        :string(255)
 #

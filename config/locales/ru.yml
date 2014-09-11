@@ -160,6 +160,7 @@ ru:
         theme_id:         Направление
         title:            Название
         sbi_placing:      Размещение в СБИ
+        result:           Результат выполнения проекта
 
       stage:
         title:            Название
@@ -267,6 +268,15 @@ ru:
       interdisciplinary:
         interfaculty: Межфакультетский проект
         intersubfaculty: Межкафедральный проект
+
+      result:
+        programm:     программа
+        device:       устройство
+        model:        модель
+        method:       методика
+        technology:   технология
+        none:         нет
+        other:        другое
 
   statistics:
     active_projects:                Активных проектов
