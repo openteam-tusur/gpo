@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: statistics_snapshots
+#
+#  id         :integer          not null, primary key
+#  data       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class StatisticsSnapshot < ActiveRecord::Base
   attr_accessible :data
 

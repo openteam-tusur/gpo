@@ -10,8 +10,8 @@
 #  funds_required :text
 #  activity       :text
 #  results        :text
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 Fabricator(:stage) do

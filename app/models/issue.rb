@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: issues
@@ -13,8 +12,8 @@
 #  grade              :integer
 #  results            :text
 #  participant_id     :integer
-#  created_at         :datetime
-#  updated_at         :datetime
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
 #
 
 class Issue < ActiveRecord::Base

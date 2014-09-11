@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: order_projects
@@ -7,8 +6,8 @@
 #  id         :integer          not null, primary key
 #  order_id   :integer
 #  project_id :integer
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 # TODO: remove this model

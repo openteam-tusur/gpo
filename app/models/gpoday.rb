@@ -1,13 +1,12 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: gpodays
 #
 #  id         :integer          not null, primary key
 #  date       :date
-#  created_at :datetime
-#  updated_at :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #  kt         :boolean          default(FALSE)
 #
 

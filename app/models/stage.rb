@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 # == Schema Information
 #
 # Table name: stages
@@ -12,8 +11,8 @@
 #  funds_required :text
 #  activity       :text
 #  results        :text
-#  created_at     :datetime
-#  updated_at     :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 
 class Stage < ActiveRecord::Base
