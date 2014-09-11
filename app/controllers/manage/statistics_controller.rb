@@ -6,6 +6,15 @@ class Manage::StatisticsController < Manage::ApplicationController
   end
 
   def show
+    @chairs = Chair.ordered_by_abbr
     @chair = Chair.find_by_id(params[:chair_id])
+    @current_statistics = if @chair
+                Stat.for_chair(@chair)
+              else
+                Stat.global
+              end
+    @statistics = StatisticsSnapshot.order('created_at desc')
+    @indicators = @statistics.first.data[:global].map {|k,v| k}
+    @dates = @statistics.map(&:created_at)
   end
 end

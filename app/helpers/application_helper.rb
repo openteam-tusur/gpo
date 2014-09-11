@@ -28,6 +28,8 @@ module ApplicationHelper
       "container_one_column"
     when "search_projects"
       "container_one_column"
+    when "statistics"
+      "container_one_column"
     else
       "container_two_column"
     end
@@ -40,6 +42,8 @@ module ApplicationHelper
     when "reports"
       "report_navigation"
     when "search_projects"
+      "report_navigation"
+    when "statistics"
       "report_navigation"
     when "themes"
       case controller.action_name

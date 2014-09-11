@@ -12,7 +12,7 @@ Gpo::Application.routes.draw do
     resources :reports,     only: [:index, :show]
 
     get '/statistics'           => 'statistics#show'
-    get '/statistics/:chair_id' => 'statistics#show'
+    get '/statistics/:chair_id' => 'statistics#show', :as => :chair_statistics
     post '/statistics/snapshot' => 'statistics#snapshot'
 
     resources :chairs do
