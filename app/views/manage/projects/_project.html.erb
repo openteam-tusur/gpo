@@ -13,5 +13,11 @@
     <%= "#{Project.human_attribute_name(:close_reason)}: #{project.close_reason}" if project.closed? %>
   </div>
   <div class="details"><%= project_project_managers(project) %></div>
+
+  <% if project.closed_on? && project.result? %>
+    <div class="details">
+      Закрыт: <%= l project.closed_on %>, результат выполнения проекта: <%= project.result_text %>
+    </div>
+  <% end %>
 </div>
 
