@@ -18,8 +18,10 @@
       :include_blank => true %>
     </div>
     <%= submit_tag 'Найти', :class => 'search_submit button' %>
-    <span class="found_count">Найдено: <%= @search_results.count %></span>
-    <%= link_to "Cкачать результаты", manage_search_projects_path(params.merge(:format => :xls)), :class => 'button download_results' %>
+    <% if @search_results.any? %>
+      <span class="found_count">Найдено: <%= @search_results.count %></span>
+      <%= link_to "Cкачать результаты", manage_search_projects_path(params.merge(:format => :xls)), :class => 'button download_results' %>
+    <% end %>
   <% end %>
 </div>
 
