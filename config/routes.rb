@@ -14,6 +14,7 @@ Gpo::Application.routes.draw do
     get '/statistics'           => 'statistics#show'
     get '/statistics/:chair_id' => 'statistics#show', :as => :chair_statistics
     post '/statistics/snapshot' => 'statistics#snapshot'
+    resources :statistics, :only => [:destroy]
 
     resources :chairs do
       resources :visitations, only: :index
