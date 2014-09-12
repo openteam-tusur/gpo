@@ -69,7 +69,7 @@ class Stat
         Stat.new(:participant_course_4,         chair.participants.active.at_course(4).count,                   I18n.t('statistics.participant_course_4')),
         Stat.new(:participant_course_5,         chair.participants.active.at_course(5).count,                   I18n.t('statistics.participant_course_5')),
         Stat.new(:undergraduates_at_course_1,   chair.participants.active.undergraduates_at_course(1).count,    I18n.t('statistics.undergraduates_at_course_1')),
-        Stat.new(:undergraduates_at_course_2,   chair.participants.active.undergraduates_at_course(2).count,    I18n.t('statistics.undergraduates_at_course_1'))
+        Stat.new(:undergraduates_at_course_2,   chair.participants.active.undergraduates_at_course(2).count,    I18n.t('statistics.undergraduates_at_course_2'))
       ]
     }
     Stat.get_stats(stats_collection, *types)
