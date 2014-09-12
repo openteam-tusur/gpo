@@ -18,9 +18,9 @@
 
 .table1, .table2
   td, th
-    padding: 5px
     border: 1px solid #DDD
     height: 30px
+    padding: 5px
 
     &.indicator
       text-align: right
@@ -31,6 +31,9 @@
   th
     font-weight: bold
 
+.delete_statistics
+  &:hover
+    text-decoration: none
 
 .statistics_manipulations
   +clearfix
@@ -43,4 +46,12 @@
       font-weight: bold
 
   .save_statistics
+    +clearfix
     float: right
+    width: 320px
+
+    .save_button
+      float: right
+
+    .export_button
+      float: left
