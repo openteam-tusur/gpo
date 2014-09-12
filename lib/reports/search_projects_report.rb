@@ -36,7 +36,7 @@ class SearchProjectsReport < XlsReport
         tmp_row.elements[7][1].text = participant.name
         tmp_row.elements[8][1].text = participant.course
         tmp_row.elements[9][1].text = participant.edu_group
-        tmp_row.elements[10][1].text = participant.chair.abbr
+        tmp_row.elements[10][1].text = participant.subfaculty
 
 
         tmp_row.elements[11].text = project.sbi_placing.try(:resident?) ? 'Да' : 'Нет'
