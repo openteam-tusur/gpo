@@ -1,5 +1,7 @@
 <% title "Проекты кафедры #{@chair.abbr}", :project %>
 
+<%= render :partial => 'shared/advertisement' %>
+
 <%= render_list "project_with_stats", @projects, :id => "projects" %>
 
 <% content_for :right do %>

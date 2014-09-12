@@ -1,5 +1,7 @@
 <% title "Факультеты и кафедры", :chair %>
 
+<%= render :partial => 'shared/advertisement' %>
+
 <div class="faculties_list">
   <% @chairs.each do |faculty, chairs| %>
     <h2><%= faculty %></h2>
