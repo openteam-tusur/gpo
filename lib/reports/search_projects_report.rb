@@ -39,8 +39,8 @@ class SearchProjectsReport < XlsReport
         tmp_row.elements[10][1].text = participant.subfaculty
 
 
-        tmp_row.elements[11].text = project.sbi_placing.try(:resident?) ? 'Да' : 'Нет'
-        tmp_row.elements[12].text = project.active? ? 'Да' : 'Нет'
+        tmp_row.elements[11][1].text = project.sbi_placing_resident? ? 'Да' : 'Нет'
+        tmp_row.elements[12][1].text = project.active? ? 'Да' : 'Нет'
 
         table.insert_after("//table:table-row[1+#{participant_index}]", tmp_row)
         participant_index += 1
