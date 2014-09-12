@@ -4,7 +4,7 @@
   <%= form_tag manage_search_projects_path, :method => :get do %>
     <%= hidden_field_tag 'search', true %>
     <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по названию, руководителю, направлению, кафедре', :class => 'search_input' %>
-    <span>Только активные:</span><%= check_box_tag 'active', 'yes', params[:active] %>
+    <span>Только активные:</span><%= check_box_tag 'active', 'yes', params.key?(:utf8) ? params[:active] : true %>
     <span>Резиденты СБИ:</span><%= check_box_tag 'sbi_resident', 'true', params[:sbi_resident] %>
     <div class='chair_theme'>
       <span>Кафедра:</span><%= select_tag 'chair', options_from_collection_for_select(@chairs, 'abbr', 'abbr', params[:chair]), :include_blank => true %>
