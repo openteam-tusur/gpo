@@ -57,12 +57,12 @@ class Project < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :chair_id
 
-  scope :current_active, where(:state => %w[draft active])
 
   before_create :set_cipher, :unless => :cipher?
 
   before_destroy :destroyable?
 
+  scope :current_active, -> { where(:state => %w[draft active]) }
   scope :active, -> { where(:state => :active) }
   scope :draft,  -> { where(:state => :draft) }
   scope :closed, -> { where(:state => :closed) }
