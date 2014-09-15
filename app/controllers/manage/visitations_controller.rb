@@ -54,7 +54,7 @@ class Manage::VisitationsController < Manage::ApplicationController
   end
 
   def resource_name
-    resource.class.model_name.underscore
+    resource.class.name.underscore
   end
 end
 

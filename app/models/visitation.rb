@@ -23,8 +23,8 @@ class Visitation < ActiveRecord::Base
 
   scope :for_participant, ->(participant) { where(:participant_id => participant) }
 
-  scope :ascending, joins(:gpoday).order("gpodays.date")
-  scope :descending, joins(:gpoday).order("gpodays.date desc")
+  scope :ascending,  -> { joins(:gpoday).order("gpodays.date") }
+  scope :descending, -> { joins(:gpoday).order("gpodays.date desc") }
 
   def kt_issues_sum
     Issue.for_participant(participant).beetween_dates(kt_start, date).sum(:grade)

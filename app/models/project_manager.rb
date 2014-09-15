@@ -22,11 +22,11 @@ class ProjectManager < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
 
-  scope :active, where(:state => %w[approved awaiting_removal])
+  scope :active,   -> { where(:state => %w[approved awaiting_removal]) }
 
-  scope :approved, where(:state => 'approved')
+  scope :approved, -> { where(:state => 'approved') }
 
-  scope :awaiting, where(:state => %w[awaiting_approval awaiting_removal])
+  scope :awaiting, -> { where(:state => %w[awaiting_approval awaiting_removal]) }
 
   delegate :first_name, :last_name, :middle_name, :email, to: :user
 

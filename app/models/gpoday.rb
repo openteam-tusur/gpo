@@ -18,8 +18,8 @@ class Gpoday < ActiveRecord::Base
 
   has_many :visitations, :dependent => :destroy
 
-  scope :ascending, order("date asc")
-  scope :descending, order("date desc")
+  scope :ascending,  -> { order("date asc") }
+  scope :descending, -> { order("date desc") }
 
 end
 

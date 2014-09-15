@@ -1,6 +1,9 @@
 app:
   secret:               secret
 
+devise:
+  secret:               secret
+
 solr:
   url:                  http://localhost:8982/solr
 
@@ -13,3 +16,11 @@ storage:
 
 converter:
   url:                  http://docon.openteam.ru
+
+session_store:
+  url:                  redis://host:6379/0/sessions
+
+sso:
+  key:                  KEY
+  secret:               SECRET
+  url:                  http://sso.url

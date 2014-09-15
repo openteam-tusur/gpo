@@ -63,10 +63,10 @@ class Project < ActiveRecord::Base
 
   before_destroy :destroyable?
 
-  scope :active, where(:state => :active)
-  scope :draft, where(:state => :draft)
-  scope :closed, where(:state => :closed)
-  scope :editable, where(:editable_state => :editable)
+  scope :active, -> { where(:state => :active) }
+  scope :draft,  -> { where(:state => :draft) }
+  scope :closed, -> { where(:state => :closed) }
+  scope :editable, -> { where(:editable_state => :editable) }
   scope :sbi_residents, ->{ where(:sbi_placing => :resident) }
   scope :interdisciplinary, ->{ where(:interdisciplinary => [:interfaculty, :intersubfaculty]) }
   scope :interfaculty, -> {where(:interdisciplinary => :interfaculty)}

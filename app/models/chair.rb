@@ -20,23 +20,23 @@ class Chair < ActiveRecord::Base
   validates_presence_of :title, :abbr, :chief
   validates_uniqueness_of :abbr
 
-  has_many :projects, :order => 'cipher desc', :dependent => :destroy
+  has_many :projects, :dependent => :destroy
   has_many :orders, :order => 'id desc', :dependent => :destroy
   has_many :workgroup_orders, :order => 'id desc', :dependent => :destroy
   has_many :opening_orders, :order => 'id desc', :dependent => :destroy
   has_many :users, :order => 'last_name', :dependent => :destroy
   has_many :participants, :order => 'last_name', :through => :projects
   has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
-  has_many :project_managers, :through => :projects, :conditions => { :state => :approved }
-  has_many :project_manager_users, :class_name => User, :through => :project_managers, :source => :user, :uniq => true
+  has_many :project_managers, -> { where(:state => :approved) }, :through => :projects
+  has_many :project_manager_users, :through => :project_managers, :class_name => User, :source => :user, :uniq => true
   has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
 
   has_many :permissions, :as => :context, :dependent => :destroy
   has_many :mentors, :through => :permissions, :conditions => ["permissions.role = ?", 'mentor'], :source => :user, :order => "last_name"
 
-  scope :ordered_by_abbr, :order => "abbr"
-  scope :ordered_by_title, :order => "title"
-  scope :ordered_by_faculty, :order => "faculty, title"
+  scope :ordered_by_abbr,    -> { order "abbr" }
+  scope :ordered_by_title,   -> { order "title" }
+  scope :ordered_by_faculty, -> { order "faculty, title" }
 
   def id_to_s
     self.abbr

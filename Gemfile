@@ -1,54 +1,51 @@
 source 'https://rubygems.org'
 
-group :assets do
-  gem 'coffee-rails'
-  gem 'sass-rails'
-  gem 'turbo-sprockets-rails3'
-  gem 'uglifier'
-end
 
 group :default do
   gem 'attribute_normalizer'
   gem 'better'
+  gem 'coffee-rails',        '~> 4.0.0'
   gem 'compass-rails'
   gem 'curb'
-  gem 'devise-russian'
   gem 'decent_exposure'
+  gem 'devise'
+  gem 'devise-russian'
   gem 'enumerize'
   gem 'grape'
-  gem 'has_scope'
-  gem 'inherited_resources'
+  gem 'has_scope', '~> 0.6.0.rc'
+  gem 'inherited_resources', '~> 1.4.1'
   gem 'jquery-rails'
+  gem 'jquery-ui-rails'
   gem 'nested_form'
   gem 'openteam-commons'
   gem 'paperclip-elvfs'
+  gem 'pg'
   gem 'progress_bar'
-  gem 'rails',                '~> 3.2.13'
+  gem 'protected_attributes'
+  gem 'rails',                '4.0.10'
+  gem 'rails-observers'
+  gem 'redis-rails'
   gem 'rubyzip'
   gem 'russian'
-  gem 'timecop',              :require => false
-  gem 'simple_form'
+  gem 'sass-rails', '~> 4.0.0'
+  gem 'simple_form', '~> 3.0.2'
   gem 'sso-auth'
   gem 'state_machine'
   gem 'sunspot_rails',        '~> 2.0.0'
+  gem 'timecop',              :require => false
+  gem 'turbo-sprockets-rails3'
+  gem 'uglifier',             '>= 1.3.0'
+  gem 'zip', '~> 2.0.2'
 end
 
 group :development do
-  gem 'annotate'
-  gem 'brakeman'
-  gem 'capistrano-db-tasks', :git => 'git://github.com/sgruhier/capistrano-db-tasks'
-  gem 'capistrano-unicorn'
   gem 'hirb'
-  gem 'openteam-capistrano'
+  gem 'openteam-capistrano',  '~> 1.0.10'
   gem 'quiet_assets'
   gem 'rails-erd'
-  gem 'sunspot_solr',        '~> 2.0.0'
+  gem 'sunspot_solr',         '~> 2.0.0'
   gem 'sqlite3'
   gem 'thin',                 :require => false
-end
-
-group :production do
-  gem 'pg'
 end
 
 group :test do

@@ -40,10 +40,10 @@ class Order < ActiveRecord::Base
 
   validates_presence_of :projects
 
-  scope :blocking, where(:state => %w[being_reviewed reviewed])
-  scope :not_approved, where(:state => %w[draft being_reviewed reviewed])
-  scope :approved, where(:state => :approved)
-  scope :draft, where(:state => :draft)
+  scope :blocking,     -> { where(:state => %w[being_reviewed reviewed]) }
+  scope :not_approved, -> { where(:state => %w[draft being_reviewed reviewed]) }
+  scope :approved,     -> { where(:state => :approved) }
+  scope :draft,        -> { where(:state => :draft) }
 
   has_attached_file :file, :storage => :elvfs, :elvfs_url => Settings['storage.url']
 

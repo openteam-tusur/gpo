@@ -50,20 +50,20 @@ class Participant < ActiveRecord::Base
   before_create :check_createable
   before_save :set_undergraduate
 
-  scope :ordered,            order(:last_name)
-  scope :active,             where(:state => %w[approved awaiting_removal]).ordered
-  scope :awaiting,           where(:state => %w[awaiting_approval awaiting_removal])
-  scope :awaiting_approval,  where(:state => 'awaiting_approval')
-  scope :awaiting_removal,   where(:state => 'awaiting_removal')
-  scope :problematic,        where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered
-  scope :at_course,          ->(course) { where('course = ? AND undergraduate != true', course) }
-  scope :for_student,        ->(id)     { where(:student_id => id) }
-  scope :undergraduates,     where(undergraduate: true)
-  scope :undergraduates_at_course,          ->(course) { where('course = ? AND undergraduate = true', course) }
-  scope :as_executive,       -> { where(:executive => true) }
-  scope :sbi_residents,      -> { joins(:project).where 'projects.sbi_placing' => :resident }
-  scope :interfaculty,       -> { joins(:project).where 'projects.interdisciplinary' => :interfaculty }
-  scope :intersubfaculty,    -> { joins(:project).where 'projects.interdisciplinary' => :intersubfaculty }
+  scope :ordered,                    -> { order(:last_name) }
+  scope :active,                     -> { where(:state => %w[approved awaiting_removal]).ordered }
+  scope :awaiting,                   -> { where(:state => %w[awaiting_approval awaiting_removal]) }
+  scope :awaiting_approval,          -> { where(:state => 'awaiting_approval') }
+  scope :awaiting_removal,           -> { where(:state => 'awaiting_removal') }
+  scope :problematic,                -> { where('(state in (?) AND contingent_gpo = ?) OR contingent_active = ?', %w[approved awaiting_removal], false, false).ordered }
+  scope :at_course,                  ->(course) { where('course = ? AND undergraduate != true', course) }
+  scope :for_student,                ->(id)     { where(:student_id => id) }
+  scope :undergraduates,             -> { where(undergraduate: true) }
+  scope :undergraduates_at_course,   ->(course) { where('course = ? AND undergraduate = true', course) }
+  scope :as_executive,               -> { where(:executive => true) }
+  scope :sbi_residents,              -> { joins(:project).where 'projects.sbi_placing' => :resident }
+  scope :interfaculty,               -> { joins(:project).where 'projects.interdisciplinary' => :interfaculty }
+  scope :intersubfaculty,            -> { joins(:project).where 'projects.interdisciplinary' => :intersubfaculty }
 
   delegate :abbr, :to => :chair, :prefix => true
 
