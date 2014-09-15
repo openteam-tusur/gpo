@@ -12,7 +12,7 @@ group :default do
   gem 'devise-russian'
   gem 'enumerize'
   gem 'grape'
-  gem 'has_scope', '~> 0.6.0.rc'
+  gem 'has_scope',           '~> 0.6.0.rc'
   gem 'inherited_resources', '~> 1.4.1'
   gem 'jquery-rails'
   gem 'jquery-ui-rails'
@@ -25,17 +25,16 @@ group :default do
   gem 'rails',                '4.0.10'
   gem 'rails-observers'
   gem 'redis-rails'
-  gem 'rubyzip'
+  gem 'rubyzip',              '0.9.9'
   gem 'russian'
-  gem 'sass-rails', '~> 4.0.0'
-  gem 'simple_form', '~> 3.0.2'
+  gem 'sass-rails',           '~> 4.0.0'
+  gem 'simple_form',          '~> 3.0.2'
   gem 'sso-auth'
   gem 'state_machine'
   gem 'sunspot_rails',        '~> 2.0.0'
   gem 'timecop',              :require => false
   gem 'turbo-sprockets-rails3'
   gem 'uglifier',             '>= 1.3.0'
-  gem 'zip', '~> 2.0.2'
 end
 
 group :development do
