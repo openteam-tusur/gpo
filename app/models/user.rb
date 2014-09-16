@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
 
   normalize_attribute :email, :first_name, :middle_name, :last_name, :post, :float, :phone
 
-  #default_scope order('last_name, first_name, middle_name')
+  default_scope order('last_name, first_name, middle_name')
 
   def initials_name
     @initials_name ||= "#{last_name} #{initials}"

@@ -11,7 +11,7 @@ class Manage::ProjectManagersController < Manage::InheritedResourcesController
 
   def index
     index! do
-      @project_managers = @project ? collection : @chair.project_manager_users
+      @project_managers = @project ? collection : @chair.uniq_project_manager_users
       render :layout => 'chair' and return unless @project
     end
   end

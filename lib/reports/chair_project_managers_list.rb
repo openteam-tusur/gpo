@@ -15,7 +15,7 @@ class ChairProjectManagersList < XlsReport
     table = document.elements["//table:table"]
     row = table.delete_element('//table:table-row[4]')
     i = 1
-    @chair.project_manager_users.each do |project_manager|
+    @chair.uniq_project_manager_users.each do |project_manager|
       tmp_row = row.deep_clone
       tmp_row.elements[1][1].text = i
       tmp_row.elements[2][1].text = project_manager.name
