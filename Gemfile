@@ -11,7 +11,7 @@ group :default do
   gem 'devise'
   gem 'devise-russian'
   gem 'enumerize'
-  gem 'grape'
+  gem 'grape',                '0.2.2'
   gem 'has_scope',           '~> 0.6.0.rc'
   gem 'inherited_resources', '~> 1.4.1'
   gem 'jquery-rails',        '2.1.3'
