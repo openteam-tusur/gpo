@@ -32,13 +32,12 @@ group :default do
   gem 'state_machine'
   gem 'sunspot_rails',        '~> 2.0.0'
   gem 'timecop',              :require => false
-  gem 'turbo-sprockets-rails3'
   gem 'uglifier',             '>= 1.3.0'
 end
 
 group :development do
   gem 'hirb'
-  gem 'openteam-capistrano',  '~> 1.0.10'
+  gem 'openteam-capistrano',  '1.0.9'
   gem 'quiet_assets'
   gem 'rails-erd'
   gem 'sunspot_solr',         '~> 2.0.0'
