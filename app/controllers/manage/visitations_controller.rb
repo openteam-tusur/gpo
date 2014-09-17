@@ -19,10 +19,10 @@ class Manage::VisitationsController < Manage::ApplicationController
   def update
     @errors = []
     @gpoday = Gpoday.find(params[:id])
-    params[:participant].each do |participant_with_rate|
-      participant = @project.participants.find(participant_with_rate[0])
+    params[:participant].each do |participant_id, rate|
+      participant = @project.participants.find(participant_id)
       visitation = participant.visitation_for_gpoday(@gpoday)
-      visitation.rate = participant_with_rate[1].gsub(",", ".")
+      visitation.rate = rate.gsub(",", ".")
       unless visitation.save
         @errors << participant.id
       end
