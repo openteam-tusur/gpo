@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 group :default do
   gem 'attribute_normalizer'
   gem 'better'
@@ -16,6 +15,7 @@ group :default do
   gem 'inherited_resources', '~> 1.4.1'
   gem 'jquery-rails',        '2.1.3'
   gem 'nested_form'
+  gem 'non-stupid-digest-assets'
   gem 'openteam-commons'
   gem 'paperclip-elvfs'
   gem 'pg'
