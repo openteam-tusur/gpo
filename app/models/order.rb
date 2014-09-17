@@ -30,10 +30,10 @@ class Order < ActiveRecord::Base
   before_destroy :unlock_projects!, :if => :being_reviewed?
 
   has_many :order_projects, :dependent => :destroy
-  has_many :projects, :through => :order_projects, :order => 'cipher DESC'
+  has_many :projects, -> { order('cipher desc')}, :through => :order_projects
   has_many :participants, :through => :projects
   has_many :project_managers, :through => :projects
-  has_many :chairs, :through => :participants, :uniq => true
+  has_many :chairs, :through => :projects
   has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at DESC'
 
   belongs_to :chair
@@ -183,7 +183,7 @@ class Order < ActiveRecord::Base
   end
 
   def report_prefix
-    self.class.model_name.underscore
+    self.class.model_name.to_s.underscore
   end
 
   def report_basename
