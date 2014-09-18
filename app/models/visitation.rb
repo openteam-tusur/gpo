@@ -12,6 +12,8 @@
 #
 
 class Visitation < ActiveRecord::Base
+  attr_accessible :gpoday_id
+
   belongs_to :gpoday
   belongs_to :participant
 
