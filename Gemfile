@@ -7,7 +7,7 @@ group :default do
   gem 'compass-rails'
   gem 'curb'
   gem 'decent_exposure'
-  gem 'devise'
+  gem 'devise',              '3.2.3'
   gem 'devise-russian'
   gem 'enumerize'
   gem 'grape',                '0.2.2'
