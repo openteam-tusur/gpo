@@ -1,5 +1,5 @@
 @init_hint = () ->
-  $('#tray').append("<img class='hint-switcher' src='/assets/icon-help.png' />")
+  $('#tray').append("<span class='hint-switcher' />")
   $('#hint').addClass("hint-switcher")
   $('.hint-switcher').click () ->
     $('#hint').fadeToggle('fast')
