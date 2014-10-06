@@ -1,6 +1,5 @@
 *.swp
 /.bundle
-/bin
 /config/database.yml
 /config/deploy.yml
 /config/settings.yml
