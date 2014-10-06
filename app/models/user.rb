@@ -24,7 +24,7 @@
 class User < ActiveRecord::Base
   attr_accessible :first_name, :middle_name, :last_name, :email, :phone, :post, :float, :chair_id
 
-  sso_auth_user
+  #sso_auth_user
 
   belongs_to :chair
   has_many :project_managers

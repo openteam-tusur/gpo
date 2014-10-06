@@ -28,7 +28,7 @@ class Permission < ActiveRecord::Base
   scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
   scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
-  sso_auth_permission(:roles => [:manager, :mentor, :project_manager])
+  #sso_auth_permission(:roles => [:manager, :mentor, :project_manager])
 
   def role_with_context
     [human_role, context.id_to_s].compact.join(' ') rescue p self
