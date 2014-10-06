@@ -1,3 +1,22 @@
+GIT
+  remote: git://github.com/openteam-tusur/auth_client.git
+  revision: f0301ced0e18688a415002a9ae03507ca59ac6e2
+  specs:
+    auth_client (0.0.2)
+      activesupport
+      auth_redis_user_connector
+      configliere
+      daemons
+      rails
+
+GIT
+  remote: git://github.com/openteam-tusur/auth_redis_user_connector.git
+  revision: 57ffe41b69a43afce38918eb2c2745e1a8ed47ec
+  specs:
+    auth_redis_user_connector (0.0.7)
+      hiredis
+      redis
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -34,9 +53,6 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    bcrypt (3.1.7)
-    bcrypt-ruby (3.1.5)
-      bcrypt (>= 3.1.3)
     better (1.0.0)
     builder (3.1.4)
     cancan (1.6.10)
@@ -55,7 +71,7 @@ GEM
     capistrano-rvm (0.1.1)
       capistrano (~> 3.0)
       sshkit (~> 1.2)
-    capistrano-sidekiq (0.3.7)
+    capistrano-sidekiq (0.3.8)
       capistrano
       sidekiq
     capistrano3-unicorn (0.2.1)
@@ -91,14 +107,6 @@ GEM
     decent_exposure (2.3.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
-    devise (3.2.3)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
-    devise-russian (2.0.1.1)
-      devise
     diff-lcs (1.2.5)
     enumerize (0.8.0)
       activesupport (>= 3.2)
@@ -107,8 +115,6 @@ GEM
     eventmachine (1.0.3)
     execjs (2.2.1)
     fabrication (2.11.3)
-    faraday (0.9.0)
-      multipart-post (>= 1.2, < 3)
     forgery (0.6.0)
     fssm (0.2.10)
     grape (0.2.2)
@@ -127,16 +133,16 @@ GEM
     highline (1.6.21)
     hike (1.2.3)
     hirb (0.7.2)
+    hiredis (0.5.2)
     i18n (0.6.11)
     ice_nine (0.11.0)
-    inherited_resources (1.4.1)
+    inherited_resources (1.5.0)
       has_scope (~> 0.6.0.rc)
-      responders (~> 1.0.0.rc)
+      responders (~> 1.0)
     jquery-rails (2.1.3)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
     json (1.8.1)
-    jwt (1.0.0)
     kgio (2.9.2)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
@@ -145,7 +151,6 @@ GEM
     minitest (4.7.5)
     multi_json (1.10.1)
     multi_xml (0.5.5)
-    multipart-post (2.0.0)
     nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -153,21 +158,7 @@ GEM
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     non-stupid-digest-assets (1.0.4)
-    oauth2 (1.0.0)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 1.0)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (~> 1.2)
-    omniauth (1.2.2)
-      hashie (>= 1.2, < 4)
-      rack (~> 1.0)
-    omniauth-oauth2 (1.2.0)
-      faraday (>= 0.8, < 0.10)
-      multi_json (~> 1.3)
-      oauth2 (~> 1.0)
-      omniauth (~> 1.2)
-    openteam-capistrano (1.0.9)
+    openteam-capistrano (1.0.11)
       airbrake (~> 3.1.16)
       capistrano (~> 3.1)
       capistrano-db-tasks (~> 0.3)
@@ -182,7 +173,6 @@ GEM
       unicorn
       whenever
     options (2.3.2)
-    orm_adapter (0.5.0)
     paperclip (3.4.0)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -231,26 +221,13 @@ GEM
     raindrops (0.13.0)
     rake (10.3.2)
     redis (3.1.0)
-    redis-actionpack (4.0.0)
-      actionpack (~> 4)
-      redis-rack (~> 1.5.0)
-      redis-store (~> 1.1.0)
-    redis-activesupport (4.0.0)
-      activesupport (~> 4)
-      redis-store (~> 1.1.0)
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
-    redis-rack (1.5.0)
-      rack (~> 1.5)
-      redis-store (~> 1.1.0)
-    redis-rails (4.0.0)
-      redis-actionpack (~> 4)
-      redis-activesupport (~> 4)
-      redis-store (~> 1.1.0)
-    redis-store (1.1.4)
-      redis (>= 2.2)
-    responders (1.0.0)
-      railties (>= 3.2, < 5)
+    redis-session-store (0.8.0)
+      actionpack (>= 3, < 5)
+      redis
+    responders (1.1.1)
+      railties (>= 3.2, < 4.2)
     rsolr (1.0.10)
       builder (>= 2.1.2)
     rspec-core (3.1.2)
@@ -304,13 +281,6 @@ GEM
       colorize
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    sso-auth (0.1.4)
-      cancan
-      configliere
-      devise
-      devise-russian
-      omniauth
-      omniauth-oauth2
     state_machine (1.2.0)
     sunspot (2.0.0)
       pr_geohash (~> 1.0)
@@ -341,8 +311,6 @@ GEM
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
       equalizer (~> 0.0, >= 0.0.9)
-    warden (1.2.3)
-      rack (>= 1.0)
     whenever (0.9.2)
       activesupport (>= 2.3.4)
       chronic (>= 0.6.3)
@@ -352,24 +320,25 @@ PLATFORMS
 
 DEPENDENCIES
   attribute_normalizer
+  auth_client!
+  auth_redis_user_connector!
   better
+  cancan
   coffee-rails (~> 4.0.0)
   compass-rails
   curb
   decent_exposure
-  devise (= 3.2.3)
-  devise-russian
   enumerize
   fabrication
   forgery
   grape (= 0.2.2)
   has_scope (~> 0.6.0.rc)
   hirb
-  inherited_resources (~> 1.4.1)
+  inherited_resources
   jquery-rails (= 2.1.3)
   nested_form
   non-stupid-digest-assets
-  openteam-capistrano (= 1.0.9)
+  openteam-capistrano
   openteam-commons
   paperclip (= 3.4.0)
   paperclip-elvfs (= 0.0.5)
@@ -380,7 +349,7 @@ DEPENDENCIES
   rails (= 4.0.10)
   rails-erd
   rails-observers
-  redis-rails
+  redis-session-store
   rspec-rails
   rubyzip (= 0.9.9)
   russian
@@ -388,7 +357,6 @@ DEPENDENCIES
   shoulda-matchers
   simple_form (~> 3.0.2)
   sqlite3
-  sso-auth
   state_machine
   sunspot_rails (~> 2.0.0)
   sunspot_solr (~> 2.0.0)
