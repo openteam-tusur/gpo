@@ -9,38 +9,41 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140911024412) do
+ActiveRecord::Schema.define(version: 20140922074522) do
 
-  create_table "activities", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "activities", force: true do |t|
     t.text     "action"
     t.text     "comment"
     t.string   "context_type"
     t.integer  "context_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "chair_id"
     t.string   "actor"
   end
 
-  create_table "chairs", :force => true do |t|
+  create_table "chairs", force: true do |t|
     t.string   "title"
     t.string   "abbr"
     t.string   "chief"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "faculty"
   end
 
-  create_table "gpodays", :force => true do |t|
+  create_table "gpodays", force: true do |t|
     t.date     "date"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "kt",         :default => false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "kt",         default: false
   end
 
-  create_table "issues", :force => true do |t|
+  create_table "issues", force: true do |t|
     t.string   "name"
     t.text     "description"
     t.date     "planned_closing_at"
@@ -49,23 +52,23 @@ ActiveRecord::Schema.define(:version => 20140911024412) do
     t.integer  "grade"
     t.text     "results"
     t.integer  "participant_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
-  create_table "order_projects", :force => true do |t|
+  create_table "order_projects", force: true do |t|
     t.integer  "order_id"
     t.integer  "project_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "orders", :force => true do |t|
+  create_table "orders", force: true do |t|
     t.string   "number"
     t.date     "approved_at"
     t.integer  "chair_id"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "type"
     t.string   "state"
     t.string   "file_file_name"
@@ -75,11 +78,11 @@ ActiveRecord::Schema.define(:version => 20140911024412) do
     t.text     "file_url"
   end
 
-  create_table "participants", :force => true do |t|
+  create_table "participants", force: true do |t|
     t.integer  "student_id"
     t.string   "state"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "project_id"
     t.integer  "course"
     t.string   "first_name"
@@ -91,33 +94,35 @@ ActiveRecord::Schema.define(:version => 20140911024412) do
     t.boolean  "undergraduate"
     t.string   "subfaculty"
     t.string   "faculty"
-    t.boolean  "executive",         :default => false
+    t.boolean  "executive",         default: false
   end
 
-  create_table "permissions", :force => true do |t|
-    t.integer  "user_id"
+  create_table "permissions", force: true do |t|
+    t.string   "user_id"
     t.string   "role"
     t.string   "context_type"
     t.integer  "context_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "old_user_uid"
+    t.integer  "old_user_id"
   end
 
-  add_index "permissions", ["user_id", "role", "context_id", "context_type"], :name => "by_user_and_role_and_context"
+  add_index "permissions", ["user_id", "role", "context_id", "context_type"], name: "by_user_and_role_and_context", using: :btree
 
-  create_table "project_managers", :force => true do |t|
+  create_table "project_managers", force: true do |t|
     t.integer  "user_id"
     t.integer  "project_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "state"
   end
 
-  create_table "projects", :force => true do |t|
+  create_table "projects", force: true do |t|
     t.string   "cipher"
     t.string   "title"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "chair_id"
     t.text     "stakeholders"
     t.text     "funds_required"
@@ -142,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20140911024412) do
     t.date     "closed_on"
   end
 
-  create_table "stages", :force => true do |t|
+  create_table "stages", force: true do |t|
     t.integer  "project_id"
     t.text     "title"
     t.date     "start"
@@ -150,26 +155,26 @@ ActiveRecord::Schema.define(:version => 20140911024412) do
     t.text     "funds_required"
     t.text     "activity"
     t.text     "results"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  create_table "statistics_snapshots", :force => true do |t|
+  create_table "statistics_snapshots", force: true do |t|
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "themes", :force => true do |t|
+  create_table "themes", force: true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", :force => true do |t|
-    t.string   "email",              :limit => 100
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+  create_table "users", force: true do |t|
+    t.string   "email",              limit: 100
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "middle_name"
     t.string   "first_name"
     t.string   "last_name"
@@ -185,15 +190,15 @@ ActiveRecord::Schema.define(:version => 20140911024412) do
     t.string   "last_sign_in_ip"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["uid"], :name => "index_users_on_uid"
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
-  create_table "visitations", :force => true do |t|
+  create_table "visitations", force: true do |t|
     t.integer  "participant_id"
     t.integer  "gpoday_id"
     t.float    "rate"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
 end
