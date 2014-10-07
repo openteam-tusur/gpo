@@ -10,15 +10,15 @@ class TaskManager
     @category = nil
   end
 
-  def self.tasks_for(user, chair, context = nil)
+  def self.tasks_for(person, chair, context = nil)
     ret = []
-    if user.manager?
+    if person.manager?
       ret = manager_tasks(chair, context)
-    elsif user.mentor_of?(chair)
+    elsif person.mentor_of?(chair)
       ret = mentor_tasks(chair)
-    elsif user.managable_projects.joins(:chair).where(:chair_id => chair).any?
-      ret = problematic_participants_tasks(user.managable_projects)
-      ret += project_visitations_task(user.managable_projects)
+    elsif person.managable_projects.joins(:chair).where(:chair_id => chair).any?
+      ret = problematic_participants_tasks(person.managable_projects)
+      ret += project_visitations_task(person.managable_projects)
     end
     ret
   end

@@ -26,7 +26,7 @@ class Stat
         Stat.new(:closed_projects,          Project.closed.count,                  I18n.t('statistics.closed_projects'))
       ],
       :managers => [
-        Stat.new(:managers, ProjectManager.approved.map(&:user).uniq.count, I18n.t('statistics.managers'))
+        Stat.new(:managers, ProjectManager.approved.map(&:person).uniq.count, I18n.t('statistics.managers'))
       ],
       :participants => [
         Stat.new(:participant_total,            Participant.active.count,                       I18n.t('statistics.participant_total')),
@@ -56,7 +56,7 @@ class Stat
         Stat.new(:closed_projects,          chair.projects.closed.count,                   I18n.t('statistics.closed_projects'))
       ],
       :managers => [
-        Stat.new(:managers, chair.project_managers.approved.map(&:user).uniq.count, I18n.t('statistics.managers'))
+        Stat.new(:managers, chair.project_managers.approved.map(&:person).uniq.count, I18n.t('statistics.managers'))
       ],
       :participants => [
         Stat.new(:participant_total,            chair.participants.active.count,                                I18n.t('statistics.participant_total')),
