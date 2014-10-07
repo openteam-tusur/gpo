@@ -40,7 +40,7 @@ class Project < ActiveRecord::Base
 
   searchable do
     text(:title, :stored => true)
-    text(:project_managers)         { project_managers.map(&:user).map(&:name).join(' ') }
+    text(:project_managers)         { project_managers.map(&:person).join(' ') }
     text(:participants)             { participants.map {|p| p.name_with_group }.join(' ') }
     string(:chair)                  { chair.abbr if chair}
     string(:theme)                  { theme.name if theme }
