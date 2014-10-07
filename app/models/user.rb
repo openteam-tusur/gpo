@@ -1,4 +1,5 @@
 class User
+  include AuthClient::User
   #attr_accessible :first_name, :middle_name, :last_name, :email, :phone, :post, :float, :chair_id
 
   #sso_auth_user

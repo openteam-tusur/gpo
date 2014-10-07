@@ -1,34 +1,17 @@
-# encoding: utf-8
-# == Schema Information
-#
-# Table name: project_managers
-#
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  project_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  state      :string(255)
-#
-
 class ProjectManager < ActiveRecord::Base
-  attr_accessible :user_id, :state_event
+  attr_accessible :person_id, :state_event
 
-  validates_presence_of :user_id
-  validates_presence_of :project_id
-
-  validates_uniqueness_of :user_id, :scope => [:project_id], :message => 'уже является руководителем проекта'
-
-  belongs_to :user
+  belongs_to :person
   belongs_to :project
 
+  validates_presence_of   :person_id, :project_id
+  validates_uniqueness_of :person_id, :scope => [:project_id], :message => 'уже является руководителем проекта'
+
   scope :active,   -> { where(:state => %w[approved awaiting_removal]) }
-
   scope :approved, -> { where(:state => 'approved') }
-
   scope :awaiting, -> { where(:state => %w[awaiting_approval awaiting_removal]) }
 
-  delegate :first_name, :last_name, :middle_name, :email, to: :user
+  delegate :first_name, :last_name, :middle_name, :email, :to => :user
 
   state_machine :state, :initial => :awaiting_approval do
     event :approve do
@@ -46,21 +29,20 @@ class ProjectManager < ActiveRecord::Base
     end
 
     after_transition :awaiting_removal => :removed do |project_manager, transition|
-      Permission.project_managers.for_project(project_manager.project).for_user(project_manager.user).destroy_all
+      Permission.for_role(:project_manager).for_project(project_manager.project).for_user(project_manager.person).destroy_all
       project_manager.destroy
     end
 
     after_transition any => :approved do |project_manager, transition|
-      Permission.build_project_manager_permission(project_manager.user, project_manager.project).save
+      Permission.build_project_manager_permission(project_manager.person, project_manager.project).save
     end
   end
 
-  # для приказа
   def text_for_order_report
-    "#{self.user.post} #{self.user.initials_name}"
+    "#{person.post} #{person.initials_name}"
   end
 
   def <=>(other)
-    user.last_name <=> other.user.last_name
+    person.last_name <=> other.person.last_name
   end
 end

@@ -1,18 +1,8 @@
-# encoding: utf-8
-# == Schema Information
-#
-# Table name: permissions
-#
-#  id           :integer          not null, primary key
-#  user_id      :integer
-#  role         :string(255)
-#  context_type :string(255)
-#  context_id   :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#
-
 class Permission < ActiveRecord::Base
+  include AuthClient::Permission
+
+  acts_as_auth_client_permission :roles => [:manager, :mentor, :project_manager]
+
   attr_accessible :user, :context
 
   attr_accessible :user_id, :context_id, :role, :context_type
@@ -21,14 +11,12 @@ class Permission < ActiveRecord::Base
 
   validates_uniqueness_of :user_id, :scope => [:role, :context_type, :context_id], :message => 'уже имеет такое правило'
 
-  scope :managers,          -> { where(:role => :manager) }
-  scope :mentors,           -> { where(:role => :mentor) }
-  scope :project_managers,  -> { where(:role => :project_manager) }
+  #scope :managers,          -> { where(:role => :manager) }
+  #scope :mentors,           -> { where(:role => :mentor) }
+  #scope :project_managers,  -> { where(:role => :project_manager) }
   scope :for_user,          ->(user)    { where(:user_id => user) }
   scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
   scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
-
-  #sso_auth_permission(:roles => [:manager, :mentor, :project_manager])
 
   def role_with_context
     [human_role, context.id_to_s].compact.join(' ') rescue p self

@@ -129,7 +129,7 @@ ActiveRecord::Schema.define(version: 20141006091825) do
   add_index "permissions", ["user_id", "role", "context_id", "context_type"], name: "by_user_and_role_and_context", using: :btree
 
   create_table "project_managers", force: true do |t|
-    t.integer  "user_id"
+    t.integer  "person_id"
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
