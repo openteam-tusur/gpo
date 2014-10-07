@@ -58,7 +58,7 @@ class Chair < ActiveRecord::Base
         self.projects.current_active.each do |project|
           xml.project do
             xml.cipher project.cipher
-            xml.project_managers project.project_managers.active.active.map(&:user).map(&:name).join(", ")
+            xml.project_managers project.project_managers.active.active.map(&:person).join(', ')
             xml.count_participants_2 project.participants.active.at_course(2).count
             xml.count_participants_3 project.participants.active.at_course(3).count
             xml.count_participants_4 project.participants.active.at_course(4).count
@@ -68,7 +68,7 @@ class Chair < ActiveRecord::Base
       xml.project_managers do |xml_project_manager|
         uniq_project_manager_users.each do |user|
           xml.project_manager do
-            xml.name user.name
+            xml.name user
           end
         end
       end

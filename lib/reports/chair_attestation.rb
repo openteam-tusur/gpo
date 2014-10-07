@@ -39,7 +39,7 @@ class ChairAttestation < XlsReport
           tmp_row.elements[5].add_attributes({"table:number-rows-spanned" => project.participants.active.size.to_s})
 
         end
-        tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.users.collect {|user| user.name}.join(", ")}"
+        tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.people.collect {|person| person}.join(", ")}"
         (2..6).each do |column_index|
           tmp_row.elements[column_index][1].text = ''
         end

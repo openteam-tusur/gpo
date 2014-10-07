@@ -10,7 +10,7 @@
         <%= nav_link link_to("Проекты", manage_chair_projects_path(@order.chair)), 'projects', :selected => false %>
         <%= nav_link link_to("Приказы", manage_chair_orders_path(@order.chair)), 'orders', :selected => true %>
         <% if can?(:manage_projects, @chair) %>
-          <%= nav_link link_to("Пользователи", manage_chair_users_path(@order.chair)), 'users', :selected => false %>
+          <%= nav_link link_to("Пользователи", manage_chair_people_path(@order.chair)), 'users', :selected => false %>
           <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@order.chair)), 'chairs', :action => 'project_managers', :selected => false %>
           <%= nav_link link_to("Журнал посещаемости", manage_chair_visitations_path(@order.chair)), 'visitations', :selected => false %>
         <% end %>

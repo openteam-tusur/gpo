@@ -26,7 +26,7 @@ class ChairProjectsList < XlsReport
         end
         tmp_row.elements[1][1].text = project.cipher
         tmp_row.elements[2][1].text = project.title
-        tmp_row.elements[3][1].text = project.users.collect {|user| user.name}.join(", ")
+        tmp_row.elements[3][1].text = project.people.collect {|person| person}.join(", ")
         tmp_row.elements[4][1].text = i
         tmp_row.elements[5][1].text = participant.name
         tmp_row.elements[6][1].text = participant.course

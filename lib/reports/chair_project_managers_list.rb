@@ -18,7 +18,7 @@ class ChairProjectManagersList < XlsReport
     @chair.uniq_project_manager_users.each do |project_manager|
       tmp_row = row.deep_clone
       tmp_row.elements[1][1].text = i
-      tmp_row.elements[2][1].text = project_manager.name
+      tmp_row.elements[2][1].text = project_manager
       tmp_row.elements[3][1].text = project_manager.managable_projects.collect {|project| project.cipher }.join(', ')
       tmp_row.elements[4][1].text = project_manager.post
       tmp_row.elements[5][1].text = project_manager.float

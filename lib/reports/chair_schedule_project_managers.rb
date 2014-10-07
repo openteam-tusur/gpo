@@ -22,7 +22,7 @@ class ChairScheduleProjectManagers < XlsReport
           tmp_row.elements[1].add_attributes({"table:number-rows-spanned" => project_manager.managable_projects.size.to_s})
           tmp_row.elements[2].add_attributes({"table:number-rows-spanned" => project_manager.managable_projects.size.to_s})
         end
-        tmp_row.elements[1][1].text = project_manager.name
+        tmp_row.elements[1][1].text = project_manager
         tmp_row.elements[2][1].text = project_manager.post
         tmp_row.elements[3][1].text = project.cipher
         table.add_element tmp_row

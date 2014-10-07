@@ -30,4 +30,12 @@ class User
       []
     end
   end
+
+  def initials_name
+    @initials_name ||= "#{surname} #{initials}"
+  end
+
+  def initials
+    @initials ||= [name.try(:first), patronymic.try(:first)].select(&:present?).map{|letter| "#{letter}."}.join
+  end
 end
