@@ -1,7 +1,9 @@
 # encoding: utf-8
 
 class Manage::ParticipantsController < Manage::InheritedResourcesController
-  belongs_to :chair, :project
+  belongs_to :chair, :parent_class => Chair do
+    belongs_to :project
+  end
 
   actions :index, :new, :create, :edit, :update
   custom_actions :resource => :make_executive

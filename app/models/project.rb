@@ -1,37 +1,3 @@
-# encoding: utf-8
-# == Schema Information
-#
-# Table name: projects
-#
-#  id                :integer          not null, primary key
-#  cipher            :string(255)
-#  title             :string(255)
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  chair_id          :integer
-#  stakeholders      :text
-#  funds_required    :text
-#  funds_sources     :text
-#  purpose           :text
-#  features          :text
-#  analysis          :text
-#  novelty           :text
-#  expected_results  :text
-#  release_cost      :text
-#  forecast          :text
-#  state             :string(255)
-#  editable_state    :string(255)
-#  close_reason      :text
-#  theme_id          :integer
-#  goal              :text
-#  source_data       :text
-#  sbi_placing       :string(255)
-#  interdisciplinary :string(255)
-#  category          :string(255)
-#  result            :string(255)
-#  closed_on         :date
-#
-
 class Project < ActiveRecord::Base
   extend Enumerize
   attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
@@ -44,7 +10,7 @@ class Project < ActiveRecord::Base
   has_many :participants, :dependent => :destroy, :order => "last_name"
   has_many :project_managers, :dependent => :destroy
   has_many :stages, :dependent => :destroy, :order => "start"
-  has_many :users, :through => :project_managers, :order => "last_name"
+  has_many :people, -> { order('people.last_name') }, :through => :project_managers
   has_many :issues, :through => :participants
 
   has_many :order_projects, :dependent => :destroy

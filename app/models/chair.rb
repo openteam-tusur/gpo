@@ -1,19 +1,3 @@
-# encoding: utf-8
-# == Schema Information
-#
-# Table name: chairs
-#
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  abbr       :string(255)
-#  chief      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  faculty    :string(255)
-#
-
-#require 'task_mana'
-
 class Chair < ActiveRecord::Base
   attr_accessible :title, :abbr, :chief
 
@@ -24,11 +8,11 @@ class Chair < ActiveRecord::Base
   has_many :orders, :order => 'id desc', :dependent => :destroy
   has_many :workgroup_orders, :order => 'id desc', :dependent => :destroy
   has_many :opening_orders, :order => 'id desc', :dependent => :destroy
-  has_many :users, :order => 'last_name', :dependent => :destroy
+  has_many :people, :order => 'last_name', :dependent => :destroy
   has_many :participants, :order => 'last_name', :through => :projects
   has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
   has_many :project_managers, -> { where(:state => :approved) }, :through => :projects
-  has_many :project_manager_users, :through => :project_managers, :class_name => User, :source => :user
+  has_many :project_manager_users, :through => :project_managers, :source => :person
   has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
 
   has_many :permissions, :as => :context, :dependent => :destroy
@@ -37,6 +21,10 @@ class Chair < ActiveRecord::Base
   scope :ordered_by_abbr,    -> { order "abbr" }
   scope :ordered_by_title,   -> { order "title" }
   scope :ordered_by_faculty, -> { order "faculty, title" }
+
+  def mentors
+    permissions.for_role(:mentor).map(&:user).compact.sort_by(&:surname)
+  end
 
   def uniq_project_manager_users
     self.project_manager_users.uniq

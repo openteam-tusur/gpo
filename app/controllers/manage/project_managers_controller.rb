@@ -1,8 +1,8 @@
 # encoding: utf-8
 
 class Manage::ProjectManagersController < Manage::InheritedResourcesController
-  belongs_to :chair do
-    belongs_to :project, optional: true
+  belongs_to :chair, :parent_class => Chair do
+    belongs_to :project, :optional => true
   end
 
   actions :all, except: [:show, :destroy]

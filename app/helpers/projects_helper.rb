@@ -11,7 +11,7 @@ module ProjectsHelper
   end
 
   def project_project_managers(project)
-    project_managers = project.users.collect {|user| user.name}.to_sentence
+    project_managers = project.people.to_sentence
     project_managers = "не назначен" if project_managers.blank?
     project_managers
   end

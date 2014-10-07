@@ -8,7 +8,7 @@ module ChairsHelper
   def chair_mentors(chair)
     out = ""
     unless chair.mentors.empty?
-      out = chair.mentors.collect{|user| user.name}.to_sentence
+      out = chair.mentors.to_sentence
     end
     out
   end

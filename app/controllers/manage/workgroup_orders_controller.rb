@@ -1,5 +1,5 @@
 class Manage::WorkgroupOrdersController < Manage::InheritedResourcesController
-  belongs_to :chair
+  belongs_to :chair, :parent_class => Chair
 
   actions :new, :create, :update
 

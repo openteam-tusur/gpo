@@ -34,7 +34,7 @@ class ProjectManager < ActiveRecord::Base
     end
 
     after_transition any => :approved do |project_manager, transition|
-      Permission.build_project_manager_permission(project_manager.person, project_manager.project).save
+      Permission.build_project_manager_permission(project_manager.person, project_manager.project).try :save
     end
   end
 

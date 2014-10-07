@@ -120,7 +120,7 @@ ru:
 
       project_manager:
         project_id:       Проект
-        user_id:          Пользователь
+        person_id:          Пользователь
 
       order:
         approved_at:      Дата
@@ -176,8 +176,8 @@ ru:
       visitation:
         rate:             Баллы
 
-      user:
-        chair_id:              Кафедра
+      person:
+        chair:                 Кафедра
         email:                 E-mail
         first_name:            Имя
         last_name:             Фамилия

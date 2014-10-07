@@ -45,11 +45,11 @@ Gpo::Application.routes.draw do
       resources :opening_orders, only: [:new, :create, :update]
       resources :workgroup_orders, only: [:new, :create, :update]
 
-      resources :users, except: :show
+      resources :people, except: :show
       resources :project_managers, only: :index
     end
 
-    resources :users, except: :show
+    resources :people, except: :show
     resources :permissions, except: :show
 
     resource :dashboard, :only => :show

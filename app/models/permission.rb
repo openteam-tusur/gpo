@@ -15,8 +15,8 @@ class Permission < ActiveRecord::Base
   #scope :mentors,           -> { where(:role => :mentor) }
   #scope :project_managers,  -> { where(:role => :project_manager) }
   scope :for_user,          ->(user)    { where(:user_id => user) }
-  scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
-  scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
+  #scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
+  #scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
   def role_with_context
     [human_role, context.id_to_s].compact.join(' ') rescue p self
@@ -53,8 +53,8 @@ class Permission < ActiveRecord::Base
     params
   end
 
-  def self.build_project_manager_permission(user, project)
-    Permission.new(:user => user, :context => project, :role => 'project_manager')
+  def self.build_project_manager_permission(person, project)
+    Permission.new(:user => person.user, :context => project, :role => 'project_manager') if person.user
   end
 
   def to_s

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-class Manage::UsersController < Manage::InheritedResourcesController
-  belongs_to :chair, optional: true
+class Manage::PeopleController < Manage::InheritedResourcesController
+  belongs_to :chair, :parent_class => Chair, :optional => true
 
   actions :all, except: :show
 

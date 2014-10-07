@@ -5,7 +5,7 @@ class Manage::IssuesController < Manage::InheritedResourcesController
 
   layout 'project'
 
-  belongs_to :chair do
+  belongs_to :chair, :parent_class => Chair do
     belongs_to :project do
       belongs_to :participant, :optional => true
     end

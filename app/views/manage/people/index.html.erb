@@ -15,10 +15,9 @@
 <% end %>
 
 <% if @chair %>
-  <%= action_link(link_to(I18n.t("user.new"), new_manage_chair_user_path(@chair)), "new", "Позволяет создать пользователя на кафедре") if can?(:create, @chair.reload.users.new) %>
+  <%= action_link(link_to(I18n.t("user.new"), new_manage_chair_person_path(@chair)), "new", "Позволяет создать пользователя на кафедре") if can?(:create, @chair.reload.people.new) %>
 <% else %>
-  <%=  action_link(link_to(I18n.t("user.new"), new_manage_user_path), "new", "Позволяет создать пользователя в системе") if can?(:create, User.new) %>
+  <%= action_link(link_to(I18n.t("user.new"), new_manage_person_path), "new", "Позволяет создать пользователя в системе") if can?(:create, User.new) %>
 <% end %>
 
-<%= render_list 'user_with_actions', @users, :id => 'users' %>
-
+<%= render_list 'people_with_actions', @people, :id => 'users' %>

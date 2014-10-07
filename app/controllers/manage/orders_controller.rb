@@ -7,7 +7,7 @@ class Manage::OrdersController < Manage::InheritedResourcesController
 
   respond_to :html, :doc
 
-  belongs_to :chair do
+  belongs_to :chair, :parent_class => Chair do
     belongs_to :project, optional: true
   end
 

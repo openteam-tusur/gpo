@@ -55,14 +55,14 @@ module UsersHelper
   end
 
   def link_to_edit_user(user, chair)
-    link_to(I18n.t("edit"), chair.nil? ? edit_manage_user_path(user) : edit_manage_chair_user_path(chair, user) )
+    link_to(I18n.t("edit"), chair.nil? ? edit_manage_person_path(user) : edit_manage_chair_person_path(chair, user) )
   end
 
   def link_to_delete_user(user, chair)
     if chair.nil?
-      link_to_delete(manage_user_path(user))
+      link_to_delete(manage_person_path(user))
     else
-      link_to_delete(manage_chair_user_path(chair, user))
+      link_to_delete(manage_chair_person_path(chair, user))
     end
   end
 

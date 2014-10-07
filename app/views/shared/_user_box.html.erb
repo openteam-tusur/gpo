@@ -1,6 +1,6 @@
 <% if current_user %>
-  <span class='login'><%= current_user.name %></span>
-  <%= link_to 'Выход', '/sign_out', :class => :logout %>
+  <span class='login'><%= current_user %></span>
+  <%= link_to 'Выход', sign_out_url, :method => :delete, :class => :logout %>
 <% else %>
-  <%= link_to 'Вход в систему', user_omniauth_authorize_path(:identity), :class => :login  %>
+  <%= link_to 'Вход в систему', sign_in_url, :class => :login  %>
 <% end %>
