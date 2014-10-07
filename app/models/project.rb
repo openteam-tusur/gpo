@@ -176,8 +176,8 @@ class Project < ActiveRecord::Base
       xml.theme_name self.theme ? self.theme.name : ''
       xml.funds_sources self.funds_sources
       xml.source_data self.source_data
-      xml.chief self.users.empty? ? '' : "#{self.users[0].initials_name}, #{self.users[0].post}"
-      xml.chief_name self.users.empty? ? '' : "#{self.users[0].initials_name}"
+      xml.chief self.people.empty? ? '' : "#{self.people[0].initials_name}, #{self.people[0].post}"
+      xml.chief_name self.people.empty? ? '' : "#{self.people[0].initials_name}"
       xml.participants do |xml_participant|
         self.participants.active.each do |participant|
           xml.participant do
