@@ -15,7 +15,6 @@ class Manage::ProjectsController < Manage::InheritedResourcesController
     scope.for_user(controller.send(:current_user))
   end
 
-
   def close
     update! {
       if @project.close

@@ -16,7 +16,7 @@ class TaskManager
       ret = manager_tasks(chair, context)
     elsif person.mentor_of?(chair)
       ret = mentor_tasks(chair)
-    elsif person.managable_projects.joins(:chair).where(:chair_id => chair).any?
+    elsif person.managable_projects.select{|p| p.chair == chair}.any?
       ret = problematic_participants_tasks(person.managable_projects)
       ret += project_visitations_task(person.managable_projects)
     end

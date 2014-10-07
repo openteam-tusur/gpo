@@ -54,7 +54,7 @@ class Project < ActiveRecord::Base
     if user.mentor?
       where(:chair_id => user.available_chairs.all)
     elsif user.project_manager?
-      joins(:project_managers).where(:project_managers => { :user_id => user }).uniq
+      joins(:project_managers).joins(:people).where(:project_managers => { :state => :approved }, :people => { :user_id => user.id }).uniq
     end
   end
 

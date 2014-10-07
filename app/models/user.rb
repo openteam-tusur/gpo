@@ -6,7 +6,7 @@ class User
   end
 
   def people
-    Person.where(:user_id => id)
+    @people ||= Person.where(:user_id => id)
   end
 
   %w(project_manager manager mentor).each do |role|
@@ -37,5 +37,24 @@ class User
 
   def initials
     @initials ||= [name.try(:first), patronymic.try(:first)].select(&:present?).map{|letter| "#{letter}."}.join
+  end
+
+  def managable_projects
+    project_managers.map(&:project)
+  end
+
+  def project_managers
+    @project_managers ||= people.flat_map{ |p| p.project_managers.approved }
+  end
+
+  def after_signied_in
+    super
+
+    Person.where(:email => self.email, :user_id => nil).each do |person|
+      person.update_columns(:user_id => self.id)
+      person.project_managers.approved.each do |pm|
+        self.permissions.reload.find_or_create_by!(:role => :project_manager, :context_type => 'Project', :context_id => pm.project_id)
+      end
+    end
   end
 end

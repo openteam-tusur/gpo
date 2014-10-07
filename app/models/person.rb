@@ -10,7 +10,7 @@ class Person < ActiveRecord::Base
   has_many :managable_projects,    -> { order('cipher desc')},                            :source => :project,                                          :through => :approved_leaderships
 
   validates_presence_of   :first_name, :middle_name, :last_name, :unless => :from_sso?
-  validates_uniqueness_of :email, :allow_nil => true
+  validates_uniqueness_of :email, :allow_nil => true, :scope => [:chair_id]
 
   normalize_attributes :email, :first_name, :middle_name, :last_name, :post, :float, :phone
 
