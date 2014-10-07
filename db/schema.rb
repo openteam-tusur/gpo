@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922074522) do
+ActiveRecord::Schema.define(version: 20141006091825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,24 @@ ActiveRecord::Schema.define(version: 20140922074522) do
     t.boolean  "executive",         default: false
   end
 
+  create_table "people", force: true do |t|
+    t.string   "email",       limit: 100
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "middle_name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "post"
+    t.integer  "chair_id"
+    t.string   "float"
+    t.string   "phone"
+    t.string   "uid"
+    t.string   "user_id"
+  end
+
+  add_index "people", ["email"], name: "index_people_on_email", using: :btree
+  add_index "people", ["uid"], name: "index_people_on_uid", using: :btree
+
   create_table "permissions", force: true do |t|
     t.string   "user_id"
     t.string   "role"
@@ -170,28 +188,6 @@ ActiveRecord::Schema.define(version: 20140922074522) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "users", force: true do |t|
-    t.string   "email",              limit: 100
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.string   "middle_name"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "post"
-    t.integer  "chair_id"
-    t.string   "float"
-    t.string   "phone"
-    t.string   "uid"
-    t.integer  "sign_in_count"
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
 
   create_table "visitations", force: true do |t|
     t.integer  "participant_id"

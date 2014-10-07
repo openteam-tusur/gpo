@@ -3,5 +3,6 @@ task :associate_permissions => :environment do
 
   users_json.each do |info|
     Permission.where(:old_user_uid => info['old_uid']).update_all(:user_id => info['id'])
+    Person.where(:uid => info['old_uid'].to_s).update_all(:user_id => info['id'])
   end
 end
