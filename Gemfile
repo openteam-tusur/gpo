@@ -39,6 +39,7 @@ end
 group :development do
   gem 'hirb'
   gem 'openteam-capistrano'
+  gem 'capistrano-auth-subscriber'
   gem 'quiet_assets'
   gem 'rails-erd'
   gem 'sunspot_solr',         '~> 2.0.0'
