@@ -18,7 +18,7 @@ class Manage::ProjectsController < Manage::InheritedResourcesController
   def close
     update! {
       if @project.close
-        flash[:notice] = 'Проект успешно закрыт'
+        flash['notice'] = 'Проект успешно закрыт'
 
         redirect_to manage_chair_project_path(@chair, @project) and return
       else
@@ -30,7 +30,7 @@ class Manage::ProjectsController < Manage::InheritedResourcesController
   def reopen
     show! {
       @project.reopen!
-      flash[:notice] = 'Проект успешно возобновлен'
+      flash['notice'] = 'Проект успешно возобновлен'
 
       redirect_to manage_chair_project_path(@chair, @project) and return
     }

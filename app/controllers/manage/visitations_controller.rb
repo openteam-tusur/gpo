@@ -29,10 +29,10 @@ class Manage::VisitationsController < Manage::ApplicationController
     end
 
     if @errors.empty?
-      flash[:notice] = "Баллы сохранены"
+      flash['notice'] = "Баллы сохранены"
       redirect_to manage_chair_project_visitations_path(@project.chair, @project)
     else
-      flash[:error] = "Ошибка сохранения баллов"
+      flash['error'] = "Ошибка сохранения баллов"
       render :edit
     end
   end

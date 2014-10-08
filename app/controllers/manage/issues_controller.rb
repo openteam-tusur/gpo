@@ -26,11 +26,11 @@ class Manage::IssuesController < Manage::InheritedResourcesController
   def create
     create! do |success, failure|
       success.html {
-        flash[:notice] = "Индивидуальная задача для студента добавлена"
+        flash['notice'] = "Индивидуальная задача для студента добавлена"
         redirect_to manage_chair_project_issues_path(@chair, @project)
       }
       failure.html {
-        flash[:error] = "Ошибка добавления задачи"
+        flash['error'] = "Ошибка добавления задачи"
         render :action => :new
       }
     end
@@ -39,11 +39,11 @@ class Manage::IssuesController < Manage::InheritedResourcesController
   def update
     update! do |success, failure|
       success.html {
-        flash[:notice] = "Индивидуальная задача для студента сохранена"
+        flash['notice'] = "Индивидуальная задача для студента сохранена"
         redirect_to manage_chair_project_issues_path(@chair, @project)
       }
       failure.html {
-        flash[:error] = "Ошибка сохранения задачи"
+        flash['error'] = "Ошибка сохранения задачи"
         render :action => :edit
       }
     end
@@ -52,11 +52,11 @@ class Manage::IssuesController < Manage::InheritedResourcesController
   def destroy
     destroy! do |success, failure|
       success.html {
-        flash[:notice] = "Индивидуальная задача для участника удалена"
+        flash['notice'] = "Индивидуальная задача для участника удалена"
         redirect_to manage_chair_project_issues_path(@chair, @project)
       }
       failure.html {
-        flash[:notice] = "Ошибка при удалении задачи"
+        flash['notice'] = "Ошибка при удалении задачи"
         redirect_to manage_chair_project_issues_path(@chair, @project)
       }
     end
