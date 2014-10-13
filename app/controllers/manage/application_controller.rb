@@ -1,8 +1,6 @@
 class Manage::ApplicationController < ApplicationController
-  load_and_authorize_resource :class => false
-
   rescue_from CanCan::AccessDenied do |exception|
-    flash['error'] = exception.message
+    flash['error'] = t('cancan.access_denied')
     redirect_to root_url
   end
 

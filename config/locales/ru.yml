@@ -1,4 +1,7 @@
 ru:
+  cancan:
+    access_denied: Доступ запрещен
+
   app:
     title: Групповое проектное обучение
 
