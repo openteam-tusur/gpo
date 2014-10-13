@@ -1,4 +1,4 @@
-<% if current_user.available_chairs.all.many? %>
+<% if current_user.available_chairs.many? %>
   <div id="go-to-chair">
     <%= simple_form_for manage_chairs_path, :method => "get" do | form | %>
       <%= form.input :chair,
