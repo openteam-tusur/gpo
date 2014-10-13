@@ -54,7 +54,7 @@ class Permission < ActiveRecord::Base
   end
 
   def self.build_project_manager_permission(person, project)
-    Permission.new(:user => person.user, :context => project, :role => 'project_manager') if person.user
+    Permission.new(:user_id => person.user_id, :context => project, :role => 'project_manager') if person.user
   end
 
   def to_s

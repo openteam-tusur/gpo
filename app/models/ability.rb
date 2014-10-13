@@ -16,6 +16,8 @@ class Ability
       user.mentor_of?(chair)
     end
 
+    can :read, :dashboard
+
     can :read, Chair do |chair|
       user.available_chairs.include?(chair)
     end
