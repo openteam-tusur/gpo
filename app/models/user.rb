@@ -20,15 +20,12 @@ class User
   end
 
   def available_chairs
-    if manager?
-      Chair.ordered_by_abbr
-    elsif mentor?
-      Chair.ordered_by_abbr.joins(:permissions).where(:permissions => {:user_id => id}).uniq
-    elsif project_manager?
-      Chair.ordered_by_abbr.joins(:projects).where(:projects => {:id => permissions.where(:context_type => 'Project').pluck(:context_id)}).uniq
-    else
-      []
-    end
+    return [] if permissions.empty?
+    available_chairs = []
+    available_chairs += Chair.all.map(&:id) if manager?
+    available_chairs += Chair.joins(:permissions).where(:permissions => {:user_id => id}).map(&:id) if mentor?
+    available_chairs += Chair.joins(:projects).where(:projects => {:id => permissions.where(:context_type => 'Project').pluck(:context_id)}).map(&:id) if project_manager?
+    available_chairs = Chair.ordered_by_abbr.where(:id => [available_chairs.uniq])
   end
 
   def initials_name
