@@ -15,7 +15,7 @@ class Permission < ActiveRecord::Base
   #scope :mentors,           -> { where(:role => :mentor) }
   #scope :project_managers,  -> { where(:role => :project_manager) }
   scope :for_user,          ->(user)    { where(:user_id => user) }
-  #scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
+  scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
   #scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
   def role_with_context
