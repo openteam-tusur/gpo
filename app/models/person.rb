@@ -17,7 +17,7 @@ class Person < ActiveRecord::Base
   default_scope order('last_name, first_name, middle_name')
 
   def user
-    User.find_by(:id => user_id)
+    @user ||= User.find_by(:id => user_id)
   end
 
   def initials_name

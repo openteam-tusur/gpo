@@ -45,4 +45,8 @@ class ProjectManager < ActiveRecord::Base
   def <=>(other)
     person.last_name <=> other.person.last_name
   end
+
+  def user
+    @user ||= person.user
+  end
 end
