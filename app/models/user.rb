@@ -44,7 +44,7 @@ class User
     @project_managers ||= people.flat_map{ |p| p.project_managers.approved }
   end
 
-  def after_signied_in
+  def after_signed_in
     super
 
     Person.where(:email => self.email, :user_id => nil).each do |person|
