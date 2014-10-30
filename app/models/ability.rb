@@ -16,6 +16,10 @@ class Ability
       user.mentor_of?(chair)
     end
 
+    can :manage, Person do |person|
+      user.mentor_of?(person.chair)
+    end
+
     can :read, :dashboard
 
     can :read, Chair do |chair|
