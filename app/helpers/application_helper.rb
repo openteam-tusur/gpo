@@ -78,7 +78,7 @@ module ApplicationHelper
 
   def link_to_delete(url, link_title = nil)
     link_title ||= I18n.t("delete")
-    link_to link_title, url, :method => :delete, :confirm => I18n.t("are_you_sure")
+    link_to link_title, url, :method => :delete, :data => { :confirm => I18n.t("are_you_sure") }
   end
 
   def render_list(item_partial, items, options = {})
