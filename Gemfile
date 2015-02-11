@@ -23,7 +23,7 @@ group :default do
   gem 'pg'
   gem 'progress_bar'
   gem 'protected_attributes'
-  gem 'rails',                '4.0.10'
+  gem 'rails',                '~> 4.0.10'
   gem 'rails-observers'
   gem 'redis-session-store'
   gem 'rubyzip',              '0.9.9'
