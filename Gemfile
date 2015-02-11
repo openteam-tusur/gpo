@@ -37,13 +37,15 @@ group :default do
 end
 
 group :development do
+  gem 'annotate',             :require => false
+  gem 'brakeman',             :require => false
+  gem 'capistrano-auth-subscriber'
   gem 'hirb'
   gem 'openteam-capistrano'
-  gem 'capistrano-auth-subscriber'
   gem 'quiet_assets'
   gem 'rails-erd'
-  gem 'sunspot_solr',         '~> 2.0.0'
   gem 'sqlite3'
+  gem 'sunspot_solr',         '~> 2.0.0'
   gem 'thin',                 :require => false
 end
 
