@@ -61,3 +61,18 @@ class Permission < ActiveRecord::Base
     [I18n.t(role, :scope => :role), context.try(&:id_to_s)].compact.join(' ')
   end
 end
+
+# == Schema Information
+#
+# Table name: permissions
+#
+#  id           :integer          not null, primary key
+#  user_id      :string(255)
+#  role         :string(255)
+#  context_type :string(255)
+#  context_id   :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  old_user_uid :integer
+#  old_user_id  :integer
+#

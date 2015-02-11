@@ -50,3 +50,15 @@ class ProjectManager < ActiveRecord::Base
     @user ||= person.user
   end
 end
+
+# == Schema Information
+#
+# Table name: project_managers
+#
+#  id         :integer          not null, primary key
+#  person_id  :integer
+#  project_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  state      :string(255)
+#
