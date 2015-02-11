@@ -1,16 +1,3 @@
-# encoding: utf-8
-# == Schema Information
-#
-# Table name: visitations
-#
-#  id             :integer          not null, primary key
-#  participant_id :integer
-#  gpoday_id      :integer
-#  rate           :float
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#
-
 class Visitation < ActiveRecord::Base
   attr_accessible :gpoday_id
 
@@ -61,3 +48,15 @@ class Visitation < ActiveRecord::Base
     prev_kt ? Gpoday.ascending.find(:first, :conditions => ["gpodays.date > ?", prev_kt.date]).date : Gpoday.ascending.first.date
   end
 end
+
+# == Schema Information
+#
+# Table name: visitations
+#
+#  id             :integer          not null, primary key
+#  participant_id :integer
+#  gpoday_id      :integer
+#  rate           :float
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#

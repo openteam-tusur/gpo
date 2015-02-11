@@ -1,4 +1,10 @@
-# encoding: utf-8
+# TODO: remove this model
+
+class OrderProject < ActiveRecord::Base
+  belongs_to :order
+  belongs_to :project
+end
+
 # == Schema Information
 #
 # Table name: order_projects
@@ -9,10 +15,3 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
-# TODO: remove this model
-
-class OrderProject < ActiveRecord::Base
-  belongs_to :order
-  belongs_to :project
-end

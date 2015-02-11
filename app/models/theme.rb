@@ -1,14 +1,3 @@
-# encoding: utf-8
-# == Schema Information
-#
-# Table name: themes
-#
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#
-
 class Theme < ActiveRecord::Base
   attr_accessible :name
 
@@ -20,3 +9,13 @@ class Theme < ActiveRecord::Base
 
   default_scope order(:name)
 end
+
+# == Schema Information
+#
+# Table name: themes
+#
+#  id         :integer          not null, primary key
+#  name       :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

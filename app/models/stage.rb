@@ -1,4 +1,16 @@
-# encoding: utf-8
+class Stage < ActiveRecord::Base
+  attr_accessible  :title, :start, :finish, :funds_required, :activity, :results
+  belongs_to :project
+
+  validates_presence_of :title, :start, :finish
+
+  protected
+
+  def self.allowed?(user, project)
+    user.is_a?(User) && project.updatable_by?(user)
+  end
+end
+
 # == Schema Information
 #
 # Table name: stages
@@ -14,16 +26,3 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #
-
-class Stage < ActiveRecord::Base
-  attr_accessible  :title, :start, :finish, :funds_required, :activity, :results
-  belongs_to :project
-
-  validates_presence_of :title, :start, :finish
-
-  protected
-
-  def self.allowed?(user, project)
-    user.is_a?(User) && project.updatable_by?(user)
-  end
-end

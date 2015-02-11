@@ -1,4 +1,19 @@
-# encoding: utf-8
+class OpeningOrder < Order
+  def available_projects
+    chair.projects.draft.find_all do |project|
+      project.opening_order.nil? || (project.opening_order == self && self.draft?)
+    end
+  end
+
+  private
+
+  def after_enter_approved
+    super
+    projects.map(&:approve!)
+  end
+
+end
+
 # == Schema Information
 #
 # Table name: orders
@@ -17,19 +32,3 @@
 #  file_updated_at   :datetime
 #  file_url          :text
 #
-
-class OpeningOrder < Order
-  def available_projects
-    chair.projects.draft.find_all do |project|
-      project.opening_order.nil? || (project.opening_order == self && self.draft?)
-    end
-  end
-
-  private
-
-  def after_enter_approved
-    super
-    projects.map(&:approve!)
-  end
-
-end

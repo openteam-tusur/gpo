@@ -1,4 +1,14 @@
-# encoding: utf-8
+class WorkgroupOrder < Order
+  def available_projects
+    self.chair.projects.active.editable.find_all do |project|
+      # в проекте есть изменения в участниках
+      # с проектом не свзяано других неутвержденных приказо об изменении рабочих групп
+      !project.participants.awaiting.empty? &&
+      (project.workgroup_orders.not_approved.empty? || project.workgroup_orders.include?(self))
+    end
+  end
+end
+
 # == Schema Information
 #
 # Table name: orders
@@ -17,14 +27,3 @@
 #  file_updated_at   :datetime
 #  file_url          :text
 #
-
-class WorkgroupOrder < Order
-  def available_projects
-    self.chair.projects.active.editable.find_all do |project|
-      # в проекте есть изменения в участниках
-      # с проектом не свзяано других неутвержденных приказо об изменении рабочих групп
-      !project.participants.awaiting.empty? &&
-      (project.workgroup_orders.not_approved.empty? || project.workgroup_orders.include?(self))
-    end
-  end
-end

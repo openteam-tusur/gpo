@@ -14,4 +14,3 @@ class ProjectUpdatedObserver < ActiveRecord::Observer
   end
 
 end
-
