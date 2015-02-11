@@ -53,7 +53,7 @@
           <% @statistics.each do |statistic| %>
             <th>
               <%= I18n.l(statistic.created_at, :format => '%d.%m.%Y') %>
-              <%= link_to "&#x274C;".html_safe, manage_statistic_path(statistic), :method => :delete, :confirm => 'Уверены что хотите удалить срез статистики?', :class => 'delete_statistics', :title => 'удалить' %>
+              <%= link_to "&#x274C;".html_safe, manage_statistic_path(statistic), :method => :delete, :data => { :confirm => 'Уверены что хотите удалить срез статистики?' }, :class => 'delete_statistics', :title => 'удалить' %>
             </th>
           <% end %>
         </tr>

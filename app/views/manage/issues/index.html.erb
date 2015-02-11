@@ -59,7 +59,7 @@
               <p><%= issue.name %></p>
               <div class="actions">
                 <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
-                <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?", :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+                <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
               </div>
             </td>
             <td class="description"><%= issue.description %></td>
