@@ -2,7 +2,9 @@
   cursor: default
   font-size: 13px
 
-  span
+  span,
+  a.prev,
+  a.next
     +inline-block
     border: 1px solid #ddd
     +border-radius(3px)
@@ -17,7 +19,17 @@
         color: #000
         text-decoration: none
 
-    &.gap,
-    &.current
-      color: #777
-      padding: 4px 8px
+  .prev,
+  .next,
+  .gap,
+  .current
+    color: #777
+    padding: 4px 8px
+
+  a.prev,
+  a.next
+    color: #333
+
+    &:hover
+      color: #000
+      text-decoration: none
