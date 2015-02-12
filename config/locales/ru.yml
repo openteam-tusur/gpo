@@ -139,6 +139,7 @@ ru:
         student_id:       Студент
 
       permission:
+        name:             Ф.И.О.
         chair:            Кафедра
         context:          Контекст
         project:          Проект

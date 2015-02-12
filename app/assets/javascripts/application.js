@@ -12,5 +12,6 @@
  * = require gpodays
  * = require actions_form
  * = require order_state
+ * = require users_autocomplete
  * = require main
  */

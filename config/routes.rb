@@ -50,12 +50,14 @@ Gpo::Application.routes.draw do
     end
 
     resources :people, except: :show
-    resources :permissions, except: :show
+    resources :permissions, except: [:show, :edit]
 
     resource :dashboard, :only => :show
 
     root :to => 'dashboards#show'
   end
+
+  get '/users/search' => 'users#search'
 
   resources :chairs, :only => [:index] do
     resources :projects, :only => [:index, :show]

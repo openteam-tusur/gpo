@@ -37,7 +37,7 @@ module ApplicationHelper
 
   def submenu
     case controller.controller_name
-    when "users", "permissions"
+    when "users"
       "user_navigation"
     when "reports"
       "report_navigation"
@@ -52,7 +52,7 @@ module ApplicationHelper
       else
         "settings_navigation"
       end
-    when "gpodays"
+    when "gpodays", "permissions"
       "settings_navigation"
     when "visitations"
       "report_navigation"

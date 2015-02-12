@@ -1,4 +1,4 @@
-<% title "Расписание ГПО", :gpoday %>
+<% title 'Расписание ГПО', :gpoday %>
 
 <% content_for :hint do %>
   <p>Для добавления нового дня ГПО передите по ссылке "Добавить"</p>
@@ -6,6 +6,6 @@
   <p>Для удаления дня ГПО перейдите по соответсвующей ссылке "Удалить"</p>
 <% end %>
 
-<% action_link(link_to('Добавить', new_manage_gpoday_path), "new", "Позволяет добавить день ГПО в расписание")%>
+<% action_link(link_to('Добавить', new_manage_gpoday_path), 'new', 'Позволяет добавить день ГПО в расписание')%>
 
 <%= render_list 'gpoday_with_actions', @gpodays.descending, :id => 'gpodays', :object => :gpoday %>

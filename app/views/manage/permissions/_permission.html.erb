@@ -1,12 +1,24 @@
-<div class="permission object">
+<div class='permission object'>
   <%= icon(:permission) %>
-  <h3><%= permission.user.name %></h3>
-  <div class="status">
-    <span class="date">Создано: <%= time_ago permission %></span>
+  <% if permission.user.present?  %>
+    <h3><%= permission.user.fullname %></h3>
+    <% person = Person.find_by(:user_id => permission.user_id) %>
+    <%= content_tag :div, 'нет связи с проектом', :class => 'attention' if permission.role.eql?('project_manager') && ProjectManager.find_by(:project_id => permission.context_id, :person_id => person.try(:id)).blank? %>
+    <div class='details'><%= mail_to permission.user.email %></div>
+  <% else %>
+    <h3 class='attention'>Нет пользователя</h3>
+  <% end %>
+  <div class='status'>
+    <span class='date'>Создано: <%= time_ago permission %></span>
   </div>
-  <div class="details"><%= permission.role_with_context %></div>
+  <div class='details'>
+    <% if permission.role.eql?('project_manager') %>
+      <%= link_to permission.role_with_context, manage_chair_project_path(Project.find(permission.context_id).chair.id, permission.context_id) %>
+    <% else %>
+      <%= permission.role_with_context %>
+    <% end %>
+  </div>
 </div>
-<div class="actions">
-  <%= link_to I18n.t("edit"), edit_manage_permission_path(permission) if permitted_to?(:update, permission) %>
+<div class='actions'>
   <%= link_to_delete manage_permission_path(permission) if permitted_to?(:delete, permission) %>
 </div>

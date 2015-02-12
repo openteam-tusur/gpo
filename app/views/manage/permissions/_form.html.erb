@@ -1,14 +1,13 @@
-<%= form.association :user %>
-<% if form.object.role == 'manager' %>
-  <%= form.input :role, :as => :hidden, :input_html => { :value => 'manager' } %>
-  <%= form.input :context_type, :as => :hidden, :input_html => { :value => 'Context' } %>
-  <%= form.input :context_id, :as => :hidden, :input_html => { :value => '1' } %>
-<% elsif form.object.role == 'mentor' %>
+<%= form.input :name, :required => true, :input_html => { :value => params.try(:[], 'permission').try(:[], 'name'), :class => 'users_autocomplete' } %>
+<%= form.input :user_id, :as => :hidden %>
+<% if form.object.role == 'mentor' %>
   <%= form.input :role, :as => :hidden, :input_html => { :value => 'mentor' } %>
   <%= form.input :context_type, :as => :hidden, :input_html => { :value => 'Chair' } %>
-  <%= form.association :context, :collection => Chair.ordered_by_abbr %>
+  <%= form.association :context, :required => true, :label => 'Кафедра', :collection => Chair.ordered_by_abbr %>
 <% elsif form.object.role == 'project_manager' %>
   <%= form.input :role, :as => :hidden, :input_html => { :value => 'project_manager' } %>
   <%= form.input :context_type, :as => :hidden, :input_html => { :value => 'Project' } %>
-  <%= form.association :context, :collection => Project.order(:title) %>
+  <%= form.association :context,:required => true, :label => 'Прект', :collection => Project.active.order(:cipher), :label_method => :to_s %>
+<% elsif form.object.role == 'manager' %>
+  <%= form.input :role, :as => :hidden, :input_html => { :value => 'manager' } %>
 <% end %>

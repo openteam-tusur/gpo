@@ -1,5 +1,5 @@
 class Person < ActiveRecord::Base
-  attr_accessible :first_name, :middle_name, :last_name, :email, :phone, :post, :float, :chair_id
+  attr_accessible :first_name, :middle_name, :last_name, :email, :phone, :post, :float, :chair_id, :user_id
 
   belongs_to :chair
 

@@ -1,5 +1,6 @@
 # encoding: utf-8
 
 class Manage::PermissionsController < Manage::InheritedResourcesController
-  actions :all, except: :show
+  load_and_authorize_resource
+  actions :index, :new, :create, :destroy
 end
