@@ -3,7 +3,12 @@
   <% if permission.user.present?  %>
     <h3><%= permission.user.fullname %></h3>
     <% person = Person.find_by(:user_id => permission.user_id) %>
-    <%= content_tag :div, 'нет связи с проектом', :class => 'attention' if permission.role.eql?('project_manager') && ProjectManager.find_by(:project_id => permission.context_id, :person_id => person.try(:id)).blank? %>
+    <% if permission.role.eql?('project_manager') && ProjectManager.find_by(:project_id => permission.context_id, :person_id => person.try(:id)).blank? %>
+      <div class='attention'>
+        нет связи с проектом
+        <%= '(прект закрыт)' if permission.context.closed? %>
+      </div>
+    <% end %>
     <div class='details'><%= mail_to permission.user.email %></div>
   <% else %>
     <h3 class='attention'>Нет пользователя</h3>
