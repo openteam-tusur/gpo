@@ -8,6 +8,10 @@ class Manage::PermissionsController < Manage::InheritedResourcesController
 
   has_scope :page, :default => 1
 
+  def destroy
+    destroy! { redirect_to :back and return }
+  end
+
   protected
 
   def collection
