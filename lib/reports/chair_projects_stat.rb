@@ -22,17 +22,27 @@ class ChairProjectsStat < XlsReport
         tmp_row.elements[2][1].text = project.cipher
         tmp_row.elements[3][1].text = project.title
         tmp_row.elements[4][1].text = project.people.collect {|person| person}.join(", ")
-        tmp_row.elements[5][1].text = project.participants.active.at_course("3").size
-        tmp_row.elements[5].attributes["office:value"] = project.participants.active.at_course("3").size.to_s
 
-        tmp_row.elements[6][1].text = project.participants.active.at_course("4").size
-        tmp_row.elements[6].attributes["office:value"] = project.participants.active.at_course("4").size.to_s
+        tmp_row.elements[5][1].text = project.participants.active.at_course("2").size
+        tmp_row.elements[5].attributes["office:value"] = project.participants.active.at_course("2").size.to_s
 
-        tmp_row.elements[7][1].text = project.participants.active.at_course("5").size
-        tmp_row.elements[7].attributes["office:value"] = project.participants.active.at_course("5").size.to_s
+        tmp_row.elements[6][1].text = project.participants.active.at_course("3").size
+        tmp_row.elements[6].attributes["office:value"] = project.participants.active.at_course("3").size.to_s
 
-        tmp_row.elements[8][1].text = project.participants.active.size
-        tmp_row.elements[8].attributes["office:value"] = project.participants.active.size.to_s
+        tmp_row.elements[7][1].text = project.participants.active.at_course("4").size
+        tmp_row.elements[7].attributes["office:value"] = project.participants.active.at_course("4").size.to_s
+
+        tmp_row.elements[8][1].text = project.participants.active.at_course("5").size
+        tmp_row.elements[8].attributes["office:value"] = project.participants.active.at_course("5").size.to_s
+
+        tmp_row.elements[9][1].text = project.participants.active.undergraduates_at_course(1).count
+        tmp_row.elements[9].attributes["office:value"] = project.participants.active.undergraduates_at_course(1).count.to_s
+
+        tmp_row.elements[10][1].text = project.participants.active.undergraduates_at_course(2).count
+        tmp_row.elements[10].attributes["office:value"] = project.participants.active.undergraduates_at_course(2).count.to_s
+
+        tmp_row.elements[11][1].text = project.participants.active.size
+        tmp_row.elements[11].attributes["office:value"] = project.participants.active.size.to_s
 
         table.add_element tmp_row
         index += 1
