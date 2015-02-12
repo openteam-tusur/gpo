@@ -78,6 +78,8 @@ class Permission < ActiveRecord::Base
       person = Person.create(:first_name => first_name, :middle_name => middle_name, :last_name => last_name, :email => email, :user_id => user_id)
     end
 
+    return if ProjectManager.find_by(:person_id => person.id, :project_id => context_id, :state => 'approved').present?
+
     project_manager = ProjectManager.create(:person_id => person.id, :project_id => context_id)
     project_manager.approve
   end
