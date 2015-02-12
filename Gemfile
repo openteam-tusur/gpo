@@ -15,6 +15,7 @@ group :default do
   gem 'has_scope',           '~> 0.6.0.rc'
   gem 'inherited_resources'
   gem 'jquery-rails',        '2.1.3'
+  gem 'kaminari'
   gem 'nested_form'
   gem 'non-stupid-digest-assets'
   gem 'openteam-commons'

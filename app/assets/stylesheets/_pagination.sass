@@ -1,0 +1,23 @@
+.pagination
+  cursor: default
+  font-size: 13px
+
+  span
+    +inline-block
+    border: 1px solid #ddd
+    +border-radius(3px)
+    background-color: #f1f1f1
+    +background(linear-gradient(#fff, #f1f1f1))
+
+    a
+      display: block
+      padding: 4px 8px
+
+      &:hover
+        color: #000
+        text-decoration: none
+
+    &.gap,
+    &.current
+      color: #777
+      padding: 4px 8px

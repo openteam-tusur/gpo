@@ -17,3 +17,5 @@
 <% end %>
 
 <%= render_list 'permission', @permissions, :id => 'permissions', :object => :permission %>
+
+<%= paginate @permissions %>
