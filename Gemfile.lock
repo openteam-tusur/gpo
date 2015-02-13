@@ -144,7 +144,7 @@ GEM
       virtus
     haml (4.0.6)
       tilt
-    has_scope (0.6.0.rc)
+    has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
     hashie (1.2.0)
@@ -363,7 +363,7 @@ DEPENDENCIES
   fabrication
   forgery
   grape (= 0.2.2)
-  has_scope (~> 0.6.0.rc)
+  has_scope
   hirb
   inherited_resources
   jquery-rails (= 2.1.3)

@@ -7,16 +7,16 @@ class Project < ActiveRecord::Base
   belongs_to :chair
   belongs_to :theme
 
-  has_many :participants, :dependent => :destroy, :order => "last_name"
+  has_many :participants, -> { order('last_name') }, :dependent => :destroy
   has_many :project_managers, :dependent => :destroy
-  has_many :stages, :dependent => :destroy, :order => "start"
+  has_many :stages, -> { order('start') }, :dependent => :destroy
   has_many :people, -> { order('people.last_name') }, :through => :project_managers
   has_many :issues, :through => :participants
 
   has_many :order_projects, :dependent => :destroy
-  has_many :orders, :through => :order_projects, :order => "orders.id desc"
-  has_many :opening_orders, :through => :order_projects, :conditions => ["orders.type = ?", OpeningOrder.name], :source => :order
-  has_many :workgroup_orders, :through => :order_projects, :conditions => ["orders.type = ?", WorkgroupOrder.name], :source => :order, :order => "orders.approved_at desc"
+  has_many :orders, -> { order('orders.id desc') }, :through => :order_projects
+  has_many :opening_orders, -> { where(['orders.type = ?', OpeningOrder.name]) }, :through => :order_projects, :source => :order
+  has_many :workgroup_orders, -> { where(["orders.type = ?", WorkgroupOrder.name]).order('orders.approved_at desc') }, :through => :order_projects, :source => :order
 
   has_many :permissions, :as => :context, :dependent => :destroy
 

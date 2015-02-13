@@ -5,22 +5,22 @@ class Chair < ActiveRecord::Base
   validates_uniqueness_of :abbr
 
   has_many :projects, -> { order('cipher desc') }, :dependent => :destroy
-  has_many :orders, :order => 'id desc', :dependent => :destroy
-  has_many :workgroup_orders, :order => 'id desc', :dependent => :destroy
-  has_many :opening_orders, :order => 'id desc', :dependent => :destroy
-  has_many :people, :order => 'last_name', :dependent => :destroy
-  has_many :participants, :order => 'last_name', :through => :projects
-  has_many :activities, :dependent => :destroy, :order => 'created_at desc', :limit => 10
+  has_many :orders, -> { order('id desc') }, :dependent => :destroy
+  has_many :workgroup_orders, -> { order('id desc') }, :dependent => :destroy
+  has_many :opening_orders, -> { order('id desc') }, :dependent => :destroy
+  has_many :people, -> { order('last_name') }, :dependent => :destroy
+  has_many :participants, -> { order('last_name') }, :through => :projects
+  has_many :activities, -> { order('created_at desc').limit(10) }, :dependent => :destroy
   has_many :project_managers, -> { where(:state => :approved) }, :through => :projects
+  has_one :last_activity, -> { order('created_at') }, :class_name => 'Activity'
+
   has_many :project_manager_users, :through => :project_managers, :source => :person
-  has_one :last_activity, :class_name => 'Activity', :order => 'created_at'
-
   has_many :permissions, :as => :context, :dependent => :destroy
-  has_many :mentors, :through => :permissions, :conditions => ["permissions.role = ?", 'mentor'], :source => :user, :order => "last_name"
+  has_many :mentors, -> { where('permissions.role = ?' => 'mentor').order('last_name') }, :through => :permissions, :source => :user
 
-  scope :ordered_by_abbr,    -> { order "abbr" }
-  scope :ordered_by_title,   -> { order "title" }
-  scope :ordered_by_faculty, -> { order "faculty, title" }
+  scope :ordered_by_abbr, -> { order 'abbr' }
+  scope :ordered_by_title, -> { order 'title' }
+  scope :ordered_by_faculty, -> { order 'faculty, title' }
 
   def mentors
     permissions.for_role(:mentor).map(&:user).compact.sort_by(&:surname)

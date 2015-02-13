@@ -15,7 +15,7 @@ class Manage::PermissionsController < Manage::InheritedResourcesController
   protected
 
   def collection
-    get_collection_ivar || set_collection_ivar(end_of_association_chain.paginate(:page => params[:page]))
+    @permissions = end_of_association_chain.order(created_at: :desc)
   end
 
 end

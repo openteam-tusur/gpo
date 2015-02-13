@@ -14,7 +14,7 @@ class Person < ActiveRecord::Base
 
   normalize_attributes :email, :first_name, :middle_name, :last_name, :post, :float, :phone
 
-  default_scope order('last_name, first_name, middle_name')
+  default_scope { order('last_name, first_name, middle_name') }
 
   def user
     @user ||= User.find_by(:id => user_id)

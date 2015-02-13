@@ -12,7 +12,7 @@ group :default do
   gem 'decent_exposure'
   gem 'enumerize'
   gem 'grape',                '0.2.2'
-  gem 'has_scope',           '~> 0.6.0.rc'
+  gem 'has_scope'
   gem 'inherited_resources'
   gem 'jquery-rails',        '2.1.3'
   gem 'kaminari'

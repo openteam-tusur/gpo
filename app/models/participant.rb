@@ -18,7 +18,7 @@ class Participant < ActiveRecord::Base
 
   has_one :chair,  :through => :project
   has_many :visitations,  :dependent => :destroy
-  has_many :issues,       :order => :planned_closing_at, :dependent => :destroy
+  has_many :issues, -> { order('planned_closing_at') }, :dependent => :destroy
 
   validates_presence_of :student_id
   validates_presence_of :project_id

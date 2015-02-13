@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
   has_many :participants, :through => :projects
   has_many :project_managers, :through => :projects
   has_many :chairs, :through => :projects
-  has_many :activities, :as => :context, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :activities, -> { order('created_at DESC') }, :as => :context, :dependent => :destroy
 
   belongs_to :chair
 
