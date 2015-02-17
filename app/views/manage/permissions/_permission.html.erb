@@ -25,5 +25,5 @@
   </div>
 </div>
 <div class='actions'>
-  <%= link_to_delete manage_permission_path(permission) if permitted_to?(:delete, permission) %>
+  <%= link_to_delete manage_permission_path(permission) if permitted_to?(:delete, permission) && !permission.role.eql?('project_manager') %>
 </div>
