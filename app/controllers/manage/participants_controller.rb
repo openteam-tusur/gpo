@@ -6,7 +6,7 @@ class Manage::ParticipantsController < Manage::InheritedResourcesController
   end
 
   actions :index, :new, :create, :edit, :update
-  custom_actions :resource => :make_executive
+  custom_actions :resource => [:make_executive, :unmake_executive]
 
   helper_method :finded_participants
 
@@ -16,6 +16,14 @@ class Manage::ParticipantsController < Manage::InheritedResourcesController
     make_executive!{
       @project.participants.as_executive.first.update_attribute(:executive, false) if @project.participants.as_executive.any?
       @participant.update_attribute(:executive, true)
+
+      redirect_to manage_chair_project_participants_path(@chair, @project) and return
+    }
+  end
+
+  def unmake_executive
+    unmake_executive! {
+      @participant.update_attribute(:executive, false)
 
       redirect_to manage_chair_project_participants_path(@chair, @project) and return
     }

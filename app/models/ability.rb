@@ -52,7 +52,7 @@ class Ability
       can?(:close, project) && project.draft?
     end
 
-    can [:create, :update, :remove, :cancel, :make_executive], Participant do |participant|
+    can [:create, :update, :remove, :cancel, :make_executive, :unmake_exicutive], Participant do |participant|
       can?(:update, participant.project)
     end
 

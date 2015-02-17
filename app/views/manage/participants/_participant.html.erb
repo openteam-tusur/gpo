@@ -7,6 +7,12 @@
       :method => :put,
       :class => 'button executive' if (participant.approved? && !participant.executive)%>
   <% end %>
+  <% if can?(:unmake_executive, participant) %>
+    <%= link_to "Отменить роль ответственного",
+      unmake_executive_manage_chair_project_participant_path(@chair, @project, participant),
+      :method => :put,
+      :class => 'button executive' if (participant.approved? && participant.executive)%>
+  <% end %>
   <div class="status">
     <span class="state_<%= participant.state %>"><%= participant.current_state %></span>
     <span class="date"><%= time_ago(participant, :updated_at) %></span>

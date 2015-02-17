@@ -31,6 +31,7 @@ Gpo::Application.routes.draw do
 
         resources :participants, except: [:destroy] do
           put :make_executive, :on => :member
+          put :unmake_executive, :on => :member
           resources :issues, only: [:new, :create, :edit, :update, :destroy] do
             get :export, on: :collection
           end
