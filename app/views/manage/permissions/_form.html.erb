@@ -4,10 +4,6 @@
   <%= form.input :role, :as => :hidden, :input_html => { :value => 'mentor' } %>
   <%= form.input :context_type, :as => :hidden, :input_html => { :value => 'Chair' } %>
   <%= form.association :context, :required => true, :label => 'Кафедра', :collection => Chair.ordered_by_abbr %>
-<% elsif form.object.role == 'project_manager' %>
-  <%= form.input :role, :as => :hidden, :input_html => { :value => 'project_manager' } %>
-  <%= form.input :context_type, :as => :hidden, :input_html => { :value => 'Project' } %>
-  <%= form.association :context,:required => true, :label => 'Прект', :collection => Project.active.order(:cipher), :label_method => :to_s %>
 <% elsif form.object.role == 'manager' %>
   <%= form.input :role, :as => :hidden, :input_html => { :value => 'manager' } %>
 <% end %>

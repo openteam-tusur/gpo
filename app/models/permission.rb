@@ -20,10 +20,6 @@ class Permission < ActiveRecord::Base
   scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
   #scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
-  before_create :associate_project_manager
-
-  before_destroy :destroy_associated_project_manager
-
   def role_with_context
     [human_role, context.id_to_s].compact.join(' ') rescue p self
   end
@@ -67,32 +63,6 @@ class Permission < ActiveRecord::Base
     [I18n.t(role, :scope => :role), context.try(&:id_to_s)].compact.join(' ')
   end
 
-  private
-
-  def associate_project_manager
-    return unless role.eql?('project_manager')
-
-    person = Person.find_by(:user_id => user_id)
-    if person.blank?
-      first_name, middle_name, last_name, email = name.gsub(',', '').squish.split(' ')
-      person = Person.create(:first_name => first_name, :middle_name => middle_name, :last_name => last_name, :email => email, :user_id => user_id)
-    end
-
-    return if ProjectManager.find_by(:person_id => person.id, :project_id => context_id, :state => 'approved').present?
-
-    project_manager = ProjectManager.create(:person_id => person.id, :project_id => context_id)
-    project_manager.approve
-  end
-
-  def destroy_associated_project_manager
-    return unless role.eql?('project_manager')
-
-    person = Person.find_by(:user_id => user_id)
-    return if person.blank?
-
-    project_manager = ProjectManager.find_by(:project_id => context_id, :person_id => person.id)
-    project_manager.destroy if project_manager.present?
-  end
 end
 
 # == Schema Information

@@ -2,7 +2,6 @@
 
 <% content_for :action_nav do %>
   <%= action_link(link_to('Добавить ответственного за ГПО на кафедре', new_manage_permission_path(:permission => {:role => :mentor})), 'new', 'Позволяет создать ответственного за ГПО на кафедре') %>
-  <%= action_link(link_to('Добавить руководителя пректа', new_manage_permission_path(:permission => {:role => :project_manager})), 'new', 'Позволяет добавить руководителя к проекту') %>
   <%= action_link(link_to('Добавить администратора', new_manage_permission_path(:permission => {:role => :manager})), 'new', 'Позволяет создать администратора') %>
 <% end %>
 
