@@ -14,7 +14,10 @@ class Manage::ParticipantsController < Manage::InheritedResourcesController
 
   def make_executive
     make_executive!{
-      @project.participants.as_executive.first.update_attribute(:executive, false) if @project.participants.as_executive.any?
+      if @project.participants.as_executive.any?
+        Permission.where(:context_id => @project.id, :context_type => 'Project', :role => 'executive_participant').destroy_all
+        @project.participants.as_executive.first.update_attribute(:executive, false)
+      end
       @participant.update_attribute(:executive, true)
 
       redirect_to manage_chair_project_participants_path(@chair, @project) and return

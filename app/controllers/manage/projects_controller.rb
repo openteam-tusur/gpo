@@ -1,6 +1,8 @@
 # encoding: utf-8
 
 class Manage::ProjectsController < Manage::InheritedResourcesController
+  include ExecutiveRedirect
+
   belongs_to :chair, :parent_class => Chair
 
   custom_actions resource: [:to_close, :close]

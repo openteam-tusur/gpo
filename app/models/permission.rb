@@ -1,7 +1,7 @@
 class Permission < ActiveRecord::Base
   include AuthClient::Permission
 
-  acts_as_auth_client_permission :roles => [:manager, :mentor, :project_manager]
+  acts_as_auth_client_permission :roles => [:manager, :mentor, :project_manager, :executive_participant]
 
   attr_accessor :name
 

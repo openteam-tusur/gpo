@@ -2,6 +2,8 @@
 <%= form.input :description %>
 <%= form.input :planned_closing_at, :as => :datepicker %>
 <%= form.input :planned_grade %>
-<%= form.input :closed_at, :as => :datepicker %>
-<%= form.input :grade %>
-<%= form.input :results %>
+<% unless current_user.executive_participant? %>
+  <%= form.input :closed_at, :as => :datepicker %>
+  <%= form.input :grade %>
+  <%= form.input :results %>
+<% end %>

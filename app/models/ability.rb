@@ -22,18 +22,32 @@ class Ability
 
     can :read, :dashboard
 
+    unless user.executive_participant?
+      can :read, [Order, Participant, ProjectManager, Visitation]
+
+      can [:create, :update, :remove, :cancel, :make_executive, :unmake_exicutive], Participant do |participant|
+        can?(:update, participant.project)
+      end
+
+      can [:create, :update, :remove, :cancel], ProjectManager  do |project_manager|
+        can?(:manage_projects, project_manager.project.chair) && project_manager.project.editable?
+      end
+
+      can :create, Order do |order|
+        can? :manage_projects, order.chair
+      end
+
+      can :index, Project do |project|
+        user.mentor_of?(project.chair) || user.project_manager_of?(project)
+      end
+    end
+
     can :read, Chair do |chair|
       user.available_chairs.include?(chair)
     end
 
-    can :read, [Issue, Order, Participant, ProjectManager, Stage, Visitation]
-
     can :read, Project do |project|
-      user.mentor_of?(project.chair)
-    end
-
-    can :read, Project do |project|
-      user.project_manager_of?(project)
+      user.mentor_of?(project.chair) || user.project_manager_of?(project) || user.executive_participant_of?(project)
     end
 
     can :update, Project do |project|
@@ -52,20 +66,10 @@ class Ability
       can?(:close, project) && project.draft?
     end
 
-    can [:create, :update, :remove, :cancel, :make_executive, :unmake_exicutive], Participant do |participant|
-      can?(:update, participant.project)
-    end
-
-    can [:create, :update, :remove, :cancel], ProjectManager  do |project_manager|
-      can?(:manage_projects, project_manager.project.chair) && project_manager.project.editable?
-    end
+    can :read, [Stage, Issue]
 
     can :manage, [Stage, Issue] do |object|
       can? :update, object.project
-    end
-
-    can :create, Order do |order|
-      can? :manage_projects, order.chair
     end
 
     can [:update, :destroy, :to_review], Order do |order|

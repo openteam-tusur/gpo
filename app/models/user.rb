@@ -9,7 +9,7 @@ class User
     @people ||= Person.where(:user_id => id)
   end
 
-  %w(project_manager manager mentor).each do |role|
+  %w(project_manager manager mentor executive_participant).each do |role|
     define_method "#{role}?" do
       permissions.for_role(role.to_sym).any?
     end
@@ -25,6 +25,7 @@ class User
     available_chairs += Chair.all.map(&:id) if manager?
     available_chairs += Chair.joins(:permissions).where(:permissions => {:user_id => id}).map(&:id) if mentor?
     available_chairs += Chair.joins(:projects).where(:projects => {:id => permissions.where(:context_type => 'Project').pluck(:context_id)}).map(&:id) if project_manager?
+    available_chairs << project.chair_id if executive_participant?
     available_chairs = Chair.ordered_by_abbr.where(:id => [available_chairs.uniq])
   end
 
@@ -44,13 +45,27 @@ class User
     @project_managers ||= people.flat_map{ |p| p.project_managers.approved }
   end
 
+  def project
+    @project ||= permissions.for_role('executive_participant').first.try(:context)
+  end
+
   def after_signed_in
     super
+
+    associate_executive_participants
 
     Person.where(:email => self.email, :user_id => nil).each do |person|
       person.update_columns(:user_id => self.id)
       person.project_managers.approved.each do |pm|
         self.permissions.reload.find_or_create_by!(:role => :project_manager, :context_type => 'Project', :context_id => pm.project_id)
+      end
+    end
+  end
+
+  def associate_executive_participants
+    if try(:contingent_id).present?
+      if participant = Participant.where(:student_id => contingent_id.to_i, :state => 'approved', :executive => true).first
+        permissions.find_or_create_by(:role => 'executive_participant', :context_type => 'Project', :context_id => participant.project_id)
       end
     end
   end
