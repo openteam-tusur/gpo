@@ -20,7 +20,7 @@ class Participant < ActiveRecord::Base
   has_many :visitations,  :dependent => :destroy
   has_many :issues, -> { order('planned_closing_at') }, :dependent => :destroy
 
-  validates_presence_of :student_id
+  validates_presence_of :student_id, :if => :need_validation_of_student_id?
   validates_presence_of :project_id
 
   before_create :check_createable
@@ -124,6 +124,14 @@ class Participant < ActiveRecord::Base
     "#{self.name}, гр. #{self.edu_group}, каф. #{self.subfaculty}"
   end
 
+  def text_for_views
+    ''.tap do |s|
+      s << "гр. #{edu_group}, " if edu_group.present?
+      s << "#{course} курс, "   if course.present?
+      s << "каф. #{subfaculty} #{faculty}"
+    end
+  end
+
   def self.pluralized_string(count)
     Russian.p(count, 'участник', 'участника', 'участников')
   end
@@ -172,6 +180,10 @@ class Participant < ActiveRecord::Base
 
   def check_createable
     raise "Cann't create participant" unless createable?
+    true
+  end
+
+  def need_validation_of_student_id?
     true
   end
 end

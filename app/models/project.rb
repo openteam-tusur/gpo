@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
   belongs_to :theme
 
   has_many :participants, -> { order('last_name') }, :dependent => :destroy
+  has_many :alien_participants, -> { order('last_name') }
   has_many :project_managers, :dependent => :destroy
   has_many :stages, -> { order('start') }, :dependent => :destroy
   has_many :people, -> { order('people.last_name') }, :through => :project_managers

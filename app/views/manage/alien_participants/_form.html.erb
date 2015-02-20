@@ -1,0 +1,14 @@
+<%= simple_form_for [:manage, @chair, @project, @alien_participant] do |f| %>
+  <fieldset>
+    <%= f.input :last_name %>
+    <%= f.input :first_name %>
+    <%= f.input :middle_name %>
+    <%= f.input :university %>
+    <%= f.input :faculty %>
+    <%= f.input :subfaculty %>
+    <%= f.input :edu_group %>
+
+    <%= f.submit I18n.t("add") %>
+    <%= link_to I18n.t("cancel"), manage_chair_project_participants_path(@chair, @project) %>
+  </fieldset>
+<% end %>

@@ -29,6 +29,10 @@ ru:
   participant:
     new:        Новый участник
 
+
+  alien_participant:
+    new:        Новый участник из другого ВУЗа
+
   project:
     active:     Активные проекты
     archive:    Закрытые проекты
@@ -183,7 +187,7 @@ ru:
       visitation:
         rate:             Баллы
 
-      person:
+      person: &person
         chair:                 Кафедра
         email:                 E-mail
         first_name:            Имя
@@ -195,6 +199,13 @@ ru:
         post:                  Должность, уч. звание
         float:                 Корпус, аудитория
         phone:                 Контактный телефон
+
+      alien_participant:
+        <<: *person
+        university: ВУЗ
+        faculty: Факультет
+        subfaculty: Кафедра
+        edu_group: Группа
 
     state_machines:
       project_manager:

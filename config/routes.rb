@@ -37,6 +37,8 @@ Gpo::Application.routes.draw do
           end
         end
 
+        resources :alien_participants, :only => [:new, :create, :update, :show]
+
         resources :project_managers, except: [:show, :destroy]
 
         resources :orders, only: :index

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006091825) do
+ActiveRecord::Schema.define(version: 20150219102052) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,8 @@ ActiveRecord::Schema.define(version: 20141006091825) do
     t.string   "subfaculty"
     t.string   "faculty"
     t.boolean  "executive",         default: false
+    t.string   "type"
+    t.string   "university"
   end
 
   create_table "people", force: true do |t|
