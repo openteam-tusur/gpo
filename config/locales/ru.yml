@@ -19,6 +19,7 @@ ru:
     manager:          Администратор
     mentor:           Ответственный за ГПО по кафедре
     project_manager:  Руководитель проекта
+    executive_participant: Ответственный исполнитель
 
   chair:
     new:        Новая кафедра
