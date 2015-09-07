@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150219102052) do
+ActiveRecord::Schema.define(version: 20150907065202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,9 +31,10 @@ ActiveRecord::Schema.define(version: 20150219102052) do
     t.string   "title"
     t.string   "abbr"
     t.string   "chief"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "faculty"
+    t.string   "contingent_abbr"
   end
 
   create_table "gpodays", force: true do |t|

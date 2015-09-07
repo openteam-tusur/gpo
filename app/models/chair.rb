@@ -1,5 +1,5 @@
 class Chair < ActiveRecord::Base
-  attr_accessible :title, :abbr, :chief
+  attr_accessible :title, :abbr, :chief, :contingent_abbr
 
   validates_presence_of :title, :abbr, :chief
   validates_uniqueness_of :abbr
