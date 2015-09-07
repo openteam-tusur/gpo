@@ -15,8 +15,8 @@
 <h1 class="section">Поиск студентов</h1>
 <%= simple_form_for :search, :url => new_manage_chair_project_participant_path(@project.chair, @project), :method => "get" do | form | %>
   <fieldset>
-    <%= form.input :lastname, :input_html => { :value => params[:search]['lastname'] }, :label => 'Фамилия студента' %>
-    <%= form.input :group, :input_html => { :value => params[:search]['group'] }, :label => 'Группа' %>
+    <%= form.input :lastname, :input_html => { :value => params[:search]['lastname'] }, :label => 'Фамилия студента', required: false %>
+    <%= form.input :group, :input_html => { :value => params[:search]['group'] }, :label => 'Группа', required: false %>
     <%= form.button :submit, I18n.t("find") %>
   </fieldset>
 <% end if params[:search] %>
