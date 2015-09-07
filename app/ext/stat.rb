@@ -32,7 +32,7 @@ class Stat
         Stat.new(:participant_total,            Participant.active.count,                       I18n.t('statistics.participant_total')),
         Stat.new(:participant_sbi,              Participant.sbi_residents.count,                I18n.t('statistics.participant_sbi')),
         #Stat.new(:participant_interfaculty,     Participant.interfaculty.count,                 I18n.t('statistics.participant_interfaculty')),
-        #Stat.new(:participant_intersubfaculty,  Participant.intersubfaculty.count,              I18n.t('statistics.participant_intersubfaculty')),
+        Stat.new(:participant_intersubfaculty,  Project.intersubfaculty.map {|p| p.participants.active.count - p.participants.active.with_subfaculty(p.chair.abbr).count}.sum,              I18n.t('statistics.participant_intersubfaculty')),
         Stat.new(:participant_course_1,         Participant.active.at_course(1).count,          I18n.t('statistics.participant_course_1')),
         Stat.new(:participant_course_2,         Participant.active.at_course(2).count,          I18n.t('statistics.participant_course_2')),
         Stat.new(:participant_course_3,         Participant.active.at_course(3).count,          I18n.t('statistics.participant_course_3')),
