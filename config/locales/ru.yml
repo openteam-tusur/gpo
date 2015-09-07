@@ -307,8 +307,8 @@ ru:
     managers:                       Руководителей проектов
     participant_total:              Всего студентов
     participant_sbi:                Студентов в проектах резидентах СБИ
-    participant_interfaculty:       Студентов в межфакультетских проектах
-    participant_intersubfaculty:    Студентов в межкафедральных проектах
+    #participant_interfaculty:       Студентов в межфакультетских проектах
+    participant_intersubfaculty:    Студентов с других кафедр и факультетов
     participant_course_1:           Студентов 1 курса
     participant_course_2:           Студентов 2 курса
     participant_course_3:           Студентов 3 курса
