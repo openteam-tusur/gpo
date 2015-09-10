@@ -5,7 +5,7 @@
   <p>Если нет необходимости создавать задачу перейдите по ссылке "Отмена"</p>
 <% end %>
 
-<%= simple_form_for [:manage, @chair, @project, @participant, @issue] do | form | %>
+<%= simple_form_for @issue, :url => manage_chair_project_participant_issues_path(@chair, @project, @participant) do | form | %>
   <fieldset>
     <%= render :partial => "form", :locals => { :form => form } %>
     <%= form.button :submit, t("create") %>
