@@ -215,13 +215,13 @@ ru:
           states:
             approved:          Утвержден
             awaiting_approval: Ожидает утверждения
-            awaiting_removal:  Ожидает удаления
-            removed:           Удален
+            awaiting_removal:  Ожидает исключения
+            removed:           Исключен
 
           events:
             approve: Подтвердить
             cancel:  Отменить
-            remove:  Удалить
+            remove:  Исключить
 
       order:
         state:
@@ -245,12 +245,12 @@ ru:
             approved: Участник
             awaiting_approval: Ожидает включения
             awaiting_removal: На исключение
-            removed: Удален
+            removed: Исключен
 
           events:
             approve: Подтвердить
             cancel:  Отменить
-            remove:  Удалить
+            remove:  Исключить
 
       project:
         state:
