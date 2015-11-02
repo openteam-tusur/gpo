@@ -39,6 +39,8 @@ class Project < ActiveRecord::Base
   scope :interfaculty, -> {where(:interdisciplinary => :interfaculty)}
   scope :intersubfaculty, -> {where(:interdisciplinary => :intersubfaculty)}
 
+  delegate :name, :to => :theme, :prefix => true, :allow_nil => true
+
   searchable do
     text(:title, :stored => true)
     text(:project_managers)         { project_managers.map(&:person).join(' ') }
