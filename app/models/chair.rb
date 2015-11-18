@@ -75,6 +75,11 @@ class Chair < ActiveRecord::Base
     end
   end
 
+  def faculty_abbr
+    match_data = faculty.to_s.match(/\((.+)\)/)
+    match_data ? match_data[1] : ""
+  end
+
 end
 
 # == Schema Information
