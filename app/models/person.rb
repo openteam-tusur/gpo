@@ -35,6 +35,10 @@ class Person < ActiveRecord::Base
   def to_s
     [last_name, first_name, middle_name].join(' ')
   end
+
+  def fullname
+    to_s
+  end
 end
 
 # == Schema Information

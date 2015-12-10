@@ -12,6 +12,7 @@ class ProjectManager < ActiveRecord::Base
   scope :awaiting, -> { where(:state => %w[awaiting_approval awaiting_removal]) }
 
   delegate :fullname, :name, :surname, :patronymic, :email, :to => :user, :allow_nil => true
+  delegate :to_s, :to => :person, :allow_nil => true
 
   state_machine :state, :initial => :awaiting_approval do
     event :approve do

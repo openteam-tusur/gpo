@@ -1,3 +1,3 @@
 class API::Entities::ProjectManagerEntity < Grape::Entity
-  expose :fullname,   :format_with => ->(s) { s.try(:squish) }, :as => :name
+  expose :to_s, :as => :name
 end
