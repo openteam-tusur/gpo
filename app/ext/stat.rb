@@ -32,7 +32,7 @@ class Stat
       :participants => [
         Stat.new(:participant_total,            Participant.active.count,                       I18n.t('statistics.participant_total')),
         Stat.new(:participant_sbi,              Participant.active.sbi_residents.count,                I18n.t('statistics.participant_sbi')),
-        Stat.new(:participant_intersubfaculty,  Project.intersubfaculty.map {|p| p.participants.active.count - p.participants.active.with_subfaculty(p.chair.contingent_abbr).count}.sum,              I18n.t('statistics.participant_intersubfaculty')),
+        Stat.new(:participant_intersubfaculty,  Project.intersubfaculty.map {|p| p.participants.active.count - p.participants.active.with_subfaculty(p.chair.contingent_abbr).count - Participant.active.other_univercity.count}.sum,              I18n.t('statistics.participant_intersubfaculty')),
         Stat.new(:participant_other_univercity, Participant.active.other_univercity.count,      I18n.t('statistics.participant_other_univercity')),
         Stat.new(:participant_course_1,         Participant.active.at_course(1).count,          I18n.t('statistics.participant_course_1')),
         Stat.new(:participant_course_2,         Participant.active.at_course(2).count,          I18n.t('statistics.participant_course_2')),
@@ -64,7 +64,7 @@ class Stat
         Stat.new(:participant_total,            chair.participants.active.count,                                I18n.t('statistics.participant_total')),
         Stat.new(:participant_sbi,              chair.participants.sbi_residents.count,                         I18n.t('statistics.participant_sbi')),
         #Stat.new(:participant_interfaculty,     chair.participants.interfaculty.count,                          I18n.t('statistics.participant_interfaculty')),
-        Stat.new(:participant_intersubfaculty,  chair.participants.active.count - chair.participants.active.with_subfaculty(chair.contingent_abbr).count,         I18n.t('statistics.participant_intersubfaculty')),
+        Stat.new(:participant_intersubfaculty,  chair.participants.active.count - chair.participants.active.with_subfaculty(chair.contingent_abbr).count - chair.participants.active.other_univercity.count,         I18n.t('statistics.participant_intersubfaculty')),
         Stat.new(:participant_other_univercity, chair.participants.active.other_univercity.count,      I18n.t('statistics.participant_other_univercity')),
         Stat.new(:participant_course_1,         chair.participants.active.at_course(1).count,                   I18n.t('statistics.participant_course_1')),
         Stat.new(:participant_course_2,         chair.participants.active.at_course(2).count,                   I18n.t('statistics.participant_course_2')),
