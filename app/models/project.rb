@@ -149,7 +149,7 @@ class Project < ActiveRecord::Base
   def update_interdisciplinary
     self.interdisciplinary = 'not_interdisciplinary'
     if participants.active.any?
-      self.interdisciplinary = 'intersubfaculty' if participants.active.group_by(&:subfaculty).size > 1 || !participants.active.group_by(&:subfaculty).keys.include?(chair.abbr)
+      self.interdisciplinary = 'intersubfaculty' if participants.active.group_by(&:subfaculty).size > 1 || !participants.active.group_by(&:subfaculty).keys.include?(chair.contingent_abbr)
       self.interdisciplinary = 'interfaculty' if participants.active.group_by(&:faculty).size > 1 || !participants.active.group_by(&:faculty).keys.include?(chair.faculty_abbr)
     end
     save if self.interdisciplinary_changed?
