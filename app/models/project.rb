@@ -38,6 +38,7 @@ class Project < ActiveRecord::Base
   scope :interdisciplinary, ->{ where(:interdisciplinary => [:interfaculty, :intersubfaculty]) }
   scope :interfaculty, -> {where(:interdisciplinary => :interfaculty)}
   scope :intersubfaculty, -> {where(:interdisciplinary => :intersubfaculty)}
+  scope :interunivercity, -> {where(:interdisciplinary => :interunivercity)}
 
   delegate :name, :to => :theme, :prefix => true, :allow_nil => true
 
@@ -62,7 +63,7 @@ class Project < ActiveRecord::Base
   end
 
   enumerize :sbi_placing, in: [:resident, :not_related], predicates: { prefix: true }
-  enumerize :interdisciplinary, in: [:intersubfaculty, :interfaculty, :not_interdisciplinary], default: :not_interdisciplinary, predicates: true
+  enumerize :interdisciplinary, in: [:intersubfaculty, :interfaculty, :interunivercity, :not_interdisciplinary], default: :not_interdisciplinary, predicates: true
   enumerize :category, in: [:business, :research, :by_request, :for_university, :social], predicates: true
   enumerize :result, :in => [:programm, :device, :model, :method, :technology, :none, :other]
 
@@ -151,6 +152,7 @@ class Project < ActiveRecord::Base
     if participants.active.any?
       self.interdisciplinary = 'intersubfaculty' if participants.active.group_by(&:subfaculty).size > 1 || !participants.active.group_by(&:subfaculty).keys.include?(chair.contingent_abbr)
       self.interdisciplinary = 'interfaculty' if participants.active.group_by(&:faculty).size > 1 || !participants.active.group_by(&:faculty).keys.include?(chair.faculty_abbr)
+      self.interdisciplinary = 'interunivercity' if participants.active.other_univercity.any?
     end
     save if self.interdisciplinary_changed?
   end

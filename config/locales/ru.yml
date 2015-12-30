@@ -288,6 +288,7 @@ ru:
       interdisciplinary:
         interfaculty: Межфакультетский проект
         intersubfaculty: Межкафедральный проект
+        interunivercity: Межвузовский проект
 
       result:
         programm:     программа
@@ -303,12 +304,13 @@ ru:
     sbi_projects:                   Резидентов СБИ
     interfaculty_projects:          Межфакультетских проектов
     intersubfaculty_projects:       Межкафедральных проектов
+    interunivercity_projects:       Межвузовских проектов
     draft_projects:                 Черновиков проектов
     closed_projects:                Закрытых проектов
     managers:                       Руководителей проектов
     participant_total:              Всего студентов
     participant_sbi:                Студентов в проектах резидентах СБИ
-    #participant_interfaculty:       Студентов в межфакультетских проектах
+    participant_other_univercity:   Студентов других вузов
     participant_intersubfaculty:    Студентов других кафедр и факультетов
     participant_course_1:           Студентов 1 курса
     participant_course_2:           Студентов 2 курса
