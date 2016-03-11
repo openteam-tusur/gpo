@@ -22,6 +22,10 @@ class Report
       {:id => :university_participants,
         :title => "Списки студентов",
         :description => "Списки студентов участвующих в ГПО, в формате MS Excel",
+        :type => "xls"},
+      {:id => :university_projects,
+        :title => "Список проектов",
+        :description => "Сведения о проектах в формате MS Excel",
         :type => "xls"}
     ],
     :chair => [

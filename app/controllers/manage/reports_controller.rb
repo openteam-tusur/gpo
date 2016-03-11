@@ -49,6 +49,8 @@ class Manage::ReportsController < Manage::ApplicationController
       report = ChairAttestation.new(@chair) if @chair
     when 'university_participants'
       report = UniversityParticipants.new
+    when 'university_projects'
+      report = UniversityProjects.new
     else raise "Нет такого типа xls отчета"
     end
 
