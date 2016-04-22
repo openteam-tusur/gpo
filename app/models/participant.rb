@@ -17,6 +17,7 @@ class Participant < ActiveRecord::Base
   belongs_to :project
 
   has_one :chair,  :through => :project
+  has_one :certificate, dependent: :destroy
   has_many :visitations,  :dependent => :destroy
   has_many :issues, -> { order('planned_closing_at') }, :dependent => :destroy
 

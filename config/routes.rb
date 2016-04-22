@@ -18,6 +18,12 @@ Gpo::Application.routes.draw do
 
     resources :chairs do
       resources :visitations, only: :index
+      resources :certificates, except: [:new, :edit, :show] do
+        member do
+          post :approve
+          post :decline
+        end
+      end
 
       resources :projects do
         member do
@@ -68,4 +74,3 @@ Gpo::Application.routes.draw do
 
   root :to => 'chairs#index'
 end
-

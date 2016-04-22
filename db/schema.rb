@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150907065202) do
+ActiveRecord::Schema.define(version: 20160420032022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,18 @@ ActiveRecord::Schema.define(version: 20150907065202) do
     t.integer  "chair_id"
     t.string   "actor"
   end
+
+  create_table "certificates", force: true do |t|
+    t.integer  "participant_id"
+    t.string   "user_id"
+    t.text     "project_result"
+    t.text     "project_reason"
+    t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "certificates", ["participant_id"], name: "index_certificates_on_participant_id", using: :btree
 
   create_table "chairs", force: true do |t|
     t.string   "title"

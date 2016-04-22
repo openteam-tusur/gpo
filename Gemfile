@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 group :default do
   gem 'attribute_normalizer'
+  gem 'angular_rails_csrf'
   gem 'auth_client', :git => 'https://github.com/openteam-tusur/auth_client'
   gem 'auth_redis_user_connector', :git => 'https://github.com/openteam-tusur/auth_redis_user_connector'
   gem 'better'
@@ -37,6 +38,7 @@ group :default do
   gem 'uglifier',             '>= 1.3.0'
 end
 
+
 group :development do
   gem 'annotate',             :require => false
   gem 'brakeman',             :require => false
@@ -55,4 +57,8 @@ group :test do
   gem 'forgery'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+end
+
+source 'https://rails-assets.org' do
+  gem 'rails-assets-angular'
 end

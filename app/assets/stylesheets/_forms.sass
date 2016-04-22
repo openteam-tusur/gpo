@@ -75,3 +75,62 @@
       margin-bottom: 0 !important
   .button
     margin-right: 5px
+
+.certificates-index
+  .certificate-claim
+    background-color: #eee
+    padding: 10px
+    margin: 5px 0
+    position: relative
+
+    .pseudo-button
+      cursor: pointer
+      font-weight: bold
+
+    small
+      font-size: 0.85em
+      display: block
+      padding: 15px
+      background-color: #88ECFF
+
+      b
+        font-weight: bolder
+
+    .participant
+      strong
+        font-weight: bold
+        display: block
+
+      .certificate-state
+        position: absolute
+        top: 0
+        right: 0
+        padding: 0px 5px
+        margin: 5px
+        border-radius: 3px
+        transition: 1s
+        color: white
+
+        &.initialized, &.send_to_mentor, &.send_to_manager
+          background-color: #FF530D
+
+        &.publicated
+          background-color: #12CC27
+
+      .text-field
+        margin-top: 10px
+        transition: 1s
+        padding-left: 10px
+
+        &:hover
+          background-color: #aca
+
+        label
+          display: block
+          font-size: 0.9em
+          font-weight: bold
+
+      .buttons-wrapper
+        margin-top: 10px
+        button
+          margin-right: 5px

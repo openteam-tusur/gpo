@@ -223,6 +223,13 @@ ru:
             cancel:  Отменить
             remove:  Исключить
 
+      certificate:
+        state:
+          initialized: Заявка создана
+          send_to_mentor: Отправлено ответственному за ГПО на кафедре
+          send_to_manager: На рассмотрении в ЦИОТ
+          published: Заявка утверждена
+
       order:
         state:
           states:
@@ -319,5 +326,3 @@ ru:
     participant_course_5:           Студентов 5 курса
     undergraduates_at_course_1:     Магистрантов 1 курса
     undergraduates_at_course_2:     Магистрантов 2 курса
-
-
