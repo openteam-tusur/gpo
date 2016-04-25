@@ -46,7 +46,7 @@ class Manage::CertificatesController < Manage::ApplicationController
   end
 
   def pdf_all
-    @certificates = Certificate.pdf
+    @certificates = Certificate.where(id: params[:certificates])
     pdf = CertificatePdf.new(@certificates)
     send_data pdf.make_pdf, filename: "certificate.pdf", type: "application/pdf" and return
   end

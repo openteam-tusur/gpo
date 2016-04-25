@@ -17,12 +17,23 @@
     </a>
   </div>
 
-  <a href="{{certificates.url}}/pdf_all" class="button" ng-show="certificates.canPdfAll(filterState)">PDFALL</a>
+  <div class='pdf-actions' ng-show='certificates.canPdfAll(filterState)'>
+    <a class="button" ng-show='certificates.selected().length' ng-click='certificates.markAll()'>
+      Очистить выделенное
+    </a>
+    <a href="{{ certificates.getAllCertificatesUrl() }}" class="button" ng-show="certificates.selected().length">
+      Скачать выделенные сертификаты
+    </a>
+    <a class="button" ng-click='certificates.markAll(true)' >
+      Выделить все
+    </a>
+  </div>
+
   <button type="button" class='button' ng-click='certificates.addCertificate()' ng-show='certificates.showAddButton()'>
     Добавить заявку
   </button>
 
-  <div ng-repeat='certificate in certificates.filterState(filterState, true)' class='certificate-claim'>
+  <div ng-repeat='certificate in certificates.filterState(filterState, true)' class='certificate-claim' ng-class='{ selected: certificate.selected }'>
     <div class="new_certificate_form simple_form" ng-show="certificate.formShow()">
       <fieldset>
         <div class="input">
@@ -110,19 +121,18 @@
           <br/>
           {{ certificate.participant.project_to_s }}
         </p>
-
-      </div>
-      <div class="text-field">
-        <label>
-          Результат выполнения проекта
-        </label>
-        {{ certificate.project_result }}
       </div>
       <div class="text-field">
         <label>
           Проект выполнялся
         </label>
         {{ certificate.project_reason }}
+      </div>
+      <div class="text-field" ng-if='certificate.project_result.length'>
+        <label>
+          Результат выполнения проекта
+        </label>
+        {{ certificate.project_result }}
       </div>
       <div class="certificate-state {{certificate.state}}">
         {{ certificate.state_text }}
@@ -133,6 +143,9 @@
         <button type="button" ng-click='certificate.approve()' ng-show='certificate.abilities.approve' class="button" >{{ certificate.approveButtonText() }}</button>
         <button type="button" ng-click='certificate.decline()' ng-show='certificate.abilities.decline' class="button danger">Отклонить заявку</button>
         <a href="{{certificates.url}}/{{certificate.id}}/pdf" class="button" ng-show="certificate.abilities.pdf">PDF</a>
+        <button type="button" ng-click='certificate.selected = !certificate.selected' class="button ">
+          {{ certificate.textForSelectButton() }}
+        </button>
       </div>
     </div>
   </div>

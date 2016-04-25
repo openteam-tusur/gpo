@@ -8,9 +8,22 @@ angular.module('certificates').
       }
 
       o.filterState = (state, show_new = false) ->
-        console.log show_new
         results = o.certificates.filter (certificate) ->
           certificate.state == state || (!certificate.state && show_new)
+
+      o.selected = () ->
+        o.certificates.filter (certificate) ->
+          certificate.selected == true
+
+      o.markAll = (selected = false) ->
+        console.log selected
+        if selected
+          o.filterState('published').map (certificate) -> certificate.selected = true
+        else
+          o.certificates.map (certificate) -> certificate.selected = false
+
+      o.getAllCertificatesUrl = () ->
+        "#{o.url}pdf_all?certificates[]=#{o.selected().map((certificate) -> certificate.id ).join('&certificates[]=')}"
 
       o.showAddButton = () ->
         blank_certificates = o.certificates.filter (certificate) ->
@@ -109,6 +122,9 @@ angular.module('certificates').
 
         certificate.approveButtonText = () ->
           if @state == 'send_to_manager' then 'Согласовать' else 'Отправить на согласование'
+
+        certificate.textForSelectButton = () ->
+          if @selected then 'Снять выделение' else 'Выбрать для экспорта'
 
         certificate
       return o
