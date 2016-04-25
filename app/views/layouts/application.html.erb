@@ -5,7 +5,7 @@
 <%= content_for :base_content do %>
   <div id="wrapper" class="top-level">
     <div id="navigation">
-      <%= render :partial => "shared/#{submenu}" %>
+      <%= render :partial => "shared/#{submenu}", locals: { show_certificates: true } %>
     </div>
 
     <div id="content">

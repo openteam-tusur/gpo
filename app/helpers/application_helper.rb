@@ -30,6 +30,8 @@ module ApplicationHelper
       "container_one_column"
     when "statistics"
       "container_one_column"
+    when "certificates"
+      "container_one_column"
     else
       "container_two_column"
     end

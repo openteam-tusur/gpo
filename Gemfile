@@ -23,6 +23,7 @@ group :default do
   gem 'paperclip-elvfs', '0.0.5'
   gem 'paperclip', '3.4.0'
   gem 'pg'
+  gem 'prawn'
   gem 'progress_bar'
   gem 'protected_attributes'
   gem 'rails',                '~> 4.0.10'

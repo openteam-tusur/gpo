@@ -206,8 +206,12 @@ GEM
     paperclip-elvfs (0.0.5)
       curb
       paperclip
+    pdf-core (0.6.1)
     pg (0.17.1)
     pr_geohash (1.0.0)
+    prawn (2.1.0)
+      pdf-core (~> 0.6.1)
+      ttfunk (~> 1.4.0)
     progress_bar (1.0.3)
       highline (~> 1.6.1)
       options (~> 2.3.0)
@@ -330,6 +334,7 @@ GEM
     tilt (1.4.1)
     timecop (0.7.1)
     timers (1.1.0)
+    ttfunk (1.4.0)
     tzinfo (0.3.43)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
@@ -380,6 +385,7 @@ DEPENDENCIES
   paperclip (= 3.4.0)
   paperclip-elvfs (= 0.0.5)
   pg
+  prawn
   progress_bar
   protected_attributes
   quiet_assets

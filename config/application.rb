@@ -7,6 +7,7 @@ Bundler.require(:default, Rails.env)
 module Gpo
   class Application < Rails::Application
     config.autoload_paths += %W(
+      #{config.root}/lib
       #{config.root}/lib/reports
       #{config.root}/lib/modules
     )

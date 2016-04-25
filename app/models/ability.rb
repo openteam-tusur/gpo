@@ -4,7 +4,8 @@ class Ability
   def initialize(user)
     return unless user
 
-    alias_action :index, :create, :update, :destroy, to: :crud
+    alias_action :index, :update, :destroy, to: :crud
+    alias_action :pdf, :pdf_all, to: :export_pdf
 
     can :manage, :all if user.manager?
 
@@ -14,11 +15,13 @@ class Ability
 
     ## app specific
     if user.project_manager?
+      can :create, Certificate
       can :crud, Certificate, state: ['initialized']
       can :approve, Certificate, state: ['initialized']
     end
 
     if user.mentor?
+      can :create, Certificate
       can :crud, Certificate, state: ['send_to_mentor']
       can :approve, Certificate, state: ['send_to_mentor']
       can :decline, Certificate, state: ['send_to_mentor']

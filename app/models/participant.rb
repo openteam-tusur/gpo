@@ -44,6 +44,7 @@ class Participant < ActiveRecord::Base
   scope :other_univercity,           -> { where(:student_id => nil) }
 
   delegate :abbr, :to => :chair, :prefix => true
+  delegate :to_s, :to => :project, :prefix => true
 
   state_machine :initial => :awaiting_approval do
     event :approve do

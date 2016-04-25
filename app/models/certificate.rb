@@ -1,7 +1,11 @@
 class Certificate < ActiveRecord::Base
-  attr_accessible :participant_id, :project_result, :project_reason, :user_id
+  attr_accessible :participant_id, :project_result, :project_reason, :user_id, :state
 
   belongs_to :participant
+
+  scope :for_mentor, -> { where(state: ['send_to_mentor', 'published']) }
+  scope :for_manager, -> { where(state: ['send_to_manager', 'published']) }
+  scope :pdf, -> { where(state: 'published') }
 
   state_machine :state, initial: :initialized do
     event :approve do
@@ -11,7 +15,9 @@ class Certificate < ActiveRecord::Base
     end
 
     event :decline do
-      transition published: :initialized
+      transition published: :send_to_manager,
+                 send_to_manager: :send_to_mentor,
+                 send_to_mentor: :initialized
     end
   end
 

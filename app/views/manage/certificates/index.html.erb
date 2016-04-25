@@ -1,15 +1,29 @@
 <% title "Заявки на выдачу сертификатов", :project %>
 <div ng-app='certificates' ng-controller='CertificatesController'
      class='certificates-index'
-     ng-init='participants=<%= @participants.to_json(only: [:id], methods: [:name]).html_safe %>;
+     ng-init='participants=<%= @participants.to_json(only: [:id], methods: [:name, :project_to_s]).html_safe %>;
      certificates.insertData(<%= @certificates.html_safe %>);
-     certificates.roles=<%= current_user.permissions.pluck(:role).uniq.to_json %>'>
+     certificates.roles=<%= current_user.permissions.pluck(:role).uniq.to_json %>;
+     certificates.filters=<%= @filters.to_json%>;
+     resolveState()'>
 
+  <div class="filters">
+    <a ng-repeat='state in certificates.filters'
+       type="button"
+       ng-click='resolveState(state.state)'
+       ng-class='{bold: state.state == filterState }'
+       >
+      {{ state.text }} ({{certificates.filterState(state.state).length }})
+    </a>
+  </div>
+
+  <a href="{{certificates.url}}/pdf_all" class="button" ng-show="certificates.canPdfAll(filterState)">PDFALL</a>
   <button type="button" class='button' ng-click='certificates.addCertificate()' ng-show='certificates.showAddButton()'>
     Добавить заявку
   </button>
-  <div ng-repeat='certificate in certificates.certificates' class='certificate-claim'>
-    <div class="new_certificate_form simple_form" ng-show="certificate.form_show()">
+
+  <div ng-repeat='certificate in certificates.filterState(filterState, true)' class='certificate-claim'>
+    <div class="new_certificate_form simple_form" ng-show="certificate.formShow()">
       <fieldset>
         <div class="input">
           <label>
@@ -22,42 +36,21 @@
           <strong ng-hide='certificate.abilities.edit_participant'>
             {{ certificate.participant.name }}
           </strong>
+          <p class='project-title'>
+            {{ certificate.participant.project_to_s}}
+          </p>
         </div>
-      <div class="input">
-        <label>
-          Результат выполнения проекта:
-        </label>
-        <textarea ng-model="certificate.project_result" rows="8" cols="40">
-        </textarea>
-        <span  class='pseudo-button' ng-click='certificate.show_project_result_helper = !certificate.show_project_reason_helper'>
-          ?
-        </span>
-        <small ng-show='certificate.show_project_result_helper'>
-          Заполняется, что было достигнуто в результате выполнения проекта данным участником.
-          <br/>
-          <b>Варианты:</b>
-          <br/>
-            <b>устройство,</b> предназначенное для (например: визуальной стимуляции головного мозга);
-          <br/>
-          <b>технология </b> (например: формирования оксидных пленок и т.д.);
-          <br/>
-          <b>программный продукт </b> (например:  для формирования электронного расписания занятий вузов);
-          <br/>
-          <b>методика </b> (например: разработки программы продвижения программных продуктов на рынке корпоративных продаж);
-          <br/>
-          <b>организация и проведение мероприятий </b> (например: организация молодежного форума).
-        </small>
-      </div>
       <div class="input">
         <label>
           Проект выполнялся:
         </label>
         <textarea ng-model="certificate.project_reason" rows="8" cols="40">
         </textarea>
-        <span  class='pseudo-button' ng-click='certificate.show_project_reason_helper = !certificate.show_project_reason_helper'>
-          ?
+        <span class='counter' ng-class='{danger: certificate.counter(certificate.project_reason) < 0}'
+              title='Если вы превысите количество символов, вы не сможете добавить заявку'>
+          Осталось символов: <b>{{certificate.counter(certificate.project_reason)}}</b>
         </span>
-        <small ng-show='certificate.show_project_reason_helper'>
+        <small >
           Указывается для кого и на основании каких документов выполнялся проект.
           <br/>
           Варианты заполнения:
@@ -75,20 +68,49 @@
            номер договора и наименование предприятия.
         </small>
       </div>
-      <button type="button" ng-click="certificate.submit()" class="button">
-        {{ certificate.save_button_text() }}
+      <div class="input">
+        <label>
+          Результат выполнения проекта:
+        </label>
+        <textarea ng-model="certificate.project_result" rows="8" cols="40">
+        </textarea>
+        <span class='counter' ng-class='{danger: certificate.counter(certificate.project_result) < 0}'
+              title='Если вы превысите количество символов, вы не сможете добавить заявку'>
+          Осталось символов: <b>{{certificate.counter(certificate.project_result)}}</b>
+        </span>
+        <small>
+          Заполняется, что было достигнуто в результате выполнения проекта данным участником.
+          <br/>
+          <b>Варианты:</b>
+          <br/>
+            <b>устройство,</b> предназначенное для (например: визуальной стимуляции головного мозга);
+          <br/>
+          <b>технология </b> (например: формирования оксидных пленок и т.д.);
+          <br/>
+          <b>программный продукт </b> (например:  для формирования электронного расписания занятий вузов);
+          <br/>
+          <b>методика </b> (например: разработки программы продвижения программных продуктов на рынке корпоративных продаж);
+          <br/>
+          <b>организация и проведение мероприятий </b> (например: организация молодежного форума).
+        </small>
+      </div>
+      <button type="button" ng-click="certificate.submit()" ng-show='certificate.validate()' class="button">
+        {{ certificate.saveButtonText() }}
       </button>
       <button type="button" ng-click='certificate.hideForm()' class="button cancel"> Отмена </button>
     </fieldset>
   </div>
-    <div class="participant" ng-hide='certificate.form_show()'>
+    <div class="participant" ng-hide='certificate.formShow()'>
       <div class="text-field">
         <strong>
           {{ certificate.participant.name }}
         </strong>
         <p>
           {{ certificate.participant.text_for_views }}
+          <br/>
+          {{ certificate.participant.project_to_s }}
         </p>
+
       </div>
       <div class="text-field">
         <label>
@@ -108,8 +130,9 @@
       <div class="buttons-wrapper">
         <button type="button" ng-click='certificate.needs_to_be_edited = true' ng-show='certificate.abilities.edit_destroy' class="button">Редактировать</button>
         <button type="button" ng-click='certificate.destroy()' class="button danger" ng-show='certificate.abilities.edit_destroy'>Удалить</button>
-        <button type="button" ng-click='certificate.approve()' ng-show='certificate.abilities.approve' class="button" >Отправить на согласование</button>
-        <button type="button" ng-click='certificate.decline()' ng-show='certificate.abilities.decline' class="button danger">>Отклонить заявку</button>
+        <button type="button" ng-click='certificate.approve()' ng-show='certificate.abilities.approve' class="button" >{{ certificate.approveButtonText() }}</button>
+        <button type="button" ng-click='certificate.decline()' ng-show='certificate.abilities.decline' class="button danger">Отклонить заявку</button>
+        <a href="{{certificates.url}}/{{certificate.id}}/pdf" class="button" ng-show="certificate.abilities.pdf">PDF</a>
       </div>
     </div>
   </div>

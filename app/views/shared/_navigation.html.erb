@@ -6,6 +6,7 @@
     <%= nav_link link_to("Пользователи", manage_people_path), 'users' %>
     <%= nav_link link_to("Отчеты", manage_reports_path), 'reports' %>
     <%= nav_link link_to("Настройки", manage_themes_path), 'themes' %>
+    <%= nav_link link_to("Сертификаты (#{(Certificate.for_manager - Certificate.pdf).count})",
+                  manage_certificates_path), 'certificates'  if show_certificates %>
   <% end %>
 </ul>
-

@@ -4,7 +4,13 @@ angular.module('certificates').
       o = {
         certificates: []
         url: $window.location.href
+        filters: []
       }
+
+      o.filterState = (state, show_new = false) ->
+        console.log show_new
+        results = o.certificates.filter (certificate) ->
+          certificate.state == state || (!certificate.state && show_new)
 
       o.showAddButton = () ->
         blank_certificates = o.certificates.filter (certificate) ->
@@ -24,14 +30,18 @@ angular.module('certificates').
           certificate.needs_to_be_edited = false
         o.certificates.unshift o.newCertificate()
 
+      o.canPdfAll = (state) ->
+        o.filterState(state).filter( (certificate) ->
+          certificate.abilities.pdf).length
+
       o.newCertificate = (hash) ->
         if hash
           certificate = hash
         else
           certificate = {
             participant: {}
-            project_result: null
-            project_reason: null
+            project_result: ''
+            project_reason: ''
             id: null
             needs_to_be_edited: true
             abilities:
@@ -77,7 +87,7 @@ angular.module('certificates').
           $http.post("#{o.url}/#{@id}/decline.json").success (data) ->
             o.certificates[index] = o.newCertificate(data)
 
-        certificate.form_show = () ->
+        certificate.formShow = () ->
           certificate.needs_to_be_edited
 
         certificate.hideForm = () ->
@@ -86,9 +96,20 @@ angular.module('certificates').
             index = o.certificates.indexOf @
             o.certificates.splice(index, 1)
 
-        certificate.save_button_text = () ->
+        certificate.counter = (string) ->
+          210 - string.length
+
+        certificate.validate = () ->
+          @counter(@project_result) >= 0 &&
+          @counter(@project_reason) >= 0 &&
+          @participant.name
+
+        certificate.saveButtonText = () ->
           if @id then "Сохранить" else 'Добавить'
+
+        certificate.approveButtonText = () ->
+          if @state == 'send_to_manager' then 'Согласовать' else 'Отправить на согласование'
 
         certificate
       return o
-    ])
+])

@@ -16,13 +16,26 @@ Gpo::Application.routes.draw do
     post '/statistics/snapshot' => 'statistics#snapshot'
     resources :statistics, :only => [:destroy]
 
+    resources :certificates, except: [:new, :edit, :show] do
+      member do
+        post :approve
+        post :decline
+        get :pdf
+      end
+
+      get :pdf_all, on: :collection
+    end
+
     resources :chairs do
       resources :visitations, only: :index
       resources :certificates, except: [:new, :edit, :show] do
         member do
           post :approve
           post :decline
+          get :pdf
         end
+
+        get :pdf_all, on: :collection
       end
 
       resources :projects do
