@@ -143,7 +143,7 @@
         <button type="button" ng-click='certificate.approve()' ng-show='certificate.abilities.approve' class="button" >{{ certificate.approveButtonText() }}</button>
         <button type="button" ng-click='certificate.decline()' ng-show='certificate.abilities.decline' class="button danger">Отклонить заявку</button>
         <a href="{{certificates.url}}/{{certificate.id}}/pdf" class="button" ng-show="certificate.abilities.pdf">PDF</a>
-        <button type="button" ng-click='certificate.selected = !certificate.selected' class="button ">
+        <button type="button" ng-click='certificate.selected = !certificate.selected' class="button" ng-if='certificate.abilities.pdf'>
           {{ certificate.textForSelectButton() }}
         </button>
       </div>

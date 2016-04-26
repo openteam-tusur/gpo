@@ -23,7 +23,7 @@ angular.module('certificates').
           o.certificates.map (certificate) -> certificate.selected = false
 
       o.getAllCertificatesUrl = () ->
-        "#{o.url}pdf_all?certificates[]=#{o.selected().map((certificate) -> certificate.id ).join('&certificates[]=')}"
+        "#{o.url}/pdf_all?certificates[]=#{o.selected().map((certificate) -> certificate.id ).join('&certificates[]=')}"
 
       o.showAddButton = () ->
         blank_certificates = o.certificates.filter (certificate) ->

@@ -22,7 +22,7 @@ class CertificatePdf
       pdf.text object.participant.project.title, align: :center, size: 12
     end
 
-    pdf.bounding_box([90, 291], width: 410) do
+    pdf.bounding_box([90, 286], width: 410) do
       pdf.text object.project_reason, align: :center, size: 12
     end
 
