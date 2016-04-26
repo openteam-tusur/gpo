@@ -15,5 +15,6 @@ module Gpo
     config.time_zone = 'Novosibirsk'
 
     config.i18n.default_locale = :ru
+    config.assets.precompile += %w( angular-certificates.js )
   end
 end

@@ -1,5 +1,6 @@
 <% title "Заявки на выдачу сертификатов", :project %>
 <div ng-app='certificates' ng-controller='CertificatesController'
+     ng-cloak
      class='certificates-index'
      ng-init='participants=<%= @participants.to_json(only: [:id], methods: [:name, :project_to_s]).html_safe %>;
      certificates.insertData(<%= @certificates.html_safe %>);
