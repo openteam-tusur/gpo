@@ -15,6 +15,7 @@
             <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@project.chair)), 'chairs', :action => 'project_managers', :selected => false %>
             <%= nav_link link_to("Посещаемость", manage_chair_visitations_path(@project.chair)), 'visitations', :selected => false %>
           <% end %>
+          <%= nav_link link_to("Сертификаты", manage_chair_certificates_path(@chair)), 'certificates'  %>
         </ul>
       </div>
     <% end %>
