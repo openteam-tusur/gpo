@@ -62,7 +62,7 @@ class Manage::CertificatesController < Manage::ApplicationController
   def check_abilities(ar_object)
     if current_user.manager?
       {
-        edit_destroy: ar_object.send_to_manager?,
+        edit_destroy: true,
         approve:  ar_object.send_to_manager?,
         decline:  ar_object.send_to_manager? || ar_object.published?,
         edit_participant: ar_object.send_to_manager? && ar_object.user.id == current_user.id,
