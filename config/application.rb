@@ -12,7 +12,7 @@ module Gpo
       #{config.root}/lib/modules
     )
 
-    config.time_zone = 'Novosibirsk'
+    config.time_zone = 'Krasnoyarsk'
 
     config.i18n.default_locale = :ru
     config.assets.precompile += %w( angular-certificates.js )
