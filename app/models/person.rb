@@ -33,7 +33,7 @@ class Person < ActiveRecord::Base
   end
 
   def to_s
-    [last_name, first_name, middle_name].join(' ')
+    [last_name, first_name, middle_name].delete_if(&:blank?).join(' ')
   end
 
   def fullname

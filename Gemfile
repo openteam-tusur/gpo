@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
 group :default do
-  gem 'attribute_normalizer'
   gem 'angular_rails_csrf'
+  gem 'attribute_normalizer'
   gem 'auth_client', :git => 'https://github.com/openteam-tusur/auth_client'
   gem 'auth_redis_user_connector', :git => 'https://github.com/openteam-tusur/auth_redis_user_connector'
+  gem 'awesome_print'
   gem 'better'
   gem 'cancan'
   gem 'coffee-rails',        '~> 4.0.0'
@@ -20,8 +21,8 @@ group :default do
   gem 'nested_form'
   gem 'non-stupid-digest-assets'
   gem 'openteam-commons'
-  gem 'paperclip-elvfs', '0.0.5'
   gem 'paperclip', '3.4.0'
+  gem 'paperclip-elvfs', '0.0.5'
   gem 'pg'
   gem 'prawn'
   gem 'progress_bar'
@@ -33,6 +34,7 @@ group :default do
   gem 'russian'
   gem 'sass-rails',           '~> 4.0.0'
   gem 'simple_form',          '~> 3.0.2'
+  gem 'spreadsheet'
   gem 'state_machine'
   gem 'sunspot_rails',        '~> 2.0.0'
   gem 'timecop',              :require => false
