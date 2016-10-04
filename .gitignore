@@ -1,5 +1,7 @@
 *.swp
+.ruby-version
 /.bundle
+/bin/*
 /config/database.yml
 /config/deploy.yml
 /config/settings.yml
@@ -7,11 +9,10 @@
 /db/*.sqlite3
 /emails
 /erd.pdf
-/log/*.log
 /log/*.lck
+/log/*.log
 /public/files
-/tmp
 /solr/data
-/solr/pids
 /solr/data/development/*
-/bin/*
+/solr/pids
+/tmp
