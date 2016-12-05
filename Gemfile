@@ -20,7 +20,7 @@ group :default do
   gem 'kaminari'
   gem 'nested_form'
   gem 'non-stupid-digest-assets'
-  gem 'openteam-commons'
+  gem 'openteam-commons', '~> 0.3.3'
   gem 'paperclip', '3.4.0'
   gem 'paperclip-elvfs', '0.0.5'
   gem 'pg'
@@ -46,7 +46,7 @@ group :development do
   gem 'brakeman', require: false
   gem 'capistrano-auth-subscriber'
   gem 'hirb'
-  gem 'openteam-capistrano'
+  gem 'openteam-capistrano', '~> 1.0.16'
   gem 'quiet_assets'
   gem 'rails-erd'
   gem 'sqlite3'

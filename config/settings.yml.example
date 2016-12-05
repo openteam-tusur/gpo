@@ -2,6 +2,14 @@ app:
   domain:       domian
   secret:       secret
 
+errors:
+  key:          KEY
+  url:          http://errbit
+
+slack:
+  channel:      channel
+  webhook:      http://webhook
+
 auth_server:
   users_url:    http://auth.url/users/search
   sign_in_url:  http://auth.url/users/sign_in
@@ -9,10 +17,6 @@ auth_server:
 
 converter:
   url:          http://auth.url/
-
-errors:
-  key:          api_key
-  host:         http://errors.url/
 
 redis_user_connector:
   url:          redis://redis.url:6379/1/users
