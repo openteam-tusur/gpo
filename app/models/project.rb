@@ -55,7 +55,8 @@ class Project < ActiveRecord::Base
   end
 
   scope :for_user, ->(user) do
-    if user.mentor?
+    if user.manager?
+    elsif user.mentor?
       where(:chair_id => user.available_chairs.all)
     elsif user.project_manager?
       joins(:project_managers).joins(:people).where(:project_managers => { :state => :approved }, :people => { :user_id => user.id }).uniq
