@@ -45,6 +45,10 @@ class CertificatePdf
         pdf.text object.project_result, align: :center, size: 12
       end
     end
+    pdf.bounding_box([90, 72], width: 410) do
+      pdf.font "#{Rails.root}/app/assets/fonts/PTSans.ttf"
+      pdf.text "Томск - #{Date.today.year} г.", align: :center, size: 16
+    end
 
     pdf.start_new_page if certificates.last != object
   end
