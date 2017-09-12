@@ -25,7 +25,7 @@ group :default do
   gem 'paperclip-elvfs', '0.0.5'
   gem 'pg'
   gem 'prawn'
-  gem 'progress_bar'
+  gem 'progress_bar', '~> 1.1'
   gem 'protected_attributes'
   gem 'rails', '~> 4.0.10'
   gem 'rails-observers'
