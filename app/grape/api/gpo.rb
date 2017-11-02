@@ -72,6 +72,16 @@ class API::Gpo < Grape::API
     end
   end
 
+  resource :participant do
+    get ':id' do
+      participant = Participant.find_by(student_id: params[:id].to_s)
+
+      participant.project.to_json(
+        only: [:cipher, :title, :goal]
+      )
+    end
+  end
+
   get :permissions do
     user = User.find_by_uid(params[:uid].to_s)
     error!('User not found') unless user.present?
