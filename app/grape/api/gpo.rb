@@ -78,7 +78,7 @@ class API::Gpo < Grape::API
 
       participant.project.to_json(
         only: [:cipher, :title, :goal]
-      )
+      ) rescue {}
     end
   end
 
