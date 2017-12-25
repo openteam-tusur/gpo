@@ -1,6 +1,7 @@
 NonStupidDigestAssets.whitelist = [
-  'application.css',
-  'nav_sessions_dashboard.png',
   '404.png',
-  'angular-certificates.js'
+  'angular-certificates.js',
+  'application.css',
+  'datepicker.gif',
+  'nav_sessions_dashboard.png',
 ]
