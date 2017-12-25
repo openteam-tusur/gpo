@@ -7,102 +7,103 @@ module ApplicationHelper
 
   def nav_link(link, current_controller, options = {})
     current_action = options[:action]
-    id = "#{current_controller}"
-    id << "_#{current_action}" if current_action
+    id = current_controller
+    id << %(_#{current_action}) if current_action
     controller_match = (controller.controller_name.include?(current_controller))
     action_match = current_action ? (current_action == controller.action_name) : true
     selected = controller_match && action_match
     unless options[:selected].nil?
       selected = options[:selected]
     end
-    css_class = selected ? "current" : ""
-    img = image_tag "nav_#{id}.png", class: "icon", size: "16x16"
-    content_tag :li, img + link, class: css_class, id: "link_to_#{id}"
+    css_class = selected ? 'current' : ''
+    img = image_tag %(nav_#{id}.png), class: 'icon', size: '16x16'
+    content_tag :li, img + link, class: css_class, id: %(link_to_#{id})
   end
 
   def include_container
     case controller.controller_name
-    when "visitations"
-      "container_one_column"
-    when "issues"
-      "container_one_column"
-    when "search_projects"
-      "container_one_column"
-    when "statistics"
-      "container_one_column"
-    when "certificates"
-      "container_one_column"
+    when 'visitations'
+      'container_one_column'
+    when 'issues'
+      'container_one_column'
+    when 'search_projects'
+      'container_one_column'
+    when 'statistics'
+      'container_one_column'
+    when 'certificates'
+      'container_one_column'
     else
-      "container_two_column"
+      'container_two_column'
     end
   end
 
   def submenu
     case controller.controller_name
-    when "users"
-      "user_navigation"
-    when "reports"
-      "report_navigation"
-    when "search_projects"
-      "report_navigation"
-    when "statistics"
-      "report_navigation"
-    when "themes"
+    when 'users'
+      'user_navigation'
+    when 'reports'
+      'report_navigation'
+    when 'search_projects'
+      'report_navigation'
+    when 'statistics'
+      'report_navigation'
+    when 'themes'
       case controller.action_name
-      when "statistics", "projects"
-        "report_navigation"
+      when 'statistics', 'projects'
+        'report_navigation'
       else
-        "settings_navigation"
+        'settings_navigation'
       end
-    when "gpodays", "permissions"
-      "settings_navigation"
-    when "visitations"
-      "report_navigation"
+    when 'gpodays', 'reporting_stages', 'permissions'
+      'settings_navigation'
+    when 'visitations'
+      'report_navigation'
     else
-      "navigation"
+      'navigation'
     end
   end
 
   def inline_nav_link(link, selected)
-    css_class = selected ? "current" : ""
+    css_class = selected ? 'current' : ''
     content_tag :li, link, :class => css_class
   end
 
   def action_link(link, action_class = nil, description_text = nil)
     description = ""
     description = content_tag :span, description_text unless description_text.blank?
-    content_for :action_nav, content_tag(:li, link + description, :class => "action #{action_class}")
+    content_for :action_nav, content_tag(:li, link + description, class: ['action', action_class])
   end
 
   def hint(content)
-    content_tag :div, content, :class => "hint"
+    content_tag :div, content, class: 'hint'
   end
 
   def link_to_delete(url, link_title = nil)
-    link_title ||= I18n.t("delete")
-    link_to link_title, url, :method => :delete, :data => { :confirm => I18n.t("are_you_sure") }
+    link_title ||= I18n.t('delete')
+    link_to link_title, url, method: :delete, data: { confirm: I18n.t('are_you_sure') }
   end
 
   def render_list(item_partial, items, options = {})
     if items.any?
-      object = options.delete(:object) || item_partial.split("/").last.to_sym
+      object = options.delete(:object) || item_partial.split('/').last.to_sym
       content = items.collect {|item|
-        item_class = [cycle("odd", "even")]
+        item_class = [cycle('odd', 'even')]
         item_class << options[:item_class] if options[:item_class]
         content_tag(:li,
-          render(:partial => item_partial,
-                 :locals => {:object => item, :order => item, :chair_project_manager => item,
-                             :task => item, :activity => item, :report => item, :theme => item,
-                             :gpoday => item, :stage => item, permission: item, project: item, :project_manager => item }),
-          :class => item_class.join(" "))
+          render(partial: item_partial,
+                 locals: { object: item, order: item, chair_project_manager: item,
+                           task: item, activity: item, report: item, theme: item,
+                           gpoday: item, stage: item, permission: item, project: item,
+                           project_manager: item }),
+          class: item_class.join(' '))
       }.join
 
-      css_class = ["listing"]
+      css_class = ['listing']
       css_class << options[:class] if options[:class]
 
-      content_tag :ul, content.html_safe, :id => options[:id], :class => css_class.join(" ")
+      content_tag :ul, content.html_safe, id: options[:id], class: css_class.join(' ')
     else
-      content_tag :div, (options[:if_empty] || "В списке нет элементов") , :class => "empty-list"
+      content_tag :div, (options[:if_empty] || 'В списке нет элементов') , class: 'empty-list'
     end
   end
 

@@ -86,11 +86,12 @@ end
 #
 # Table name: chairs
 #
-#  id         :integer          not null, primary key
-#  title      :string(255)
-#  abbr       :string(255)
-#  chief      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  faculty    :string(255)
+#  id              :integer          not null, primary key
+#  title           :string(255)
+#  abbr            :string(255)
+#  chief           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  faculty         :string(255)
+#  contingent_abbr :string(255)
 #

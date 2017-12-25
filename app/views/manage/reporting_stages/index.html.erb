@@ -1,0 +1,11 @@
+<% title 'Отчётные этапы', :reporting_stage %>
+
+<% content_for :hint do %>
+  <p>Для добавления нового отчётного этапа передите по ссылке "Добавить"</p>
+  <p>Для изменения дат отчётного этапа перейдите по соответсвующей ссылке "Редактировать"</p>
+  <p>Для удаления отчётного этапа перейдите по соответсвующей ссылке "Удалить"</p>
+<% end %>
+
+<% action_link(link_to('Добавить', new_manage_reporting_stage_path), 'new', 'Позволяет добавить отчётный этап')%>
+
+<%= render_list 'reporting_stage_with_actions', @reporting_stages.descending, id: 'reporting_stages', object: :reporting_stage %>

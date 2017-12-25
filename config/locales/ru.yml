@@ -115,6 +115,11 @@ ru:
         date:      Дата
         kt:        Контрольная точка
 
+      reporting_stage:
+        title:     Название
+        start:     Дата начала
+        finish:    Дата окончания
+
       issue:
         abbr_closed_at:           Факт дата
         abbr_grade:               Факт баллы

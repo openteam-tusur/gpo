@@ -19,6 +19,8 @@
 #  subfaculty        :string(255)
 #  faculty           :string(255)
 #  executive         :boolean          default(FALSE)
+#  type              :string(255)
+#  university        :string(255)
 #
 
 Fabricator(:participant) do

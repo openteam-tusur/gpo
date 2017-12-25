@@ -1,0 +1,17 @@
+<div class='reporting_stage object'>
+  <div class='name'>
+    <div class='label'>
+      <strong><%= object.title %></strong>
+    </div>
+  </div>
+  <div class='name'>
+    <div class='label'>
+      с <%= date(object.start) %>
+      по <%= date(object.finish) %>
+    </div>
+  </div>
+</div>
+<div class='actions'>
+  <%= link_to(I18n.t('edit'), edit_manage_reporting_stage_path(object)) %>
+  <%= link_to(I18n.t('delete'), manage_reporting_stage_path(object), method: :delete, data: { confirm: I18n.t('are_you_sure') }) %>
+</div>

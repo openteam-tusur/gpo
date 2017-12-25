@@ -12,6 +12,7 @@ group :default do
   gem 'compass-rails'
   gem 'curb'
   gem 'decent_exposure'
+  gem 'default_value_for'
   gem 'enumerize'
   gem 'grape', '0.2.2'
   gem 'has_scope'

@@ -8,8 +8,9 @@ Gpo::Application.routes.draw do
 
     get 'search_projects' => 'search_projects#index'
 
-    resources :gpodays,     except: :show
-    resources :reports,     only: [:index, :show]
+    resources :gpodays, except: :show
+    resources :reporting_stages, except: :show
+    resources :reports, only: [:index, :show]
 
     get '/statistics'           => 'statistics#show'
     get '/statistics/:chair_id' => 'statistics#show', :as => :chair_statistics

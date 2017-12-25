@@ -29,3 +29,17 @@ class Certificate < ActiveRecord::Base
     I18n.t "activerecord.state_machines.certificate.state.#{state}"
   end
 end
+
+# == Schema Information
+#
+# Table name: certificates
+#
+#  id             :integer          not null, primary key
+#  participant_id :integer
+#  user_id        :string(255)
+#  project_result :text
+#  project_reason :text
+#  state          :string(255)
+#  created_at     :datetime
+#  updated_at     :datetime
+#

@@ -1,0 +1,15 @@
+<% title 'Добавление отчётного этапа', :gpoday %>
+
+<% content_for :hint do %>
+  <p>Для добавления отчётного этапа, выберите дату и нажмите кнопку "Создать"</p>
+  <p>Если нет необходимости создавать новый отчётный этап нажмите "Отмена" для возврата к списку.</p>
+<% end %>
+
+<%= simple_form_for resource, url: collection_url do | form | %>
+  <fieldset>
+    <%= render partial: 'form', locals: { form: form } %>
+    <%= form.button :submit, I18n.t('create') %>
+    <%= link_to I18n.t('cancel'), collection_url %>
+  </fieldset>
+<% end %>
+
