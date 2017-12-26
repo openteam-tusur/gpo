@@ -2,16 +2,17 @@
 #
 # Table name: stages
 #
-#  id             :integer          not null, primary key
-#  project_id     :integer
-#  title          :text
-#  start          :date
-#  finish         :date
-#  funds_required :text
-#  activity       :text
-#  results        :text
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id                 :integer          not null, primary key
+#  project_id         :integer
+#  title              :text
+#  start              :date
+#  finish             :date
+#  funds_required     :text
+#  activity           :text
+#  results            :text
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  reporting_stage_id :integer
 #
 
 Fabricator(:stage) do

@@ -54,6 +54,7 @@ group :development do
   gem 'sqlite3'
   gem 'sunspot_solr', '~> 2.0.0'
   gem 'thin', require: false
+  gem 'timecop'
 end
 
 group :test do
