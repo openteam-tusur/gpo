@@ -6,7 +6,7 @@ class ReportingStage < ActiveRecord::Base
   scope :descending, -> { order('start desc') }
 
   default_value_for :title do
-    result = 'Отчётный этап за '
+    result = 'Этап аттестации за '
     if Date.today > Date.parse(%(#{Date.today.year}-06-30))
       result += ''
       result += %(осенний семестр #{Date.today.year}/#{Date.today.year + 1})
