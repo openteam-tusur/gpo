@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171226033339) do
+ActiveRecord::Schema.define(version: 20171227030918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,9 +196,19 @@ ActiveRecord::Schema.define(version: 20171226033339) do
     t.text     "funds_required"
     t.text     "activity"
     t.text     "results"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "reporting_stage_id"
+    t.string   "file_report_file_name"
+    t.string   "file_report_content_type"
+    t.integer  "file_report_file_size"
+    t.datetime "file_report_updated_at"
+    t.text     "file_report_url"
+    t.string   "file_review_file_name"
+    t.string   "file_review_content_type"
+    t.integer  "file_review_file_size"
+    t.datetime "file_review_updated_at"
+    t.text     "file_review_url"
   end
 
   add_index "stages", ["reporting_stage_id"], name: "index_stages_on_reporting_stage_id", using: :btree

@@ -4,3 +4,5 @@
   input_html: { name: nil, value: I18n.l(form.object.start) } %>
 <%= form.input :finish, label: 'Дата окончания (включительно)', as: :string, disabled: true,
   input_html: { name: nil, value: I18n.l(form.object.finish) } %>
+<%= form.input :file_report, required: true %>
+<%= form.input :file_review, required: true %>

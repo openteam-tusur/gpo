@@ -15,4 +15,5 @@
 /solr/data
 /solr/data/development/*
 /solr/pids
+/system
 /tmp

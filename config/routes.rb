@@ -1,6 +1,8 @@
 Gpo::Application.routes.draw do
   mount API::Gpo => '/api'
 
+  get '/system/*path', to: 'attachments#show'
+
   namespace :manage do
     resources :themes, except: :show do
       get :statistics, :projects, on: :collection

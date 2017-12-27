@@ -23,7 +23,7 @@ group :default do
   gem 'non-stupid-digest-assets'
   gem 'openteam-commons', '~> 0.3.3'
   gem 'paperclip', '3.4.0'
-  gem 'paperclip-elvfs', '0.0.5'
+  gem 'paperclip-elvfs'
   gem 'pg'
   gem 'prawn'
   gem 'progress_bar', '~> 1.1'
@@ -54,7 +54,6 @@ group :development do
   gem 'sqlite3'
   gem 'sunspot_solr', '~> 2.0.0'
   gem 'thin', require: false
-  gem 'timecop'
 end
 
 group :test do

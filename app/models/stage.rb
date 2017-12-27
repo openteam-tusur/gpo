@@ -1,11 +1,26 @@
 class Stage < ActiveRecord::Base
   attr_accessible  :title, :start, :finish, :funds_required,
-    :activity, :results, :reporting_stage, :reporting_stage_id
+    :activity, :results, :reporting_stage, :reporting_stage_id,
+    :file_report, :file_review
 
   belongs_to :project
   belongs_to :reporting_stage
 
   validates_presence_of :title, :start, :finish
+
+  has_attached_file :file_report, {
+    path: 'system/:class/:attachment/:date/:id/:filename',
+    url: '/system/:class/:attachment/:date/:id/:filename'
+  }
+  validates :file_report, attachment_presence: true, if: -> { self.reporting_stage_id.present? }
+
+  has_attached_file :file_review, {
+    path: 'system/:class/:attachment/:date/:id/:filename',
+    url: '/system/:class/:attachment/:date/:id/:filename'
+  }
+  validates :file_review, attachment_presence: true, if: -> { self.reporting_stage_id.present? }
+
+  before_post_process :normalize_file_names
 
   scope :for_reporting, -> { where.not(reporting_stage_id: [nil, '']) }
   scope :without_reporting_stage, -> {
@@ -27,21 +42,44 @@ class Stage < ActiveRecord::Base
   def self.allowed?(user, project)
     user.is_a?(User) && project.updatable_by?(user)
   end
+
+  private
+
+  def normalize_file_names
+    %W(file_report_file_name file_review_file_name).each do |item|
+
+      filename = send(item)
+      ext = File.extname filename
+      name = File.basename filename, ext
+      name = Russian.transliterate(name).downcase.parameterize.underscore.truncate(200)
+      send(%(#{item}=), %(#{name}#{ext}))
+    end
+  end
 end
 
 # == Schema Information
 #
 # Table name: stages
 #
-#  id                 :integer          not null, primary key
-#  project_id         :integer
-#  title              :text
-#  start              :date
-#  finish             :date
-#  funds_required     :text
-#  activity           :text
-#  results            :text
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  reporting_stage_id :integer
+#  id                       :integer          not null, primary key
+#  project_id               :integer
+#  title                    :text
+#  start                    :date
+#  finish                   :date
+#  funds_required           :text
+#  activity                 :text
+#  results                  :text
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#  reporting_stage_id       :integer
+#  file_report_file_name    :string(255)
+#  file_report_content_type :string(255)
+#  file_report_file_size    :integer
+#  file_report_updated_at   :datetime
+#  file_report_url          :text
+#  file_review_file_name    :string(255)
+#  file_review_content_type :string(255)
+#  file_review_file_size    :integer
+#  file_review_updated_at   :datetime
+#  file_review_url          :text
 #

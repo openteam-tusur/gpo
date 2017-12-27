@@ -18,6 +18,17 @@
 <p>с <%= date(@stage.start) %> по <%= date(@stage.finish) %><%= ' включительно' if @stage.for_reporting? %></p>
 
 <% if @stage.for_reporting? %>
+  <h3><%= Stage.human_attribute_name :file_report %></h3>
+  <p>
+    <%= link_to @stage.file_report_file_name, @stage.file_report.url, target: '_blank' %>
+    [<%= number_to_human_size @stage.file_report_file_size %>]
+  </p>
+
+  <h3><%= Stage.human_attribute_name :file_review %></h3>
+  <p>
+    <%= link_to @stage.file_review_file_name, @stage.file_review.url, target: '_blank' %>
+    [<%= number_to_human_size @stage.file_review_file_size %>]
+  </p>
 <% else %>
   <h3><%= Stage.human_attribute_name :funds_required %></h3>
   <p><%= @stage.funds_required %></p>

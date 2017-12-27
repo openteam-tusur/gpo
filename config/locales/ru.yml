@@ -187,6 +187,8 @@ ru:
         funds_required:   Объем затрат
         activity:         Содержание работ
         results:          Ожидаемые результаты
+        file_report:      Отчёт
+        file_review:      Отзыв
 
       theme:
         name:             Название
