@@ -4,9 +4,26 @@
   input_html: { name: nil, value: I18n.l(form.object.start) } %>
 <%= form.input :finish, label: 'Дата окончания (включительно)', as: :string, disabled: true,
   input_html: { name: nil, value: I18n.l(form.object.finish) } %>
-<%= form.input :file_report, required: true %>
-<%= form.input :file_review, required: true %>
 
+<hr />
+<%= form.input :file_report, required: form.object.file_report.blank? %>
+<% if form.object.file_report.present? %>
+  <p>
+    <%= link_to form.object.file_report_file_name, form.object.file_report.url, target: '_blank' %>
+    [<%= number_to_human_size form.object.file_report_file_size %>]
+  </p>
+<% end %>
+
+<hr />
+<%= form.input :file_review, required: form.object.file_review.blank? %>
+<% if form.object.file_review.present? %>
+  <p>
+    <%= link_to form.object.file_review_file_name, form.object.file_review.url, target: '_blank' %>
+    [<%= number_to_human_size form.object.file_review_file_size %>]
+  </p>
+<% end %>
+
+<hr />
 <% if form.object.reporting_marks.any? %>
   <h3>Участники</h3>
   <div class='issues'>
