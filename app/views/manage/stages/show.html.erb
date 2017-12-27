@@ -20,15 +20,53 @@
 <% if @stage.for_reporting? %>
   <h3><%= Stage.human_attribute_name :file_report %></h3>
   <p>
-    <%= link_to @stage.file_report_file_name, @stage.file_report.url, target: '_blank' %>
-    [<%= number_to_human_size @stage.file_report_file_size %>]
+    <% if @stage.file_report.present? %>
+      <%= link_to @stage.file_report_file_name, @stage.file_report.url, target: '_blank' %>
+      [<%= number_to_human_size @stage.file_report_file_size %>]
+    <% else %>
+      Нет информации
+    <% end %>
   </p>
 
   <h3><%= Stage.human_attribute_name :file_review %></h3>
   <p>
-    <%= link_to @stage.file_review_file_name, @stage.file_review.url, target: '_blank' %>
-    [<%= number_to_human_size @stage.file_review_file_size %>]
+    <% if @stage.file_review.present? %>
+      <%= link_to @stage.file_review_file_name, @stage.file_review.url, target: '_blank' %>
+      [<%= number_to_human_size @stage.file_review_file_size %>]
+    <% else %>
+      Нет информации
+    <% end %>
   </p>
+
+  <h3>Участники</h3>
+  <% if @stage.reporting_marks.any? %>
+    <table class='bordered'>
+      <thead>
+        <tr>
+          <th>ФИО</th>
+          <th>Группа</th>
+          <th>Оценка</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @stage.reporting_marks.each do |mark| %>
+          <tr>
+            <td>
+              <%= mark.fullname %>
+            </td>
+            <td>
+              <%= mark.group %>
+            </td>
+            <td>
+              <%= mark.mark || '&mdash;'.html_safe %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Нет информации</p>
+  <% end %>
 <% else %>
   <h3><%= Stage.human_attribute_name :funds_required %></h3>
   <p><%= @stage.funds_required %></p>

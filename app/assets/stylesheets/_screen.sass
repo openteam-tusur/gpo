@@ -288,6 +288,24 @@ img.icon
   h3
     +subheader_text
     color: $h3_color
+  table.bordered
+    line-height: 1.5em
+    border-collapse: collapse
+    td, th
+      +small_text
+      vertical-align: top
+      border: 1px solid #cccccc
+      background-color: #fff
+      padding: 5px 8px
+    th
+      cursor: default
+      vertical-align: middle
+      text-align: center
+      font-weight: bold
+      background-color: #f5f5f5
+      abbr
+        cursor: help
+        border-bottom: unquote("1px") dashed $text_color
   .visitationlog
     .chair_abbr
       +huge_header_text
@@ -394,6 +412,7 @@ img.icon
         +small_text
         vertical-align: top
         border: 1px solid #cccccc
+        background-color: #fff
         padding: 5px 8px
       th
         cursor: default

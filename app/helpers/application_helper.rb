@@ -32,6 +32,12 @@ module ApplicationHelper
       'container_one_column'
     when 'certificates'
       'container_one_column'
+    when 'stages'
+      if controller.action_name == 'edit'
+        'container_one_column'
+      else
+        'container_two_column'
+      end
     else
       'container_two_column'
     end

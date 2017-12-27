@@ -36,12 +36,29 @@ class ReportingStage < ActiveRecord::Base
       end
     else
       Project.active.each do |project|
-        project.stages.create(
+        stage = project.stages.create!(
           title: self.title,
           start: self.start,
           finish: self.finish,
-          reporting_stage: self
+          reporting_stage: self,
+          skip_validation: true
         )
+        project.participants.active.each do |participant|
+          stage.reporting_marks.create(
+            fullname: [
+              participant.last_name,
+              participant.first_name,
+              participant.middle_name
+            ].delete_if(&:blank?).join(' ').squish,
+            group: participant.edu_group,
+            course: participant.course,
+            faculty: participant.faculty,
+            subfaculty: participant.subfaculty,
+            contingent_id: participant.student_id,
+            mark: nil,
+            skip_validation: true
+          )
+        end
       end
     end
   end

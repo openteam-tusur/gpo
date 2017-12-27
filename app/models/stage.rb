@@ -1,10 +1,24 @@
 class Stage < ActiveRecord::Base
-  attr_accessible  :title, :start, :finish, :funds_required,
-    :activity, :results, :reporting_stage, :reporting_stage_id,
-    :file_report, :file_review
+  attr_accessor :skip_validation
+
+  attr_accessible :title,
+                  :start,
+                  :finish,
+                  :funds_required,
+                  :activity,
+                  :results,
+                  :reporting_stage,
+                  :reporting_stage_id,
+                  :file_report,
+                  :file_review,
+                  :skip_validation,
+                  :reporting_marks_attributes
 
   belongs_to :project
   belongs_to :reporting_stage
+
+  has_many :reporting_marks, dependent: :destroy
+  accepts_nested_attributes_for :reporting_marks
 
   validates_presence_of :title, :start, :finish
 
@@ -12,13 +26,15 @@ class Stage < ActiveRecord::Base
     path: 'system/:class/:attachment/:date/:id/:filename',
     url: '/system/:class/:attachment/:date/:id/:filename'
   }
-  validates :file_report, attachment_presence: true, if: -> { self.reporting_stage_id.present? }
+  validates_attachment :file_report, presence: true,
+    if: -> { !self.skip_validation && self.reporting_stage_id.present? }
 
   has_attached_file :file_review, {
     path: 'system/:class/:attachment/:date/:id/:filename',
     url: '/system/:class/:attachment/:date/:id/:filename'
   }
-  validates :file_review, attachment_presence: true, if: -> { self.reporting_stage_id.present? }
+  validates_attachment :file_review, presence: true,
+    if: -> { !self.skip_validation && self.reporting_stage_id.present? }
 
   before_post_process :normalize_file_names
 
@@ -28,7 +44,7 @@ class Stage < ActiveRecord::Base
   }
 
   def for_reporting?
-    reporting_stage_id.present?
+    self.reporting_stage_id.present?
   end
 
   def can_change?
@@ -49,6 +65,7 @@ class Stage < ActiveRecord::Base
     %W(file_report_file_name file_review_file_name).each do |item|
 
       filename = send(item)
+      next if filename.blank?
       ext = File.extname filename
       name = File.basename filename, ext
       name = Russian.transliterate(name).downcase.parameterize.underscore.truncate(200)

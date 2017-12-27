@@ -6,3 +6,35 @@
   input_html: { name: nil, value: I18n.l(form.object.finish) } %>
 <%= form.input :file_report, required: true %>
 <%= form.input :file_review, required: true %>
+
+<% if form.object.reporting_marks.any? %>
+  <h3>Участники</h3>
+  <div class='issues'>
+    <table>
+      <thead>
+        <tr>
+          <th>ФИО</th>
+          <th>Группа</th>
+          <th>Оценка</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= form.simple_fields_for :reporting_marks do |rmf| %>
+        <tr>
+          <td>
+            <%= rmf.object.fullname %>
+          </td>
+          <td>
+            <%= rmf.object.group %>
+          </td>
+          <td>
+            <%= rmf.input :mark, label: false, as: :select, required: true %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p>Отсутствуют участники проекта</p>
+<% end %>
