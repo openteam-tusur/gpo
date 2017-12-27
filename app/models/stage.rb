@@ -2,18 +2,24 @@ class Stage < ActiveRecord::Base
   attr_accessible  :title, :start, :finish, :funds_required,
     :activity, :results, :reporting_stage, :reporting_stage_id
 
-  scope :for_reporting, -> { where.not(reporting_stage_id: [nil, '']) }
-  scope :without_reporting_stage, -> {
-    for_reporting.select{ |stage| stage.reporting_stage.blank? }
-  }
-
   belongs_to :project
   belongs_to :reporting_stage
 
   validates_presence_of :title, :start, :finish
 
+  scope :for_reporting, -> { where.not(reporting_stage_id: [nil, '']) }
+  scope :without_reporting_stage, -> {
+    for_reporting.select{ |stage| stage.reporting_stage.blank? }
+  }
+
   def for_reporting?
     reporting_stage_id.present?
+  end
+
+  def can_change?
+    return true unless for_reporting?
+
+    Time.zone.now.between?(start, finish + 1.day)
   end
 
   protected

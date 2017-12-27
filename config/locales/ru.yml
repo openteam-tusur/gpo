@@ -118,7 +118,7 @@ ru:
       reporting_stage:
         title:     Название
         start:     Дата начала
-        finish:    Дата окончания
+        finish:    Дата окончания (включительно)
 
       issue:
         abbr_closed_at:           Факт дата

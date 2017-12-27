@@ -1,0 +1,6 @@
+<%= form.input :title, disabled: true,
+  input_html: { name: nil } %>
+<%= form.input :start, as: :string, disabled: true,
+  input_html: { name: nil, value: I18n.l(form.object.start) } %>
+<%= form.input :finish, label: 'Дата окончания (включительно)', as: :string, disabled: true,
+  input_html: { name: nil, value: I18n.l(form.object.finish) } %>
