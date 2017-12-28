@@ -53,6 +53,19 @@ class Stage < ActiveRecord::Base
     Time.zone.now.between?(start, finish + 1.day)
   end
 
+  def reporting_marks_array
+    @reporting_marks_array ||= reporting_marks.pluck(:mark)
+  end
+
+  def reporting_filled?
+    return true unless for_reporting?
+
+    file_report.present? &&
+      file_review.present? &&
+      reporting_marks_array.exclude?(nil) &&
+      reporting_marks_array.exclude?('')
+  end
+
   protected
 
   def self.allowed?(user, project)

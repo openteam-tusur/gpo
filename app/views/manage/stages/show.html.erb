@@ -14,7 +14,10 @@
   <% end %>
 <% end %>
 
-<h2><%= @stage.title %></h2>
+<h2>
+  <%= icon(:warning) if @stage.for_reporting? && !@stage.reporting_filled? %>
+  <%= @stage.title %>
+</h2>
 <p>с <%= date(@stage.start) %> по <%= date(@stage.finish) %><%= ' включительно' if @stage.for_reporting? %></p>
 
 <% if @stage.for_reporting? %>
