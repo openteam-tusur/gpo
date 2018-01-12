@@ -2,7 +2,7 @@ class ReportingStage < ActiveRecord::Base
   attr_accessible  :title, :start, :finish
   validates_presence_of :title, :start, :finish
 
-  has_many :stages
+  has_many :stages, dependent: :destroy
 
   scope :ascending,  -> { order('start asc') }
   scope :descending, -> { order('start desc') }
