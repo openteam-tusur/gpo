@@ -166,6 +166,10 @@ class Project < ActiveRecord::Base
     update_attributes :result => nil, :closed_on => nil
   end
 
+  def unfilled_stages
+    stages.select { |stage| !stage.reporting_filled? }
+  end
+
   private
 
   def set_cipher

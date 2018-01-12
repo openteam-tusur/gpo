@@ -41,6 +41,13 @@
   </div>
 </div>
 
+<% if @project.unfilled_stages.any? %>
+  <h3>Календарный план:</h3>
+  <div class="stages-status margin-bottom-15">
+    <%= project_stages_status(@project) %>
+  </div>
+<% end %>
+
 <div class="detailed_info comment">
   <%= project_theme @project, true %>
   <%= project_section @project, :category, true %>
@@ -58,4 +65,3 @@
   <%= project_section @project, :forecast, true %>
   <%= project_section @project, :source_data, true %>
 </div>
-

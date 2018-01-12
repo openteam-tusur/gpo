@@ -39,6 +39,11 @@ module ProjectsHelper
     out.html_safe
   end
 
+  def project_stages_status(project)
+    return nil if project.unfilled_stages.empty?
+    "#{icon(:warning)} Необходимо заполнить #{t 'projects.unfilled_stages', count: project.unfilled_stages.count}".html_safe
+  end
+
   def project_updated(project)
     "Изменен: #{time_ago(project, :updated_at) || "не известно когда"}".html_safe
   end

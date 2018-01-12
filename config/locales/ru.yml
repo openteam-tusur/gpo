@@ -313,6 +313,13 @@ ru:
         none:         нет
         other:        другое
 
+  projects:
+    unfilled_stages:
+      zero: Нет незаполненных
+      one: 1 аттестационный этап
+      few: "%{count} аттестационных этапа"
+      many: "%{count} аттестационных этапов"
+
   statistics:
     active_projects:                Активных проектов
     sbi_projects:                   Резидентов СБИ
