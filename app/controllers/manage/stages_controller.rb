@@ -8,6 +8,14 @@ class Manage::StagesController < Manage::InheritedResourcesController
     belongs_to :project
   end
 
+  def index
+    index! do
+      unless current_user.mentor?
+        @stages = @stages.delete_if { |stage| stage.reporting_stage }
+      end
+    end
+  end
+
   private
 
   def check_can_update
