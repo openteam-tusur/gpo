@@ -27,11 +27,12 @@ class ReportingStage < ActiveRecord::Base
   def associate_stages
     if stages.any?
       stages.each do |stage|
-        stage.update_attributes(
+        stage.update_attributes!(
           title: self.title,
           start: self.start,
           finish: self.finish,
-          reporting_stage: self
+          reporting_stage: self,
+          skip_validation: true
         )
       end
     else
