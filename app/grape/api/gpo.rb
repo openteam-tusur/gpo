@@ -94,7 +94,9 @@ class API::Gpo < Grape::API
             start: I18n.l(rm.stage.start),
             finish: I18n.l(rm.stage.finish),
             link_to_report: %(#{Settings['app.url']}#{rm.stage.file_report.url}),
+            file_report_updated_at: I18n.l(rm.stage.file_report_updated_at),
             link_to_review: %(#{Settings['app.url']}#{rm.stage.file_review.url}),
+            file_review_updated_at: I18n.l(rm.stage.file_review_updated_at),
             mark: rm.mark,
             updated_at: I18n.l(rm.stage.updated_at),
             project: {
