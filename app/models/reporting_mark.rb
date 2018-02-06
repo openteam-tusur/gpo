@@ -1,6 +1,8 @@
 class ReportingMark < ActiveRecord::Base
   attr_accessor :skip_validation
 
+  belongs_to :stage
+
   attr_accessible :fullname,
                   :group,
                   :course,
@@ -12,7 +14,7 @@ class ReportingMark < ActiveRecord::Base
                   :skip_validation
 
   validates :mark, presence: true,
-    unless: -> { !!self.skip_validation }
+    if: -> { !self.skip_validation }
 
   extend Enumerize
 

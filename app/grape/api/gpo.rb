@@ -80,6 +80,32 @@ class API::Gpo < Grape::API
         only: [:cipher, :title, :goal]
       ) rescue {}
     end
+
+    get ':id/reporting_marks' do
+      reporting_marks = ReportingMark.
+        where(contingent_id: params[:id]).
+        where.not(mark: [nil, '']).
+        includes(:stage, stage: :project).
+        order('stages.start desc')
+      reporting_marks.map do |rm|
+        {
+          stage: {
+            title: rm.stage.title,
+            start: I18n.l(rm.stage.start),
+            finish: I18n.l(rm.stage.finish),
+            link_to_report: %(#{Settings['app.url']}#{rm.stage.file_report.url}),
+            link_to_review: %(#{Settings['app.url']}#{rm.stage.file_review.url}),
+            mark: rm.mark,
+            updated_at: I18n.l(rm.stage.updated_at),
+            project: {
+              cipher: rm.stage.project.cipher,
+              title: rm.stage.project.title,
+              goal: rm.stage.project.goal,
+            }
+          }
+        }
+      end
+    end
   end
 
   get :permissions do

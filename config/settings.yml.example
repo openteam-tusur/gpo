@@ -1,6 +1,8 @@
 app:
   domain:       domian
   secret:       secret
+  host:         host
+  url:          url
 
 errors:
   key:          KEY

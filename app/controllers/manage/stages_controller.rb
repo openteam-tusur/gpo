@@ -10,7 +10,7 @@ class Manage::StagesController < Manage::InheritedResourcesController
 
   def index
     index! do
-      unless current_user.mentor?
+      if !current_user.mentor? && !current_user.manager?
         @stages = @stages.delete_if { |stage| stage.reporting_stage }
       end
     end
