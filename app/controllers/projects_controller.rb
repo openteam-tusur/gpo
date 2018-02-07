@@ -7,5 +7,6 @@ class ProjectsController < ApplicationController
 
   actions :index, :show
 
-  has_scope :current_active, :default => true, :type => :boolean
+  has_scope :current_active, default: true, type: :boolean
+  has_scope :with_participants, default: true, type: :boolean
 end

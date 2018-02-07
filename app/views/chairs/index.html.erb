@@ -17,7 +17,7 @@
         <div class="stats">
           <dl>
             <dt><%= link_to icon(:project), chair_projects_path(chair) %></dt>
-            <dd class="active_projects" title="Активных проектов"><%= chair.projects.current_active.count %></dd>
+            <dd class="active_projects" title="Активных проектов"><%= chair.projects.current_active.with_participants.count %></dd>
           </dl>
           <dl>
             <dt><%= icon(:participant) %></dt>

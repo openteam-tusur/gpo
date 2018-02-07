@@ -31,6 +31,15 @@ class Project < ActiveRecord::Base
 
   scope :current_active, -> { where(:state => %w[draft active]) }
   scope :active, -> { where(:state => :active) }
+  scope :without_participants, -> {
+    includes(:participants).
+    where(participants: { project_id: [nil, ''] })
+  }
+  scope :with_participants, -> {
+    includes(:participants).
+    where.not(participants: { project_id: [nil, ''] }).
+    references(:participants)
+  }
   scope :draft,  -> { where(:state => :draft) }
   scope :closed, -> { where(:state => :closed) }
   scope :editable, -> { where(:editable_state => :editable) }
