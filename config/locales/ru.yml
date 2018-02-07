@@ -322,6 +322,7 @@ ru:
 
   statistics:
     active_projects:                Активных проектов
+    projects_without_participants:  Проектов без учатников
     sbi_projects:                   Резидентов СБИ
     interfaculty_projects:          Межфакультетских проектов
     intersubfaculty_projects:       Межкафедральных проектов

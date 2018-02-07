@@ -5,28 +5,28 @@
 <% end %>
 
 
-<div class="statistics_manipulations">
-  <div class="select_statistics">
-    <%= form_tag manage_statistics_path, :method => "get", :class => 'go-to-chair-statistics' do %>
+<div class='statistics_manipulations'>
+  <div class='select_statistics'>
+    <%= form_tag manage_statistics_path, method: 'get', class: 'go-to-chair-statistics' do %>
       <span>Кафедра:</span>
       <%= select_tag :statistics,
         options_for_select([['Вся статистика', manage_statistics_path]] + @chairs.map {|c| [c.abbr, manage_chair_statistics_path(c)]}, request.fullpath),
-        :include_blank => false, :class => 'select' %>
+        include_blank: false, class: 'select' %>
     <% end %>
   </div>
 
-  <div class="save_statistics">
+  <div class='save_statistics'>
     <%= form_tag manage_statistics_snapshot_path do %>
-      <%= submit_tag 'Сохранить текущую статистику', :class => 'save_button button' %>
+      <%= submit_tag 'Сохранить текущую статистику', class: 'save_button button' %>
     <% end %>
-    <%= link_to "Экспорт в csv",
-      @chair.nil? ? manage_statistics_path(:format => :csv) : manage_chair_statistics_path(@chair, :format => :csv),
-      :class => 'export_button button' %>
+    <%= link_to 'Экспорт в csv',
+      @chair.nil? ? manage_statistics_path(format: :csv) : manage_chair_statistics_path(@chair, format: :csv),
+      class: 'export_button button' %>
   </div>
 
 </div>
 
-<div class="tables">
+<div class='tables'>
   <div class='statistics_table table1'>
     <table>
       <thead>
@@ -45,15 +45,17 @@
     </table>
   </div>
 
-  <div class="statistics_table table2">
+  <div class='statistics_table table2'>
     <table>
       <thead>
         <tr>
           <th class='current'>Текущая</th>
           <% @statistics.each do |statistic| %>
             <th>
-              <%= I18n.l(statistic.created_at, :format => '%d.%m.%Y') %>
-              <%= link_to "&#x274C;".html_safe, manage_statistic_path(statistic), :method => :delete, :data => { :confirm => 'Уверены что хотите удалить срез статистики?' }, :class => 'delete_statistics', :title => 'удалить' %>
+              <%= I18n.l(statistic.created_at, format: '%d.%m.%Y') %>
+              <%= link_to "&#x274C;".html_safe, manage_statistic_path(statistic),
+                method: :delete, data: { confirm: 'Уверены что хотите удалить срез статистики?' },
+                class: 'delete_statistics', title: 'удалить' %>
             </th>
           <% end %>
         </tr>
@@ -66,9 +68,9 @@
             <% @statistics.each do |statistic| %>
               <td class='indicator'>
                 <% if @chair %>
-                  <%= statistic.data[@chair.id][indicator] %>
+                  <%= statistic.data[@chair.id][indicator].to_i %>
                 <% else %>
-                  <%= statistic.data[:global][indicator] %>
+                  <%= statistic.data[:global][indicator].to_i %>
                 <% end %>
               </td>
             <% end %>

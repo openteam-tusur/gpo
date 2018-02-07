@@ -24,6 +24,11 @@ class Stat
           I18n.t('statistics.active_projects')
         ),
         Stat.new(
+          :projects_without_participants,
+          Project.active.without_participants.count,
+          I18n.t('statistics.projects_without_participants')
+        ),
+        Stat.new(
           :sbi_projects,
           Project.active.with_participants.sbi_residents.count,
           I18n.t('statistics.sbi_projects')
@@ -131,6 +136,11 @@ class Stat
           :active_projects,
           chair.projects.active.with_participants.count,
           I18n.t('statistics.active_projects')
+        ),
+        Stat.new(
+          :projects_without_participants,
+          chair.projects.active.without_participants.count,
+          I18n.t('statistics.projects_without_participants')
         ),
         Stat.new(
           :interunivercity_projects,
