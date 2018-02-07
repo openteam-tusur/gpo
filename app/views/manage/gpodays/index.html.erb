@@ -6,6 +6,17 @@
   <p>Для удаления дня ГПО перейдите по соответсвующей ссылке "Удалить"</p>
 <% end %>
 
-<% action_link(link_to('Добавить', new_manage_gpoday_path), 'new', 'Позволяет добавить день ГПО в расписание')%>
+<% action_link(
+  link_to('Добавить', new_manage_gpoday_path),
+  'new',
+  'Позволяет добавить день ГПО в расписание'
+) %>
+<% action_link(
+  link_to('Добавить для интервала', new_interval_manage_gpodays_path),
+  'new',
+  'Позволяет добавить дни ГПО в расписание в зависимости от интервала дат'
+) %>
 
 <%= render_list 'gpoday_with_actions', @gpodays.descending, :id => 'gpodays', :object => :gpoday %>
+
+<%= paginate collection %>

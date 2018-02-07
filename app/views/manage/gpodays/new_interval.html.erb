@@ -1,0 +1,16 @@
+<% title 'Добавление дней ГПО', :gpoday %>
+
+<% content_for :hint do %>
+  <p>Для добавления дней ГПО, выберите интервал дат, в диапазоне которых будут созданы дни ГПО и нажмите кнопку "Создать"</p>
+  <p>Если нет необходимости создавать новые дни ГПО нажмите "Отмена" для возврата к расписанию.</p>
+<% end %>
+
+<%= simple_form_for @gpoday, url: create_from_interval_manage_gpodays_path do | form | %>
+  <fieldset>
+    <%= form.input :from, as: :datepicker, required: true %>
+    <%= form.input :to, as: :datepicker, required: true %>
+    <%= form.button :submit, I18n.t('create') %>
+    <%= link_to I18n.t('cancel'), collection_url %>
+  </fieldset>
+<% end %>
+

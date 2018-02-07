@@ -1,5 +1,6 @@
 class Gpoday < ActiveRecord::Base
-  attr_accessible :date, :kt
+  attr_accessor :from, :to
+  attr_accessible :date, :kt, :from, :to
 
   validates_presence_of :date
   validates_uniqueness_of :date

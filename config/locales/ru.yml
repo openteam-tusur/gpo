@@ -114,6 +114,8 @@ ru:
       gpoday:
         date:      Дата
         kt:        Контрольная точка
+        from:      С даты
+        to:        По дату
 
       reporting_stage:
         title:     Название

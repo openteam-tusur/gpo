@@ -10,7 +10,10 @@ Gpo::Application.routes.draw do
 
     get 'search_projects' => 'search_projects#index'
 
-    resources :gpodays, except: :show
+    resources :gpodays, except: :show do
+      get :new_interval, on: :collection
+      post :create_from_interval, on: :collection
+    end
     resources :reporting_stages, except: :show
     resources :reports, only: [:index, :show]
 
