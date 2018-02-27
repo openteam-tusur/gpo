@@ -1,7 +1,12 @@
 <div class='reporting_stage object'>
   <div class='name'>
     <div class='label'>
-      <strong><%= object.title %></strong>
+      <% if object.filled? %>
+        <i class='fa fa-check-circle success cursor-help' title='Заполнен'></i>
+      <% else %>
+        <i class='fa fa-exclamation-triangle attention cursor-help' title='Не заполнен'></i>
+      <% end %>
+      <%= link_to object.title, manage_reporting_stage_path(object) %>
     </div>
   </div>
   <div class='name'>

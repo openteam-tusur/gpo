@@ -22,6 +22,12 @@ class ReportingStage < ActiveRecord::Base
     result
   end
 
+  def filled?
+    marks = stages.includes(:reporting_marks).pluck(:mark).uniq
+
+    marks.exclude?(nil) && marks.exclude?('')
+  end
+
   private
 
   def associate_stages

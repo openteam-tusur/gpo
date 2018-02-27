@@ -14,6 +14,7 @@ group :default do
   gem 'decent_exposure'
   gem 'default_value_for'
   gem 'enumerize'
+  gem 'font-awesome-sass', '~> 5.0.6'
   gem 'grape', '0.2.2'
   gem 'has_scope'
   gem 'inherited_resources'

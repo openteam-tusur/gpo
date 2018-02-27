@@ -15,6 +15,7 @@ class Stage < ActiveRecord::Base
                   :reporting_marks_attributes
 
   belongs_to :project
+  has_one :chair, through: :project
   belongs_to :reporting_stage
 
   has_many :reporting_marks, dependent: :destroy

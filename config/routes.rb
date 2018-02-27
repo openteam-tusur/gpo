@@ -14,7 +14,7 @@ Gpo::Application.routes.draw do
       get :new_interval, on: :collection
       post :create_from_interval, on: :collection
     end
-    resources :reporting_stages, except: :show
+    resources :reporting_stages
     resources :reports, only: [:index, :show]
 
     get '/statistics'           => 'statistics#show'

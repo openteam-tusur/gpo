@@ -38,6 +38,12 @@ module ApplicationHelper
       else
         'container_two_column'
       end
+    when 'reporting_stages'
+      if controller.action_name == 'show'
+        'container_one_column'
+      else
+        'container_two_column'
+      end
     else
       'container_two_column'
     end
