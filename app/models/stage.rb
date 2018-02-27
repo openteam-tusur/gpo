@@ -67,6 +67,28 @@ class Stage < ActiveRecord::Base
       reporting_marks_array.exclude?('')
   end
 
+  def file_report_path
+    [
+      '/system',
+      'stages',
+      'file_reports',
+      I18n.l(file_report_updated_at, format: '%Y/%m/%d'),
+      id,
+      file_report_file_name
+    ].join('/')
+  end
+
+  def file_review_path
+    [
+      '/system',
+      'stages',
+      'file_reviews',
+      I18n.l(file_review_updated_at, format: '%Y/%m/%d'),
+      id,
+      file_review_file_name
+    ].join('/')
+  end
+
   protected
 
   def self.allowed?(user, project)

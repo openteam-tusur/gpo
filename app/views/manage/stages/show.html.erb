@@ -24,7 +24,7 @@
   <h3><%= Stage.human_attribute_name :file_report %></h3>
   <p>
     <% if @stage.file_report.present? %>
-      <%= link_to @stage.file_report_file_name, @stage.file_report.url, target: '_blank' %>
+      <%= link_to @stage.file_report_file_name, @stage.file_report_path, target: '_blank' %>
       [<%= number_to_human_size @stage.file_report_file_size %>]
     <% else %>
       Нет информации
@@ -34,7 +34,7 @@
   <h3><%= Stage.human_attribute_name :file_review %></h3>
   <p>
     <% if @stage.file_review.present? %>
-      <%= link_to @stage.file_review_file_name, @stage.file_review.url, target: '_blank' %>
+      <%= link_to @stage.file_review_file_name, @stage.file_review_path, target: '_blank' %>
       [<%= number_to_human_size @stage.file_review_file_size %>]
     <% else %>
       Нет информации
