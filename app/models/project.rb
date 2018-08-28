@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   extend Enumerize
   attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
     :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing,
-    :result, :closed_on
+    :result, :closed_on, :target_audience, :main_goals
 
   belongs_to :chair
   belongs_to :theme
@@ -196,13 +196,19 @@ class Project < ActiveRecord::Base
       xml.opened_order_number self.opening_order ? self.opening_order.number : ''
       xml.theme_name self.theme ? self.theme.name : ''
       xml.funds_sources self.funds_sources
+      xml.expected_results self.expected_results
+      xml.main_goals self.main_goals.present? ? self.main_goals.strip : ''
       xml.source_data self.source_data
       xml.chief self.people.empty? ? '' : "#{self.people[0].initials_name}, #{self.people[0].post}"
       xml.chief_name self.people.empty? ? '' : "#{self.people[0].initials_name}"
+      xml.chief_post self.people.empty? ? '' : "#{self.people.first.post}"
+      xml.chief_initials_name self.people.empty? ? '' : "#{self.people.first.initials_name}"
+      xml.target_audience self.target_audience
       xml.participants do |xml_participant|
         self.participants.active.each do |participant|
           xml.participant do
             xml.name participant.name
+            xml.name_with_abbr participant.name_with_abbr
             xml.edu_group participant.edu_group
           end
         end
