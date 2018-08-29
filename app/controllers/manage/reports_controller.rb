@@ -4,7 +4,7 @@ require 'better/tempfile'
 class Manage::ReportsController < Manage::ApplicationController
   include SendReport
 
-  before_filter :find_chair, :find_project, only: :show
+  before_filter :find_chair, :find_project, only: [:show, :preview]
 
   def index
   end
@@ -20,6 +20,19 @@ class Manage::ReportsController < Manage::ApplicationController
         format.html { render :action => :index }
         format.xls { send_xls(params[:id]) } if params[:format] == 'xls'
       end
+    end
+  end
+
+  def preview
+    if %w[project_tz chair_statement_checkup].include?(params[:id])
+      report = Report.new(params[:id], @chair, @project)
+    end
+    if %w[project_tz chair_statement_checkup].include?(params[:id])
+      send_report_throught_jod(report)
+    end
+    if %w[chair_schedule_group
+          chair_schedule_project_managers].include?(params[:id])
+      send_xls(params[:id])
     end
   end
 
@@ -57,7 +70,7 @@ class Manage::ReportsController < Manage::ApplicationController
     raise "Неверные параметры для отчета" unless report
 
     report.render_to_file do |file|
-      send_report file, :xls, "#{params[:id]}.xls"
+      check_converted_format(file, "#{params[:id]}.#{params[:format]}")
     end
   end
 
@@ -78,10 +91,15 @@ class Manage::ReportsController < Manage::ApplicationController
     libdir = "#{Rails::root}/lib/reports/lib"
     system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
     report_filepath = odt_file.path
+    check_converted_format(odt_file, report_filename)
+  end
+
+  def check_converted_format(file, file_name)
     if params[:format] == 'pdf'
-      send_report odt_file, :pdf, report_filename, 'inline'
+      send_report file, params[:format].to_sym, file_name, 'inline'
     else
-      send_report odt_file, :doc, report_filename
+      send_report file, params[:format].to_sym, file_name
     end
   end
+
 end

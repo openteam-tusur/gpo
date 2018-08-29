@@ -15,7 +15,9 @@ Gpo::Application.routes.draw do
       post :create_from_interval, on: :collection
     end
     resources :reporting_stages
-    resources :reports, only: [:index, :show]
+    resources :reports, only: [:index, :show] do
+      get :preview, on: :member
+    end
 
     get '/statistics'           => 'statistics#show'
     get '/statistics/:chair_id' => 'statistics#show', :as => :chair_statistics
