@@ -45,7 +45,8 @@ class Chair < ActiveRecord::Base
   def xml_for_chair_statement_checkup
     self.to_xml(:skip_types => true, :root => "doc") do |xml|
       xml.chair_abbr self.abbr
-      xml.chair_chief self.chief
+      xml.faculty_abbr self.faculty_abbr
+      xml.chair_chief name_abbr(self.chief.split(' '))
       xml.count_participants self.participants.active.count
       xml.count_participants_2_4 self.participants.active.at_course(2).count + self.participants.active.at_course(3).count + self.participants.active.at_course(4).count
       xml.count_participants_2 self.participants.active.at_course(2).count
@@ -53,7 +54,9 @@ class Chair < ActiveRecord::Base
       xml.count_participants_4 self.participants.active.at_course(4).count
       xml.count_project_managers uniq_project_manager_users.count
       xml.count_projects self.projects.current_active.count
-      xml.mentor self.mentors.first.name
+      # xml.spring_stages attestation_stages(self.projects.current_active, 'Промежуточная аттестация за весенний')
+      # xml.autumn_stages attestation_stages(self.projects.current_active, 'Промежуточная аттестация за осенний')
+      xml.mentor name_abbr([self.mentors.first.surname, self.mentors.first.name, self.mentors.first.patronymic])
       xml.projects do |xml_project|
         self.projects.current_active.each do |project|
           xml.project do
@@ -79,6 +82,25 @@ class Chair < ActiveRecord::Base
     match_data = faculty.to_s.match(/\((.+)\)/)
     match_data ? match_data[1] : ""
   end
+
+  def name_abbr (name)
+    name_abbr = ''
+    name_abbr += name[1][0] + '. ' if name[1].present?
+    name_abbr += name[2][0] + '. ' if name[2].present?
+    name_abbr += name[0]
+  end
+
+# not working stages counter
+  def attestation_stages (projects, title)
+    stages_count = 0
+    projects.map(&:stages).flatten.each do |stage|
+      if (stage.title.include? title) && (DateTime.now.to_date > stage.start)
+        stages_count += 1
+      end
+    end
+    stages_count
+  end
+
 
 end
 
