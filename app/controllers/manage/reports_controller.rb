@@ -71,15 +71,17 @@ class Manage::ReportsController < Manage::ApplicationController
       file << report.model.send("xml_for_#{report_name}")
     end
 
-    report_filename = "#{report_name}_#{report.model.id}.doc"
+    report_filename = "#{report_name}_#{report.model.id}.#{params[:format]}"
     odt_file = Better::Tempfile.new([report_filename, ".odt"])
     doc_file = Better::Tempfile.new([report_filename, ".doc"])
 
     libdir = "#{Rails::root}/lib/reports/lib"
     system("java", "-Djava.ext.dir=#{libdir}", "-jar", "#{libdir}/jodreports-2.1-RC.jar", template_path, data_file.path, odt_file.path)
     report_filepath = odt_file.path
-
-    send_report odt_file, :doc, report_filename
+    if params[:format] == 'pdf'
+      send_report odt_file, :pdf, report_filename, 'inline'
+    else
+      send_report odt_file, :doc, report_filename
+    end
   end
 end
-
