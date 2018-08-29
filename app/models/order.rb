@@ -108,7 +108,7 @@ class Order < ActiveRecord::Base
   end
 
   def order_reason
-    "Представление заведующего кафедрой #{chair.abbr}; #{another_chair_abbrs} виза декана; виза ЦИОТ.".squish
+    "Представление заведующего кафедрой #{chair.abbr}; #{another_chair_abbrs} виза декана; виза ОЛАК.".squish
   end
 
   protected

@@ -38,7 +38,7 @@
     <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
     <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
    </text:sequence-decls>
-   <text:p text:style-name="P1">Министерство образования и науки Российской Федерации </text:p>
+   <text:p text:style-name="P1">Министерство науки и высшего образования Российской Федерации</text:p>
    <text:p text:style-name="center">Федеральное государственное бюджетное образовательное учреждение </text:p>
    <text:p text:style-name="center">высшего образования </text:p>
    <text:p text:style-name="P1">«Томский государственный университет систем управления </text:p>

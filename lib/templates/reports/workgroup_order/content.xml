@@ -34,8 +34,7 @@
         <text:sequence-decl text:name="Drawing" text:display-outline-level="0"/>
       </text:sequence-decls>
       <text:p text:style-name="P1">
-        Министерство образования и науки
-        Российской Федерации
+        Министерство науки и высшего образования Российской Федерации
       </text:p>
       <text:p text:style-name="center">
         Федеральное государственное бюджетное
