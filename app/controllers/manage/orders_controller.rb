@@ -26,6 +26,12 @@ class Manage::OrdersController < Manage::InheritedResourcesController
     }
   end
 
+  def preview
+    open(@order.file.url) {|f| send_report f, :pdf, "#{@order.id}_preview.pdf", 'inline' }
+  rescue
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   private
     def send_converted_odt(format)
       @order.generate_odt do |generated_odt|

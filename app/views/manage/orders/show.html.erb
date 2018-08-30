@@ -6,7 +6,17 @@
 <% end %>
 
 <% if @order.file_url? %>
-  <%= action_link(link_to(I18n.t('order.doc_file'), @order.file_url), 'doc', "Скачать приказ в формате Microsoft Word") %>
+  <%#= action_link(link_to(I18n.t('order.doc_file'), @order.file_url), 'doc', "Скачать приказ в формате Microsoft Word") %>
+  <% content_for :action_nav do %>
+    <li class="action doc">
+      <%= link_to(I18n.t('order.doc_file'), @order.file_url)%>
+      <%= link_to preview_manage_chair_order_path(@order.chair, @order), target: :_blank do %>
+        <i class="fas fa-external-link-alt"></i>
+      <% end %>
+      <span> "Скачать приказ в формате Microsoft Word" </span>
+    </li>
+  <% end %>
+
 <% else %>
   <%= action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
 <% end %>
