@@ -39,6 +39,7 @@ class Stage < ActiveRecord::Base
 
   before_post_process :normalize_file_names
 
+  scope :with_attestation, -> { select { |s| s.attestation? } }
   scope :for_reporting, -> { where.not(reporting_stage_id: [nil, '']) }
   scope :without_reporting_stage, -> {
     for_reporting.select{ |stage| stage.reporting_stage.blank? }
@@ -46,6 +47,18 @@ class Stage < ActiveRecord::Base
 
   def for_reporting?
     self.reporting_stage_id.present?
+  end
+
+  def attestation?
+    title.include? 'Промежуточная аттестация'
+  end
+
+  def current_period_years
+    return unless attestation?
+    [
+      title.gsub(/\D/, '')[0..3].to_i,
+      title.gsub(/\D/, '')[4..-1].to_i
+    ]
   end
 
   def can_change?

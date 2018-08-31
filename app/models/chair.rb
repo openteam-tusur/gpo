@@ -94,7 +94,8 @@ class Chair < ActiveRecord::Base
   def attestation_stages (projects, title)
     stages_count = 0
     projects.map(&:stages).flatten.each do |stage|
-      if (stage.title.include? title) && (DateTime.now.to_date > stage.start)
+      start_year, end_year = stage.current_period_years
+      if (stage.title.include? title) && (Time.zone.now.year == end_year)#(DateTime.now.to_date > stage.start)
         stages_count += 1
       end
     end
