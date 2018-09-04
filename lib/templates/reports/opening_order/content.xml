@@ -106,7 +106,7 @@
    <text:p text:style-name="P3">ОСНОВАНИЕ: <%= order_reason %></text:p>
    <text:p text:style-name="P2"/>
    <text:p text:style-name="P2"/>
-   <text:p text:style-name="P2">Проректор по УР <text:tab/> <text:tab/> <text:tab/> <text:tab/> <text:tab/> П.Е. Троян</text:p>
+   <text:p text:style-name="P2">Директор департамента образования<text:tab/> <text:tab/> <text:tab/> <text:tab/> <text:tab/> П.Е. Троян</text:p>
   </office:text>
  </office:body>
 </office:document-content>
