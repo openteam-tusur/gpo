@@ -31,7 +31,7 @@ class ChairProjectsList < XlsReport
         tmp_row.elements[5][1].text = participant.name
         tmp_row.elements[6][1].text = participant.course
         tmp_row.elements[7][1].text = participant.edu_group
-        orders = "Формирование №#{project.opening_order.number} от #{I18n.l project.opening_order.approved_at}"
+        orders = "Формирование №#{project.opening_order.number} от #{I18n.l(project.opening_order.approved_at, default: "")}"
         orders += " Изменение состава гр. " + project.workgroup_orders.approved.collect {|order| "№#{order.number} от #{I18n.l order.approved_at}"}.join(", ")  unless project.workgroup_orders.approved.empty?
         tmp_row.elements[8][1].text = orders
         table.add_element tmp_row
