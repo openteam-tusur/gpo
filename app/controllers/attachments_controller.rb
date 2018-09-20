@@ -4,7 +4,7 @@ class AttachmentsController < ApplicationController
     format = params[:format]
     klass = params[:path].split('/').first.classify.constantize
     id = params[:path].split('/')[-2]
-    resource = klass.find(id).inspect
+    resource = klass.find(id)
     authorize! :show, resource
 
     path = %(#{path}.#{format})
