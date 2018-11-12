@@ -26,5 +26,7 @@
 
     <%= yield :right %>
   </div>
+  <% if content_for? :additional_info %>
+    <%= yield(:additional_info) %>
+  <% end %>
 </div>
-

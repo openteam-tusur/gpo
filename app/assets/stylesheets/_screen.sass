@@ -263,6 +263,50 @@ img.icon
 
 #container-two-collumn,
 #container-one-collumn
+  .issues
+    margin-bottom: 20px
+    .header
+      +clearfix
+      margin-bottom: 10px
+      a
+        font-weight: bold
+        display: block
+        float: right
+        background-color: #fff3c5
+        padding: 10px
+        margin-left: 10px
+    table
+      line-height: 1.5em
+      border-collapse: collapse
+      td, th
+        +small_text
+        vertical-align: top
+        border: 1px solid #cccccc
+        background-color: #fff
+        padding: 5px 8px
+      th
+        cursor: default
+        vertical-align: middle
+        text-align: center
+        font-weight: bold
+        background-color: #f5f5f5
+        abbr
+          cursor: help
+          border-bottom: unquote("1px") dashed $text_color
+      td.planned_closing_at,
+      td.planned_grade,
+      td.closed_at,
+      td.grade
+        text-align: center
+      .actions
+        +clearfix
+        margin: 20px 0 5px
+        .edit
+          +link_as_small_float_icon("small_icon_edit.png")
+          margin-right: 10px
+        .destroy
+          +link_as_small_float_icon("small_icon_destroy.png")
+
   &.error_page
     p
       margin-bottom: 20px
@@ -393,49 +437,7 @@ img.icon
   #error
     +message_box(#f7a7a7, "error_background.png", #d65d5d, maroon)
     float: right
-  .issues
-    margin-bottom: 20px
-    .header
-      +clearfix
-      margin-bottom: 10px
-      a
-        font-weight: bold
-        display: block
-        float: right
-        background-color: #fff3c5
-        padding: 10px
-        margin-left: 10px
-    table
-      line-height: 1.5em
-      border-collapse: collapse
-      td, th
-        +small_text
-        vertical-align: top
-        border: 1px solid #cccccc
-        background-color: #fff
-        padding: 5px 8px
-      th
-        cursor: default
-        vertical-align: middle
-        text-align: center
-        font-weight: bold
-        background-color: #f5f5f5
-        abbr
-          cursor: help
-          border-bottom: unquote("1px") dashed $text_color
-      td.planned_closing_at,
-      td.planned_grade,
-      td.closed_at,
-      td.grade
-        text-align: center
-      .actions
-        +clearfix
-        margin: 20px 0 5px
-        .edit
-          +link_as_small_float_icon("small_icon_edit.png")
-          margin-right: 10px
-        .destroy
-          +link_as_small_float_icon("small_icon_destroy.png")
+
 
 .participant_visitation
   li

@@ -41,3 +41,13 @@
   <%= project_section @project, :target_audience %>
 </div>
 
+<% content_for :additional_info do %>
+  <% if current_user.present? %>
+    <%  participant = @project.participants.active.where(student_id: current_user.try(:contingent_id).to_i).first %>
+    <% if participant.present?%>
+      <div style="clear: both">
+        <%= render :partial => 'project_issue', :locals => {participant: participant} %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

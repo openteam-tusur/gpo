@@ -1,0 +1,47 @@
+<div class="issues">
+  <h3>Индивидуальные задачи</h3>
+  <% unless participant.issues.empty? %>
+    <table>
+      <tr>
+        <th class="name"><%= Issue.human_attribute_name :name %></th>
+        <th class="description"><%= Issue.human_attribute_name :description %></th>
+        <th class="planned_closing_at">
+          <abbr title="<%= Issue.human_attribute_name :planned_closing_at %>">
+            <%= Issue.human_attribute_name :abbr_planned_closing_at %>
+          </abbr>
+        </th>
+        <th class="planned_grade">
+          <abbr title="<%= Issue.human_attribute_name :planned_grade %>">
+            <%= Issue.human_attribute_name :abbr_planned_grade %>
+          </abbr>
+        </th>
+        <th class="closed_at">
+          <abbr title="<%= Issue.human_attribute_name :closed_at %>">
+            <%= Issue.human_attribute_name :abbr_closed_at %>
+          </abbr>
+        </th>
+        <th class="grade">
+          <abbr title="<%= Issue.human_attribute_name :grade %>">
+            <%= Issue.human_attribute_name :abbr_grade %>
+          </abbr>
+        </th>
+        <th class="results"><%= Issue.human_attribute_name :results %></th>
+      </tr>
+      <% participant.issues.each do |issue| %>
+        <tr>
+          <td class="name">
+            <p><%= issue.name %></p>
+          </td>
+          <td class="description"><%= issue.description %></td>
+          <td class="planned_closing_at"><%= date(issue.planned_closing_at) %></td>
+          <td class="planned_grade"><%= issue.planned_grade %></td>
+          <td class="closed_at"><%= date(issue.closed_at) %></td>
+          <td class="grade"><%= issue.grade %></td>
+          <td class="results"><%= issue.results %></td>
+        </tr>
+      <% end %>
+    </table>
+  <% else %>
+    <p>Нет запланированных задач</p>
+  <% end %>
+</div>
