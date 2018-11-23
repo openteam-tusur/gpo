@@ -1,0 +1,6 @@
+<h2>Добавить график работы</h2>
+
+<%= simple_form_for [:manage, @chair, @schedule] do |f| %>
+  <%= f.input :schedule_type, as: :select, collection: Schedule.schedule_type.options %>
+  <%= f.submit 'Сохранить' %>
+<% end %>

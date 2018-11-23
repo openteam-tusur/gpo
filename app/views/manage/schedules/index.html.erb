@@ -1,0 +1,8 @@
+<h1>Графики работы</h1>
+
+<% @schedules.each do |schedule| %>
+  <p>
+    <%= schedule.schedule_type_text %>
+    <%= link_to 'Изменить', edit_manage_chair_schedule_path(@chair, schedule) %>
+  </p>
+<% end %>

@@ -1,0 +1,5 @@
+<h2><%= @schedule.schedule_type_text %></h2>
+
+<% if @schedule.schedule_type.project_managers? %>
+  <%= render 'project_managers_schedule' %>
+<% end %>

@@ -292,6 +292,10 @@ ru:
             enable_modifications:  Разрешить правку
 
   enumerize:
+    schedule:
+      schedule_type:
+        group: График работы групп
+        project_managers: График работы руководителей
     project:
       category:
         business:         бизнес

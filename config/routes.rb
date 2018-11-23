@@ -35,6 +35,7 @@ Gpo::Application.routes.draw do
     end
 
     resources :chairs do
+      resources :schedules
       resources :visitations, only: :index
       resources :certificates, except: [:new, :edit, :show] do
         member do
