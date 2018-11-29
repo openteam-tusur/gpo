@@ -238,7 +238,7 @@ ru:
         state:
           initialized: Заявка создана
           send_to_mentor: Отправлено ответственному за ГПО на кафедре
-          send_to_manager: На рассмотрении в ЦИОТ
+          send_to_manager: На рассмотрении
           published: Заявка утверждена
 
       order:
