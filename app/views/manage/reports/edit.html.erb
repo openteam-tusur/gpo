@@ -1,0 +1,32 @@
+<h3>График работы групп ГПО в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
+<div class='issues'>
+  <table>
+    <thead>
+      <tr>
+        <th>№ группы ГПО</th>
+        <th>ФИО руководителя</th>
+        <th>Аудитория</th>
+        <th>Время занятий</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @chair.projects.active.each do |project| %>
+        <% span = project.participants.active.count.to_s %>
+        <tr>
+          <td>
+            <%= project.cipher %>
+          </td>
+          <td>
+            <%=  project.people.collect {|person| person}.join(", ") %>
+          </td>
+          <td>
+            
+          </td>
+          <td>
+
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

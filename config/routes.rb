@@ -15,7 +15,7 @@ Gpo::Application.routes.draw do
       post :create_from_interval, on: :collection
     end
     resources :reporting_stages
-    resources :reports, only: [:index, :show] do
+    resources :reports, only: [:index, :edit, :show] do
       get :preview, on: :member
     end
 

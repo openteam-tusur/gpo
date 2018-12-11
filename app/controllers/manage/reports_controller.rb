@@ -4,7 +4,7 @@ require 'better/tempfile'
 class Manage::ReportsController < Manage::ApplicationController
   include SendReport
 
-  before_filter :find_chair, :find_project, only: [:show, :preview]
+  before_filter :find_chair, :find_project, only: [:show, :preview, :edit]
 
   def index
   end
@@ -34,6 +34,9 @@ class Manage::ReportsController < Manage::ApplicationController
           chair_schedule_project_managers].include?(params[:id])
       send_xls(params[:id])
     end
+  end
+
+  def edit
   end
 
   protected

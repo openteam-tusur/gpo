@@ -46,4 +46,3 @@ class XlsReport
   end
 
 end
-
