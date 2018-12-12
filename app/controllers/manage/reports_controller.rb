@@ -4,7 +4,7 @@ require 'better/tempfile'
 class Manage::ReportsController < Manage::ApplicationController
   include SendReport
 
-  before_filter :find_chair, :find_project, only: [:show, :preview, :edit]
+  before_filter :find_chair, :find_project, only: [:show, :preview]
 
   def index
   end
@@ -36,7 +36,15 @@ class Manage::ReportsController < Manage::ApplicationController
     end
   end
 
-  def edit
+
+  def edit_multiple
+    find_chair
+    @projects = @chair.projects.active
+  end
+
+  def update_multiple
+    Project.update(params[:projects].keys, params[:projects].values)
+    redirect_to manage_chair_path(params[:chair])
   end
 
   protected

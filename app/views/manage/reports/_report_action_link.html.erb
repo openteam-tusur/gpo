@@ -10,7 +10,7 @@
       <% end %>
     <% end %>
     <% if %i[chair_schedule_group chair_schedule_project_managers].include? report[:id] %>
-        <%= link_to edit_manage_report_path(report[:id], type => id), target: :_blank do %>
+        <%= link_to manage_report_edit_multiple_path(report[:id], type => id), target: :_blank do %>
           <i class="fas fa-external-link-alt"></i>
       <% end %>
     <% end %>
