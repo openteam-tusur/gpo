@@ -1,0 +1,50 @@
+<h3>График работы руководителей групп ГПО в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
+<div class='issues'>
+  <%= form_tag manage_report_update_multiple_path(chair: @chair), method: :put do %>
+    <table>
+      <thead>
+        <tr>
+          <th>ФИО руководителя</th>
+          <th>Должность, уч. звание</th>
+          <th>№ группы ГПО</th>
+          <th>Аудитория</th>
+          <th>Время занятий</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @chair.uniq_project_manager_users.each do |project_manager| %>
+          <%  project_manager.managable_projects.each_with_index do |project, i| %>
+            <%= fields_for "projects[]", project do |f| %>
+              <tr>
+                <%if i == 0 %>
+                  <td rowspan="<%= project_manager.managable_projects.count %>">
+                    <%= project_manager %>
+                  </td>
+                  <td rowspan="<%= project_manager.managable_projects.count %>">
+                    <%= project_manager.post %>
+                  </td>
+                <% end %>
+                <td>
+                  <%= project.cipher %>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.text_field :auditorium%>
+                  </div>
+                </td>
+                <td>
+                  <div class="field">
+                    <%= f.text_field :class_time%>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="actions">
+    <%= submit_tag "Сохранить" %>
+    </div>
+  <% end %>
+</div>

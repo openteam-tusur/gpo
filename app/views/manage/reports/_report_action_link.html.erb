@@ -9,8 +9,13 @@
         <i class="fas fa-external-link-alt"></i>
       <% end %>
     <% end %>
-    <% if %i[chair_schedule_group chair_schedule_project_managers].include? report[:id] %>
-        <%= link_to manage_report_edit_multiple_path(report[:id], type => id), target: :_blank do %>
+    <% if %i[chair_schedule_group].include? report[:id] %>
+        <%= link_to manage_report_edit_schedule_group_path(report[:id], type => id), target: :_blank do %>
+          <i class="fas fa-external-link-alt"></i>
+      <% end %>
+    <% end %>
+    <% if %i[chair_schedule_project_managers].include? report[:id] %>
+        <%= link_to manage_report_edit_schedule_manager_path(report[:id], type => id), target: :_blank do %>
           <i class="fas fa-external-link-alt"></i>
       <% end %>
     <% end %>

@@ -17,7 +17,8 @@ Gpo::Application.routes.draw do
     resources :reporting_stages
     resources :reports, only: [:index, :show] do
       get :preview, on: :member
-      get :edit_multiple
+      get :edit_schedule_group
+      get :edit_schedule_manager
       put :update_multiple
     end
 
