@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   extend Enumerize
   attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
     :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing,
-    :result, :closed_on, :target_audience, :main_goals, :auditorium, :class_time
+    :result, :closed_on, :target_audience, :main_goals, :auditorium, :class_time, :consultation_auditorium, :consultation_time
 
   belongs_to :chair
   belongs_to :theme

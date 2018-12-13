@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181211044141) do
+ActiveRecord::Schema.define(version: 20181213093644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -154,8 +154,8 @@ ActiveRecord::Schema.define(version: 20181211044141) do
   create_table "projects", force: true do |t|
     t.string   "cipher"
     t.string   "title"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "chair_id"
     t.text     "stakeholders"
     t.text     "funds_required"
@@ -181,7 +181,9 @@ ActiveRecord::Schema.define(version: 20181211044141) do
     t.text     "target_audience"
     t.text     "main_goals"
     t.string   "auditorium"
-    t.string   "class_time",        default: "Четверг с 8.50 до 14.50"
+    t.string   "class_time",              default: "Четверг с 8.50 до 14.50"
+    t.string   "consultation_auditorium"
+    t.string   "consultation_time"
   end
 
   create_table "reporting_marks", force: true do |t|
