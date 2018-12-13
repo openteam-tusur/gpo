@@ -25,6 +25,8 @@ class ChairScheduleProjectManagers < XlsReport
         tmp_row.elements[1][1].text = project_manager
         tmp_row.elements[2][1].text = project_manager.post
         tmp_row.elements[3][1].text = project.cipher
+        tmp_row.elements[4][1].text = project.auditorium
+        tmp_row.elements[5][1].text = project.class_time
         table.add_element tmp_row
         i += 1
       end

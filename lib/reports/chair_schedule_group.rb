@@ -31,6 +31,8 @@ class ChairScheduleGroup < XlsReport
         tmp_row.elements[4][1].text = participant.name
         tmp_row.elements[5][1].text = participant.course
         tmp_row.elements[6][1].text = participant.edu_group
+        tmp_row.elements[7][1].text = project.auditorium
+        tmp_row.elements[8][1].text = project.class_time
         table.add_element tmp_row
         i += 1
       end
