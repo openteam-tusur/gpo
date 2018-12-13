@@ -39,11 +39,11 @@ class Manage::ReportsController < Manage::ApplicationController
 
   def edit_schedule_group
     find_chair
+    @projects = @chair.projects.active
   end
 
   def edit_schedule_manager
     find_chair
-    @projects = @chair.projects.active
   end
 
   def update_multiple

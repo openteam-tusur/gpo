@@ -32,6 +32,13 @@ module ApplicationHelper
       'container_one_column'
     when 'certificates'
       'container_one_column'
+    when 'reports'
+      if controller.action_name == 'edit_schedule_manager' ||
+        controller.action_name == 'edit_schedule_group'
+        'container_one_column'
+      else
+        'container_two_column'
+      end
     when 'stages'
       if controller.action_name == 'edit'
         'container_one_column'

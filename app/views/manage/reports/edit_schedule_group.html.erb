@@ -6,6 +6,10 @@
         <tr>
           <th>№ группы ГПО</th>
           <th>ФИО руководителя</th>
+          <th>№</th>
+          <th>ФИО студентов</th>
+          <th>Курс</th>
+          <th>№ уч. группы</th>
           <th>Аудитория</th>
           <th>Время занятий</th>
         </tr>
@@ -13,24 +17,42 @@
       <tbody>
         <% @projects.each do |project| %>
           <%= fields_for "projects[]", project do |f| %>
-            <tr>
-              <td>
-                <%= project.cipher %>
-              </td>
-              <td>
-                <%=  project.people.collect {|person| person}.join(", ") %>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.text_field :auditorium%>
-                </div>
-              </td>
-              <td>
-                <div class="field">
-                  <%= f.text_field :class_time%>
-                </div>
-              </td>
-            </tr>
+            <% project.participants.active.each_with_index do |participant, i| %>
+              <tr>
+                <%if i == 0 %>
+                  <td rowspan="<%= project.participants.active.count %>">
+                    <%= project.cipher %>
+                  </td>
+                  <td rowspan="<%= project.participants.active.count %>">
+                    <%=  project.people.collect {|person| person}.join(", ") %>
+                  </td>
+                <% end %>
+                <td>
+                  <%= i+1 %>
+                </td>
+                <td>
+                  <%= participant.name %>
+                </td>
+                <td>
+                  <%= participant.course %>
+                </td>
+                <td>
+                  <%= participant.edu_group %>
+                </td>
+                <%if i == 0 %>
+                  <td rowspan="<%= project.participants.active.count %>">
+                    <div class="field">
+                      <%= f.text_field :auditorium%>
+                    </div>
+                  </td>
+                  <td rowspan="<%= project.participants.active.count %>">
+                    <div class="field">
+                      <%= f.text_field :class_time%>
+                    </div>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
           <% end %>
         <% end %>
       </tbody>

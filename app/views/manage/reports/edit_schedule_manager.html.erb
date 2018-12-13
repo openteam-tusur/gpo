@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <% @chair.uniq_project_manager_users.each do |project_manager| %>
-          <%  project_manager.managable_projects.each_with_index do |project, i| %>
+          <% project_manager.managable_projects.each_with_index do |project, i| %>
             <%= fields_for "projects[]", project do |f| %>
               <tr>
                 <%if i == 0 %>
