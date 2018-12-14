@@ -1,21 +1,19 @@
 <% content_for :action_nav do %>
   <li class="action report">
     <%= link_to(report[:title], manage_report_path(report[:id], :format => report[:type], type => id))%>
-    <% if %i[chair_schedule_group
-             project_tz
-             chair_schedule_project_managers
+    <% if %i[project_tz
              chair_statement_checkup].include? report[:id] %>
       <%= link_to preview_manage_report_path(report[:id], :format => 'pdf', type => id), target: :_blank do %>
         <i class="fas fa-external-link-alt"></i>
       <% end %>
     <% end %>
     <% if %i[chair_schedule_group].include? report[:id] %>
-        <%= link_to manage_report_edit_schedule_group_path(report[:id], type => id), target: :_blank do %>
+        <%= link_to manage_report_edit_schedule_group_path(report[:id], type => id) do %>
           <i class="fas fa-edit"></i>
       <% end %>
     <% end %>
     <% if %i[chair_schedule_project_managers].include? report[:id] %>
-        <%= link_to manage_report_edit_schedule_manager_path(report[:id], type => id), target: :_blank do %>
+        <%= link_to manage_report_edit_schedule_manager_path(report[:id], type => id) do %>
           <i class="fas fa-edit"></i>
       <% end %>
     <% end %>
