@@ -1,6 +1,6 @@
 <h3>График работы руководителей групп ГПО в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
 <div class='issues'>
-  <%= form_tag manage_report_update_multiple_path(chair: @chair), method: :put do %>
+  <%= form_tag manage_report_update_schedule_manager_path(chair: @chair), method: :put do %>
     <table>
       <thead>
         <tr>
@@ -8,28 +8,28 @@
           <th>Должность, уч. звание</th>
           <th>№ группы ГПО</th>
           <th>Аудитория</th>
-          <th>Время занятий</th>
+          <th>Время консультаций</th>
         </tr>
       </thead>
       <tbody>
-        <% @chair.uniq_project_manager_users.each do |project_manager| %>
-          <% project_manager.managable_projects.each_with_index do |project, i| %>
-            <%= fields_for "projects[]", project do |f| %>
+        <% @chair.uniq_project_manager_users.each do |person| %>
+          <% person.project_managers.active.each_with_index do |pm, i| %>
+            <%= fields_for "project_managers[]", pm do |f| %>
               <tr>
                 <%if i == 0 %>
-                  <td rowspan="<%= project_manager.managable_projects.count %>">
-                    <%= project_manager %>
+                  <td rowspan="<%= person.project_managers.active.count %>">
+                    <%= person %>
                   </td>
-                  <td rowspan="<%= project_manager.managable_projects.count %>">
-                    <%= project_manager.post %>
+                  <td rowspan="<%= person.project_managers.active.count %>">
+                    <%= person.post %>
                   </td>
                 <% end %>
                 <td>
-                  <%= project.cipher %>
+                  <%= pm.project.cipher %>
                 </td>
                 <td>
                   <div class="field">
-                    <%= f.text_field :consultation_auditorium%>
+                    <%= f.text_field :auditorium%>
                   </div>
                 </td>
                 <td>

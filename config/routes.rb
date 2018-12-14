@@ -19,7 +19,8 @@ Gpo::Application.routes.draw do
       get :preview, on: :member
       get :edit_schedule_group
       get :edit_schedule_manager
-      put :update_multiple
+      put :update_schedule_group
+      put :update_schedule_manager
     end
 
     get '/statistics'           => 'statistics#show'

@@ -1,5 +1,5 @@
 class ProjectManager < ActiveRecord::Base
-  attr_accessible :person_id, :project_id, :state_event
+  attr_accessible :person_id, :project_id, :state_event, :auditorium, :consultation_time
 
   belongs_to :person
   belongs_to :project

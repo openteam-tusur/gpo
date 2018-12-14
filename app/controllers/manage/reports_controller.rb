@@ -46,8 +46,13 @@ class Manage::ReportsController < Manage::ApplicationController
     find_chair
   end
 
-  def update_multiple
+  def update_schedule_group
     Project.update(params[:projects].keys, params[:projects].values)
+    redirect_to manage_chair_path(params[:chair])
+  end
+
+  def update_schedule_manager
+    ProjectManager.update(params[:project_managers].keys, params[:project_managers].values)
     redirect_to manage_chair_path(params[:chair])
   end
 

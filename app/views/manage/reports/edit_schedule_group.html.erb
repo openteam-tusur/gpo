@@ -1,6 +1,6 @@
 <h3>График работы групп ГПО в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
 <div class='issues'>
-  <%= form_tag manage_report_update_multiple_path(chair: @chair), method: :put do %>
+  <%= form_tag manage_report_update_schedule_group_path(chair: @chair), method: :put do %>
     <table>
       <thead>
         <tr>
