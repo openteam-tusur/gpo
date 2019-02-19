@@ -14,6 +14,7 @@ class Manage::VisitationsController < Manage::ApplicationController
   def edit
     @errors = []
     @gpoday = Gpoday.find(params[:id])
+    @gporate ='%.2f' % (25.0 / Gpoday.count)
   end
 
   def update
@@ -57,4 +58,3 @@ class Manage::VisitationsController < Manage::ApplicationController
     resource.class.name.underscore
   end
 end
-

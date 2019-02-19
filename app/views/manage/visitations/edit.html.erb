@@ -1,4 +1,4 @@
-<% title "Редактирование посещаемости", :visitation %>
+<% title @gpoday.date.to_s + " - редактирование посещаемости", :visitation %>
 
 <% content_for :hint do %>
   <p>Введите баллы за посещаемость в диапазоне <b>от 0 до 2</b> и нажмите кнопку "Сохранить"</p>
@@ -9,14 +9,18 @@
     <ul>
       <% @project.participants.active.each do |participant| %>
         <li>
-          <div class="input string">
-          <label for="participant_<%= participant.id %>">
-            <%= (participant.name) %>
-            <% if @errors.include?(participant.id) %>
-              <span class="fieldWithErrors">Должно быть введено значение от 0 до 2</span>
-            <% end %>
-          </label>
-          <%= text_field_tag "participant[#{participant.id}]", participant.visitation_for_gpoday(@gpoday).rate, :class => "input string" %>
+          <div class="string">
+            <label class="participant_label" for="participant_<%= participant.id %>">
+              <%= (participant.name) %>
+              <% if @errors.include?(participant.id) %>
+                <span class="fieldWithErrors">Должно быть введено значение от 0 до 2</span>
+              <% end %>
+            </label>
+            <%rate = participant.visitation_for_gpoday(@gpoday).rate%>
+            <%= radio_button_tag "participant[#{participant.id}]", @gporate, checked = !(rate.nil? || rate == 0.0) %>
+            <label class="radio_label" for="participant[#{participant.id}]">Посещал</label>
+            <%= radio_button_tag "participant[#{participant.id}]", '0.0', checked = (rate.nil? || rate == 0.0) %>
+            <label class="radio_label" for="participant[#{participant.id}]">Отсутствовал</label>
           </div>
         </li>
       <% end %>
@@ -25,4 +29,3 @@
     <%= link_to I18n.t("cancel"), manage_chair_project_visitations_path(@project.chair, @project) %>
   </fieldset>
 <% end %>
-
