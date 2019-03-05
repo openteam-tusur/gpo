@@ -68,7 +68,11 @@
             <% @statistics.each do |statistic| %>
               <td class='indicator'>
                 <% if @chair %>
-                  <%= statistic.data[@chair.id][indicator].to_i %>
+                  <% if statistic.data[@chair.id].present? %>
+                    <%= statistic.data[@chair.id][indicator].to_i %>
+                  <% else %>
+                    0
+                  <% end %>
                 <% else %>
                   <%= statistic.data[:global][indicator].to_i %>
                 <% end %>

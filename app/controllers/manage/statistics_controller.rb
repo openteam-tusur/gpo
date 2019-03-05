@@ -30,11 +30,11 @@ class Manage::StatisticsController < Manage::ApplicationController
           csv << ['Показатель', 'Текущая статистика'] + @statistics.map(&:created_at).map {|date| I18n.l(date, :format => '%d.%m.%Y')}
           @indicators.each_with_index do |indicator, index|
             @statistics.each do |statistic|
-              indicator_value =if @chair
-                                 statistic.data[@chair.id][indicator]
-                               else
-                                 statistic.data[:global][indicator]
-                               end
+              indicator_value = if @chair
+                                  statistic.data[@chair.id][indicator] if statistic.data[@chair.id].present?
+                                else
+                                  statistic.data[:global][indicator]
+                                end
               csv << [I18n.t("statistics.#{indicator}"), @current_statistics[index].value, indicator_value]
             end
           end
