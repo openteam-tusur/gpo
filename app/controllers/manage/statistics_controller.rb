@@ -29,14 +29,20 @@ class Manage::StatisticsController < Manage::ApplicationController
         csv_content = CSV.generate do |csv|
           csv << ['Показатель', 'Текущая статистика'] + @statistics.map(&:created_at).map {|date| I18n.l(date, :format => '%d.%m.%Y')}
           @indicators.each_with_index do |indicator, index|
+            values = []
             @statistics.each do |statistic|
               indicator_value = if @chair
-                                  statistic.data[@chair.id][indicator] if statistic.data[@chair.id].present?
+                                  if statistic.data[@chair.id].present?
+                                    statistic.data[@chair.id][indicator]
+                                  else
+                                    '0'
+                                  end
                                 else
                                   statistic.data[:global][indicator]
                                 end
-              csv << [I18n.t("statistics.#{indicator}"), @current_statistics[index].value, indicator_value]
+              values << indicator_value
             end
+            csv << [I18n.t("statistics.#{indicator}"), @current_statistics[index].value] + values
           end
         end
         send_data csv_content
