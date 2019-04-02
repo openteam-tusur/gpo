@@ -3,12 +3,31 @@
 <% content_for :hint do %>
   <p>Плановое количество баллов рассчитывается за выполнение индивидуального задания по дисциплине ГПО согласно балльно - рейтинговой системе:</p>
   <ul style='list-style: disc inside;'>
-    <li>на КТ 1 &mdash; 14 баллов</li>
-    <li>на КТ 2 &mdash; 16 баллов</li>
-    <li>В конце семестра &mdash; 8 баллов</li>
+    <li>на КТ 1 &mdash; 15 баллов</li>
+    <li>на КТ 2 &mdash; 15 баллов</li>
+    <li>В конце семестра &mdash; 15 баллов</li>
   </ul>
   <p>Плановая дата выполнения соответствует датам контрольных точек на  зачетной неделе. Количество периодов может <b>быть и больше</b>, но привязка к контрольным точкам должна сохраниться.</p>
   <p><b>По окончанию каждого периода</b> руководителем проставляется отметка о факте выполнения (фактическая дата выполнения задания), оценка деятельности студента в баллах и отмечается результат выполнения работы.</p>
+  <p>Соотношение оценок за контрольную точку с полученными баллами за реализацию индивидуальных задач:</p>
+  <p>
+    1 КТ
+    <ul style='list-style: disc inside;'>
+      <li>15-13 баллов &mdash; "отлично"</li>
+      <li>12-10 баллов &mdash; "хорошо"</li>
+      <li>9-7 баллов &mdash; "удовлетворительно"</li>
+      <li>менее 7 баллов &mdash; "неудовлетворительно"</li>
+    </ul>
+  </p>
+  <p>
+    2 КТ
+    <ul style='list-style: disc inside;'>
+      <li>30-26 баллов &mdash; "отлично"</li>
+      <li>25-21 баллов &mdash; "хорошо"</li>
+      <li>20-15 баллов &mdash; "удовлетворительно"</li>
+      <li>14 и менее баллов &mdash; "неудовлетворительно"</li>
+    </ul>
+  </p>
 <% end %>
 
 <% @project.participants.active.each_with_index do |participant, index| %>
@@ -17,7 +36,11 @@
     <div class="header">
       <%= link_to 'Экспорт в XLS', export_manage_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
       <%= link_to t("add"), new_manage_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
-      <h3 class="planned_summ_grade"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %></h3>
+      <% if participant.issues_planned_summ_grade != 45 %>
+        <h3 class="planned_summ_grade h3-warning"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %>/45</h3>
+      <% else %>
+        <h3 class="planned_summ_grade"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %>/45</h3>
+      <% end %>
       <h3 class="fact_summ_grade"><%= Issue.human_attribute_name :fact_summ_grade %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
     </div>
     <% unless participant.issues.empty? %>
