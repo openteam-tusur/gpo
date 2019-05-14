@@ -41,10 +41,13 @@ class Manage::CertificatesController < Manage::ApplicationController
   end
 
   def pdf
+    name = @certificate.participant.name
+    name = Russian.transliterate(name).downcase.parameterize
     pdf = CertificatePdf.new([@certificate])
     send_data pdf.make_pdf,
-      filename: 'certificate.pdf',
-      type: 'application/pdf'
+      filename: %(certificate-#{name}.pdf),
+      type: 'application/pdf',
+      disposition: 'inline'
   end
 
   def pdf_all
