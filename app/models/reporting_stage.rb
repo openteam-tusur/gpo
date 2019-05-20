@@ -7,6 +7,7 @@ class ReportingStage < ActiveRecord::Base
   scope :ascending,  -> { order('start asc') }
   scope :descending, -> { order('start desc') }
 
+  before_create :save_snapshot
   after_save :associate_stages
 
   default_value_for :title do
@@ -29,6 +30,10 @@ class ReportingStage < ActiveRecord::Base
   end
 
   private
+
+  def save_snapshot
+    StatisticsSnapshot.build_and_save
+  end
 
   def associate_stages
     if stages.any?
