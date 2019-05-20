@@ -48,7 +48,7 @@ class ChairAttestation < XlsReport
         tmp_row.elements[8][1].text = participant.course
         tmp_row.elements[9][1].text = participant.edu_group
         tmp_row.elements[10][1].text = participant.total_term_mark
-        tmp_row.elements[10].attributes['value'].gsub!("0", participant.total_term_mark.to_s)
+        tmp_row.elements[10].attributes['value'].gsub!("0", participant.total_term_mark.round.to_s)
 
 
         tmp_row.elements[12].attributes["formula"].gsub!("7", formula_index.to_s)
@@ -68,4 +68,3 @@ class ChairAttestation < XlsReport
     super('chair_attestation', &block)
   end
 end
-
