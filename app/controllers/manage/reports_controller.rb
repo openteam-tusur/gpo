@@ -46,6 +46,12 @@ class Manage::ReportsController < Manage::ApplicationController
     find_chair
   end
 
+  def edit_chair_attestation
+    find_chair
+    @projects = @chair.projects.active
+  end
+
+
   def update_schedule_group
     Project.update(params[:projects].keys, params[:projects].values)
     redirect_to manage_chair_path(params[:chair])

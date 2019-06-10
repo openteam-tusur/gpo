@@ -19,8 +19,10 @@ Gpo::Application.routes.draw do
       get :preview, on: :member
       get :edit_schedule_group
       get :edit_schedule_manager
+      get :edit_chair_attestation
       put :update_schedule_group
       put :update_schedule_manager
+      put :update_chair_attestation
     end
 
     get '/statistics'           => 'statistics#show'

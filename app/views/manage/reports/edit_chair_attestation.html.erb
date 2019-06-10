@@ -1,0 +1,52 @@
+<h3>Аттестация участников ГПО по кафедре АОИ в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
+<div class='issues'>
+  <%= form_tag manage_report_update_schedule_group_path(chair: @chair), method: :put do %>
+    <table>
+      <thead>
+        <tr>
+          <th>№ группы ГПО</th>
+          <th>ФИО руководителя</th>
+          <th>№</th>
+          <th>ФИО студентов</th>
+          <th>Курс</th>
+          <th>№ уч. группы</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @projects.each do |project| %>
+          <%= fields_for "projects[]", project do |f| %>
+            <% project.participants.active.each_with_index do |participant, i| %>
+              <tr>
+                <%if i == 0 %>
+                  <td rowspan="<%= project.participants.active.count %>">
+                    <%= project.cipher %>
+                  </td>
+                  <td rowspan="<%= project.participants.active.count %>">
+                    <%=  project.people.collect {|person| person}.join(", ") %>
+                  </td>
+                <% end %>
+                <td>
+                  <%= i+1 %>
+                </td>
+                <td>
+                  <%= participant.name %>
+                </td>
+                <td>
+                  <%= participant.course %>
+                </td>
+                <td>
+                  <%= participant.edu_group %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <% if current_user.mentor_of?(@chair) || current_user.manager? %>
+      <div class="actions">
+      <%= submit_tag "Сохранить" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>
