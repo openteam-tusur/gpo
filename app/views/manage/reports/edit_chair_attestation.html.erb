@@ -1,4 +1,4 @@
-<h3>Аттестация участников ГПО по кафедре АОИ в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
+<h3><%=@stage_title %> </h3>
 <div class='issues'>
   <%= form_tag manage_report_update_schedule_group_path(chair: @chair), method: :put do %>
     <table>
@@ -10,6 +10,7 @@
           <th>ФИО студентов</th>
           <th>Курс</th>
           <th>№ уч. группы</th>
+          <th>Доклады на международных конференциях</th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +37,9 @@
                 </td>
                 <td>
                   <%= participant.edu_group %>
+                </td>
+                <td>
+                  <%= participant.current_project_mark(@stage_title, project.id) %>
                 </td>
               </tr>
             <% end %>

@@ -166,6 +166,18 @@ class Participant < ActiveRecord::Base
     Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', self.id, Gpoday.find(:first, :order => "date").date]).to_f
   end
 
+  def reporting_marks
+    ReportingMark.where(contingent_id: student_id)
+  end
+
+  def current_project_mark(current_stage_title, project_id)
+    reporting_marks.joins(:stage).where(stages: {
+                                                  title: current_stage_title,
+                                                  project_id: project_id
+                                                }
+                                              ).first
+  end
+
   private
 
   def similar_participants
