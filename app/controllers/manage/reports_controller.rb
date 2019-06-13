@@ -48,8 +48,9 @@ class Manage::ReportsController < Manage::ApplicationController
 
   def edit_chair_attestation
     find_chair
-    @projects = @chair.projects.active
-    @stage_title = get_current_stage_title
+    get_current_stage_title
+    stages = @chair.projects.active.map{|p| p.stages.find_by_title(@stage_title)}
+    @stage_achievements = stages.map {|s| StageAchievement.where(stage_id: s).first_or_create}
   end
 
   def get_current_stage_title
@@ -61,8 +62,13 @@ class Manage::ReportsController < Manage::ApplicationController
       result += %(весенний семестр #{Date.today.year - 1}/#{Date.today.year})
     end
     result += ' учебный год'
+    @stage_title = result
   end
 
+  def update_chair_attestation
+    StageAchievement.update(params[:stage_achievements].keys, params[:stage_achievements].values)
+    redirect_to manage_chair_path(params[:chair])
+  end
 
   def update_schedule_group
     Project.update(params[:projects].keys, params[:projects].values)

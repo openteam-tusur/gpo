@@ -170,14 +170,6 @@ class Participant < ActiveRecord::Base
     ReportingMark.where(contingent_id: student_id)
   end
 
-  def current_project_mark(current_stage_title, project_id)
-    reporting_marks.joins(:stage).where(stages: {
-                                                  title: current_stage_title,
-                                                  project_id: project_id
-                                                }
-                                              ).first
-  end
-
   private
 
   def similar_participants
