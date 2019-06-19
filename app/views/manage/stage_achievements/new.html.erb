@@ -1,0 +1,9 @@
+<% title 'Достижения', :report %>
+<%= simple_form_for @stage_achievement, url: manage_stage_achievements_path do |f| %>
+  <%= f.hidden_field :stage_id %>
+  <%= f.input :grant, label: 'Гранты Попечительского совета, УМНИК и др.'%>
+  <%= f.input :publication, label: 'Публикации в периодической печати'%>
+  <%= f.input :exhibition, label: 'Участие в выставках'%>
+  <%= f.input :diploma, label: 'Дипломы и призовые места во всероссийских конференциях и конкурсах по тематике ГПО'%>
+  <%= f.button :submit %>
+<% end %>

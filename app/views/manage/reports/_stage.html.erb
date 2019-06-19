@@ -1,0 +1,20 @@
+<div id="stage_<%= stage.id %>" class="project object">
+  <%= icon(:project) %>
+  <h3><%= stage.project.cipher%></h3>
+  <div class="theme">
+  <%= project_theme(stage.project) %>
+  </div>
+
+  <div class="details"><%= project_project_managers(stage.project) %></div>
+  <div class="stage-achievements">
+    Достижения:
+    <%if stage.stage_achievement.present?%>
+      <%=link_to 'Редактировать', edit_manage_stage_achievement_path(stage.stage_achievement)%>
+    <%else%>
+      <%=link_to 'Добавить', new_manage_stage_achievement_path(stage: stage)%>
+    <%end%>
+  </div>
+
+
+
+</div>

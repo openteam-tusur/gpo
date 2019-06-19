@@ -49,8 +49,8 @@ class Manage::ReportsController < Manage::ApplicationController
   def edit_chair_attestation
     find_chair
     get_current_stage_title
-    stages = @chair.projects.active.map{|p| p.stages.find_by_title(@stage_title)}
-    @stage_achievements = stages.map {|s| StageAchievement.where(stage_id: s).first_or_create}
+    @stages = @chair.projects.active.map{|p| p.stages.find_by_title(@stage_title)}
+    # @stage_achievements = @stages.map {|s| StageAchievement.where(stage_id: s).first_or_create}
   end
 
   def get_current_stage_title
