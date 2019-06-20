@@ -15,6 +15,19 @@
     <%end%>
   </div>
 
+  <div class="international-reports">
+    Доклады на международных конференциях:
+    <%stage.project.participants.active.each do |p|%>
+      <%= p.name %>
+      <%if stage.international_reports.where(participant_id: p).present?%>
+        <%=link_to 'Редактировать', edit_manage_international_report_path(stage.international_reports.where(participant_id: p).first)%>
+      <%else%>
+        <%=link_to 'Добавить', new_manage_international_report_path(stage: stage, participant: p)%>
+      <%end%>
+    <%end%>
+
+  </div>
+
 
 
 </div>
