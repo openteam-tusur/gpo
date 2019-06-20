@@ -311,9 +311,15 @@ img.icon
 
   .chair_attestation
     @extend .issues
-    overflow: auto
-    overflow-x: scroll
-    overflow-y: hidden
+    .stage
+      padding: 15px 8px
+
+      .international_reports,
+      .stage_achievements
+        padding: 0 0 8px
+        h3
+          margin: 5px 0px
+
 
   &.error_page
     p

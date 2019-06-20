@@ -50,7 +50,6 @@ class Manage::ReportsController < Manage::ApplicationController
     find_chair
     get_current_stage_title
     @stages = @chair.projects.active.map{|p| p.stages.find_by_title(@stage_title)}
-    # @stage_achievements = @stages.map {|s| StageAchievement.where(stage_id: s).first_or_create}
   end
 
   def get_current_stage_title
@@ -63,11 +62,6 @@ class Manage::ReportsController < Manage::ApplicationController
     end
     result += ' учебный год'
     @stage_title = result
-  end
-
-  def update_chair_attestation
-    StageAchievement.update(params[:stage_achievements].keys, params[:stage_achievements].values)
-    redirect_to manage_chair_path(params[:chair])
   end
 
   def update_schedule_group

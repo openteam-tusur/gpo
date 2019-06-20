@@ -1,33 +1,76 @@
-<div id="stage_<%= stage.id %>" class="project object">
-  <%= icon(:project) %>
-  <h3><%= stage.project.cipher%></h3>
+<div id="stage_<%= stage.id %>" class="stage object">
+  <h2><%= stage.project.cipher%></h2>
   <div class="theme">
-  <%= project_theme(stage.project) %>
+    <h3>
+      <%= project_theme(stage.project) %>
+    </h3>
   </div>
 
-  <div class="details"><%= project_project_managers(stage.project) %></div>
-  <div class="stage-achievements">
-    Достижения:
+  <div class="details">Руководители: <%= project_project_managers(stage.project) %></div>
+  <div class="stage_achievements">
     <%if stage.stage_achievement.present?%>
-      <%=link_to 'Редактировать', edit_manage_stage_achievement_path(stage.stage_achievement)%>
+      <h3>
+        Достижения
+        <%= link_to edit_manage_stage_achievement_path(stage.stage_achievement) do %>
+          <i class="fas fa-edit" title='Редактировать'></i>
+        <% end %>
+      </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Гранты Попечительского совета, УМНИК и др.</th>
+            <th>Публикации в периодической печати</th>
+            <th>Участие в выставках</th>
+            <th>Дипломы и призовые места во всероссийских конференциях и конкурсах по тематике ГПО</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+              <td><%= stage.stage_achievement.grant %></td>
+              <td><%= stage.stage_achievement.publication %></td>
+              <td><%= stage.stage_achievement.exhibition %></td>
+              <td><%= stage.stage_achievement.diploma %></td>
+            </tr>
+        </tbody>
+      </table>
     <%else%>
-      <%=link_to 'Добавить', new_manage_stage_achievement_path(stage: stage)%>
+      <h3>
+        Достижения
+        <%= link_to new_manage_stage_achievement_path(stage: stage) do %>
+          <i class="fas fa-plus" title='Добавить'></i>
+        <% end %>
+      </h3>
     <%end%>
   </div>
 
-  <div class="international-reports">
-    Доклады на международных конференциях:
-    <%stage.project.participants.active.each do |p|%>
-      <%= p.name %>
-      <%if stage.international_reports.where(participant_id: p).present?%>
-        <%=link_to 'Редактировать', edit_manage_international_report_path(stage.international_reports.where(participant_id: p).first)%>
-      <%else%>
-        <%=link_to 'Добавить', new_manage_international_report_path(stage: stage, participant: p)%>
-      <%end%>
-    <%end%>
-
+  <div class="international_reports">
+    <h3>Доклады на международных конференциях</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ФИО студентов</th>
+          <th>Курс</th>
+          <th>№ уч. группы</th>
+          <th>Доклады</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%stage.project.participants.active.each do |p|%>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td>
+              <%if stage.international_reports.where(participant_id: p).present?%>
+                <%=link_to 'Редактировать', edit_manage_international_report_path(stage.international_reports.where(participant_id: p).first)%>
+              <%else%>
+                <%=link_to 'Добавить', new_manage_international_report_path(stage: stage, participant: p)%>
+              <%end%>
+            </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
   </div>
-
-
 
 </div>
