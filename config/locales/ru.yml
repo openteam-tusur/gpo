@@ -98,6 +98,8 @@ ru:
       theme:       Направление
       user:        Пользователь
       visitation:  Посещаемость
+      international_report:  Доклад
+      stage_achievement: Достижения
 
     attributes:
       activity:

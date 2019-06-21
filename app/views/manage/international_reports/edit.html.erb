@@ -2,6 +2,6 @@
 <%= simple_form_for @international_report, url: manage_international_report_path do |f| %>
   <%= f.hidden_field :stage_id %>
   <%= f.hidden_field :participant_id %>
-  <%= f.input :description, label: 'Гранты Попечительского совета, УМНИК и др.'%>
+  <%= f.input :description, label: 'Доклады'%>
   <%= f.button :submit %>
 <% end %>
