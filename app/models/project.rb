@@ -179,6 +179,19 @@ class Project < ActiveRecord::Base
     stages.select { |stage| !stage.reporting_filled? }
   end
 
+  def current_attestation_stage
+    title = 'Промежуточная аттестация за '
+    if Date.today > Date.parse(%(#{Date.today.year}-06-30))
+      title += ''
+      title += %(осенний семестр #{Date.today.year}/#{Date.today.year + 1})
+    else
+      title += %(весенний семестр #{Date.today.year - 1}/#{Date.today.year})
+    end
+    title += ' учебный год'
+
+    stages.find_by_title(title)
+  end
+
   private
 
   def set_cipher

@@ -48,20 +48,7 @@ class Manage::ReportsController < Manage::ApplicationController
 
   def edit_chair_attestation
     find_chair
-    get_current_stage_title
-    @stages = @chair.projects.active.map{|p| p.stages.find_by_title(@stage_title)}
-  end
-
-  def get_current_stage_title
-    result = 'Промежуточная аттестация за '
-    if Date.today > Date.parse(%(#{Date.today.year}-06-30))
-      result += ''
-      result += %(осенний семестр #{Date.today.year}/#{Date.today.year + 1})
-    else
-      result += %(весенний семестр #{Date.today.year - 1}/#{Date.today.year})
-    end
-    result += ' учебный год'
-    @stage_title = result
+    @stages = @chair.projects.active.map{|p| p.current_attestation_stage}
   end
 
   def update_schedule_group

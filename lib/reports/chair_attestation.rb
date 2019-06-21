@@ -40,9 +40,20 @@ class ChairAttestation < XlsReport
 
         end
         tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.people.collect {|person| person}.join(", ")}"
-        (2..6).each do |column_index|
-          tmp_row.elements[column_index][1].text = ''
+
+
+        stage_achievement = project.current_attestation_stage.stage_achievement
+        if stage_achievement.present?
+          tmp_row.elements[2][1].text = stage_achievement.diploma
+          tmp_row.elements[3][1].text = stage_achievement.grant
+          tmp_row.elements[4][1].text = stage_achievement.publication
+          tmp_row.elements[5][1].text = stage_achievement.exhibition
+        else
+          (2..6).each do |column_index|
+            tmp_row.elements[column_index][1].text = ''
+          end
         end
+
         tmp_row.elements[6][1].text = i
         tmp_row.elements[7][1].text = participant.name
         tmp_row.elements[8][1].text = participant.course
@@ -54,6 +65,14 @@ class ChairAttestation < XlsReport
         tmp_row.elements[12].attributes["formula"].gsub!("7", formula_index.to_s)
         tmp_row.elements[13].attributes["formula"].gsub!("K7", "K#{formula_index.to_s}")
         tmp_row.elements[13].attributes["formula"].gsub!("L7", "L#{formula_index.to_s}")
+
+        international_report = project.
+                               current_attestation_stage.
+                               international_reports.where(participant_id: participant).first
+
+        if international_report.present?
+          tmp_row.elements[14][1].text = international_report.description
+        end
 
         table.insert_after("//table:table-row[6+#{participant_index}]", tmp_row)
         participant_index += 1
