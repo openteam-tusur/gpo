@@ -1,18 +1,18 @@
 <div id='stage_<%= stage.id %>' class='stage object'>
   <h2><%= stage.project.cipher%></h2>
-  <div class='theme'>
     <h3>
-      <%= project_theme(stage.project) %>
+      <%= stage.project.title %>
     </h3>
-  </div>
 
   <div class='details'>Руководители: <%= project_project_managers(stage.project) %></div>
   <div class='stage_achievements'>
     <%if stage.stage_achievement.present?%>
       <h3>
         Достижения
-        <%= link_to 'Редактировать', edit_manage_stage_achievement_path(stage.stage_achievement) %>
-        <%=link_to_delete(manage_stage_achievement_path(stage.stage_achievement))%>
+        <%= link_to edit_manage_stage_achievement_path(stage.stage_achievement) do %>
+          <i class="fas fa-edit" title='Редактировать'></i>
+        <% end %>
+        <%=link_to_delete_with_icon(manage_stage_achievement_path(stage.stage_achievement))%>
       </h3>
       <table>
         <thead>
@@ -35,20 +35,22 @@
     <%else%>
       <h3>
         Достижения
-        <%= link_to 'Добавить', new_manage_stage_achievement_path(stage: stage) %>
+        <%= link_to new_manage_stage_achievement_path(stage: stage) do %>
+          <i class="fas fa-plus" title='Добавить'></i>
+        <% end %>
       </h3>
     <%end%>
   </div>
 
   <div class='international_reports'>
-    <h3>Доклады на международных конференциях</h3>
+    <h3>Участники</h3>
     <table>
       <thead>
         <tr>
           <th>ФИО студентов</th>
           <th>Курс</th>
           <th>№ уч. группы</th>
-          <th>Доклады</th>
+          <th>Доклады на международных конференциях</th>
         </tr>
       </thead>
       <tbody>

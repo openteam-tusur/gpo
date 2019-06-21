@@ -103,6 +103,21 @@ module ApplicationHelper
     link_to link_title, url, method: :delete, data: { confirm: I18n.t('are_you_sure') }
   end
 
+  def link_to_delete_with_icon(url)
+    link_to url, method: :delete, data: { confirm: I18n.t('are_you_sure') } do
+      content_tag :i, '', class: 'fas fa-minus', title: 'Удалить'
+    end
+  end
+
+  # def total_mark_counter(mark)
+  #   case
+  #   when mark < 11
+  #     'неуд'
+  #   else
+  #     ''
+  #   end
+  # end
+
   def render_list(item_partial, items, options = {})
     if items.any?
       object = options.delete(:object) || item_partial.split('/').last.to_sym

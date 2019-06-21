@@ -68,7 +68,9 @@ class ChairAttestation < XlsReport
 
         international_report = project.
                                current_attestation_stage.
-                               international_reports.where(participant_id: participant).first
+                               international_reports.
+                               where(participant_id: participant).
+                               first
 
         if international_report.present?
           tmp_row.elements[14][1].text = international_report.description
