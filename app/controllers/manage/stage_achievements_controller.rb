@@ -24,4 +24,10 @@ class Manage::StageAchievementsController < Manage::ApplicationController
       render :action => :edit
     end
   end
+
+  def destroy
+    @stage_achievement = StageAchievement.find(params[:id])
+    @stage_achievement.destroy
+    redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @stage_achievement.stage.chair.id)
+  end
 end

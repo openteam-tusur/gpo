@@ -5,4 +5,6 @@ class InternationalReport < ActiveRecord::Base
 
   belongs_to :participant
   belongs_to :stage
+
+  validates_presence_of :stage_id, :participant_id
 end

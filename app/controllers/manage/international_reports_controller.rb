@@ -24,4 +24,10 @@ class Manage::InternationalReportsController < Manage::ApplicationController
       render :action => :edit
     end
   end
+
+  def destroy
+    @international_report = InternationalReport.find(params[:id])
+    @international_report.destroy
+    redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @international_report.stage.chair.id)
+  end
 end
