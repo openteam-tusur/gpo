@@ -50,6 +50,10 @@
           <th>ФИО студентов</th>
           <th>Курс</th>
           <th>№ уч. группы</th>
+          <th>Баллы (семестровая составляющая)</th>
+          <th>Баллы (аттестационная составляющая)</th>
+          <th>Итоговая сумма баллов</th>
+          <th>Оценка полученная пересчетом</th>
           <th>Доклады на международных конференциях</th>
         </tr>
       </thead>
@@ -59,6 +63,10 @@
             <td><%= p.name %></td>
             <td><%= p.course %></td>
             <td><%= p.edu_group %></td>
+            <td><%= p.total_term_mark.round %></td>
+            <td></td>
+            <td><%= p.total_term_mark.round %></td>
+            <td><%= total_mark_counter(p.total_term_mark.round) %></td>
             <td>
               <%if stage.international_reports.where(participant_id: p).present?%>
                 <% international_report = stage.international_reports.where(participant_id: p).first %>

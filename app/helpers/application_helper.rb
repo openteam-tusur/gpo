@@ -109,14 +109,14 @@ module ApplicationHelper
     end
   end
 
-  # def total_mark_counter(mark)
-  #   case
-  #   when mark < 11
-  #     'неуд'
-  #   else
-  #     ''
-  #   end
-  # end
+  def total_mark_counter(mark)
+    case
+    when mark < 11
+      'неуд'
+    else
+      ''
+    end
+  end
 
   def render_list(item_partial, items, options = {})
     if items.any?
