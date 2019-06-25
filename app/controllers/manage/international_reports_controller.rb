@@ -1,4 +1,6 @@
 class Manage::InternationalReportsController < Manage::ApplicationController
+  load_and_authorize_resource
+
   def new
     @international_report = Stage.find(params[:stage]).international_reports.build(participant_id: params[:participant])
   end

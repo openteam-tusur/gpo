@@ -48,7 +48,6 @@ class Manage::ReportsController < Manage::ApplicationController
 
   def edit_chair_attestation
     find_chair
-
     @stages = @chair.projects.active.map{|p| p.current_attestation_stage}
     @stage_title = @stages.first.title + ' по кафедре ' + @chair.abbr
   end

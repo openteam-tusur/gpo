@@ -35,6 +35,15 @@ class Ability
       user.mentor_of?(person.chair)
     end
 
+    can :manage, StageAchievement do |sa|
+      user.mentor_of?(sa.chair)
+    end
+
+    can :manage, InternationalReport do |ir|
+      user.mentor_of?(ir.chair)
+    end
+
+
     can :read, :dashboard
 
     unless user.executive_participant?
