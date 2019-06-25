@@ -15,6 +15,17 @@
     </dl>
 <% end %>
 
-<%= render_list 'permission', @permissions, :id => 'permissions', :object => :permission %>
+<div class='search_permissions'>
+  <%= form_tag manage_permissions_path, :method => :get do %>
+    <%= hidden_field_tag 'search', true %>
+    <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по имени, почте', :class => 'search_input' %>
+    <%= submit_tag 'Найти', :class => 'search_submit button' %>
+    <% if @permissions.any? %>
+      <span class="found_count">Найдено: <%= @found_count %></span>
+    <% end %>
+  <% end %>
+</div>
 
+<%= paginate @permissions %>
+<%= render_list 'permission', @permissions, :id => 'permissions', :object => :permission %>
 <%= paginate @permissions %>

@@ -4,18 +4,26 @@ class Manage::PermissionsController < Manage::InheritedResourcesController
 
   load_and_authorize_resource
 
-  actions :index, :new, :create, :destroy
+  actions :new, :create, :destroy
 
   has_scope :page, :default => 1
 
-  def destroy
-    destroy! { redirect_to :back and return }
+  def index
+    @permissions = if params[:search].present?
+                      search = Permission.search {
+                        fulltext params[:q]
+                        paginate page: params[:page], per_page: 20
+                      }
+                      @found_count = search.total
+                      search.results
+                    else
+                      @found_count = Permission.count
+                      Permission.page(params[:page])
+                    end
   end
 
-  protected
-
-  def collection
-    @permissions = end_of_association_chain.order(created_at: :desc)
+  def destroy
+    destroy! { redirect_to :back and return }
   end
 
 end

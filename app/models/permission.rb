@@ -20,6 +20,11 @@ class Permission < ActiveRecord::Base
   scope :for_project,       ->(project) { where(:context_type => Project).where(:context_id => project) }
   #scope :for_chair,         ->(chair)   { where(:context_type => Chair).where(:context_id => chair) }
 
+  searchable do
+    text(:email)                  { user.email if user}
+    text(:fullname)               { user.fullname if user}
+  end
+
   def role_with_context
     [human_role, context.id_to_s].compact.join(' ') rescue p self
   end
