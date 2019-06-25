@@ -21,6 +21,8 @@ class Ability
     end
 
     if user.mentor?
+      can :new, [InternationalReport, StageAchievement]
+      can [:create, :edit, :update, :destroy], [InternationalReport, StageAchievement], stage_id: user.mentor_stages
       can :create, Certificate
       can :crud, Certificate, state: ['send_to_mentor']
       can :approve, Certificate, state: ['send_to_mentor']
@@ -34,15 +36,6 @@ class Ability
     can :manage, Person do |person|
       user.mentor_of?(person.chair)
     end
-
-    can :manage, StageAchievement do |sa|
-      user.mentor_of?(sa.chair)
-    end
-
-    can :manage, InternationalReport do |ir|
-      user.mentor_of?(ir.chair)
-    end
-
 
     can :read, :dashboard
 

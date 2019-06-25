@@ -29,6 +29,10 @@ class User
     available_chairs = Chair.ordered_by_abbr.where(:id => [available_chairs.uniq])
   end
 
+  def mentor_stages
+    permissions.for_role(:mentor).flat_map{|p| p.chair.projects.active}.flat_map{|p| p.stages.ids}
+  end
+
   def initials_name
     @initials_name ||= "#{surname} #{initials}"
   end

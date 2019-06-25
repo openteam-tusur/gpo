@@ -6,7 +6,6 @@ class StageAchievement < ActiveRecord::Base
                   :stage_id
 
   belongs_to :stage
-  delegate :chair, :to => :stage
 
   validates_presence_of :stage_id
 end
