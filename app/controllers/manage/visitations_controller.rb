@@ -18,6 +18,7 @@ class Manage::VisitationsController < Manage::ApplicationController
   end
 
   def update
+    @gporate ='%.2f' % (25.0 / Gpoday.count)
     @errors = []
     @gpoday = Gpoday.find(params[:id])
     params[:participant].each do |participant_id, rate|
