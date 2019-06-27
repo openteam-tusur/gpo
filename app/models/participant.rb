@@ -120,7 +120,7 @@ class Participant < ActiveRecord::Base
   end
 
   def visitation_for_gpoday(gpoday)
-    self.visitations.find_or_initialize_by(:gpoday_id => gpoday.id)
+    self.visitations.find_or_create_by(:gpoday_id => gpoday.id)
   end
 
   # для приказа

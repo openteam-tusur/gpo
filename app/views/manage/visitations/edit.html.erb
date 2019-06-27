@@ -13,7 +13,7 @@
             <label class="participant_label" for="participant_<%= participant.id %>">
               <%= (participant.name) %>
               <% if @errors.include?(participant.id) %>
-                <span class="fieldWithErrors">Должно быть введено значение от 0 до 2</span>
+                <span class="fieldWithErrors">Не удалось сохранить посещаемость для участника</span>
               <% end %>
             </label>
             <%rate = participant.visitation_for_gpoday(@gpoday).rate%>
