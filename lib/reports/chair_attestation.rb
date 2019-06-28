@@ -42,7 +42,7 @@ class ChairAttestation < XlsReport
         tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.people.collect {|person| person}.join(", ")}"
 
 
-        stage_achievement = project.current_attestation_stage.stage_achievement
+        stage_achievement = project.current_attestation_stage.try(:stage_achievement)
         if stage_achievement.present?
           tmp_row.elements[2][1].text = stage_achievement.diploma
           tmp_row.elements[3][1].text = stage_achievement.grant
@@ -68,9 +68,8 @@ class ChairAttestation < XlsReport
 
         international_report = project.
                                current_attestation_stage.
-                               international_reports.
-                               where(participant_id: participant).
-                               first
+                               try(:international_reports).
+                               try(:find_by, participant_id: participant)
 
         if international_report.present?
           tmp_row.elements[14][1].text = international_report.description
