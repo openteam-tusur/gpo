@@ -20,7 +20,7 @@ class Stage < ActiveRecord::Base
   belongs_to :reporting_stage
 
   has_many :reporting_marks, dependent: :destroy
-  has_many :international_reports
+  has_many :student_achievements
   accepts_nested_attributes_for :reporting_marks
 
   validates_presence_of :title, :start, :finish

@@ -98,7 +98,7 @@ ru:
       theme:       Направление
       user:        Пользователь
       visitation:  Посещаемость
-      international_report:  Доклад
+      student_achievement:  Доклад
       stage_achievement: Достижения
 
     attributes:

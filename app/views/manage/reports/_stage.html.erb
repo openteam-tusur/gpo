@@ -42,7 +42,7 @@
     <%end%>
   </div>
 
-  <div class='international_reports'>
+  <div class='student_achievements'>
     <h3>Участники</h3>
     <table>
       <thead>
@@ -68,17 +68,17 @@
             <td><%= p.total_term_mark.round %></td>
             <td><%= total_mark_counter(p.total_term_mark.round) %></td>
             <td>
-              <%if stage.international_reports.where(participant_id: p).present?%>
-                <% international_report = stage.international_reports.where(participant_id: p).first %>
+              <%if stage.student_achievements.where(participant_id: p).present?%>
+                <% student_achievement = stage.student_achievements.where(participant_id: p).first %>
                 <div>
-                  <%=international_report.description%>
+                  <%=student_achievement.title%>
                 </div>
                 <div class='report_actions'>
-                  <%=link_to 'Редактировать', edit_manage_international_report_path(international_report)%>
-                  <%=link_to_delete(manage_international_report_path(international_report))%>
+                  <%=link_to 'Редактировать', edit_manage_student_achievement_path(student_achievement)%>
+                  <%=link_to_delete(manage_student_achievement_path(student_achievement))%>
                 </div>
               <%else%>
-                <%=link_to 'Добавить', new_manage_international_report_path(stage: stage, participant: p)%>
+                <%=link_to 'Добавить', new_manage_student_achievement_path(stage: stage, participant: p)%>
               <%end%>
             </td>
           </tr>

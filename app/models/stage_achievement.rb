@@ -1,8 +1,6 @@
 class StageAchievement < ActiveRecord::Base
-  attr_accessible :grant,
-                  :publication,
-                  :exhibition,
-                  :diploma,
+  attr_accessible :kind,
+                  :title,
                   :stage_id
 
   belongs_to :stage

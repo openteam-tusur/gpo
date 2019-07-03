@@ -66,13 +66,13 @@ class ChairAttestation < XlsReport
         tmp_row.elements[13].attributes["formula"].gsub!("K7", "K#{formula_index.to_s}")
         tmp_row.elements[13].attributes["formula"].gsub!("L7", "L#{formula_index.to_s}")
 
-        international_report = project.
+        student_achievement = project.
                                current_attestation_stage.
-                               try(:international_reports).
+                               try(:student_achievements).
                                try(:find_by, participant_id: participant)
 
-        if international_report.present?
-          tmp_row.elements[14][1].text = international_report.description
+        if student_achievement.present?
+          tmp_row.elements[14][1].text = student_achievement.title
         end
 
         table.insert_after("//table:table-row[6+#{participant_index}]", tmp_row)
