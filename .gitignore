@@ -1,6 +1,8 @@
 *.swp
 .ruby-version
 /.bundle
+/.docker-sync
+docker*
 /bin/*
 /config/database.yml
 /config/deploy.yml
