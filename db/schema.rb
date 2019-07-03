@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190614053239) do
+ActiveRecord::Schema.define(version: 20190703095450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,17 +55,6 @@ ActiveRecord::Schema.define(version: 20190614053239) do
     t.datetime "updated_at",                 null: false
     t.boolean  "kt",         default: false
   end
-
-  create_table "international_reports", force: true do |t|
-    t.text     "description"
-    t.integer  "participant_id"
-    t.integer  "stage_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "international_reports", ["participant_id"], name: "index_international_reports_on_participant_id", using: :btree
-  add_index "international_reports", ["stage_id"], name: "index_international_reports_on_stage_id", using: :btree
 
   create_table "issues", force: true do |t|
     t.string   "name"
@@ -221,10 +210,13 @@ ActiveRecord::Schema.define(version: 20190614053239) do
   end
 
   create_table "stage_achievements", force: true do |t|
-    t.text     "grant"
-    t.text     "publication"
-    t.text     "exhibition"
-    t.text     "diploma"
+    t.string   "kind"
+    t.string   "title"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.text     "file_url"
     t.integer  "stage_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -262,6 +254,23 @@ ActiveRecord::Schema.define(version: 20190614053239) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "student_achievements", force: true do |t|
+    t.string   "kind"
+    t.string   "title"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.text     "file_url"
+    t.integer  "participant_id"
+    t.integer  "stage_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "student_achievements", ["participant_id"], name: "index_student_achievements_on_participant_id", using: :btree
+  add_index "student_achievements", ["stage_id"], name: "index_student_achievements_on_stage_id", using: :btree
 
   create_table "themes", force: true do |t|
     t.string   "name"

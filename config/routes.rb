@@ -15,7 +15,7 @@ Gpo::Application.routes.draw do
       post :create_from_interval, on: :collection
     end
     resources :stage_achievements
-    resources :international_reports
+    resources :student_achievements
     resources :reporting_stages
     resources :reports, only: [:index, :show] do
       get :preview, on: :member

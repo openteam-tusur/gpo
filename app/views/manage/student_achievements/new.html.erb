@@ -1,7 +1,7 @@
 <% title 'Доклады на международных конференциях', :report %>
-<%= simple_form_for @international_report, url: manage_international_report_path do |f| %>
+<%= simple_form_for @student_achievement, url: manage_student_achievements_path do |f| %>
   <%= f.hidden_field :stage_id %>
   <%= f.hidden_field :participant_id %>
-  <%= f.input :description, label: 'Доклады'%>
+  <%= f.input :title, label: 'Доклады'%>
   <%= f.button :submit %>
 <% end %>
