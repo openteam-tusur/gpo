@@ -6,4 +6,5 @@ class StageAchievement < ActiveRecord::Base
   belongs_to :stage
 
   validates_presence_of :stage_id
+  has_attached_file :attachment
 end
