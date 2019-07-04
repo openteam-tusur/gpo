@@ -6,39 +6,47 @@
 
   <div class='details'>Руководители: <%= project_project_managers(stage.project) %></div>
   <div class='stage_achievements'>
-    <%if stage.stage_achievement.present?%>
-      <h3>
-        Достижения
-        <%= link_to edit_manage_stage_achievement_path(stage.stage_achievement) do %>
-          <i class="fas fa-edit" title='Редактировать'></i>
-        <% end %>
-        <%=link_to_delete_with_icon(manage_stage_achievement_path(stage.stage_achievement))%>
-      </h3>
+    <h3>
+      Достижения
+      <%= link_to new_manage_stage_achievement_path(stage: stage) do %>
+        <i class="fas fa-plus" title='Добавить'></i>
+      <% end %>
+    </h3>
+    <%if stage.stage_achievements.present?%>
       <table>
         <thead>
           <tr>
             <th>Гранты Попечительского совета, УМНИК и др.</th>
-            <th>Публикации в периодической печати</th>
             <th>Участие в выставках</th>
-            <th>Дипломы и призовые места во всероссийских конференциях и конкурсах по тематике ГПО</th>
           </tr>
         </thead>
         <tbody>
             <tr>
-              <td><%= stage.stage_achievement.grant %></td>
-              <td><%= stage.stage_achievement.publication %></td>
-              <td><%= stage.stage_achievement.exhibition %></td>
-              <td><%= stage.stage_achievement.diploma %></td>
+              <td>
+                <% stage.grants.each do |g| %>
+                  <p>
+                    <%= g.title %>
+                    <%= link_to edit_manage_stage_achievement_path(g) do %>
+                      <i class="fas fa-edit" title='Редактировать'></i>
+                    <% end %>
+                    <%=link_to_delete_with_icon(manage_stage_achievement_path(g))%>
+                  </p>
+                <% end %>
+              </td>
+              <td>
+                <% stage.exhibitions.each do |e| %>
+                  <p>
+                    <%= e.title %>
+                    <%= link_to edit_manage_stage_achievement_path(e) do %>
+                      <i class="fas fa-edit" title='Редактировать'></i>
+                    <% end %>
+                    <%=link_to_delete_with_icon(manage_stage_achievement_path(e))%>
+                  </p>
+                <% end %>
+              </td>
             </tr>
         </tbody>
       </table>
-    <%else%>
-      <h3>
-        Достижения
-        <%= link_to new_manage_stage_achievement_path(stage: stage) do %>
-          <i class="fas fa-plus" title='Добавить'></i>
-        <% end %>
-      </h3>
     <%end%>
   </div>
 

@@ -2,7 +2,7 @@ class Manage::StageAchievementsController < Manage::ApplicationController
   load_and_authorize_resource
 
   def new
-    @stage_achievement = Stage.find(params[:stage]).build_stage_achievement
+    @stage_achievement = Stage.find(params[:stage]).stage_achievements.build
   end
 
   def create

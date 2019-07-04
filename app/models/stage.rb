@@ -16,7 +16,9 @@ class Stage < ActiveRecord::Base
 
   belongs_to :project
   has_one :chair, through: :project
-  has_one :stage_achievement
+  has_many :stage_achievements
+  has_many :exhibitions, -> { where(kind: 'exhibition') }, class_name: 'StageAchievement'
+  has_many :grants, -> { where(kind: 'grant') }, class_name: 'StageAchievement'
   belongs_to :reporting_stage
 
   has_many :reporting_marks, dependent: :destroy
