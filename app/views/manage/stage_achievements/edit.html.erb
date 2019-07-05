@@ -1,8 +1,9 @@
 <% title 'Достижения', :report %>
 <%= simple_form_for @stage_achievement, url: manage_stage_achievement_path do |f| %>
   <%= f.hidden_field :stage_id %>
-  <%= f.input :kind, collection: [['Выставка', :exhibition],['Грант', :grant]],label: 'Вид достижения', as: :select, required: true %>
+  <%= f.input :kind, collection: [['Выставка', :exhibition],['Грант', :grant]],label: 'Вид достижения', as: :select %>
   <%= f.input :title, label: 'Название'%>
-  <%= f.input :attachment, as: :file, label: 'Скан'%>
+  <%= link_to @stage_achievement.scan_file_name, @stage_achievement.scan.url if @stage_achievement.scan.file? %>
+  <%= f.input :scan, as: :file, label: 'Скан'%>
   <%= f.button :submit %>
 <% end %>
