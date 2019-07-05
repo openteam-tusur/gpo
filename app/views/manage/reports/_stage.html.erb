@@ -29,6 +29,11 @@
                     <%= link_to edit_manage_stage_achievement_path(g) do %>
                       <i class="fas fa-edit" title='Редактировать'></i>
                     <% end %>
+                    <% if g.scan.file? %>
+                      <%= link_to g.scan.url do %>
+                        <i class="fas fa-download" title='Загрузить'></i>
+                      <% end %>
+                    <% end %>
                     <%=link_to_delete_with_icon(manage_stage_achievement_path(g))%>
                   </p>
                 <% end %>
@@ -39,6 +44,11 @@
                     <%= e.title %>
                     <%= link_to edit_manage_stage_achievement_path(e) do %>
                       <i class="fas fa-edit" title='Редактировать'></i>
+                    <% end %>
+                    <% if e.scan.file? %>
+                      <%= link_to e.scan.url do %>
+                        <i class="fas fa-download" title='Загрузить'></i>
+                      <% end %>
                     <% end %>
                     <%=link_to_delete_with_icon(manage_stage_achievement_path(e))%>
                   </p>
@@ -51,7 +61,85 @@
   </div>
 
   <div class='student_achievements'>
-    <h3>Участники</h3>
+    <h3>
+      Достижения участников
+      <%= link_to new_manage_student_achievement_path(stage: stage) do %>
+        <i class="fas fa-plus" title='Добавить'></i>
+      <% end %>
+    </h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ФИО студентов</th>
+          <th>Курс</th>
+          <th>№ уч. группы</th>
+          <th>Доклады на международных конференциях</th>
+          <th>Дипломы и призовые места во всероссийских конференциях и конкурсах по тематике ГПО</th>
+          <th>Публикации в периодической печати</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%stage.project.participants.active.each do |p|%>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td>
+              <% stage.international_reports.where(participant_id: p).each do |p| %>
+                <p>
+                  <%= p.title %>
+                  <%= link_to edit_manage_student_achievement_path(p) do %>
+                    <i class="fas fa-edit" title='Редактировать'></i>
+                  <% end %>
+                  <% if p.scan.file? %>
+                    <%= link_to p.scan.url do %>
+                      <i class="fas fa-download" title='Загрузить'></i>
+                    <% end %>
+                  <% end %>
+                  <%=link_to_delete_with_icon(manage_student_achievement_path(p))%>
+                </p>
+              <% end %>
+            </td>
+            <td>
+              <% stage.diplomas.where(participant_id: p).each do |p| %>
+                <p>
+                  <%= p.title %>
+                  <%= link_to edit_manage_student_achievement_path(p) do %>
+                    <i class="fas fa-edit" title='Редактировать'></i>
+                  <% end %>
+                  <% if p.scan.file? %>
+                    <%= link_to p.scan.url do %>
+                      <i class="fas fa-download" title='Загрузить'></i>
+                    <% end %>
+                  <% end %>
+                  <%=link_to_delete_with_icon(manage_student_achievement_path(p))%>
+                </p>
+              <% end %>
+            </td>
+            <td>
+              <% stage.publications.where(participant_id: p).each do |p| %>
+                <p>
+                  <%= p.title %>
+                  <%= link_to edit_manage_student_achievement_path(p) do %>
+                    <i class="fas fa-edit" title='Редактировать'></i>
+                  <% end %>
+                  <% if p.scan.file? %>
+                    <%= link_to p.scan.url do %>
+                      <i class="fas fa-download" title='Загрузить'></i>
+                    <% end %>
+                  <% end %>
+                  <%=link_to_delete_with_icon(manage_student_achievement_path(p))%>
+                </p>
+              <% end %>
+            </td>
+          </tr>
+        <%end%>
+      </tbody>
+    </table>
+  </div>
+
+  <div class='student_marks'>
+    <h3>Оценки</h3>
     <table>
       <thead>
         <tr>
@@ -62,7 +150,6 @@
           <th>Баллы (аттестационная составляющая)</th>
           <th>Итоговая сумма баллов</th>
           <th>Оценка полученная пересчетом</th>
-          <th>Доклады на международных конференциях</th>
         </tr>
       </thead>
       <tbody>
@@ -75,20 +162,6 @@
             <td></td>
             <td><%= p.total_term_mark.round %></td>
             <td><%= total_mark_counter(p.total_term_mark.round) %></td>
-            <td>
-              <%if stage.student_achievements.where(participant_id: p).present?%>
-                <% student_achievement = stage.student_achievements.where(participant_id: p).first %>
-                <div>
-                  <%=student_achievement.title%>
-                </div>
-                <div class='report_actions'>
-                  <%=link_to 'Редактировать', edit_manage_student_achievement_path(student_achievement)%>
-                  <%=link_to_delete(manage_student_achievement_path(student_achievement))%>
-                </div>
-              <%else%>
-                <%=link_to 'Добавить', new_manage_student_achievement_path(stage: stage, participant: p)%>
-              <%end%>
-            </td>
           </tr>
         <%end%>
       </tbody>
