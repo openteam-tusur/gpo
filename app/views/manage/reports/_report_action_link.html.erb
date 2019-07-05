@@ -17,6 +17,11 @@
         <i class="fas fa-edit" title='Редактировать'></i>
       <% end %>
     <% end %>
+    <% if %i[chair_attestation].include? report[:id] %>
+      <%= link_to manage_report_edit_chair_attestation_path(report[:id], type => id) do %>
+        <i class="fas fa-edit" title='Редактировать'></i>
+      <% end %>
+    <% end %>
     <span><%= report[:description] %></span>
   </li>
 <% end %>

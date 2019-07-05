@@ -3,7 +3,7 @@ class CreateStudentAchievements < ActiveRecord::Migration
     create_table :student_achievements do |t|
       t.string :kind
       t.string :title
-      t.attachment :file
+      t.attachment :scan
       t.references :participant, index: true
       t.references :stage, index: true
 
