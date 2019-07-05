@@ -2,7 +2,9 @@ class Manage::StudentAchievementsController < Manage::ApplicationController
   load_and_authorize_resource
 
   def new
-    @student_achievement = Stage.find(params[:stage]).student_achievements.build(participant_id: params[:participant])
+    stage = Stage.find(params[:stage])
+    @student_achievement = stage.student_achievements.build
+    @participants = stage.project.participants.active
   end
 
   def create
@@ -16,9 +18,11 @@ class Manage::StudentAchievementsController < Manage::ApplicationController
 
   def edit
     @student_achievement = StudentAchievement.find(params[:id])
+    @participants = @student_achievement.stage.project.participants.active
   end
 
   def update
+    #create update add @participants
     @student_achievement = StudentAchievement.find(params[:id])
     if @student_achievement.update(params[:student_achievement])
       redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @student_achievement.stage.chair.id)

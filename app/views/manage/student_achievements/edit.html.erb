@@ -1,7 +1,10 @@
 <% title 'Доклады на международных конференциях', :report %>
 <%= simple_form_for @student_achievement, url: manage_student_achievement_path do |f| %>
   <%= f.hidden_field :stage_id %>
-  <%= f.hidden_field :participant_id %>
-  <%= f.input :title, label: 'Доклады'%>
+  <%= f.input :participant_id, collection: @participants, as: :select, label: 'Участник' %>
+  <%= f.input :kind, collection: [['Международная конференция', :international_report],['Диплом/Призовое место', :diploma],['Публикация', :publication]],label: 'Вид достижения', as: :select %>
+  <%= f.input :title, label: 'Название'%>
+  <%= link_to @student_achievement.scan_file_name, @student_achievement.scan.url if @student_achievement.scan.file? %>
+  <%= f.input :scan, as: :file, label: 'Скан'%>
   <%= f.button :submit %>
 <% end %>
