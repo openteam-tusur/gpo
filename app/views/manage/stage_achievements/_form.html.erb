@@ -1,0 +1,11 @@
+<%= f.hidden_field :stage_id %>
+<%= f.input :kind, collection: [['Выставка', :exhibition],['Грант', :grant]],label: 'Вид достижения', as: :select %>
+<%= f.input :title, label: 'Название'%>
+<%= link_to @stage_achievement.scan_file_name, @stage_achievement.scan.url if @stage_achievement.scan.file? %>
+<%= f.input :scan, as: :file, label: 'Скан'%>
+<%= f.button :submit %>
+<%= link_to I18n.t("back"),
+    manage_report_edit_chair_attestation_path(
+      report_id: 'chair_attestation',
+      chair: @stage_achievement.stage.chair.id)
+%>

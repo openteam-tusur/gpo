@@ -1,8 +1,4 @@
 <% title 'Достижения', :report %>
 <%= simple_form_for @stage_achievement, url: manage_stage_achievements_path do |f| %>
-  <%= f.hidden_field :stage_id %>
-  <%= f.input :kind, collection: [['Выставка', :exhibition],['Грант', :grant]],label: 'Вид достижения', as: :select, selected: 'Участие в выставке'%>
-  <%= f.input :title, label: 'Название'%>
-  <%= f.input :scan, as: :file, label: 'Скан'%>
-  <%= f.button :submit %>
+  <%= render :partial => "form", :locals => { :f => f } %>
 <% end %>
