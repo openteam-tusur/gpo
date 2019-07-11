@@ -1,3 +1,4 @@
+<fieldset>
 <%= f.hidden_field :stage_id %>
 <%= f.input :participant_id,
             collection: @participants,
@@ -18,6 +19,7 @@
             @student_achievement.scan.url if @student_achievement.scan.file?
           %>
 <%= f.input :scan, as: :file, label: 'Скан'%>
+</fieldset>
 <%= f.button :submit %>
 <%= link_to I18n.t("back"),
     manage_report_edit_chair_attestation_path(
