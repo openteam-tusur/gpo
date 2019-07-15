@@ -25,32 +25,14 @@
               <td>
                 <% stage.grants.each do |g| %>
                   <p>
-                    <%= g.title %>
-                    <%= link_to edit_manage_stage_achievement_path(g) do %>
-                      <i class="fas fa-edit" title='Редактировать'></i>
-                    <% end %>
-                    <% if g.scan.file? %>
-                      <%= link_to g.scan.url do %>
-                        <i class="fas fa-download" title='Загрузить'></i>
-                      <% end %>
-                    <% end %>
-                    <%=link_to_delete_with_icon(manage_stage_achievement_path(g))%>
+                    <%= link_to g.title, edit_manage_stage_achievement_path(g) %>
                   </p>
                 <% end %>
               </td>
               <td>
                 <% stage.exhibitions.each do |e| %>
                   <p>
-                    <%= e.title %>
-                    <%= link_to edit_manage_stage_achievement_path(e) do %>
-                      <i class="fas fa-edit" title='Редактировать'></i>
-                    <% end %>
-                    <% if e.scan.file? %>
-                      <%= link_to e.scan.url do %>
-                        <i class="fas fa-download" title='Загрузить'></i>
-                      <% end %>
-                    <% end %>
-                    <%=link_to_delete_with_icon(manage_stage_achievement_path(e))%>
+                    <%= link_to e.title, edit_manage_stage_achievement_path(e) %>
                   </p>
                 <% end %>
               </td>
@@ -87,48 +69,21 @@
             <td>
               <% stage.international_reports.where(participant_id: p).each do |p| %>
                 <p>
-                  <%= p.title %>
-                  <%= link_to edit_manage_student_achievement_path(p) do %>
-                    <i class="fas fa-edit" title='Редактировать'></i>
-                  <% end %>
-                  <% if p.scan.file? %>
-                    <%= link_to p.scan.url do %>
-                      <i class="fas fa-download" title='Загрузить'></i>
-                    <% end %>
-                  <% end %>
-                  <%=link_to_delete_with_icon(manage_student_achievement_path(p))%>
+                  <%= link_to p.title, edit_manage_student_achievement_path(p) %>
                 </p>
               <% end %>
             </td>
             <td>
               <% stage.diplomas.where(participant_id: p).each do |p| %>
                 <p>
-                  <%= p.title %>
-                  <%= link_to edit_manage_student_achievement_path(p) do %>
-                    <i class="fas fa-edit" title='Редактировать'></i>
-                  <% end %>
-                  <% if p.scan.file? %>
-                    <%= link_to p.scan.url do %>
-                      <i class="fas fa-download" title='Загрузить'></i>
-                    <% end %>
-                  <% end %>
-                  <%=link_to_delete_with_icon(manage_student_achievement_path(p))%>
+                  <%= link_to p.title, edit_manage_student_achievement_path(p) %>
                 </p>
               <% end %>
             </td>
             <td>
               <% stage.publications.where(participant_id: p).each do |p| %>
                 <p>
-                  <%= p.title %>
-                  <%= link_to edit_manage_student_achievement_path(p) do %>
-                    <i class="fas fa-edit" title='Редактировать'></i>
-                  <% end %>
-                  <% if p.scan.file? %>
-                    <%= link_to p.scan.url do %>
-                      <i class="fas fa-download" title='Загрузить'></i>
-                    <% end %>
-                  <% end %>
-                  <%=link_to_delete_with_icon(manage_student_achievement_path(p))%>
+                  <%= link_to p.title, edit_manage_student_achievement_path(p) %>
                 </p>
               <% end %>
             </td>
