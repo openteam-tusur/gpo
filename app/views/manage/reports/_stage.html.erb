@@ -102,7 +102,12 @@
           <th>Курс</th>
           <th>№ уч. группы</th>
           <th>Баллы (семестровая составляющая)</th>
-          <th>Баллы (аттестационная составляющая)</th>
+          <th>
+            Баллы (аттестационная составляющая)
+            <%= link_to new_manage_attestation_mark_path(stage: stage) do %>
+              <i class="fas fa-edit" title='Добавить'></i>
+            <% end %>
+          </th>
           <th>Итоговая сумма баллов</th>
           <th>Оценка полученная пересчетом</th>
         </tr>
@@ -114,7 +119,13 @@
             <td><%= p.course %></td>
             <td><%= p.edu_group %></td>
             <td><%= p.total_term_mark.round %></td>
-            <td></td>
+            <td>
+              <% stage.attestation_marks.where(participant_id: p).each do |p| %>
+                <p>
+                  <%= link_to p.mark, edit_manage_attestation_mark_path(p) %>
+                </p>
+              <% end %>
+            </td>
             <td><%= p.total_term_mark.round %></td>
             <td><%= total_mark_counter(p.total_term_mark.round) %></td>
           </tr>

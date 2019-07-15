@@ -16,6 +16,7 @@ Gpo::Application.routes.draw do
     end
     resources :stage_achievements
     resources :student_achievements
+    resources :attestation_marks
     resources :reporting_stages
     resources :reports, only: [:index, :show] do
       get :preview, on: :member
