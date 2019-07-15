@@ -20,6 +20,7 @@ class Stage < ActiveRecord::Base
   has_many :exhibitions, -> { where(kind: 'exhibition') }, class_name: 'StageAchievement'
   has_many :grants, -> { where(kind: 'grant') }, class_name: 'StageAchievement'
   has_many :student_achievements
+  has_many :attestation_marks
   has_many :diplomas, -> { where(kind: 'diploma') }, class_name: 'StudentAchievement'
   has_many :publications, -> { where(kind: 'publication') }, class_name: 'StudentAchievement'
   has_many :international_reports, -> { where(kind: 'international_report') }, class_name: 'StudentAchievement'
