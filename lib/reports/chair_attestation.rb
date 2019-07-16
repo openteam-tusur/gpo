@@ -42,17 +42,17 @@ class ChairAttestation < XlsReport
         tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.people.collect {|person| person}.join(", ")}"
 
 
-        stage_achievement = project.current_attestation_stage.try(:stage_achievement)
-        if stage_achievement.present?
-          tmp_row.elements[2][1].text = stage_achievement.diploma
-          tmp_row.elements[3][1].text = stage_achievement.grant
-          tmp_row.elements[4][1].text = stage_achievement.publication
-          tmp_row.elements[5][1].text = stage_achievement.exhibition
-        else
-          (2..6).each do |column_index|
-            tmp_row.elements[column_index][1].text = ''
-          end
-        end
+        # stage_achievement = project.current_attestation_stage.try(:stage_achievement)
+        # if stage_achievement.present?
+        #   tmp_row.elements[2][1].text = stage_achievement.diploma
+        #   tmp_row.elements[3][1].text = stage_achievement.grant
+        #   tmp_row.elements[4][1].text = stage_achievement.publication
+        #   tmp_row.elements[5][1].text = stage_achievement.exhibition
+        # else
+        #   (2..6).each do |column_index|
+        #     tmp_row.elements[column_index][1].text = ''
+        #   end
+        # end
 
         tmp_row.elements[6][1].text = i
         tmp_row.elements[7][1].text = participant.name
@@ -66,14 +66,10 @@ class ChairAttestation < XlsReport
         tmp_row.elements[13].attributes["formula"].gsub!("K7", "K#{formula_index.to_s}")
         tmp_row.elements[13].attributes["formula"].gsub!("L7", "L#{formula_index.to_s}")
 
-        student_achievement = project.
-                               current_attestation_stage.
-                               try(:student_achievements).
-                               try(:find_by, participant_id: participant)
 
-        if student_achievement.present?
-          tmp_row.elements[14][1].text = student_achievement.title
-        end
+        tmp_row.elements[14][1].text = student_achievements(project, participant, :international_reports)
+        tmp_row.elements[15][1].text = student_achievements(project, participant, :diplomas)
+        tmp_row.elements[16][1].text = student_achievements(project, participant, :publications)
 
         table.insert_after("//table:table-row[6+#{participant_index}]", tmp_row)
         participant_index += 1
@@ -86,5 +82,15 @@ class ChairAttestation < XlsReport
 
   def render_to_file(&block)
     super('chair_attestation', &block)
+  end
+
+  def student_achievements(project, participant, kind)
+    achievements = project.
+               current_attestation_stage.
+               try(kind).
+               try(:where, participant_id: participant)
+    if achievements.present?
+      return achievements.pluck(:title).join(', ')
+    end
   end
 end
