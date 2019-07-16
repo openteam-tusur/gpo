@@ -6,7 +6,7 @@
             label: 'Участник'
           %>
 
-<%= f.input :mark, label: 'Баллы'%>
+<%= f.input :mark, label: 'Баллы (0..30)'%>
 </fieldset>
 <%= f.button :submit %>
 <%= link_to I18n.t("back"),
