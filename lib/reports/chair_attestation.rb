@@ -28,6 +28,7 @@ class ChairAttestation < XlsReport
         # deep_clone не всегда deep :(
         # поэтому используем этот хитрый хак, чтобы формулы прокопировались правильно
         tmp_row.elements[8].attributes.inspect
+        tmp_row.elements[9].attributes.inspect
         tmp_row.elements[10].attributes.inspect
         tmp_row.elements[11].attributes.inspect
 
@@ -55,9 +56,7 @@ class ChairAttestation < XlsReport
                            try(:attestation_marks).
                            try(:find_by, participant_id: participant)
         if attestation_mark.present?
-          tmp_row.elements[9][1].text = attestation_mark.mark
-        else
-          tmp_row.elements[9][1].text = 0
+          tmp_row.elements[9].attributes['value'].gsub!("0", attestation_mark.mark.to_s)
         end
 
         tmp_row.elements[10].attributes["formula"].gsub!("7", formula_index.to_s)
