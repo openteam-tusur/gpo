@@ -54,6 +54,7 @@ class Chair < ActiveRecord::Base
       xml.count_participants_4 self.participants.active.at_course(4).count
       xml.count_project_managers uniq_project_manager_users.count
       xml.count_projects self.projects.current_active.count
+      xml.count_sbi_projects self.projects.active.with_participants.sbi_residents.count
       # xml.spring_stages attestation_stages(self.projects.current_active, 'Промежуточная аттестация за весенний')
       # xml.autumn_stages attestation_stages(self.projects.current_active, 'Промежуточная аттестация за осенний')
       xml.mentor name_abbr([self.mentors.first.surname, self.mentors.first.name, self.mentors.first.patronymic])
