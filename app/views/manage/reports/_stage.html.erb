@@ -124,7 +124,10 @@
 
             <td>
               <% if attestation_mark.present? %>
-                  <%= link_to attestation_mark.mark, edit_manage_attestation_mark_path(attestation_mark) %>
+                  <%= link_to attestation_mark.mark,
+                      edit_manage_attestation_mark_path(attestation_mark),
+                      style: 'text-decoration: underline'
+                    %>
               <% end %>
             </td>
             <td><%= total_term_mark + attestation_mark.try(:mark).to_i %></td>
