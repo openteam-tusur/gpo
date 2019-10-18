@@ -8,7 +8,7 @@
 
 <%= f.input :mark, label: 'Баллы (0..30)'%>
 </fieldset>
-<%= f.button :submit %>
+<%= f.button :submit, 'Сохранить' %>
 <%= link_to I18n.t("back"),
     manage_report_edit_chair_attestation_path(
       report_id: 'chair_attestation',
