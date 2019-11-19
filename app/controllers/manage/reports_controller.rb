@@ -49,7 +49,11 @@ class Manage::ReportsController < Manage::ApplicationController
   def edit_chair_attestation
     find_chair
     @stages = @chair.projects.active.map{|p| p.current_attestation_stage}.compact
-    @stage_title = @stages.first.title + ' по кафедре ' + @chair.abbr
+    if @stages.present?
+      @stage_title = @stages.first.title + ' по кафедре ' + @chair.abbr
+    else
+      redirect_to manage_chair_path(params[:chair]), flash: { error: 'Не найдены этапы промежуточной аттестации' }
+    end
   end
 
   def update_schedule_group
