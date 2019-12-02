@@ -49,11 +49,6 @@ class Report
         :title => "Список руководителей",
         :description => "Скачать отчет 'Список руководителей групп ГПО' в формате MS Excel",
         :type => "xls"},
-      {:id => :chair_attestation,
-       :title => "Журнал аттестации",
-       :description => "Скачать бланк журнала аттестации участников ГПО в формате MS Excel",
-       :type => "xls"
-      },
       {:id => :chair_statement_checkup,
         :title => "Акт проверки",
         :description => "Скачать шаблон акта комплексной проверки",
@@ -75,4 +70,3 @@ class Report
   end
 
 end
-
