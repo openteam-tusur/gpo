@@ -21,8 +21,8 @@ class Ability
     end
 
     if user.mentor?
-      can :new, [StudentAchievement, StageAchievement]
-      can [:create, :edit, :update, :destroy], [StudentAchievement, StageAchievement], stage_id: user.mentor_stages
+      can :new, [AttestationMark, StudentAchievement, StageAchievement]
+      can [:create, :edit, :update, :destroy], [AttestationMark, StudentAchievement, StageAchievement], stage_id: user.mentor_stages
       can :create, Certificate
       can :crud, Certificate, state: ['send_to_mentor']
       can :approve, Certificate, state: ['send_to_mentor']
