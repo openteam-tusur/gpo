@@ -14,7 +14,7 @@
             label: 'Вид достижения',
             as: :select
           %>
-<%= f.input :title, label: 'Название'%>
+<%= f.input :title, label: 'Название', maxlength: 255 %>
 <%= link_to @student_achievement.scan_file_name,
             @student_achievement.scan.url if @student_achievement.scan.file?
           %>
