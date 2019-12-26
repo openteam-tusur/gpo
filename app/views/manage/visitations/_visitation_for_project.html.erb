@@ -28,11 +28,8 @@
         </ul>
         <%= link_to t('edit'),
             edit_manage_chair_project_visitation_path(project.chair, project, gpoday),
-            :class => "edit" if (resource.is_a?(Project) &&
-                                  (
-                                    Gpoday.where('date > ?', Date.today - 7.days).present? ||
+            :class => "edit" if (Gpoday.where('date > ?', Date.today - 7.days).present? ||
                                     current_user.manager? || current_user.mentor?
-                                  )
                                 )
         %>
       </div>
