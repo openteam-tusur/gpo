@@ -31,7 +31,7 @@
             :class => "edit" if (resource.is_a?(Project) &&
                                   (
                                     Gpoday.where('date > ?', Date.today - 7.days).present? ||
-                                    current_user.manager?
+                                    current_user.manager? || current_user.mentor?
                                   )
                                 )
         %>
