@@ -181,11 +181,13 @@ class Project < ActiveRecord::Base
 
   def current_attestation_stage
     title = 'Промежуточная аттестация за '
-    if Date.today > Date.parse(%(#{Date.today.year}-06-30))
-      title += ''
+
+    if Date.today >= Date.parse(%(#{Date.today.year}-01-31)) && Date.today <= Date.parse(%(#{Date.today.year}-06-30))
+      title += %(весенний семестр #{Date.today.year - 1}/#{Date.today.year})
+    elsif Date.today > Date.parse(%(#{Date.today.year}-06-30)) && Date.today <= Date.parse(%(#{Date.today.year}-12-31))
       title += %(осенний семестр #{Date.today.year}/#{Date.today.year + 1})
     else
-      title += %(весенний семестр #{Date.today.year - 1}/#{Date.today.year})
+      title += %(осенний семестр #{Date.today.year-1}/#{Date.today.year})
     end
     title += ' учебный год'
 
