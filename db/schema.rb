@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190715085814) do
+ActiveRecord::Schema.define(version: 20200114073741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 20190715085814) do
 
   create_table "stage_achievements", force: true do |t|
     t.string   "kind"
-    t.string   "title"
+    t.text     "title"
     t.string   "scan_file_name"
     t.string   "scan_content_type"
     t.integer  "scan_file_size"
@@ -279,7 +279,7 @@ ActiveRecord::Schema.define(version: 20190715085814) do
 
   create_table "student_achievements", force: true do |t|
     t.string   "kind"
-    t.string   "title"
+    t.text     "title"
     t.string   "scan_file_name"
     t.string   "scan_content_type"
     t.integer  "scan_file_size"
