@@ -11,7 +11,11 @@ class Manage::AttestationMarksController < Manage::ApplicationController
     @attestation_mark = AttestationMark.new(params[:attestation_mark])
     @participants = @attestation_mark.stage.project.participants.active
     if @attestation_mark.save
-      redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @attestation_mark.stage.chair.id)
+      redirect_to manage_report_edit_chair_attestation_path(
+        report_id: 'chair_attestation',
+        chair: @attestation_mark.stage.chair.id,
+        anchor: @attestation_mark.stage.project.id
+      )
     else
       render :action => :new
     end
@@ -26,7 +30,11 @@ class Manage::AttestationMarksController < Manage::ApplicationController
     @attestation_mark = AttestationMark.find(params[:id])
     @participants = @attestation_mark.stage.project.participants.active
     if @attestation_mark.update(params[:attestation_mark])
-      redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @attestation_mark.stage.chair.id)
+      redirect_to manage_report_edit_chair_attestation_path(
+        report_id: 'chair_attestation',
+        chair: @attestation_mark.stage.chair.id,
+        anchor: @attestation_mark.stage.project.id
+      )
     else
       render :action => :edit
     end
@@ -35,6 +43,10 @@ class Manage::AttestationMarksController < Manage::ApplicationController
   def destroy
     @attestation_mark = AttestationMark.find(params[:id])
     @attestation_mark.destroy
-    redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @attestation_mark.stage.chair.id)
+    redirect_to manage_report_edit_chair_attestation_path(
+      report_id: 'chair_attestation',
+      chair: @attestation_mark.stage.chair.id,
+      anchor: @attestation_mark.stage.project.id
+    )
   end
 end
