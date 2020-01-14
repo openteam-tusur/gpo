@@ -8,7 +8,7 @@
             label: 'Вид достижения',
             as: :select
           %>
-<%= f.input :title, label: 'Название', maxlength: 255 %>
+<%= f.input :title, as: :text, label: 'Выходные данные(0..255)', maxlength: 255 %>
 <%= link_to @stage_achievement.scan_file_name, @stage_achievement.scan.url if @stage_achievement.scan.file? %>
 <%= f.input :scan, as: :file, label: 'Скан'%>
 </fieldset>
