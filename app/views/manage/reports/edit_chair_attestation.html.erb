@@ -1,4 +1,13 @@
 <% title @stage_title, :report %>
+<% if current_user.manager? %>
+  <%= form_for @reporting_stage,
+               url: manage_report_edit_chair_attestation_path,
+               method: :get do |f| %>
+    <%= f.collection_select :title, ReportingStage.order(:created_at), :title, :title, prompt: true %>
+    <%= f.hidden_field :chair_id, value: @chair.id %>
+    <%= f.submit 'Перейти'%>
+  <% end %>
+<% end %>
 <div class='chair_attestation'>
   <%= render_list "stages_with_stats", @stages, :id => "stages" %>
 </div>
