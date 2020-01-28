@@ -20,7 +20,8 @@ class Participant < ActiveRecord::Base
   has_one :certificate, dependent: :destroy
   has_many :visitations,  :dependent => :destroy
   has_many :issues, -> { order('planned_closing_at') }, :dependent => :destroy
-  has_many :student_achievements
+  has_many :participant_student_achievements
+  has_many :student_achievements, through: :participant_student_achievements
 
   validates_presence_of :student_id, :if => :need_validation_of_student_id?
   validates_presence_of :project_id

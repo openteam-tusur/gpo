@@ -67,28 +67,13 @@
             <td><%= p.course %></td>
             <td><%= p.edu_group %></td>
             <td>
-              <% stage.international_reports.where(participant_id: p).each do |p| %>
-                <p>
-                  <%= link_to p.title, edit_manage_student_achievement_path(p),
-                      style: 'text-decoration: underline' %>
-                </p>
-              <% end %>
+              <%= student_achievement_links(stage, :international_reports, p.id) %>
             </td>
             <td>
-              <% stage.diplomas.where(participant_id: p).each do |p| %>
-                <p>
-                  <%= link_to p.title, edit_manage_student_achievement_path(p),
-                      style: 'text-decoration: underline' %>
-                </p>
-              <% end %>
+              <%= student_achievement_links(stage, :diplomas, p.id) %>
             </td>
             <td>
-              <% stage.publications.where(participant_id: p).each do |p| %>
-                <p>
-                  <%= link_to p.title, edit_manage_student_achievement_path(p),
-                      style: 'text-decoration: underline' %>
-                </p>
-              <% end %>
+              <%= student_achievement_links(stage, :publications, p.id) %>
             </td>
           </tr>
         <%end%>

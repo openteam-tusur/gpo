@@ -1,10 +1,11 @@
 <fieldset>
 <%= f.hidden_field :stage_id %>
-<%= f.input :participant_id,
-            collection: @participants,
-            as: :select,
-            label: 'Участник'
-          %>
+
+<%= f.association :participants,
+                  collection: @participants,
+                  as: :check_boxes,
+                  required: true,
+                  label: 'Участники' %>
 <%= f.input :kind,
             collection: [
               ['Доклады на международных и всероссийских конференциях', :international_report],

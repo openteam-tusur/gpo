@@ -9,6 +9,8 @@ class Manage::StudentAchievementsController < Manage::ApplicationController
 
   def create
     @student_achievement = StudentAchievement.new(params[:student_achievement])
+    @participants = @student_achievement.stage.project.participants.active
+    @student_achievement.participant_ids = params[:student_achievement][:participant_ids]
     if @student_achievement.save
       redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @student_achievement.stage.chair.id)
     else
@@ -24,6 +26,8 @@ class Manage::StudentAchievementsController < Manage::ApplicationController
   def update
     #create update add @participants
     @student_achievement = StudentAchievement.find(params[:id])
+    @participants = @student_achievement.stage.project.participants.active
+    @student_achievement.participant_ids = params[:student_achievement][:participant_ids]
     if @student_achievement.update(params[:student_achievement])
       redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @student_achievement.stage.chair.id)
     else
