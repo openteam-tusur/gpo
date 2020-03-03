@@ -299,7 +299,7 @@ GEM
       sexp_processor (~> 4.0)
     ruby_parser (3.5.0)
       sexp_processor (~> 4.1)
-    rubyzip (0.9.9)
+    rubyzip (1.3.0)
     russian (0.6.0)
       i18n (>= 0.5.0)
     sass (3.2.19)
@@ -416,7 +416,7 @@ DEPENDENCIES
   rails-observers
   redis-session-store
   rspec-rails
-  rubyzip (= 0.9.9)
+  rubyzip (= 1.3.0)
   russian
   sass-rails (~> 4.0.0)
   shoulda-matchers
