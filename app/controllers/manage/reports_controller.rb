@@ -54,6 +54,8 @@ class Manage::ReportsController < Manage::ApplicationController
       find_chair
       @stages = @chair.projects.active.map{|p| p.current_attestation_stage}.compact
     end
+    ap @chair
+    ap @stages
     if @stages.present?
       @stage_title = @stages.first.title + ' по кафедре ' + @chair.abbr
       @reporting_stage = ReportingStage.find_by_title(@stages.first.title)
