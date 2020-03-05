@@ -274,4 +274,8 @@ end
 #  category          :string(255)
 #  result            :string(255)
 #  closed_on         :date
+#  target_audience   :text
+#  main_goals        :text
+#  auditorium        :string(255)
+#  class_time        :string(255)      default("Четверг с 8.50 до 14.50")
 #

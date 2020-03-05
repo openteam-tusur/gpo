@@ -23,3 +23,21 @@ class StudentAchievement < ActiveRecord::Base
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: student_achievements
+#
+#  id                :integer          not null, primary key
+#  kind              :string(255)
+#  title             :text
+#  scan_file_name    :string(255)
+#  scan_content_type :string(255)
+#  scan_file_size    :integer
+#  scan_updated_at   :datetime
+#  scan_url          :text
+#  participant_id    :integer
+#  stage_id          :integer
+#  created_at        :datetime
+#  updated_at        :datetime
+#

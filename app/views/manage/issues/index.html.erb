@@ -70,10 +70,10 @@
           </th>
           <th class="results"><%= Issue.human_attribute_name :results %></th>
         </tr>
-        <% participant.issues.each do |issue| %>
-          <tr>
+        <% participant.issues.order_by_closed_at.each do |issue| %>
+          <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
             <td class="name">
-              <p><%= issue.name %></p>
+              <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
               <div class="actions">
                 <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
                 <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>

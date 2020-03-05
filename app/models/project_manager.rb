@@ -56,10 +56,12 @@ end
 #
 # Table name: project_managers
 #
-#  id         :integer          not null, primary key
-#  person_id  :integer
-#  project_id :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  state      :string(255)
+#  id                :integer          not null, primary key
+#  person_id         :integer
+#  project_id        :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  state             :string(255)
+#  auditorium        :string(255)
+#  consultation_time :string(255)
 #

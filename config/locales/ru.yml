@@ -139,6 +139,7 @@ ru:
         planned_grade:            Плановое количество баллов за выполнение
         planned_summ_grade:       Запланировано баллов
         results:                  Полученные результаты
+        archived:                 В архиве
 
       project_manager:
         project_id:       Проект

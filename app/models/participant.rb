@@ -150,11 +150,17 @@ class Participant < ActiveRecord::Base
 
   # суммы для индивидуальных задач
   def issues_planned_summ_grade
-    Participant.joins(:issues).where('participants.id' => self.id).sum('issues.planned_grade')
+    Participant.joins(:issues).
+      where('participants.id' => self.id).
+      where('issues.archived = ?', false).
+      sum('issues.planned_grade')
   end
 
   def issues_fact_summ_grade
-    Participant.joins(:issues).where('participants.id' => self.id).sum('issues.grade')
+    Participant.joins(:issues).
+      where('participants.id' => self.id).
+      where('issues.archived = ?', false).
+      sum('issues.grade')
   end
 
 
