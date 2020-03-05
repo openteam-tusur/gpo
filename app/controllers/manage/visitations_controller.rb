@@ -23,18 +23,18 @@ class Manage::VisitationsController < Manage::ApplicationController
     @gpoday = Gpoday.find(params[:id])
     params[:participant].each do |participant_id, rate|
       participant = @project.participants.find(participant_id)
-      visitation = participant.visitation_for_gpoday(@gpoday)
-      visitation.rate = rate.gsub(",", ".")
+      visitation = participant.visitations.find_or_initialize_by(gpoday_id: @gpoday.id)
+      visitation.rate = rate.gsub(',', '.')
       unless visitation.save
         @errors << participant.id
       end
     end
 
     if @errors.empty?
-      flash['notice'] = "Баллы сохранены"
+      flash['notice'] = 'Баллы сохранены'
       redirect_to manage_chair_project_visitations_path(@project.chair, @project)
     else
-      flash['error'] = "Ошибка сохранения баллов"
+      flash['error'] = 'Ошибка сохранения баллов'
       render :edit
     end
   end

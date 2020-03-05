@@ -1,4 +1,4 @@
-<% title @gpoday.date.to_s + " - редактирование посещаемости", :visitation %>
+<% title "#{I18n.l(@gpoday.date)} - редактирование посещаемости", :visitation %>
 
 <% content_for :hint do %>
   <p>Введите баллы за посещаемость в диапазоне <b>от 0 до 2</b> и нажмите кнопку "Сохранить"</p>
@@ -18,9 +18,9 @@
             </label>
             <%rate = participant.visitation_for_gpoday(@gpoday).rate%>
             <%= radio_button_tag "participant[#{participant.id}]", @gporate, checked = !(rate.nil? || rate == 0.0) %>
-            <label class="radio_label" for="participant[#{participant.id}]">Посещал</label>
-            <%= radio_button_tag "participant[#{participant.id}]", '0.0', checked = (rate.nil? || rate == 0.0) %>
-            <label class="radio_label" for="participant[#{participant.id}]">Отсутствовал</label>
+            <label class="radio_label" for="participant_<%= participant.id %>_<%= @gporate %>">Посещал</label>
+            <%= radio_button_tag "participant[#{participant.id}]", '0.0', checked = (rate == 0.0) %>
+            <label class="radio_label" for="participant_<%= participant.id %>_0.0">Отсутствовал</label>
           </div>
         </li>
       <% end %>
