@@ -8,6 +8,7 @@ docker*
 /config/deploy.yml
 /config/settings.yml
 /config/users.yml
+/config/initializers/postgresql_old_adapter_patch.rb
 /db/*.sqlite3
 /emails
 /erd.pdf
