@@ -1,4 +1,6 @@
 class ProjectManager < ActiveRecord::Base
+  acts_as_paranoid
+
   attr_accessible :person_id, :project_id, :state_event, :auditorium, :consultation_time
 
   belongs_to :person

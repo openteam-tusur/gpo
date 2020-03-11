@@ -12,6 +12,10 @@ class StudentAchievement < ActiveRecord::Base
 
   validate :has_participants
 
+  scope :diplomas, -> { where(kind: 'diploma') }
+  scope :publications, -> { where(kind: 'publication') }
+  scope :international_reports, -> { where(kind: 'international_report') }
+
   has_attached_file :scan, {
     path: 'system/:class/:attachment/:date/:id/:filename',
     url: '/system/:class/:attachment/:date/:id/:filename'

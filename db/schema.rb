@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200305094512) do
+ActiveRecord::Schema.define(version: 20200311052132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,7 +140,10 @@ ActiveRecord::Schema.define(version: 20200305094512) do
     t.boolean  "executive",         default: false
     t.string   "type"
     t.string   "university"
+    t.datetime "deleted_at"
   end
+
+  add_index "participants", ["deleted_at"], name: "index_participants_on_deleted_at", using: :btree
 
   create_table "people", force: true do |t|
     t.string   "email",       limit: 100
@@ -181,7 +184,10 @@ ActiveRecord::Schema.define(version: 20200305094512) do
     t.string   "state"
     t.string   "auditorium"
     t.string   "consultation_time"
+    t.datetime "deleted_at"
   end
+
+  add_index "project_managers", ["deleted_at"], name: "index_project_managers_on_deleted_at", using: :btree
 
   create_table "projects", force: true do |t|
     t.string   "cipher"

@@ -1,0 +1,36 @@
+<div class='stage_achievements'>
+  <h3>
+    Достижения
+    <%= link_to new_manage_stage_achievement_path(stage: stage) do %>
+      <i class="fas fa-plus" title='Добавить'></i>
+    <% end %>
+  </h3>
+  <%if stage.stage_achievements.present?%>
+    <table>
+      <thead>
+        <tr>
+          <th>Гранты Попечительского совета, УМНИК и др.</th>
+          <th>Участие в выставках</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td>
+              <% stage.grants.each do |g| %>
+                <p>
+                  <%= link_to g.title, edit_manage_stage_achievement_path(g) %>
+                </p>
+              <% end %>
+            </td>
+            <td>
+              <% stage.exhibitions.each do |e| %>
+                <p>
+                  <%= link_to e.title, edit_manage_stage_achievement_path(e) %>
+                </p>
+              <% end %>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  <%end%>
+</div>

@@ -52,7 +52,7 @@ class Manage::ReportsController < Manage::ApplicationController
       @stages = @chair.projects.map{|p| p.stages.find_by_title(params[:reporting_stage][:title])}.compact
     else
       find_chair
-      @stages = @chair.projects.active.map{|p| p.current_attestation_stage}.compact
+      @stages = @chair.projects.map{|p| p.current_attestation_stage}.compact
     end
     ap @chair
     ap @stages

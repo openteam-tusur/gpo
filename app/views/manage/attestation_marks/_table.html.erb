@@ -1,0 +1,44 @@
+<div class='student_marks' id=<%= stage.project.id %> >
+  <h3>Оценки</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ФИО студентов</th>
+        <th>Курс</th>
+        <th>№ уч. группы</th>
+        <th>Баллы (семестровая составляющая)</th>
+        <th>
+          Баллы (аттестационная составляющая)
+          <%= link_to new_manage_attestation_mark_path(stage: stage) do %>
+            <i class="fas fa-edit" title='Добавить'></i>
+          <% end %>
+        </th>
+        <th>Итоговая сумма баллов</th>
+        <th>Оценка полученная пересчетом</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% participants.each do |p| %>
+        <% attestation_mark = stage.attestation_marks.find_by(participant_id: p) %>
+        <% total_term_mark = p.total_term_mark.round %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.course %></td>
+          <td><%= p.edu_group %></td>
+          <td><%= total_term_mark %></td>
+
+          <td>
+            <% if attestation_mark.present? %>
+                <%= link_to attestation_mark.mark,
+                    edit_manage_attestation_mark_path(attestation_mark),
+                    style: 'text-decoration: underline'
+                  %>
+            <% end %>
+          </td>
+          <td><%= total_term_mark + attestation_mark.try(:mark).to_i %></td>
+          <td><%= total_mark_counter(total_term_mark, attestation_mark.try(:mark).to_i) %></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>

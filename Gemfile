@@ -25,6 +25,7 @@ group :default do
   gem 'openteam-commons', '~> 0.3.3'
   gem 'paperclip', '3.4.0'
   gem 'paperclip-elvfs'
+  gem "paranoia", "~> 2.2"
   gem 'pg'
   gem 'prawn'
   gem 'progress_bar', '~> 1.1'

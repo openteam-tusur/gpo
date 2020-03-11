@@ -1,6 +1,9 @@
 require 'open-uri'
 
 class Participant < ActiveRecord::Base
+
+  acts_as_paranoid
+
   attr_accessible :contingent_active,
                   :contingent_gpo,
                   :course,

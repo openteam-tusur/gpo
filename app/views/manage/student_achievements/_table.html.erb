@@ -1,0 +1,38 @@
+<div class='student_achievements'>
+  <h3>
+    Достижения участников
+    <%= link_to new_manage_student_achievement_path(stage: stage) do %>
+      <i class="fas fa-plus" title='Добавить'></i>
+    <% end %>
+  </h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ФИО студентов</th>
+        <th>Курс</th>
+        <th>№ уч. группы</th>
+        <th>Доклады на международных и всероссийских конференциях</th>
+        <th>Дипломы и призовые места во всероссийских и международных конференциях и конкурсах по тематике ГПО</th>
+        <th>Публикации в периодической печати</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% participants.each do |p| %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.course %></td>
+          <td><%= p.edu_group %></td>
+          <td>
+            <%= student_achievement_links(stage, :international_reports, p) %>
+          </td>
+          <td>
+            <%= student_achievement_links(stage, :diplomas, p) %>
+          </td>
+          <td>
+            <%= student_achievement_links(stage, :publications, p) %>
+          </td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>

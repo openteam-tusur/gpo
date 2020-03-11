@@ -16,6 +16,12 @@ module ProjectsHelper
     project_managers
   end
 
+  def closed_project_project_managers(project)
+    project_managers = project.project_managers.with_deleted.to_sentence
+    project_managers = "не назначен" if project_managers.blank?
+    project_managers
+  end
+
   def project_participants(project)
     if project.participants.any?
       project_participants = project.participants.sort_by(&:last_name).map {|p| "#{p.name} (гр. #{p.edu_group}, каф. #{p.subfaculty})"}.join(', ')

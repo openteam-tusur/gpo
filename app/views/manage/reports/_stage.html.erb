@@ -1,129 +1,26 @@
 <div id='stage_<%= stage.id %>' class='stage object'>
-  <h2><%= stage.project.cipher%></h2>
-    <h3>
-      <%= stage.project.title %>
-    </h3>
+  <h2>
+    <%= stage.project.cipher%>
+    <%= '(проект закрыт)' unless stage.project.active? %>
+  </h2>
+  <h3>
+    <%= stage.project.title %>
+  </h3>
 
-  <div class='details'>Руководители: <%= project_project_managers(stage.project) %></div>
-  <div class='stage_achievements'>
-    <h3>
-      Достижения
-      <%= link_to new_manage_stage_achievement_path(stage: stage) do %>
-        <i class="fas fa-plus" title='Добавить'></i>
-      <% end %>
-    </h3>
-    <%if stage.stage_achievements.present?%>
-      <table>
-        <thead>
-          <tr>
-            <th>Гранты Попечительского совета, УМНИК и др.</th>
-            <th>Участие в выставках</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td>
-                <% stage.grants.each do |g| %>
-                  <p>
-                    <%= link_to g.title, edit_manage_stage_achievement_path(g) %>
-                  </p>
-                <% end %>
-              </td>
-              <td>
-                <% stage.exhibitions.each do |e| %>
-                  <p>
-                    <%= link_to e.title, edit_manage_stage_achievement_path(e) %>
-                  </p>
-                <% end %>
-              </td>
-            </tr>
-        </tbody>
-      </table>
-    <%end%>
-  </div>
-
-  <div class='student_achievements'>
-    <h3>
-      Достижения участников
-      <%= link_to new_manage_student_achievement_path(stage: stage) do %>
-        <i class="fas fa-plus" title='Добавить'></i>
-      <% end %>
-    </h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ФИО студентов</th>
-          <th>Курс</th>
-          <th>№ уч. группы</th>
-          <th>Доклады на международных и всероссийских конференциях</th>
-          <th>Дипломы и призовые места во всероссийских и международных конференциях и конкурсах по тематике ГПО</th>
-          <th>Публикации в периодической печати</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%stage.project.participants.active.each do |p|%>
-          <tr>
-            <td><%= p.name %></td>
-            <td><%= p.course %></td>
-            <td><%= p.edu_group %></td>
-            <td>
-              <%= student_achievement_links(stage, :international_reports, p.id) %>
-            </td>
-            <td>
-              <%= student_achievement_links(stage, :diplomas, p.id) %>
-            </td>
-            <td>
-              <%= student_achievement_links(stage, :publications, p.id) %>
-            </td>
-          </tr>
-        <%end%>
-      </tbody>
-    </table>
-  </div>
-
-  <div class='student_marks' id=<%= stage.project.id %> >
-    <h3>Оценки</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ФИО студентов</th>
-          <th>Курс</th>
-          <th>№ уч. группы</th>
-          <th>Баллы (семестровая составляющая)</th>
-          <th>
-            Баллы (аттестационная составляющая)
-            <%= link_to new_manage_attestation_mark_path(stage: stage) do %>
-              <i class="fas fa-edit" title='Добавить'></i>
-            <% end %>
-          </th>
-          <th>Итоговая сумма баллов</th>
-          <th>Оценка полученная пересчетом</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%stage.project.participants.active.each do |p|%>
-          <% attestation_mark = stage.attestation_marks.find_by(participant_id: p) %>
-          <% total_term_mark = p.total_term_mark.round %>
-          <tr>
-            <td><%= p.name %></td>
-            <td><%= p.course %></td>
-            <td><%= p.edu_group %></td>
-            <td><%= total_term_mark %></td>
-
-            <td>
-              <% if attestation_mark.present? %>
-                  <%= link_to attestation_mark.mark,
-                      edit_manage_attestation_mark_path(attestation_mark),
-                      style: 'text-decoration: underline'
-                    %>
-              <% end %>
-            </td>
-            <td><%= total_term_mark + attestation_mark.try(:mark).to_i %></td>
-            <td><%= total_mark_counter(total_term_mark, attestation_mark.try(:mark).to_i) %></td>
-          </tr>
-        <%end%>
-      </tbody>
-    </table>
-  </div>
+  <% if stage.project.active? %>
+    <div class='details'>
+      Руководители: <%= project_project_managers(stage.project) %>
+    </div>
+    <%= render :partial => 'manage/stage_achievements/table', locals: {stage: stage} %>
+    <%= render :partial => 'manage/student_achievements/table', locals: {stage: stage, participants: stage.project.participants.active} %>
+    <%= render :partial => 'manage/attestation_marks/table', locals: {stage: stage, participants: stage.project.participants.active} %>
+  <% else %>
+    <div class='details'>
+      Руководители: <%= closed_project_project_managers(stage.project) %>
+    </div>
+    <%= render :partial => 'manage/stage_achievements/closed_table', locals: {stage: stage} %>
+    <%= render :partial => 'manage/student_achievements/closed_table', locals: {stage: stage, participants: stage.project.participants.with_deleted} %>
+    <%= render :partial => 'manage/attestation_marks/closed_table', locals: {stage: stage, participants: stage.project.participants.with_deleted} %>
+  <% end %>
 
 </div>

@@ -222,6 +222,8 @@ GEM
     paperclip-elvfs (0.0.5.5)
       curb
       paperclip
+    paranoia (2.4.2)
+      activerecord (>= 4.0, < 6.1)
     pdf-core (0.6.1)
     pg (0.17.1)
     pr_geohash (1.0.0)
@@ -405,6 +407,7 @@ DEPENDENCIES
   openteam-commons (~> 0.3.3)
   paperclip (= 3.4.0)
   paperclip-elvfs
+  paranoia (~> 2.2)
   pg
   prawn
   progress_bar (~> 1.1)
@@ -431,4 +434,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.16.6
+   1.17.3
