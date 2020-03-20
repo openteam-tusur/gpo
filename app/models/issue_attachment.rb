@@ -8,4 +8,8 @@ class IssueAttachment < ActiveRecord::Base
     path: 'system/:class/:attachment/:date/:id/:filename',
     url: '/system/:class/:attachment/:date/:id/:filename'
   }
+
+  def project
+    self.issue.project
+  end
 end

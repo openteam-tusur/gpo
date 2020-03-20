@@ -14,10 +14,13 @@ class Ability
     end
 
     ## app specific
+    can :read, IssueAttachment
+
     if user.project_manager?
       can :create, Certificate
       can :crud, Certificate, state: ['initialized']
       can :approve, Certificate, state: ['initialized']
+      can [:new, :create], IssueAttachment
     end
 
     if user.mentor?
@@ -87,6 +90,10 @@ class Ability
 
     can :manage, [Stage, Issue] do |object|
       can? :update, object.project
+    end
+
+    can :manage, IssueAttachment do |object|
+      can? :update, object.issue
     end
 
     can [:update, :destroy, :to_review], Order do |order|
