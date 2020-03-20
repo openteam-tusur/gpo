@@ -1,4 +1,4 @@
-<% title "Индивидуальные задачи", :issues %>
+<% title "Индивидуальные задачи(включая задачи на период дистанционного обучения)", :issues %>
 
 <% content_for :hint do %>
   <p>Плановое количество баллов рассчитывается за выполнение индивидуального задания по дисциплине ГПО согласно балльно - рейтинговой системе:</p>
@@ -43,7 +43,7 @@
       <% end %>
       <h3 class="fact_summ_grade"><%= Issue.human_attribute_name :fact_summ_grade %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
     </div>
-    <% unless participant.issues.empty? %>
+    <% unless participant.issues.local.empty? %>
       <table>
         <tr>
           <th class="name"><%= Issue.human_attribute_name :name %></th>
@@ -70,7 +70,7 @@
           </th>
           <th class="results"><%= Issue.human_attribute_name :results %></th>
         </tr>
-        <% participant.issues.order_by_closed_at.each do |issue| %>
+        <% participant.issues.local.order_by_closed_at.each do |issue| %>
           <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
             <td class="name">
               <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
@@ -90,6 +90,71 @@
       </table>
     <% else %>
       <p>Нет запланированных задач</p>
+    <% end %>
+
+    <h3 class='margin-top-10'>Задачи на период дистанционного обучения</h3>
+    <% unless participant.issues.distance.empty? %>
+      <table>
+        <tr>
+          <th class="name"><%= Issue.human_attribute_name :name %></th>
+          <th class="description"><%= Issue.human_attribute_name :description %></th>
+          <th class="planned_closing_at">
+            <abbr title="<%= Issue.human_attribute_name :planned_closing_at %>">
+              <%= Issue.human_attribute_name :abbr_planned_closing_at %>
+            </abbr>
+          </th>
+          <th class="planned_grade">
+            <abbr title="<%= Issue.human_attribute_name :planned_grade %>">
+              <%= Issue.human_attribute_name :abbr_planned_grade %>
+            </abbr>
+          </th>
+          <th class="closed_at">
+            <abbr title="<%= Issue.human_attribute_name :closed_at %>">
+              <%= Issue.human_attribute_name :abbr_closed_at %>
+            </abbr>
+          </th>
+          <th class="grade">
+            <abbr title="<%= Issue.human_attribute_name :grade %>">
+              <%= Issue.human_attribute_name :abbr_grade %>
+            </abbr>
+          </th>
+          <th class="results"><%= Issue.human_attribute_name :results %></th>
+          <th>Документы</th>
+        </tr>
+        <% participant.issues.distance.order_by_closed_at.each do |issue| %>
+          <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
+            <td class="name">
+              <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
+              <div class="actions">
+                <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+              </div>
+            </td>
+            <td class="description"><%= issue.description %></td>
+            <td class="planned_closing_at"><%= date(issue.planned_closing_at) %></td>
+            <td class="planned_grade"><%= issue.planned_grade %></td>
+            <td class="closed_at"><%= date(issue.closed_at) %></td>
+            <td class="grade"><%= issue.grade %></td>
+            <td class="results"><%= issue.results %></td>
+            <td>
+              <%= link_to 'Добавить документ',
+              new_manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue),
+              class: 'button'%>
+              <% issue.issue_attachments.each do |ia| %>
+
+                <div class="actions" style="margin:5px">
+                  <%= link_to ia.title, ia.document.url, style: 'text-decoration: underline' %>
+                  <br />
+                  <%= link_to t("edit"), edit_manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue, ia), :title => I18n.t("edit"), :class => "edit" %>
+                  <%= link_to t("delete"), manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue, ia), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить файл?" }, :title => I18n.t("delete"), :class => "destroy" %>
+                </div>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p>Нет запланированных задач в рамках дистанционного обучения</p>
     <% end %>
   </div>
 <% end %>

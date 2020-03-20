@@ -6,14 +6,18 @@ class Issue < ActiveRecord::Base
     :closed_at,
     :grade,
     :results,
-    :archived
+    :archived,
+    :distance_learning
 
   belongs_to :participant
   has_one :project, through: :participant
+  has_many :issue_attachments, dependent: :destroy
 
   scope :for_participant, ->(participant) { where(participant_id: participant) }
   scope :beetween_dates, ->(from,to) { where "closed_at between :from and :to", from: from, to: to }
   scope :order_by_closed_at, -> { reorder(closed_at: :desc) }
+  scope :distance,        -> { where(:distance_learning => :true) }
+  scope :local,        -> { where(:distance_learning => :false) }
 
   validates_presence_of :participant_id, :name, :planned_closing_at, :planned_grade
   validates_presence_of :grade, if: :closed_at

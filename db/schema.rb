@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200311052132) do
+ActiveRecord::Schema.define(version: 20200320083734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,20 @@ ActiveRecord::Schema.define(version: 20200311052132) do
   add_index "international_reports", ["participant_id"], name: "index_international_reports_on_participant_id", using: :btree
   add_index "international_reports", ["stage_id"], name: "index_international_reports_on_stage_id", using: :btree
 
+  create_table "issue_attachments", force: true do |t|
+    t.string   "title"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.text     "document_url"
+    t.integer  "issue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "issue_attachments", ["issue_id"], name: "index_issue_attachments_on_issue_id", using: :btree
+
   create_table "issues", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -90,6 +104,7 @@ ActiveRecord::Schema.define(version: 20200311052132) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.boolean  "archived",           default: false
+    t.boolean  "distance_learning",  default: false
   end
 
   create_table "order_projects", force: true do |t|

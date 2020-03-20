@@ -70,6 +70,7 @@ Gpo::Application.routes.draw do
           put :unmake_executive, :on => :member
           resources :issues, only: [:new, :create, :edit, :update, :destroy] do
             get :export, on: :collection
+            resources :issue_attachments
           end
         end
 
