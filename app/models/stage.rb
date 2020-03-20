@@ -52,6 +52,8 @@ class Stage < ActiveRecord::Base
   scope :without_reporting_stage, -> {
     for_reporting.select{ |stage| stage.reporting_stage.blank? }
   }
+  scope :filled, -> { for_reporting.select{ |stage| stage.reporting_filled? }}
+  scope :unfilled, -> { for_reporting.select{ |stage| !stage.reporting_filled? }}
 
   def for_reporting?
     self.reporting_stage_id.present?

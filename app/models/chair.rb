@@ -44,6 +44,10 @@ class Chair < ActiveRecord::Base
 
   def xml_for_chair_statement_checkup
     self.to_xml(:skip_types => true, :root => "doc") do |xml|
+      xml.stage_title_last ReportingStage.descending.first.title
+      xml.stage_title_previous ReportingStage.descending.second.title
+      xml.stage_count_last ReportingStage.descending.first.stages.joins(:project).where(projects: {chair_id: self.id}).unfilled.count
+      xml.stage_count_previous ReportingStage.descending.second.stages.joins(:project).where(projects: {chair_id: self.id}).unfilled.count
       xml.chair_abbr self.abbr
       xml.faculty_abbr self.faculty_abbr
       xml.chair_chief name_abbr(self.chief.split(' '))
@@ -62,6 +66,7 @@ class Chair < ActiveRecord::Base
         self.projects.current_active.each do |project|
           xml.project do
             xml.cipher project.cipher
+            xml.auditorium project.auditorium
             xml.project_managers project.project_managers.active.active.map(&:person).join(', ')
             xml.count_participants_2_4 project.participants.active.at_course(2).count + project.participants.active.at_course(3).count + project.participants.active.at_course(4).count
             xml.count_participants_2 project.participants.active.at_course(2).count
