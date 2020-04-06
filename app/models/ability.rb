@@ -23,6 +23,10 @@ class Ability
       can [:new, :create], IssueAttachment
     end
 
+    if user.executive_participant?
+      can [:new, :create], IssueAttachment
+    end
+
     if user.mentor?
       can :new, [AttestationMark, StudentAchievement, StageAchievement]
       can [:create, :edit, :update, :destroy], [AttestationMark, StudentAchievement, StageAchievement], stage_id: user.mentor_stages
