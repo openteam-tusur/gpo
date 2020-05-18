@@ -23,7 +23,7 @@ group :default do
   gem 'nested_form'
   gem 'non-stupid-digest-assets'
   gem 'openteam-commons', '~> 0.3.3'
-  gem 'paperclip', '3.4.0'
+  gem 'paperclip', '3.5.4'
   gem 'paperclip-elvfs'
   gem "paranoia", "~> 2.2"
   gem 'pg'
