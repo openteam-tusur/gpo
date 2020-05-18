@@ -1,4 +1,6 @@
 class Manage::IssueAttachmentsController < Manage::InheritedResourcesController
+  before_filter :normalize_attachment_params, only: [:create, :update]
+
   def new
   end
 
@@ -24,5 +26,14 @@ class Manage::IssueAttachmentsController < Manage::InheritedResourcesController
     @issue_attachment.destroy
 
     redirect_to manage_chair_project_issues_path
+  end
+
+  private
+  def normalize_attachment_params
+    ia_filename = params[:issue_attachment][:document].original_filename
+    ext = File.extname ia_filename
+    name = File.basename ia_filename, ext
+    name = Russian.transliterate(ia_filename).downcase.parameterize.underscore.truncate(200)
+    params[:issue_attachment][:document].original_filename = name+ext
   end
 end
