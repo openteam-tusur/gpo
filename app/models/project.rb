@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
     :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing,
     :result, :closed_on, :target_audience, :main_goals, :auditorium, :class_time,
-    :company
+    :company, :relevance, :practical_significance
 
   belongs_to :chair
   belongs_to :theme
