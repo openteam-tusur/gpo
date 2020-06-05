@@ -1,4 +1,6 @@
 class Visitation < ActiveRecord::Base
+  acts_as_paranoid
+
   attr_accessible :gpoday_id
 
   belongs_to :gpoday
