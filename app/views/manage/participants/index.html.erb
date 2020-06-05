@@ -3,6 +3,7 @@
 <% action_link(link_to(I18n.t("participant.new"), new_manage_chair_project_participant_path(@project.chair, @project, :search => {:group => ''})), "new", "Позволяет добавить участника в проект") if permitted_to?(:create, @project.participants.build) %>
 <% action_link(link_to(I18n.t("alien_participant.new"), new_manage_chair_project_alien_participant_path(@project.chair, @project)), "new", "Позволяет добавить участника из другого ВУЗа в проект") if permitted_to?(:create, @project.participants.build) %>
 
+<%= project_executives_status(@project) %>
 <%= render_list "participant_with_actions", @participants, :id => "participants" %>
 
 <% content_for :hint do %>
@@ -37,4 +38,3 @@
     <%= render_table_stats @project.stats(:participants) %>
   </div>
 <% end %>
-

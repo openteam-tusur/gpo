@@ -50,6 +50,11 @@ module ProjectsHelper
     "#{icon(:warning)} Необходимо заполнить #{t 'projects.unfilled_stages', count: project.unfilled_stages.count}".html_safe
   end
 
+  def project_executives_status(project)
+    return nil if project.participants.as_executive.present?
+    "#{icon(:warning)} Необходимо выбрать ответственного исполнителя".html_safe
+  end
+
   def project_updated(project)
     "Изменен: #{time_ago(project, :updated_at) || "не известно когда"}".html_safe
   end
