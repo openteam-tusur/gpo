@@ -2,7 +2,8 @@ class Project < ActiveRecord::Base
   extend Enumerize
   attr_accessible :category, :title, :theme_id, :goal, :stakeholders, :funds_required, :funds_sources, :purpose,
     :features, :analysis, :novelty, :expected_results, :release_cost, :forecast, :source_data, :close_reason, :sbi_placing,
-    :result, :closed_on, :target_audience, :main_goals, :auditorium, :class_time
+    :result, :closed_on, :target_audience, :main_goals, :auditorium, :class_time,
+    :company
 
   belongs_to :chair
   belongs_to :theme
@@ -73,9 +74,28 @@ class Project < ActiveRecord::Base
   end
 
   enumerize :sbi_placing, in: [:resident, :not_related], predicates: { prefix: true }
-  enumerize :interdisciplinary, in: [:intersubfaculty, :interfaculty, :interunivercity, :not_interdisciplinary], default: :not_interdisciplinary, predicates: true
-  enumerize :category, in: [:business, :research, :by_request, :for_university, :social], predicates: true
-  enumerize :result, :in => [:programm, :device, :model, :method, :technology, :none, :other]
+  enumerize :interdisciplinary, in: [
+    :intersubfaculty,
+    :interfaculty,
+    :interunivercity,
+    :not_interdisciplinary
+  ], default: :not_interdisciplinary, predicates: true
+  enumerize :category, in: [
+    :business,
+    :research,
+    :by_request,
+    :for_university,
+    :social
+  ], predicates: true
+  enumerize :result, :in => [
+    :programm,
+    :device,
+    :model,
+    :method,
+    :technology,
+    :none,
+    :other
+  ]
 
   state_machine :initial => :draft do
     state :closed do

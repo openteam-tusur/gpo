@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200605063556) do
+ActiveRecord::Schema.define(version: 20200605085127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,7 @@ ActiveRecord::Schema.define(version: 20200605063556) do
     t.text     "main_goals"
     t.string   "auditorium"
     t.string   "class_time",        default: "Четверг с 8.50 до 14.50"
+    t.string   "company"
   end
 
   create_table "reporting_marks", force: true do |t|

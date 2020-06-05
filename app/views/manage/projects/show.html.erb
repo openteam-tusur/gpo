@@ -51,6 +51,9 @@
 <div class="detailed_info comment">
   <%= project_theme @project, true %>
   <%= project_section @project, :category, true %>
+  <% if @project.by_request? %>
+    <%= project_section @project, :company, true %>
+  <% end %>
   <%= project_section @project, :sbi_placing, true %>
   <%= project_section @project, :goal, true %>
   <%= project_section @project, :main_goals, true %>

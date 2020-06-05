@@ -166,7 +166,8 @@ ru:
 
       project:
         analysis:         Анализ состояния дел и имеющихся достижений по тематике проекта
-        category:         Категория
+        category:         Вид проекта
+        company:          Название предприятия
         chair:            Кафедра
         chair_id:         Кафедра
         cipher:           Шифр
@@ -299,10 +300,10 @@ ru:
   enumerize:
     project:
       category:
-        business:         бизнес
-        research:         исследовательский
+        business:         практико-ориентированный
+        research:         науко-ориентированный
         by_request:       по заказу предприятия
-        for_university:   для использования в университете
+        for_university:   учебно-ориентированный
         social:           социальный
 
       sbi_placing:

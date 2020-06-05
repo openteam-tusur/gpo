@@ -14,4 +14,5 @@
  * = require order_state
  * = require users_autocomplete
  * = require main
+ * = require project_category
  */
