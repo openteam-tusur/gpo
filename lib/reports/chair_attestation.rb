@@ -85,7 +85,8 @@ class ChairAttestation < XlsReport
     achievements = project.
                current_attestation_stage.
                try(kind).
-               try(:where, participant_id: participant)
+               try(:joins, :participants).
+               try(:where, 'participants.id = ?', participant)
     if achievements.present?
       return achievements.pluck(:title).join(', ')
     end
