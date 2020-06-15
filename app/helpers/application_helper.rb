@@ -112,7 +112,7 @@ module ApplicationHelper
   def total_mark_counter(semester_mark, attestation_mark)
     sym_mark = semester_mark + attestation_mark
     case
-    when attestation_mark < 11
+    when attestation_mark < 9
       'неуд'
     when sym_mark < 60
       'неуд'
