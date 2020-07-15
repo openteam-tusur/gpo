@@ -1,4 +1,5 @@
 *.swp
+*.swo
 .ruby-version
 /.bundle
 /.docker-sync

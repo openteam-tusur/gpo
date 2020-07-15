@@ -6,7 +6,7 @@
   input_html: { name: nil, value: I18n.l(form.object.finish) } %>
 
 <hr />
-<%= form.input :file_report, required: form.object.file_report.blank? %>
+<%= form.input :file_report %>
 <% if form.object.file_report.present? %>
   <p>
     <%= link_to form.object.file_report_file_name, form.object.file_report.url, target: '_blank' %>
@@ -15,7 +15,7 @@
 <% end %>
 
 <hr />
-<%= form.input :file_review, required: form.object.file_review.blank? %>
+<%= form.input :file_review %>
 <% if form.object.file_review.present? %>
   <p>
     <%= link_to form.object.file_review_file_name, form.object.file_review.url, target: '_blank' %>

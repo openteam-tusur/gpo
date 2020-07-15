@@ -35,15 +35,15 @@ class Stage < ActiveRecord::Base
     path: 'system/:class/:attachment/:date/:id/:filename',
     url: '/system/:class/:attachment/:date/:id/:filename'
   }
-  validates_attachment :file_report, presence: true,
-    if: -> { !self.skip_validation && self.reporting_stage_id.present? }
+ # validates_attachment :file_report, presence: true,
+ #   if: -> { !self.skip_validation && self.reporting_stage_id.present? }
 
   has_attached_file :file_review, {
     path: 'system/:class/:attachment/:date/:id/:filename',
     url: '/system/:class/:attachment/:date/:id/:filename'
   }
-  validates_attachment :file_review, presence: true,
-    if: -> { !self.skip_validation && self.reporting_stage_id.present? }
+ # validates_attachment :file_review, presence: true,
+ #   if: -> { !self.skip_validation && self.reporting_stage_id.present? }
 
   before_post_process :normalize_file_names
 
@@ -84,10 +84,14 @@ class Stage < ActiveRecord::Base
   def reporting_filled?
     return true unless for_reporting?
 
-    file_report.present? &&
-      file_review.present? &&
-      reporting_marks_array.exclude?(nil) &&
-      reporting_marks_array.exclude?('')
+    (
+      file_report.present? && file_review.present?
+    )  || (
+      !file_report.present? && !file_review.present?  &&
+      reporting_marks_array.exclude?('5') && reporting_marks_array.exclude?('4') &&
+      reporting_marks_array.exclude?('3') && reporting_marks_array.exclude?('2') &&
+      reporting_marks_array.exclude?('') && reporting_marks_array.exclude?(nil)
+    )
   end
 
   def file_report_path

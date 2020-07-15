@@ -24,9 +24,17 @@ class ReportingStage < ActiveRecord::Base
   end
 
   def filled?
-    marks = stages.includes(:reporting_marks).pluck(:mark).uniq
 
-    marks.exclude?(nil) && marks.exclude?('')
+    stages.each do |stage|
+      if !stage.reporting_filled?
+        return false
+        break
+      end
+    end
+
+   #  marks = stages.includes(:reporting_marks).pluck(:mark).uniq
+
+   #  marks.exclude?(nil) && marks.exclude?('')
   end
 
   private
