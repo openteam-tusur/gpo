@@ -90,13 +90,15 @@ class API::Gpo < Grape::API
       reporting_marks.map do |rm|
         {
           stage: {
+            contingent_id: params[:id],
+            fullname: rm.fullname,
             title: rm.stage.title,
             start: I18n.l(rm.stage.start),
             finish: I18n.l(rm.stage.finish),
             link_to_report: %(#{Settings['app.url']}#{rm.stage.file_report_path}),
-            file_report_updated_at: I18n.l(rm.stage.file_report_updated_at),
+            file_report_updated_at: (I18n.l(rm.stage.file_report_updated_at) rescue nil),
             link_to_review: %(#{Settings['app.url']}#{rm.stage.file_review_path}),
-            file_review_updated_at: I18n.l(rm.stage.file_review_updated_at),
+            file_review_updated_at: (I18n.l(rm.stage.file_review_updated_at) rescue nil),
             mark: rm.mark,
             updated_at: I18n.l(rm.stage.updated_at),
             project: {

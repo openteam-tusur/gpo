@@ -95,6 +95,7 @@ class Stage < ActiveRecord::Base
   end
 
   def file_report_path
+    return nil if file_report_updated_at.blank?
     [
       '/system',
       'stages',
@@ -106,6 +107,7 @@ class Stage < ActiveRecord::Base
   end
 
   def file_review_path
+    return nil if file_report_updated_at.blank?
     [
       '/system',
       'stages',
