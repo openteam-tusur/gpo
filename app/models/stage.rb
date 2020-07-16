@@ -94,6 +94,14 @@ class Stage < ActiveRecord::Base
     )
   end
 
+  def empty?
+    !file_report.present? && !file_review.present? &&
+    reporting_marks_array.exclude?('nil') &&  reporting_marks_array.exclude?('5') &&
+    reporting_marks_array.exclude?('4') && reporting_marks_array.exclude?('3') &&
+    reporting_marks_array.exclude?('3') && reporting_marks_array.exclude?('2') &&
+    reporting_marks_array.exclude?('') && reporting_marks_array.include?('н/а')
+  end
+
   def file_report_path
     return nil if file_report_updated_at.blank?
     [

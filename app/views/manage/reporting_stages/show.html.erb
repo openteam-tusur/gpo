@@ -9,6 +9,9 @@
       <% else %>
         <i class='fa fa-exclamation-triangle attention cursor-help' title='Не заполнен'></i>
       <% end %>
+      <% if stage.empty? %>
+        <span> (н/а) </span>
+      <% end %>
       <%= link_to stage.project, manage_chair_project_stage_path(stage.chair, stage.project, stage) %>
     </p>
   <% end %>

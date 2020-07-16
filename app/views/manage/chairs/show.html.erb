@@ -3,7 +3,7 @@
 <%= render :partial => "manage/reports/report_action_link", :collection => Report::REPORTS[:chair], :as => :report, :locals => {:type => "chair", :id => @chair.id}  %>
 <% action_link(
     link_to('Журнал аттестации',
-      manage_report_edit_chair_attestation_path(
+            manage_report_edit_chair_attestation_path(
               :chair_attestation,
               chair: @chair[:id]
             )
