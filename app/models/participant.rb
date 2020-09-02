@@ -47,6 +47,7 @@ class Participant < ActiveRecord::Base
   #scope :interfaculty,               -> { joins(:project).where 'projects.interdisciplinary' => :interfaculty }
   scope :with_subfaculty,            -> (chair_abbr) { where(:subfaculty => chair_abbr)}
   scope :other_univercity,           -> { where(:student_id => nil) }
+  scope :for_project_manager,        -> (project_manager_id) { includes(project: :project_managers).where(project_managers: { id: project_manager_id }) }
 
   delegate :abbr, :to => :chair, :prefix => true
   delegate :to_s, :to => :project, :prefix => true

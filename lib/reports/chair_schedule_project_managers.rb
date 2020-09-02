@@ -27,6 +27,7 @@ class ChairScheduleProjectManagers < XlsReport
         tmp_row.elements[3][1].text = pm.project.cipher
         tmp_row.elements[4][1].text = pm.auditorium
         tmp_row.elements[5][1].text = pm.consultation_time
+        tmp_row.elements[6][1].text = Participant.for_project_manager(pm.id).pluck(:edu_group).uniq.join(', ')
         table.add_element tmp_row
         i += 1
       end
