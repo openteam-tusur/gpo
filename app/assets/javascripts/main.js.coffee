@@ -9,5 +9,6 @@ $ ->
   init_opening_order_state_event() if $('input#order_state_event').length
   init_users_autocomplete() if $('.users_autocomplete').length
   init_project_category() if $('#project_category').length
+  init_simple_tabs() if $('.js-simple-tabs').length
 
   return

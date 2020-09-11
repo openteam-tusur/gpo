@@ -18,6 +18,8 @@ class Issue < ActiveRecord::Base
   scope :order_by_closed_at, -> { reorder(closed_at: :desc) }
   scope :distance,        -> { where(:distance_learning => :true) }
   scope :local,        -> { where(:distance_learning => :false) }
+  scope :archived, -> { where(archived: true) }
+  scope :not_archived, -> { where(archived: false) }
 
   validates_presence_of :participant_id, :name, :planned_closing_at, :planned_grade
   validates_presence_of :grade, if: :closed_at
