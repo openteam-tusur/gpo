@@ -51,6 +51,7 @@ class Project < ActiveRecord::Base
   scope :interunivercity, -> {where(:interdisciplinary => :interunivercity)}
 
   delegate :name, :to => :theme, :prefix => true, :allow_nil => true
+  delegate :abbr, to: :chair, prefix: true
 
   searchable do
     text(:title, :stored => true)
