@@ -101,7 +101,7 @@
 
           <h3 class='margin-top-10'>Задачи на период дистанционного обучения</h3>
           <% unless participant.issues.distance.empty? %>
-            <table>
+            <table class="table_for_issues">
               <tr>
                 <th class="name"><%= Issue.human_attribute_name :name %></th>
                 <th class="description"><%= Issue.human_attribute_name :description %></th>
@@ -231,7 +231,7 @@
 
           <h3 class='margin-top-10'>Задачи на период дистанционного обучения</h3>
           <% unless participant.issues.distance.empty? %>
-            <table>
+            <table class="table_for_issues">
               <tr>
                 <th class="name"><%= Issue.human_attribute_name :name %></th>
                 <th class="description"><%= Issue.human_attribute_name :description %></th>
