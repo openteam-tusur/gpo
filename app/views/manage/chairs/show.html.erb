@@ -12,6 +12,12 @@
     "Заполнить журнал аттестации и скачать в формате MS Excel"
   )  if can?(:manage_projects, @chair)
 %>
+<% action_link(
+    link_to('История проектов',
+              manage_chair_projects_history_index_path(
+              chair: @chair[:id]
+    ))
+)%>
 <% action_link(link_to(I18n.t("edit"), edit_manage_chair_path(@chair)), "edit", "Позволяет изменить информацию о кафедре") if can?(:update, @chair) %>
 
 <%= render :partial => 'shared/chair_and_project_templates_link' %>

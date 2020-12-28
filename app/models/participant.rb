@@ -175,7 +175,8 @@ class Participant < ActiveRecord::Base
 
   def total_term_mark
     self.visitation_total_summ_rate.to_f +
-    Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', self.id, Gpoday.find(:first, :order => "date").date]).to_f
+    #Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', self.id, Gpoday.find(:first, :order => "date").date]).to_f
+    self.issues_fact_summ_grade
   end
 
   def reporting_marks
