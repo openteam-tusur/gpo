@@ -4,6 +4,8 @@ class StudentAchievement < ActiveRecord::Base
                   :stage_id,
                   :scan
 
+  attr_accessor :anchor_id
+
   has_many :participant_student_achievements
   has_many :participants, through: :participant_student_achievements, dependent: :destroy
   belongs_to :stage

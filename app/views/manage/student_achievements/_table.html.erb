@@ -1,7 +1,7 @@
 <div class='student_achievements'>
   <h3>
     Достижения участников
-    <%= link_to new_manage_student_achievement_path(stage: stage) do %>
+    <%= link_to new_manage_student_achievement_path(stage: stage, anchor_id: "anchor-#{stage.id}") do %>
       <i class="fas fa-plus" title='Добавить'></i>
     <% end %>
   </h3>

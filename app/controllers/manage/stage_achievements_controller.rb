@@ -8,7 +8,9 @@ class Manage::StageAchievementsController < Manage::ApplicationController
   def create
     @stage_achievement = StageAchievement.new(params[:stage_achievement])
     if @stage_achievement.save
-      redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @stage_achievement.stage.chair.id)
+      redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',
+                                                            chair: @stage_achievement.stage.chair.id,
+                                                            anchor: "stage_#{@stage_achievement.stage_id}")
     else
       render :action => :new
     end

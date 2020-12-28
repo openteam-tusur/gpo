@@ -12,7 +12,9 @@ class Manage::StudentAchievementsController < Manage::ApplicationController
     @participants = @student_achievement.stage.project.participants.active
     @student_achievement.participant_ids = params[:student_achievement][:participant_ids]
     if @student_achievement.save
-      redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',chair: @student_achievement.stage.chair.id)
+      redirect_to manage_report_edit_chair_attestation_path(report_id: 'chair_attestation',
+                                                            chair: @student_achievement.stage.chair.id,
+                                                            anchor: "stage_#{@student_achievement.stage_id}")
     else
       render :action => :new
     end
