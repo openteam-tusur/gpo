@@ -183,6 +183,34 @@ class Participant < ActiveRecord::Base
     ReportingMark.where(contingent_id: student_id)
   end
 
+  def was_deleted_in_chosen_semester(chosen_semester)
+    if self.deleted_at == nil
+      return false
+    else
+      if chosen_semester.title.include?("осенний")
+        if chosen_semester.start.year < Time.current.year
+          if self.deleted_at.to_date > "15.12.#{chosen_semester.start.year}".to_date && self.deleted_at.to_date < "10.02.#{chosen_semester.start.year + 1}".to_date
+            return true
+          else
+            return false
+          end
+        else
+          if self.deleted_at.to_date > "15.12.#{chosen_semester.start.year}".to_date
+            return true
+          else
+            return false
+          end
+        end
+      elsif chosen_semester.title.include?("весенний")
+        if self.deleted_at.to_date > "10.05.#{chosen_semester.start.year}".to_date && self.deleted_at.to_date < "30.07.#{chosen_semester.start.year}".to_date
+          return true
+        else
+          return false
+        end
+      end
+    end
+  end
+
   private
 
   def similar_participants
@@ -206,6 +234,7 @@ class Participant < ActiveRecord::Base
   def need_validation_of_student_id?
     true
   end
+
 end
 
 # == Schema Information

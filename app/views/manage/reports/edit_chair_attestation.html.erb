@@ -11,11 +11,8 @@
 <div class='chair_attestation'>
   <%= render_list "stages_with_stats", @stages, :id => "stages" %>
 </div>
-<%= link_to('Загрузить журнал аттестации',
-            manage_report_path(:chair_attestation,
-                               format: 'xls',
-                               chair: @chair.id
-                              ),
-            class: 'button'
-            )
-          %>
+<%= link_to('Загрузить журнал аттестации', manage_report_path(:chair_attestation,
+                                           format: 'xls',
+                                           chair: @chair.id,
+                                           reporting_stage_id: @reporting_stage.id),
+                                           class: 'button') %>

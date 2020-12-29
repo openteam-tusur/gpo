@@ -12,8 +12,8 @@
       Руководители: <%= project_project_managers(stage.project) %>
     </div>
     <%= render :partial => 'manage/stage_achievements/table', locals: {stage: stage} %>
-    <%= render :partial => 'manage/student_achievements/table', locals: {stage: stage, participants: stage.project.participants.active} %>
-    <%= render :partial => 'manage/attestation_marks/table', locals: {stage: stage, participants: stage.project.participants.active} %>
+    <%= render :partial => 'manage/student_achievements/table', locals: {stage: stage, participants: stage.project.participants.with_deleted} %>
+    <%= render :partial => 'manage/attestation_marks/table', locals: {stage: stage, participants: stage.project.participants.with_deleted} %>
   <% else %>
     <div class='details'>
       Руководители: <%= closed_project_project_managers(stage.project) %>

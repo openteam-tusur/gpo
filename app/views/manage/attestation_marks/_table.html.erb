@@ -19,25 +19,48 @@
     </thead>
     <tbody>
       <% participants.each do |p| %>
-        <% attestation_mark = stage.attestation_marks.find_by(participant_id: p) %>
-        <% total_term_mark = p.total_term_mark.round %>
-        <tr>
-          <td><%= p.name %></td>
-          <td><%= p.course %></td>
-          <td><%= p.edu_group %></td>
-          <td><%= total_term_mark %></td>
+        <% if p.deleted_at == nil %>
+          <% attestation_mark = stage.attestation_marks.find_by(participant_id: p) %>
+          <% total_term_mark = p.total_term_mark.round %>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td><%= total_term_mark %></td>
 
-          <td>
-            <% if attestation_mark.present? %>
-                <%= link_to attestation_mark.mark,
-                    edit_manage_attestation_mark_path(attestation_mark),
-                    style: 'text-decoration: underline'
-                  %>
-            <% end %>
-          </td>
-          <td><%= total_term_mark + attestation_mark.try(:mark).to_i %></td>
-          <td><%= total_mark_counter(total_term_mark, attestation_mark.try(:mark).to_i) %></td>
-        </tr>
+            <td>
+              <% if attestation_mark.present? %>
+                  <%= link_to attestation_mark.mark,
+                      edit_manage_attestation_mark_path(attestation_mark),
+                      style: 'text-decoration: underline'
+                    %>
+              <% end %>
+            </td>
+            <td><%= total_term_mark + attestation_mark.try(:mark).to_i %></td>
+            <td><%= total_mark_counter(total_term_mark, attestation_mark.try(:mark).to_i) %></td>
+          </tr>
+        <% elsif p.was_deleted_in_chosen_semester(stage)  %>
+          <% attestation_mark = stage.attestation_marks.find_by(participant_id: p) %>
+          <% total_term_mark = p.total_term_mark.round %>
+          <tr>
+            <td><span class='font-weight-bold'>(ИСКЛ)</span> <%= p.name %> (<%= p.deleted_at.to_date %>)</td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td><%= total_term_mark %></td>
+
+            <td>
+              <% if attestation_mark.present? %>
+                  <%= link_to attestation_mark.mark,
+                      edit_manage_attestation_mark_path(attestation_mark),
+                      style: 'text-decoration: underline'
+                    %>
+              <% end %>
+            </td>
+            <td><%= total_term_mark + attestation_mark.try(:mark).to_i %></td>
+            <td><%= total_mark_counter(total_term_mark, attestation_mark.try(:mark).to_i) %></td>
+          </tr>
+
+        <% end %>
       <%end%>
     </tbody>
   </table>

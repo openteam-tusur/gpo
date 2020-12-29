@@ -24,17 +24,24 @@ class ReportingStage < ActiveRecord::Base
   end
 
   def filled?
-    # stages.select(&:reporting_filled?).any?
     stages.each do |stage|
       if !stage.reporting_filled?
         return false
         break
       end
     end
+  end
 
-   #  marks = stages.includes(:reporting_marks).pluck(:mark).uniq
+  def kind_of_semester
+    title.match(/осенний|весенний/i).to_s
+  end
 
-   #  marks.exclude?(nil) && marks.exclude?('')
+  def declension_kind_of_semester
+    kind_of_semester.gsub(/\D{2}$/, 'ем')
+  end
+
+  def year_of_title
+    title.match(/\d{4}\/\d{4}/i).to_s
   end
 
   private
@@ -82,6 +89,7 @@ class ReportingStage < ActiveRecord::Base
       end
     end
   end
+
 end
 
 # == Schema Information

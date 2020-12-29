@@ -8,6 +8,7 @@ group :default do
   gem 'awesome_print'
   gem 'better'
   gem 'cancan'
+  gem 'petrovich'
   gem 'coffee-rails', '~> 4.0.0'
   gem 'compass-rails'
   gem 'curb'

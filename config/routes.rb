@@ -18,7 +18,7 @@ Gpo::Application.routes.draw do
     resources :student_achievements
     resources :attestation_marks
     resources :reporting_stages
-    resources :chair_projects_history
+    resources :chair_projects_history, only: [:index, :show]
     resources :reports, only: [:index, :show] do
       get :preview, on: :member
       get :edit_schedule_group

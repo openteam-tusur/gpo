@@ -97,7 +97,8 @@ class Manage::ReportsController < Manage::ApplicationController
     when 'chair_schedule_project_managers'
       report = ChairScheduleProjectManagers.new(@chair) if @chair
     when 'chair_attestation'
-      report = ChairAttestation.new(@chair) if @chair
+      options = { with_deleted_participants: true, reporting_stage_id: params[:reporting_stage_id]}
+      report = ChairAttestation.new(@chair, options) if @chair
     when 'university_participants'
       report = UniversityParticipants.new
     when 'university_projects'

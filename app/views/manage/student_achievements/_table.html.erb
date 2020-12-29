@@ -18,21 +18,38 @@
     </thead>
     <tbody>
       <% participants.each do |p| %>
-        <tr>
-          <td><%= p.name %></td>
-          <td><%= p.course %></td>
-          <td><%= p.edu_group %></td>
-          <td>
-            <%= student_achievement_links(stage, :international_reports, p) %>
-          </td>
-          <td>
-            <%= student_achievement_links(stage, :diplomas, p) %>
-          </td>
-          <td>
-            <%= student_achievement_links(stage, :publications, p) %>
-          </td>
-        </tr>
-      <%end%>
+        <% if p.deleted_at == nil %>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td>
+              <%= student_achievement_links(stage, :international_reports, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :diplomas, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :publications, p) %>
+            </td>
+          </tr>
+        <% elsif p.was_deleted_in_chosen_semester(stage) %>
+          <tr>
+            <td> <span class="font-weight-bold">(ИСКЛ)</span> <%= p.name %> (<%= p.deleted_at.to_date %>)</td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td>
+              <%= student_achievement_links(stage, :international_reports, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :diplomas, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :publications, p) %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
     </tbody>
   </table>
 </div>
