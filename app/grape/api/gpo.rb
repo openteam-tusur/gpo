@@ -112,6 +112,18 @@ class API::Gpo < Grape::API
     end
   end
 
+  resource :chairs_project_managers_groups do
+    desc 'Retrieve necessary API'
+    get do
+      #present chairs, with: API::Entities::ChairEntity
+      chairs = Chair.all
+      chairs.each do |chair|
+        chair.project_managers.each do |pm|
+        end
+      end
+    end
+  end
+
   get :permissions do
     user = User.find_by_uid(params[:uid].to_s)
     error!('User not found') unless user.present?
