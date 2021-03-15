@@ -11,3 +11,7 @@ end
 every :day, :at => '02:00 am' do
   rake 'cron'
 end
+
+every :day, :at => '03:00 am' do
+  rake 'project_managers_chair'
+end
