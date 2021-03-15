@@ -113,14 +113,19 @@ class API::Gpo < Grape::API
   end
 
   resource :chairs_project_managers_groups do
-    desc 'Retrieve necessary API'
     get do
-      #present chairs, with: API::Entities::ChairEntity
-      chairs = Chair.all
-      chairs.each do |chair|
-        chair.project_managers.each do |pm|
+        { :chair => Chair.all.map do |chair|
+          { :title => chair.title,
+            :abbr => chair.abbr,
+            :managers => chair.project_managers.where(from_chair: true).map do |manager|
+              {
+                :fullname => manager.fullname,
+                :groups => manager.project.participants.select{ |p| p.subfaculty == p.project.chair.abbr }.map(&:edu_group).uniq
+              }
+            end
+          }
         end
-      end
+        }
     end
   end
 
