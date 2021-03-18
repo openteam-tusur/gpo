@@ -194,13 +194,12 @@ ActiveRecord::Schema.define(version: 20210318075515) do
   create_table "project_managers", force: true do |t|
     t.integer  "person_id"
     t.integer  "project_id"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "state"
     t.string   "auditorium"
     t.string   "consultation_time"
     t.datetime "deleted_at"
-    t.boolean  "from_chair",        default: false
     t.integer  "directory_id"
   end
 
