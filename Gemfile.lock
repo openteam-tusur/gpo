@@ -63,6 +63,8 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     better (1.0.0)
+    bootstrap-sass (3.3.0.0)
+      sass (~> 3.2)
     brakeman (3.0.1)
       erubis (~> 2.6)
       fastercsv (~> 1.5)
@@ -136,6 +138,8 @@ GEM
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.3)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     enumerize (0.8.0)
       activesupport (>= 3.2)
     equalizer (0.0.9)
@@ -167,6 +171,9 @@ GEM
     hike (1.2.3)
     hirb (0.7.2)
     hiredis (0.6.1)
+    http-accept (1.7.0)
+    http-cookie (1.0.3)
+      domain_name (~> 0.5)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.0)
@@ -195,6 +202,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
+    netrc (0.11.0)
     nokogiri (1.6.3.1)
       mini_portile (= 0.6.0)
     non-stupid-digest-assets (1.0.4)
@@ -277,6 +285,11 @@ GEM
       redis
     responders (1.1.1)
       railties (>= 3.2, < 4.2)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rsolr (1.0.10)
       builder (>= 2.1.2)
     rspec-core (3.5.4)
@@ -341,6 +354,9 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
+    stop_ie (0.1.5)
+      jquery-rails
+      sass-rails (>= 3.2)
     sunspot (2.0.0)
       pr_geohash (~> 1.0)
       rsolr (~> 1.0.7)
@@ -357,11 +373,26 @@ GEM
     thread_safe (0.3.6)
     tilt (1.4.1)
     timecop (0.7.1)
+    translit (0.1.5)
     ttfunk (1.4.0)
+    tusur_cdn (0.1.1)
+      activesupport
+      configliere
+      hashie
+      redis
+      rest-client
+    tusur_header (0.2.14)
+      configliere
+      rails (>= 4.0, < 7.0)
+      rest-client
+      tusur_cdn
     tzinfo (0.3.57)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.7)
     unicorn (5.2.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -384,6 +415,7 @@ DEPENDENCIES
   auth_redis_user_connector!
   awesome_print
   better
+  bootstrap-sass (= 3.3)
   brakeman
   cancan
   capistrano-auth-subscriber
@@ -430,10 +462,13 @@ DEPENDENCIES
   spreadsheet
   sqlite3
   state_machine
+  stop_ie
   sunspot_rails (~> 2.0.0)
   sunspot_solr (~> 2.0.0)
   thin
   timecop
+  translit
+  tusur_header (>= 0.2.6)
   uglifier (>= 1.3.0)
 
 BUNDLED WITH

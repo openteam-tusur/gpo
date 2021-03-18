@@ -1,0 +1,156 @@
+$navigation_group_title: education, learning, science, innovation, enterprise, uniq, international_cooperation, partnership, press_stuff, multimedia, content_actualization, official, about, ministry_of_education
+
+.main-navigation
+  background-color: #005baa
+
+  &:hover
+    z-index: 15
+
+  .container
+    position: relative
+
+    &:hover
+      z-index: 14
+
+    ul
+      position: static
+
+      &:hover
+        z-index: 10
+
+      li
+        font-size: 1.6rem
+        margin-left: 0
+        position: static
+
+        &:hover
+          z-index: 10
+
+          //ul.subnavigation
+            //visibility: visible
+            //opacity: 1
+            //top: 0
+
+          a
+            background-color: #fff
+            color: #000
+
+        &.active
+          &:hover
+            a
+              background-color: #fff
+
+          a
+            background-color: #0390c8
+
+            &:hover,
+            &.hover
+              color: inherit
+              background-color: #fff
+
+          .subnavigation
+            ul
+              li
+                a
+                  background-color: transparent
+
+        &.old-version
+          font-size: 1.4rem
+          margin-right: -15px
+
+        .subnavigation
+          //visibility: hidden
+          display: none
+          background-color: #fff
+          position: absolute
+          z-index: 10
+          left: 15px
+          padding-bottom: 10px
+
+          .items
+            +clearfix
+
+            &.grouped
+              &:first-child
+                margin-bottom: 10px
+
+              ul
+                margin-bottom: 5px
+
+            &.with-border
+              border-top: 1px solid #d3d3d3
+              padding-left: 0
+              margin-left: 30px
+              width: 395px
+              margin-bottom: 10px
+              margin-top: 5px
+
+              ul
+                margin: 10px 20px 15px 0
+
+            ul
+              float: left
+              margin: 20px 20px 15px 15px
+
+              .navigation_group_title
+                border-bottom: 1px solid #3461b7
+                color: #0054ad
+                font-family: 'PTSans', Verdana, sans-serif
+                font-size: 14px
+                font-weight: bold
+                margin-bottom: 10px
+                padding: 4px 0 15px 40px
+                text-transform: uppercase
+
+                @for $i from 1 through length($navigation_group_title)
+                  $group: nth($navigation_group_title, $i)
+
+                  &.#{$group}
+                    background: transparent image_url("icons/group#{$i}.png") no-repeat left top
+
+              li
+                font-size: 1.6rem
+                margin-bottom: 5px
+
+                a
+                  color: #000
+
+                  @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+                    display: inline-block
+                    padding: 5px 0
+
+          .text-right
+            padding: 20px 0
+
+            p
+              margin: 0
+
+    a
+      color: #fff
+      +border-radius(0)
+      z-index: 10
+
+      @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max)
+        padding: 10px
+
+      &:hover,
+      &:active,
+      &:focus,
+      &.hover
+        color: inherit
+        background-color: #f2f2f2
+
+#main-navbar
+  clear: left
+  overflow-x: hidden
+
+  > ul
+
+    > li
+
+      &.active > a
+        color: #fff
+        background-color: #005baa
+
+      > ul
+        display: none
