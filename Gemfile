@@ -6,6 +6,7 @@ group :default do
   gem 'auth_client', git: 'https://github.com/openteam-tusur/auth_client'
   gem 'auth_redis_user_connector', git: 'https://github.com/openteam-tusur/auth_redis_user_connector'
   gem 'awesome_print'
+  gem 'bootstrap-sass', '3.3'
   gem 'better'
   gem 'cancan'
   gem 'petrovich'
@@ -42,7 +43,10 @@ group :default do
   gem 'state_machine'
   gem 'sunspot_rails', '~> 2.0.0'
   gem 'timecop', require: false
+  gem 'translit'
   gem 'uglifier', '>= 1.3.0'
+  gem 'tusur_header', '>= 0.2.6'
+  gem 'stop_ie'
 end
 
 group :development do

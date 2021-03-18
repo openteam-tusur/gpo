@@ -1,0 +1,17 @@
+<%= content_for :tusur_cdn_header_subtop do %>
+  <%= render partial: 'application/subtop_navigation' %>
+<% end %>
+
+<% content_for :tusur_cdn_header_menu do %>
+
+    <div class='container-fluid main-navigation js-main-navigation hidden-xs'>
+      <div class='container'>
+        <ul class='nav nav-pills col-sm-12'>
+          <%= render partial: 'application/navigation_items' %>
+        </ul>
+      </div>
+    </div>
+
+<% end %>
+
+<%= render partial: 'tusur_header/tusur_header' %>

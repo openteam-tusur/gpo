@@ -11,31 +11,22 @@
   <body>
     <div id="header">
       <div id="header-wrapper">
-        <%= render :partial => "public/header" %>
+        <%= render :partial => "application/navigation" %>
       </div>
     </div>
 
-    <div id="wrapper" class="top-level">
-      <div id="navigation">
-        <h1>Групповое проектное обучение ТУСУР</h1>
-        <%#= render :partial => "shared/#{submenu}" %>
-      </div>
+    <div class="container">
+      <div id="wrapper" class="top-level">
 
-      <div id="content">
-        <%= render :partial => 'shared/help' %>
-
-        <div id="page-header">
-          <div id="tray"></div>
-          <div id="page-title">
-            <h1><%= yield(:page_title) %></h1>
-          </div>
+        <div id="content">
+          <%= render :partial => 'shared/help' %>
+          <%= render :partial => "shared/#{include_container}" %>
         </div>
-        <%= render :partial => "shared/#{include_container}" %>
       </div>
     </div>
 
     <div id="footer">
-      <%= render :partial => 'shared/footer' %>
+      <%= render :partial => 'application/footer' %>
     </div>
   </body>
 </html>

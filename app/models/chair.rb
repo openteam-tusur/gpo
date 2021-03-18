@@ -1,6 +1,8 @@
 class Chair < ActiveRecord::Base
   attr_accessible :title, :abbr, :chief, :contingent_abbr, :faculty
 
+  require 'translit'
+
   validates_presence_of :title, :abbr, :chief
   validates_uniqueness_of :abbr
 
@@ -86,8 +88,16 @@ class Chair < ActiveRecord::Base
   end
 
   def faculty_abbr
-    match_data = faculty.to_s.match(/\((.+)\)/)
-    match_data ? match_data[1] : ""
+    begin
+      match_data = faculty.to_s.match(/\((.+)\)/)
+      match_data ? match_data[1] : ""
+    rescue
+      ""
+    end
+  end
+
+  def transliterated_faculty_abbr
+    Translit.convert(faculty_abbr, :english)
   end
 
   def name_abbr (name)

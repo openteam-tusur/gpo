@@ -4,6 +4,7 @@
  * = require jquery_ujs
  * = require sugar
  * = require scroll_to
+ * = require bootstrap
  * = require datepicker
  * = require jquery_nested_form
  * = require go_to_chair

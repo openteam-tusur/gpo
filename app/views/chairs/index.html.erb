@@ -1,10 +1,11 @@
-<% title "Факультеты и кафедры", :chair %>
+<% title "Проекты ГПО", :chair %>
 
 <%= render :partial => 'shared/application_link' %>
 <%= render :partial => 'shared/advertisement' %>
-
 <div class="faculties_list">
   <% @chairs.each do |faculty, chairs| %>
+
+  <div class="<%= chairs.first.transliterated_faculty_abbr%>">
     <h2><%= faculty %></h2>
     <ul class="chairs_list">
     <% chairs.each do |chair| %>
@@ -13,7 +14,12 @@
           <%= icon(:chair) %>
           <h3><%= link_to "Кафедра #{content_tag(:abbr, chair.abbr, :title => chair.title)}".html_safe, chair_projects_path(chair) %></h3>
           <div class="mentors"><%= chair_mentors(chair) %></div>
-        </div>
+            <% chair.projects.active.each do |project| %>
+              <%= link_to chair_project_path(chair_id: chair.id, id: project.id) do %>
+                <div><%= project.title %> (<%= project.cipher %>)</div>
+              <% end %>
+            <% end %>
+          </div>
         <div class="stats">
           <dl>
             <dt><%= link_to icon(:project), chair_projects_path(chair) %></dt>
@@ -27,6 +33,7 @@
       </li>
     <% end %>
     </ul>
+  </div>
   <% end %>
 </div>
 
