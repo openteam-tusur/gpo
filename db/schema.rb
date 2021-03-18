@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200605102800) do
+ActiveRecord::Schema.define(version: 20210318075515) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,12 +194,14 @@ ActiveRecord::Schema.define(version: 20200605102800) do
   create_table "project_managers", force: true do |t|
     t.integer  "person_id"
     t.integer  "project_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "state"
     t.string   "auditorium"
     t.string   "consultation_time"
     t.datetime "deleted_at"
+    t.boolean  "from_chair",        default: false
+    t.integer  "directory_id"
   end
 
   add_index "project_managers", ["deleted_at"], name: "index_project_managers_on_deleted_at", using: :btree
