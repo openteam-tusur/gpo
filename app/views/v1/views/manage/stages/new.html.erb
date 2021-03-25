@@ -1,0 +1,17 @@
+<% title "Добавление этапа", :stage %>
+
+<% content_for :hint do %>
+  <h3>Создание этапа</h3>
+  <p>Для создания нового этапа заполните поля формы и нажмите кнопку "Создать".</p>
+  <p>Обязательными для заполнения полями являются название, дата начала и дата окончания.</p>
+  <p>Если нет необходимости создавать этап нажмите "Отмена" для перехода к просмотру календарного плана.</p>
+<% end %>
+
+<%= simple_form_for resource, url: collection_url do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.button :submit, I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), collection_url %>
+  </fieldset>
+<% end %>
+

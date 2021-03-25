@@ -1,0 +1,5 @@
+<% title "История проектов", :project %>
+
+<% @projects.each do |project| %>
+  <%= link_to project.title, manage_chair_projects_history_path(project) %> </br>
+<% end %>

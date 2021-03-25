@@ -1,0 +1,9 @@
+<%= render :partial => 'participant', :object => object %>
+<div class="actions">
+  <% object.state_events.each do |event| %>
+    <%= simple_form_for [:manage, @chair, @project, object] do |form| %>
+      <%= form.input :state_event, :as => :hidden, :input_html => { :value => event } %>
+      <%= form.button :submit, Participant.human_state_event_name(event) %>
+    <% end if can?(event, object) %>
+  <% end %>
+</div>

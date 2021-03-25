@@ -97,7 +97,7 @@ class Chair < ActiveRecord::Base
   end
 
   def transliterated_faculty_abbr
-    Translit.convert(faculty_abbr, :english)
+    Translit.convert(faculty_abbr, :english).downcase()
   end
 
   def name_abbr (name)

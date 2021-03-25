@@ -1,0 +1,82 @@
+<% title 'Этап', @stage.for_reporting? ? :reporting_stage : :stage %>
+
+<% content_for :hint do %>
+  <h3>Просмотр этапа</h3>
+  <p>На странице представлена информация об этапе календарного плана проекта.</p>
+<% end %>
+
+<% if permitted_to?(:update, @project) %>
+  <% if @stage.can_change? %>
+    <% action_link(link_to(I18n.t('edit'), edit_manage_chair_project_stage_path(@chair, @project, @stage)), 'edit', 'Позволяет изменить информацию об этапе') %>
+  <% end %>
+  <% unless @stage.for_reporting? %>
+    <% action_link(link_to_delete(manage_chair_project_stage_path(@chair, @project, @stage)), 'destroy', 'Позволяет удалить этап') %>
+  <% end %>
+<% end %>
+
+<h2>
+  <%= icon(:warning) if @stage.for_reporting? && !@stage.reporting_filled? %>
+  <%= @stage.title %>
+</h2>
+<p>с <%= date(@stage.start) %> по <%= date(@stage.finish) %><%= ' включительно' if @stage.for_reporting? %></p>
+
+<% if @stage.for_reporting? %>
+  <h3><%= Stage.human_attribute_name :file_report %></h3>
+  <p>
+    <% if @stage.file_report.present? %>
+      <%= link_to @stage.file_report_file_name, @stage.file_report_path, target: '_blank' %>
+      [<%= number_to_human_size @stage.file_report_file_size %>]
+    <% else %>
+      Нет информации
+    <% end %>
+  </p>
+
+  <h3><%= Stage.human_attribute_name :file_review %></h3>
+  <p>
+    <% if @stage.file_review.present? %>
+      <%= link_to @stage.file_review_file_name, @stage.file_review_path, target: '_blank' %>
+      [<%= number_to_human_size @stage.file_review_file_size %>]
+    <% else %>
+      Нет информации
+    <% end %>
+  </p>
+
+  <h3>Участники</h3>
+  <% if @stage.reporting_marks.any? %>
+    <table class='bordered'>
+      <thead>
+        <tr>
+          <th>ФИО</th>
+          <th>Группа</th>
+          <th>Оценка</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @stage.reporting_marks.each do |mark| %>
+          <tr>
+            <td>
+              <%= mark.fullname %>
+            </td>
+            <td>
+              <%= mark.group %>
+            </td>
+            <td>
+              <%= mark.mark || '&mdash;'.html_safe %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Нет информации</p>
+  <% end %>
+<% else %>
+  <h3><%= Stage.human_attribute_name :funds_required %></h3>
+  <p><%= @stage.funds_required %></p>
+
+  <h3><%= Stage.human_attribute_name :activity %></h3>
+  <p><%= @stage.activity %></p>
+
+  <h3><%= Stage.human_attribute_name :results %></h3>
+  <p><%= @stage.results %></p>
+<% end %>

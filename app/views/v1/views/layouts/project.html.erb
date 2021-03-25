@@ -1,0 +1,52 @@
+<%= content_for :base_title do %>
+  <%= @project.cipher %> <%= @project.title %> — <%= yield(:title) %>
+<% end %>
+
+<%= content_for :base_content do %>
+  <div id="wrapper" class="project-level">
+    <% unless current_user.executive_participant? %>
+      <div id="navigation">
+        <ul>
+          <%= nav_link link_to(chair_abbr(@chair), manage_chair_path(@chair)), 'chairs', :action => 'show', :selected => false %>
+          <%= nav_link link_to("Проекты", manage_chair_projects_path(@chair)), 'projects', :selected => true %>
+          <%= nav_link link_to("Приказы", manage_chair_orders_path(@chair)), 'orders', :selected => false %>
+          <% if can?(:manage_projects, @chair) %>
+            <%= nav_link link_to("Пользователи", manage_chair_people_path(@project.chair)), 'users', :selected => false %>
+            <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@project.chair)), 'chairs', :action => 'project_managers', :selected => false %>
+            <%= nav_link link_to("Посещаемость", manage_chair_visitations_path(@project.chair)), 'visitations', :selected => false %>
+          <% end %>
+          <%= nav_link link_to("Сертификаты", manage_chair_certificates_path(@chair)), 'certificates'  %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div id="content">
+      <%= render :partial => 'shared/help' %>
+
+      <div id="page-header">
+        <div id="tray"></div>
+        <div id="page-title">
+          <h1><%= iconed_title("Проект #{@project.cipher}", :project) %><span class="subtitle"><%= @project.title %></span></h1>
+        </div>
+        <div id="local-navigation">
+          <ul>
+            <%= nav_link link_to("Тематическая карта", manage_chair_project_path(@chair, @project)), 'projects', :action => 'show' %>
+            <%= nav_link link_to("Календарный план", manage_chair_project_stages_path(@chair, @project)), 'stages' %>
+            <% unless current_user.has_permission?(:role => 'executive_participant') %>
+              <%= nav_link link_to("Участники", manage_chair_project_participants_path(@chair, @project)), 'participants' %>
+              <%= nav_link link_to("Руководители", manage_chair_project_project_managers_path(@chair, @project)), 'project_managers' %>
+              <%= nav_link link_to("Посещаемость", manage_chair_project_visitations_path(@chair, @project)), 'visitations' %>
+            <% end %>
+              <%= nav_link link_to("Индивидуальные задачи", manage_chair_project_issues_path(@chair, @project)), 'issues' %>
+            <% unless current_user.has_permission?(:role => 'executive_participant') %>
+              <%= nav_link link_to("Приказы", manage_chair_project_orders_path(@chair, @project)), 'orders' %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <%= render :partial => "shared/#{include_container}" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render :template => 'layouts/base' %>

@@ -1,0 +1,26 @@
+<% title "Добавление участника проекта", :participant %>
+
+<% content_for :hint do %>
+  <h3>Добавление участника проекта</h3>
+  <p>Для добавления участника заполните любое поле формы
+  поиска и нажмите кнопку "Искать".</p>
+  <p><em>Внимание! Поиск осуществляется в АИС "Контингент",
+  поэтому обязательно указывать точные знаечния.</em></p>
+  <p>В случае успешного выполнения поиска будет отображен список студентов.
+    Студенту, которого можно добавить в проект, соответствует кнопка "Добавить".
+  При нажатии на эту кнопку участник будет добавлен в проект с состоянием "Ожидает влючения".</p>
+  <p>У студентов, которых нельзя добавить отображается проект, участником которого он является.</p>
+<% end %>
+
+<h1 class="section">Поиск студентов</h1>
+<%= simple_form_for :search, :url => new_manage_chair_project_participant_path(@project.chair, @project), :method => "get" do | form | %>
+  <fieldset>
+    <%= form.input :lastname, :input_html => { :value => params[:search]['lastname'] }, :label => 'Фамилия студента', required: false %>
+    <%= form.input :group, :input_html => { :value => params[:search]['group'] }, :label => 'Группа', required: false %>
+    <%= form.button :submit, I18n.t("find") %>
+  </fieldset>
+<% end if params[:search] %>
+
+<ul class='listing' id='participants'>
+  <%= render :partial => 'new_participant', :collection => finded_participants %>
+</ul>

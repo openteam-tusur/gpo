@@ -1,0 +1,14 @@
+<% title "Добавление направления", :theme %>
+
+<% content_for :hint do %>
+  <p>Для добавления направления, введите название и нажмите кнопку "Создать"</p>
+  <p>Если нет необходимости создавать новое направление нажмите "Отмена" для возврата к списку существующих направлений.</p>
+<% end %>
+
+<%= simple_form_for(resource, url: collection_url) do | form | %>
+  <fieldset>
+    <%= form.input :name %>
+    <%= form.button :submit, I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), collection_url %>
+  </fieldset>
+<% end %>

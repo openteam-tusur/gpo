@@ -1,0 +1,300 @@
+<% title "Индивидуальные задачи(включая задачи на период дистанционного обучения)", :issues %>
+
+<% content_for :hint do %>
+  <p>Плановое количество баллов рассчитывается за выполнение индивидуального задания по дисциплине ГПО согласно балльно - рейтинговой системе:</p>
+  <ul style='list-style: disc inside;'>
+    <li>на КТ 1 &mdash; 15 баллов</li>
+    <li>на КТ 2 &mdash; 15 баллов</li>
+    <li>В конце семестра &mdash; 15 баллов</li>
+  </ul>
+  <p>Плановая дата выполнения соответствует датам контрольных точек на  зачетной неделе. Количество периодов может <b>быть и больше</b>, но привязка к контрольным точкам должна сохраниться.</p>
+  <p><b>По окончанию каждого периода</b> руководителем проставляется отметка о факте выполнения (фактическая дата выполнения задания), оценка деятельности студента в баллах и отмечается результат выполнения работы.</p>
+  <p>Соотношение оценок за контрольную точку с полученными баллами за реализацию индивидуальных задач:</p>
+  <p>
+    1 КТ
+    <ul style='list-style: disc inside;'>
+      <li>15-13 баллов &mdash; "отлично"</li>
+      <li>12-10 баллов &mdash; "хорошо"</li>
+      <li>9-7 баллов &mdash; "удовлетворительно"</li>
+      <li>менее 7 баллов &mdash; "неудовлетворительно"</li>
+    </ul>
+  </p>
+  <p>
+    2 КТ
+    <ul style='list-style: disc inside;'>
+      <li>30-26 баллов &mdash; "отлично"</li>
+      <li>25-21 баллов &mdash; "хорошо"</li>
+      <li>20-15 баллов &mdash; "удовлетворительно"</li>
+      <li>14 и менее баллов &mdash; "неудовлетворительно"</li>
+    </ul>
+  </p>
+<% end %>
+
+<div class="js-simple-tabs-wrapper">
+  <ul class="js-simple-tabs clearfix" data-tabgroup="first-tab-group">
+    <li><a href="#current_issues" class="active">Действующие задачи</a></li>
+    <li><a href="#archive">Архив</a></li>
+  </ul>
+  <section id="first-tab-group" class="tabgroup">
+    <div id="current_issues">
+      <% @project.participants.active.each_with_index do |participant, index| %>
+        <div id="participant_<%= index+1 %>" class="issues">
+          <h2><%= participant.name %></h2>
+          <div class="header">
+            <%= link_to 'Экспорт в XLS', export_manage_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
+            <%= link_to t("add"), new_manage_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
+            <% if participant.issues_planned_summ_grade != 45 %>
+              <h3 class="planned_summ_grade h3-warning"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %>/45</h3>
+            <% else %>
+              <h3 class="planned_summ_grade"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %>/45</h3>
+            <% end %>
+            <h3 class="fact_summ_grade"><%= Issue.human_attribute_name :fact_summ_grade %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
+          </div>
+          <% unless participant.issues.local.empty? %>
+            <table>
+              <tr>
+                <th class="name"><%= Issue.human_attribute_name :name %></th>
+                <th class="description"><%= Issue.human_attribute_name :description %></th>
+                <th class="planned_closing_at">
+                  <abbr title="<%= Issue.human_attribute_name :planned_closing_at %>">
+                    <%= Issue.human_attribute_name :abbr_planned_closing_at %>
+                  </abbr>
+                </th>
+                <th class="planned_grade">
+                  <abbr title="<%= Issue.human_attribute_name :planned_grade %>">
+                    <%= Issue.human_attribute_name :abbr_planned_grade %>
+                  </abbr>
+                </th>
+                <th class="closed_at">
+                  <abbr title="<%= Issue.human_attribute_name :closed_at %>">
+                    <%= Issue.human_attribute_name :abbr_closed_at %>
+                  </abbr>
+                </th>
+                <th class="grade">
+                  <abbr title="<%= Issue.human_attribute_name :grade %>">
+                    <%= Issue.human_attribute_name :abbr_grade %>
+                  </abbr>
+                </th>
+                <th class="results"><%= Issue.human_attribute_name :results %></th>
+              </tr>
+              <% participant.issues.not_archived.local.order_by_closed_at.each do |issue| %>
+                <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
+                  <td class="name">
+                    <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
+                    <div class="actions">
+                      <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                      <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+                    </div>
+                  </td>
+                  <td class="description"><%= issue.description %></td>
+                  <td class="planned_closing_at"><%= date(issue.planned_closing_at) %></td>
+                  <td class="planned_grade"><%= issue.planned_grade %></td>
+                  <td class="closed_at"><%= date(issue.closed_at) %></td>
+                  <td class="grade"><%= issue.grade %></td>
+                  <td class="results"><%= issue.results %></td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p>Нет запланированных задач</p>
+          <% end %>
+
+          <h3 class='margin-top-10'>Задачи на период дистанционного обучения</h3>
+          <% unless participant.issues.distance.empty? %>
+            <table class="table_for_issues">
+              <tr>
+                <th class="name"><%= Issue.human_attribute_name :name %></th>
+                <th class="description"><%= Issue.human_attribute_name :description %></th>
+                <th class="planned_closing_at">
+                  <abbr title="<%= Issue.human_attribute_name :planned_closing_at %>">
+                    <%= Issue.human_attribute_name :abbr_planned_closing_at %>
+                  </abbr>
+                </th>
+                <th class="planned_grade">
+                  <abbr title="<%= Issue.human_attribute_name :planned_grade %>">
+                    <%= Issue.human_attribute_name :abbr_planned_grade %>
+                  </abbr>
+                </th>
+                <th class="closed_at">
+                  <abbr title="<%= Issue.human_attribute_name :closed_at %>">
+                    <%= Issue.human_attribute_name :abbr_closed_at %>
+                  </abbr>
+                </th>
+                <th class="grade">
+                  <abbr title="<%= Issue.human_attribute_name :grade %>">
+                    <%= Issue.human_attribute_name :abbr_grade %>
+                  </abbr>
+                </th>
+                <th class="results"><%= Issue.human_attribute_name :results %></th>
+                <th>Документы</th>
+              </tr>
+              <% participant.issues.distance.not_archived.order_by_closed_at.each do |issue| %>
+                <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
+                  <td class="name">
+                    <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
+                    <div class="actions">
+                      <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                      <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+                    </div>
+                  </td>
+                  <td class="description"><%= issue.description %></td>
+                  <td class="planned_closing_at"><%= date(issue.planned_closing_at) %></td>
+                  <td class="planned_grade"><%= issue.planned_grade %></td>
+                  <td class="closed_at"><%= date(issue.closed_at) %></td>
+                  <td class="grade"><%= issue.grade %></td>
+                  <td class="results"><%= issue.results %></td>
+                  <td>
+                    <%= link_to 'Добавить документ',
+                    new_manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue),
+                    class: 'button'%>
+                    <% issue.issue_attachments.each do |ia| %>
+
+                      <div class="actions" style="margin:5px">
+                        <%= link_to ia.title, ia.document.url, style: 'text-decoration: underline' %>
+                        <br />
+                        <%= link_to t("edit"), edit_manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue, ia), :title => I18n.t("edit"), :class => "edit" %>
+                        <%= link_to t("delete"), manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue, ia), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить файл?" }, :title => I18n.t("delete"), :class => "destroy" %>
+                      </div>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p>Нет запланированных задач в рамках дистанционного обучения</p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div id="archive">
+      <% @project.participants.active.each_with_index do |participant, index| %>
+        <div id="participant_<%= index+1 %>" class="issues">
+          <h2><%= participant.name %></h2>
+          <div class="header">
+            <%= link_to 'Экспорт в XLS', export_manage_chair_project_participant_issues_path(@chair, @project, participant), :class => "export" %>
+            <%= link_to t("add"), new_manage_chair_project_participant_issue_path(@chair, @project, participant), :class => "add" if permitted_to?(:update, @project) %>
+            <% if participant.issues_planned_summ_grade != 45 %>
+              <h3 class="planned_summ_grade h3-warning"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %>/45</h3>
+            <% else %>
+              <h3 class="planned_summ_grade"><%= Issue.human_attribute_name :planned_summ_grade %>:&nbsp;<%= participant.issues_planned_summ_grade %>/45</h3>
+            <% end %>
+            <h3 class="fact_summ_grade"><%= Issue.human_attribute_name :fact_summ_grade %>:&nbsp;<%= participant.issues_fact_summ_grade %></h3>
+          </div>
+          <% unless participant.issues.local.empty? %>
+            <table>
+              <tr>
+                <th class="name"><%= Issue.human_attribute_name :name %></th>
+                <th class="description"><%= Issue.human_attribute_name :description %></th>
+                <th class="planned_closing_at">
+                  <abbr title="<%= Issue.human_attribute_name :planned_closing_at %>">
+                    <%= Issue.human_attribute_name :abbr_planned_closing_at %>
+                  </abbr>
+                </th>
+                <th class="planned_grade">
+                  <abbr title="<%= Issue.human_attribute_name :planned_grade %>">
+                    <%= Issue.human_attribute_name :abbr_planned_grade %>
+                  </abbr>
+                </th>
+                <th class="closed_at">
+                  <abbr title="<%= Issue.human_attribute_name :closed_at %>">
+                    <%= Issue.human_attribute_name :abbr_closed_at %>
+                  </abbr>
+                </th>
+                <th class="grade">
+                  <abbr title="<%= Issue.human_attribute_name :grade %>">
+                    <%= Issue.human_attribute_name :abbr_grade %>
+                  </abbr>
+                </th>
+                <th class="results"><%= Issue.human_attribute_name :results %></th>
+              </tr>
+              <% participant.issues.archived.local.order_by_closed_at.each do |issue| %>
+                <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
+                  <td class="name">
+                    <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
+                    <div class="actions">
+                      <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                      <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+                    </div>
+                  </td>
+                  <td class="description"><%= issue.description %></td>
+                  <td class="planned_closing_at"><%= date(issue.planned_closing_at) %></td>
+                  <td class="planned_grade"><%= issue.planned_grade %></td>
+                  <td class="closed_at"><%= date(issue.closed_at) %></td>
+                  <td class="grade"><%= issue.grade %></td>
+                  <td class="results"><%= issue.results %></td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p>Нет запланированных задач</p>
+          <% end %>
+
+          <h3 class='margin-top-10'>Задачи на период дистанционного обучения</h3>
+          <% unless participant.issues.distance.empty? %>
+            <table class="table_for_issues">
+              <tr>
+                <th class="name"><%= Issue.human_attribute_name :name %></th>
+                <th class="description"><%= Issue.human_attribute_name :description %></th>
+                <th class="planned_closing_at">
+                  <abbr title="<%= Issue.human_attribute_name :planned_closing_at %>">
+                    <%= Issue.human_attribute_name :abbr_planned_closing_at %>
+                  </abbr>
+                </th>
+                <th class="planned_grade">
+                  <abbr title="<%= Issue.human_attribute_name :planned_grade %>">
+                    <%= Issue.human_attribute_name :abbr_planned_grade %>
+                  </abbr>
+                </th>
+                <th class="closed_at">
+                  <abbr title="<%= Issue.human_attribute_name :closed_at %>">
+                    <%= Issue.human_attribute_name :abbr_closed_at %>
+                  </abbr>
+                </th>
+                <th class="grade">
+                  <abbr title="<%= Issue.human_attribute_name :grade %>">
+                    <%= Issue.human_attribute_name :abbr_grade %>
+                  </abbr>
+                </th>
+                <th class="results"><%= Issue.human_attribute_name :results %></th>
+                <th>Документы</th>
+              </tr>
+              <% participant.issues.archived.distance.order_by_closed_at.each do |issue| %>
+                <tr class='<%= issue.archived? ? 'text-muted' : nil %>'>
+                  <td class="name">
+                    <p><%= issue.name %><%= %( (в архиве)) if issue.archived? %></p>
+                    <div class="actions">
+                      <%= link_to t("edit"), edit_manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :title => I18n.t("edit"), :class => "edit" if permitted_to?(:update, @project) %>
+                      <%= link_to t("delete"), manage_chair_project_participant_issue_path(@chair, @project, participant, issue), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить индивидуальную задачу участника?" }, :title => I18n.t("delete"), :class => "destroy" if permitted_to?(:update, @project) %>
+                    </div>
+                  </td>
+                  <td class="description"><%= issue.description %></td>
+                  <td class="planned_closing_at"><%= date(issue.planned_closing_at) %></td>
+                  <td class="planned_grade"><%= issue.planned_grade %></td>
+                  <td class="closed_at"><%= date(issue.closed_at) %></td>
+                  <td class="grade"><%= issue.grade %></td>
+                  <td class="results"><%= issue.results %></td>
+                  <td>
+                    <%= link_to 'Добавить документ',
+                    new_manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue),
+                    class: 'button'%>
+                    <% issue.issue_attachments.each do |ia| %>
+
+                      <div class="actions" style="margin:5px">
+                        <%= link_to ia.title, ia.document.url, style: 'text-decoration: underline' %>
+                        <br />
+                        <%= link_to t("edit"), edit_manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue, ia), :title => I18n.t("edit"), :class => "edit" %>
+                        <%= link_to t("delete"), manage_chair_project_participant_issue_issue_attachment_path(@chair, @project, participant, issue, ia), :method => :delete, :data => { :confirm => "Вы уверены что хотите удалить файл?" }, :title => I18n.t("delete"), :class => "destroy" %>
+                      </div>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>
+          <% else %>
+            <p>Нет запланированных задач в рамках дистанционного обучения</p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>

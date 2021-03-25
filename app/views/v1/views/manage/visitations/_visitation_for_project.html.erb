@@ -1,0 +1,38 @@
+<ul class="listing participants">
+  <% project.participants.active.each_with_index do |participant, index| %>
+    <li class="participant_<%= index+1 %>">
+      <div class="participant object">
+        <h3><%= participant.name %></h3>
+      </div>
+    </li>
+  <% end %>
+</ul>
+
+<div class="rating">
+  <div class="wrapper">
+    <% Gpoday.find(:all, :order => :date).each do | gpoday | %>
+      <div class="gpoday <%= gpoday.kt? ? 'kt' : nil %>">
+        <span class="date"><%= l(gpoday.date) + "#{gpoday.kt? ? ' (КТ)' : nil}" %></span>
+        <ul>
+          <% project.participants.active.each_with_index do |participant, index| %>
+            <% visitation = participant.visitation_for_gpoday(gpoday) %>
+            <li id="<%= project.chair.id %>_<%= project.id %>_<%= visitation.id %>">
+              <%= visitation.rate.nil? ? "<span class='empty ratio'>&mdash;</span>".html_safe : "<span class='ratio'>#{visitation.rate}</span>".html_safe %>
+              <% if visitation.kt? %>
+                <%= content_tag(:span, visitation.kt_issues_sum.round(2), :class=>"kt_issues_sum", :title => "за индивидульные задачи в текущем периоде").html_safe %> /
+                <%= content_tag(:span, visitation.kt_sum.round(2), :class=>"kt_sum", :title => "за посещаемость с учетом индивидульных задач в текущем периоде").html_safe %> /
+                <%= content_tag(:span, visitation.total_sum.round(2), :class=>"total_sum", :title => "суммарно").html_safe %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to t('edit'),
+            edit_manage_chair_project_visitation_path(project.chair, project, gpoday),
+            :class => "edit" if (Gpoday.where('date > ?', Date.today - 7.days).present? ||
+                                    current_user.manager? || current_user.mentor? || current_user.project_manager?
+                                )
+        %>
+      </div>
+    <% end %>
+  </div>
+</div>

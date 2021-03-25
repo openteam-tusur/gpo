@@ -1,0 +1,29 @@
+<fieldset>
+<%= f.hidden_field :stage_id %>
+
+<%= f.association :participants,
+                  collection: @participants,
+                  as: :check_boxes,
+                  required: true,
+                  label: 'Участники' %>
+<%= f.input :kind,
+            collection: [
+              ['Доклады на международных и всероссийских конференциях', :international_report],
+              ['Дипломы и призовые места во всероссийских и международных конференциях и конкурсах по тематике ГПО', :diploma],
+              ['Публикации в периодической печати', :publication]
+            ],
+            label: 'Вид достижения',
+            as: :select
+          %>
+<%= f.input :title, as: :text, label: 'Выходные данные' %>
+<%= link_to @student_achievement.scan_file_name,
+            @student_achievement.scan.url if @student_achievement.scan.file?
+          %>
+<%= f.input :scan, as: :file, label: 'Скан'%>
+</fieldset>
+<%= f.button :submit %>
+<%= link_to I18n.t("back"),
+    manage_report_edit_chair_attestation_path(
+      report_id: 'chair_attestation',
+      chair: @student_achievement.stage.chair.id)
+%>

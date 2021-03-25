@@ -1,0 +1,8 @@
+<%= form.input :email, :as => :string, :readonly => @person.from_sso? %>
+<%= form.input :last_name, :as => :string, :readonly => @person.from_sso? %>
+<%= form.input :first_name, :as => :string, :readonly => @person.from_sso? %>
+<%= form.input :middle_name, :as => :string, :readonly => @person.from_sso? %>
+<%= form.input :post, :as => :string %>
+<%= form.input :float, :as => :string %>
+<%= form.input :phone, :as => :string %>
+<%= form.association :chair, :collection => Chair.ordered_by_title if show_chair %>

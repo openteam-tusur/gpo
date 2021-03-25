@@ -1,0 +1,23 @@
+<% title users_title(@chair), :user %>
+
+<% content_for :hint do %>
+  <% if @chair.nil? %>
+    <p>На странице отображаются все пользователи системы.</p>
+  <% else %>
+    <p>На странице отображаются все пользователи кафедры (ответственные за ГПО на кафедре, руководители проектов)</p>
+  <% end %>
+  <dl>
+    <dt>"Редактировать"</dt>
+    <dd>Позвляет изменить информацию о пользователе.</dd>
+    <dt>"Удалить"</dt>
+    <dd>Позвляет удалить пользователя.</dd>
+  </dl>
+<% end %>
+
+<% if @chair %>
+  <%= action_link(link_to(I18n.t("user.new"), new_manage_chair_person_path(@chair)), "new", "Позволяет создать пользователя на кафедре") if can?(:create, @chair.reload.people.new) %>
+<% else %>
+  <%= action_link(link_to(I18n.t("user.new"), new_manage_person_path), "new", "Позволяет создать пользователя в системе") if can?(:create, User.new) %>
+<% end %>
+
+<%= render_list 'people_with_actions', @people, :id => 'users' %>

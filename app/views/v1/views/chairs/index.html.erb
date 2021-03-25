@@ -1,0 +1,38 @@
+<% title "Факультеты и кафедры", :chair %>
+
+<%= render :partial => 'shared/application_link' %>
+<%= render :partial => 'shared/advertisement' %>
+
+<div class="faculties_list">
+  <% @chairs.each do |faculty, chairs| %>
+    <h2><%= faculty %></h2>
+    <ul class="chairs_list">
+    <% chairs.each do |chair| %>
+      <li>
+        <div class="title">
+          <%= icon(:chair) %>
+          <h3><%= link_to "Кафедра #{content_tag(:abbr, chair.abbr, :title => chair.title)}".html_safe, chair_projects_path(chair) %></h3>
+          <div class="mentors"><%= chair_mentors(chair) %></div>
+        </div>
+        <div class="stats">
+          <dl>
+            <dt><%= link_to icon(:project), chair_projects_path(chair) %></dt>
+            <dd class="active_projects" title="Активных проектов"><%= chair.projects.current_active.with_participants.count %></dd>
+          </dl>
+          <dl>
+            <dt><%= icon(:participant) %></dt>
+            <dd class="participant_total" title="Всего студентов"><%= chair.participants.active.count %></dd>
+          </dl>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика</h3>
+    <%= render_table_stats Stat.global %>
+  </div>
+<% end %>

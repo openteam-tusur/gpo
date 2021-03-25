@@ -1,0 +1,5 @@
+<div class="project_with_stats">
+  <%= render :partial => 'projects/project', :object => object %>
+  <%= render_inline_stats object.stats(:participants), :term => link_to(icon(:participant, :title => 'Студенты'), chair_project_path(object.chair, object)) %>
+</div>
+

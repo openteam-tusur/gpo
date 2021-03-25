@@ -1,0 +1,48 @@
+<% title "Проекты", :project %>
+
+<% content_for :inline_navigation do %>
+  <ul>
+    <%= inline_nav_link link_to(I18n.t("project.active"), manage_chair_projects_path(@chair)), params[:state].blank? %>
+    <%= inline_nav_link link_to(I18n.t("project.archive"), manage_chair_projects_path(@chair, :state => "close")), params[:state] == "close" %>
+  </ul>
+<% end %>
+
+<% action_link(link_to(I18n.t("project.new"), new_manage_chair_project_path(@chair)), "new", "Позволяет создать новый проект на кафедре") if can?(:create, @chair.projects.new) %>
+
+<% content_for :hint do %>
+  <% if params[:state].blank? %>
+    <h3>Список активных проектов</h3>
+    <p>На странице собрана основная информация об актуальных проектах на кафедре.
+      По каждому проекту отображается состояние и когда оно было изменено.</p>
+    <dl>
+      <dt><span class="editable_state_blocked">Правки запрещены</span></dt>
+      <dd>Запрещено изменение проекта. Приказ, связанный с проектом ожидает утверждения.</dd>
+      <dt><span class="state_draft">Черновик проекта</span></dt>
+      <dd>Проект не утвержден приказом о формировании проектов.</dd>
+      <dt><span class="state_active">Активный проект</span></dt>
+      <dd>Проект утвержден приказом о формировании проектов.</dd>
+      <dt><%= icon(:user) %></dt>
+      <dd>Отображаются руководители проекта.</dd>
+      <dt><%= icon(:participant) %></dt>
+      <dd>Отображается количество студентов всего / 3 курса / 4 курса.</dd>
+    </dl>
+    <p>Данные приводятся в соответствии с утвержденными приказами.</p>
+    <p>По ссылке названия проекта вы можете перейти на просмотр проекта.</p>
+    <p>Ссылка "Закрытые проекты" перевод к списку архива проектов кафедры.</p>
+  <% else %>
+    <h3>Список закрытых проектов</h3>
+    <p>Список проектов, которые по каким-то причинам прикратили свое существование.</p>
+    <p>По ссылке названия проекта вы можете перейти на просмотр проекта.</p>
+    <p>Ссылка "Активные проекты" перевод к списку актуальных проектов кафедры.</p>
+  <% end %>
+<% end %>
+
+<%= render_list "project_with_stats", @projects, :id => "projects" %>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика по студентам</h3>
+    <%= render_table_stats @chair.stats(:participants) %>
+  </div>
+<% end %>
+

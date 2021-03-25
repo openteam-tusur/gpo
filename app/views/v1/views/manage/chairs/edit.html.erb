@@ -1,0 +1,15 @@
+<% title "Изменение информации о кафедры", :chair %>
+
+<% content_for :hint do %>
+  <h3>Изменение информации о кафедре</h3>
+  <p>Для изменения информации исправьте данные формы и нажмите кнопку "Сохранить"</p>
+  <p>Если нет необходимости изменять информацию нажмите "Отмена" для возврата к просмотру кафедры.</p>
+<% end %>
+
+<%= simple_form_for resource, url: resource_url do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.button :submit, I18n.t("save") %>
+    <%= link_to I18n.t("cancel"), resource_url %>
+  </fieldset>
+<% end %>

@@ -1,0 +1,16 @@
+<% title "Добавление новой кафедры", :chair %>
+
+<% content_for :hint do %>
+  <h3>Добавление кафедры</h3>
+  <p>Для добавления кафедры заполните все поля формы и нажмите кнопку "Создать"</p>
+  <p>Если нет необходимости создавать кафедру нажмите "Отмена" для возврата к списку кафедр.</p>
+<% end %>
+
+<%= simple_form_for resource, url: collection_url do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.button :submit, I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), collection_url %>
+  </fieldset>
+<% end %>
+

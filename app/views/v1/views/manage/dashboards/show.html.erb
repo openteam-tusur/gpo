@@ -1,0 +1,27 @@
+<% title "Моя страница", :dashboard %>
+
+<% content_for :hint do %>
+  <h3>Моя страница</h3>
+  <p>Это ваша главная страница. Здесь отображаются основные задачи, которые требуют внимания.</p>
+  <dl>
+    <dt><%= help_term(:task_order) %></dt>
+    <dd>К этим задачам относятся рассмотрение приказа отправленного на визирование и утверждение завизированного приказа.</dd>
+    <dt><%= help_term(:task_project) %></dt>
+    <dd>К этим задачам относятся проекты, в которых есть участники с неправильными статусами. По данным АИС "Контингент" участник проекта не является учащимся или не является участником ГПО.</dd>
+  </dl>
+<% end %>
+
+<% current_user.available_chairs.each do |chair| %>
+  <% tasks = chair.tasks(current_user, "dashboard") %>
+  <% if tasks.any? %>
+    <h2><%= link_to chair_abbr(chair), manage_chair_path(chair) %><span>на кафедре есть нерешенные задачи</span></h2>
+    <%= render_list 'shared/task', tasks, :class => 'tasks' %>
+  <% end %>
+<% end %>
+
+<% content_for :right do %>
+  <div id="stats">
+    <h3>Статистика</h3>
+    <%= render_table_stats Stat.global %>
+  </div>
+<% end %>

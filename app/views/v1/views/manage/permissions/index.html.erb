@@ -1,0 +1,31 @@
+<% title 'Управление правами', :permission %>
+
+<% content_for :action_nav do %>
+  <%= action_link(link_to('Добавить ответственного за ГПО на кафедре', new_manage_permission_path(:permission => {:role => :mentor})), 'new', 'Позволяет создать ответственного за ГПО на кафедре') %>
+  <%= action_link(link_to('Добавить администратора', new_manage_permission_path(:permission => {:role => :manager})), 'new', 'Позволяет создать администратора') %>
+<% end %>
+
+<% content_for :hint do %>
+    <p>На странице отображаются правила всех пользователей в системе.</p>
+    <dl>
+      <dt>"Редактировать"</dt>
+      <dd>Позволяет изменить правило. При этом нужно помнить, что у пользователя появятся или исчезнут соответствующие полномочия.</dd>
+      <dt>"Удалить"</dt>
+      <dd>Позволяет удалить правило. При этом нужно помнить, что у пользователя исчезнут соответствующие полномочия.</dd>
+    </dl>
+<% end %>
+
+<div class='search_permissions'>
+  <%= form_tag manage_permissions_path, :method => :get do %>
+    <%= hidden_field_tag 'search', true %>
+    <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по имени, почте', :class => 'search_input' %>
+    <%= submit_tag 'Найти', :class => 'search_submit button' %>
+    <% if @permissions.any? %>
+      <span class="found_count">Найдено: <%= @found_count %></span>
+    <% end %>
+  <% end %>
+</div>
+
+<%= paginate @permissions %>
+<%= render_list 'permission', @permissions, :id => 'permissions', :object => :permission %>
+<%= paginate @permissions %>

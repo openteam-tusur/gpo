@@ -1,0 +1,6 @@
+<% title 'Достижения', :report %>
+<div class="stage_achievement_form">
+  <%= simple_form_for @stage_achievement, url: manage_stage_achievements_path do |f| %>
+    <%= render :partial => "form", :locals => { :f => f } %>
+  <% end %>
+</div>

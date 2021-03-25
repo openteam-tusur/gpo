@@ -1,0 +1,16 @@
+<% title 'Редактирование этапа', resource.for_reporting? ? :reporting_stage : :stage %>
+
+<% content_for :hint do %>
+  <h3>Редактирование этапа</h3>
+  <p>Для изменение информации исправьте значения полей формы и нажмите кнопку &laquo;Сохранить&raquo;.</p>
+  <p>Обязательными для заполнения полями являются название, дата начала и дата окончания.</p>
+  <p>Если нет необходимости изменять информацию об этапе нажмите "Отмена" для перехода к просмотру этапа.</p>
+<% end %>
+
+<%= simple_form_for resource, url: resource_url do | form | %>
+  <fieldset>
+    <%= render partial: resource.for_reporting? ? 'form_reporting' : 'form', locals: { form: form } %>
+    <%= form.button :submit, I18n.t('save'), name: nil %>
+    <%= link_to I18n.t('back'), resource_url %>
+  </fieldset>
+<% end %>

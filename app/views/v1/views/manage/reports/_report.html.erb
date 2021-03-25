@@ -1,0 +1,14 @@
+<div id="report" class="report object <%= permitted_to?(:read, :reports) ? '': 'disabled' %>">
+  <%= icon(:report) %>
+  <h3><%= report[:type] == "doc"? report[:title] : link_to(report[:title], manage_report_path(report[:id], :format => :xls)) %></h3>
+  <div class="status">
+    <div><%= report[:description] %></div>
+  </div>
+</div>
+<% if report[:type] == "doc" %>
+  <div class="actions">
+    <%= icon :format_odt %><%= link_to "odt", manage_report_path(report[:id], :format => :odt), :title => 'В формате Open Document' %><br />
+    <%= icon :format_doc %><%= link_to "doc", manage_report_path(report[:id], :format => :doc), :title => 'В формате Microsoft Word' %>
+  </div>
+<% end %>
+

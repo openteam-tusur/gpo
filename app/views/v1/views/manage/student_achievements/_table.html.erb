@@ -1,0 +1,55 @@
+<div class='student_achievements'>
+  <h3>
+    Достижения участников
+    <%= link_to new_manage_student_achievement_path(stage: stage, anchor_id: "anchor-#{stage.id}") do %>
+      <i class="fas fa-plus" title='Добавить'></i>
+    <% end %>
+  </h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ФИО студентов</th>
+        <th>Курс</th>
+        <th>№ уч. группы</th>
+        <th>Доклады на международных и всероссийских конференциях</th>
+        <th>Дипломы и призовые места во всероссийских и международных конференциях и конкурсах по тематике ГПО</th>
+        <th>Публикации в периодической печати</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% participants.each do |p| %>
+        <% if p.deleted_at == nil %>
+          <tr>
+            <td><%= p.name %></td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td>
+              <%= student_achievement_links(stage, :international_reports, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :diplomas, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :publications, p) %>
+            </td>
+          </tr>
+        <% elsif p.was_deleted_in_chosen_semester(stage) %>
+          <tr>
+            <td> <span class="font-weight-bold">(ИСКЛ)</span> <%= p.name %> (<%= p.deleted_at.to_date %>)</td>
+            <td><%= p.course %></td>
+            <td><%= p.edu_group %></td>
+            <td>
+              <%= student_achievement_links(stage, :international_reports, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :diplomas, p) %>
+            </td>
+            <td>
+              <%= student_achievement_links(stage, :publications, p) %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

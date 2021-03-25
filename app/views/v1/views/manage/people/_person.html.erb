@@ -1,0 +1,8 @@
+<div class="user object">
+  <%= icon(:user) %>
+  <h3><%= person %></h3>
+  <div class="status">
+    <span><%= mail_to(person.email) %></span>
+  </div>
+  <div class="details"><%= user_post(person) %></div>
+</div>

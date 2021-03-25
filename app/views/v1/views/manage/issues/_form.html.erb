@@ -1,0 +1,11 @@
+<%= form.input :distance_learning %>
+<%= form.input :name %>
+<%= form.input :description %>
+<%= form.input :planned_closing_at, :as => :datepicker %>
+<%= form.input :planned_grade %>
+<% unless current_user.executive_participant? %>
+  <%= form.input :closed_at, :as => :datepicker %>
+  <%= form.input :grade %>
+  <%= form.input :results %>
+  <%= form.input :archived %>
+<% end %>

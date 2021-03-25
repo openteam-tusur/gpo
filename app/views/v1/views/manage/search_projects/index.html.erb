@@ -1,0 +1,34 @@
+<% title "Поиск проектов", :search_projects %>
+
+<div class='search_projects'>
+  <%= form_tag manage_search_projects_path, :method => :get do %>
+    <%= hidden_field_tag 'search', true %>
+    <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по названию, руководителю, направлению, кафедре', :class => 'search_input' %>
+    <span>Только активные:</span><%= check_box_tag 'active', 'yes', params.key?(:utf8) ? params[:active] : true %>
+    <span>Резиденты СБИ:</span><%= check_box_tag 'sbi_resident', 'true', params[:sbi_resident] %>
+    <div class='chair_theme'>
+      <span>Кафедра:</span><%= select_tag 'chair', options_from_collection_for_select(@chairs, 'abbr', 'abbr', params[:chair]), :include_blank => true %>
+      <span>Категория:</span><%= select_tag 'category', options_from_collection_for_select(Project.category.options, 'second', 'first', params[:category]), include_blank: true %>
+    </div>
+    <div class='chair_theme'>
+      <span>Направление:</span><%= select_tag 'theme', options_from_collection_for_select(@themes, 'name', 'name', params[:theme]), :include_blank => true %>
+    <span>Тип</span>
+    <%= select_tag 'interdisciplinary',
+      options_from_collection_for_select([['intersubfaculty', 'Межкафедральный проект'],['interfaculty', 'Межфакультетский проект']], 'first', 'second', params[:interdisciplinary]),
+      :include_blank => true %>
+    </div>
+    <%= submit_tag 'Найти', :class => 'search_submit button' %>
+    <% if @search_results.any? %>
+      <span class="found_count">Найдено: <%= @search_results.count %></span>
+      <%= link_to "Cкачать результаты", manage_search_projects_path(params.merge(:format => :xls)), :class => 'button download_results' %>
+    <% end %>
+  <% end %>
+</div>
+
+<ul class='projects_list'>
+  <% @search_results.each do |project| %>
+    <li>
+    <%= render :partial => 'project', :locals => {:project => project} %>
+    </li>
+  <% end %>
+</ul>

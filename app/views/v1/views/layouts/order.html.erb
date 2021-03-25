@@ -1,0 +1,36 @@
+<%= content_for :base_title do %>
+  Приказ <%= order_title(@order) %> — <%= yield(:title) %>
+<% end %>
+
+<%= content_for :base_content do %>
+  <div id="wrapper" class="order-level">
+    <div id="navigation">
+      <ul>
+        <%= nav_link link_to(chair_abbr(@order.chair), manage_chair_path(@order.chair)), 'chairs', :action => 'show', :selected => false %>
+        <%= nav_link link_to("Проекты", manage_chair_projects_path(@order.chair)), 'projects', :selected => false %>
+        <%= nav_link link_to("Приказы", manage_chair_orders_path(@order.chair)), 'orders', :selected => true %>
+        <% if can?(:manage_projects, @chair) %>
+          <%= nav_link link_to("Пользователи", manage_chair_people_path(@order.chair)), 'users', :selected => false %>
+          <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@order.chair)), 'chairs', :action => 'project_managers', :selected => false %>
+          <%= nav_link link_to("Журнал посещаемости", manage_chair_visitations_path(@order.chair)), 'visitations', :selected => false %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div id="content">
+      <%= render :partial => 'shared/help' %>
+      <div id="page-header">
+        <div id="tray"></div>
+        <div id="page-title">
+          <h1>
+            <%= iconed_title(@order.approved? ? "Приказ №#{@order.number} от #{I18n.l(@order.approved_at)}" : "Приказ", :order) %>
+            <span class="subtitle"><%= @order.title %></span>
+          </h1>
+        </div>
+      </div>
+      <%= render :partial => 'shared/container_two_column' %>
+    </div>
+  </div>
+<% end %>
+
+<%= render :template => 'layouts/base' %>

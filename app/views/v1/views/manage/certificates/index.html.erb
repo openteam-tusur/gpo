@@ -1,0 +1,153 @@
+<% title "Заявки на выдачу сертификатов", :project %>
+<div ng-app='certificates' ng-controller='CertificatesController'
+     ng-cloak
+     class='certificates-index'
+     ng-init='participants=<%= @participants.to_json(only: [:id], methods: [:name, :project_to_s]).html_safe %>;
+     certificates.insertData(<%= @certificates.html_safe %>);
+     certificates.roles=<%= current_user.permissions.pluck(:role).uniq.to_json %>;
+     certificates.filters=<%= @filters.to_json%>;
+     resolveState()'>
+
+  <div class="filters">
+    <a ng-repeat='state in certificates.filters'
+       type="button"
+       ng-click='resolveState(state.state)'
+       ng-class='{bold: state.state == filterState }'
+       >
+      {{ state.text }} ({{certificates.filterState(state.state).length }})
+    </a>
+  </div>
+
+  <div class='pdf-actions' ng-show='certificates.canPdfAll(filterState)'>
+    <a class="button" ng-show='certificates.selected().length' ng-click='certificates.markAll()'>
+      Очистить выделенное
+    </a>
+    <a href="{{ certificates.getAllCertificatesUrl() }}" class="button" ng-show="certificates.selected().length">
+      Скачать выделенные сертификаты
+    </a>
+    <a class="button" ng-click='certificates.markAll(true)' >
+      Выделить все
+    </a>
+  </div>
+
+  <button type="button" class='button' ng-click='certificates.addCertificate()' ng-show='certificates.showAddButton()'>
+    Добавить заявку
+  </button>
+
+  <div ng-repeat='certificate in certificates.filterState(filterState, true)' class='certificate-claim' ng-class='{ selected: certificate.selected }'>
+    <div class="new_certificate_form simple_form" ng-show="certificate.formShow()">
+      <fieldset>
+        <div class="input">
+          <label>
+            Выберите участника
+          </label>
+          <select ng-show='certificate.abilities.edit_participant'
+            ng-model="certificate.participant"
+            ng-options='participant.name for participant in participants track by participant.id'>
+          </select>
+          <strong ng-hide='certificate.abilities.edit_participant'>
+            {{ certificate.participant.name }}
+          </strong>
+          <p class='project-title'>
+            {{ certificate.participant.project_to_s}}
+          </p>
+        </div>
+      <div class="input">
+        <label>
+          Проект выполнялся:
+        </label>
+        <textarea ng-model="certificate.project_reason" rows="8" cols="40">
+        </textarea>
+        <span class='counter' ng-class='{danger: certificate.counter(certificate.project_reason) < 0}'
+              title='Если вы превысите количество символов, вы не сможете добавить заявку'>
+          Осталось символов: <b>{{certificate.counter(certificate.project_reason)}}</b>
+        </span>
+        <small >
+          Указывается для кого и на основании каких документов выполнялся проект.
+          <br/>
+          Варианты заполнения:
+          <br/>
+          <b>для использования </b>
+          (где?) наименование сферы использования (например: маркетинговые агентства, субъекты системы здравоохранения, вузы, школы города);
+          <br/>
+          <b>по заказу</b>
+            (кого?) наименование предприятия, кафедры,  (например: администрация г. Томска, управление по инновациям ТУСУР, кафедра ИСР и т.д.);
+          <br/>
+          <b>в интересах </b>
+          (кого?) наименование предприятия, фирмы, с которыми заключены договора, соглашения или имеется письмо о заинтересованности в результатах;
+          <br/>
+          <b>в рамках договора</b>
+           номер договора и наименование предприятия.
+        </small>
+      </div>
+      <div class="input">
+        <label>
+          Результат выполнения проекта:
+        </label>
+        <textarea ng-model="certificate.project_result" rows="8" cols="40">
+        </textarea>
+        <span class='counter' ng-class='{danger: certificate.counter(certificate.project_result) < 0}'
+              title='Если вы превысите количество символов, вы не сможете добавить заявку'>
+          Осталось символов: <b>{{certificate.counter(certificate.project_result)}}</b>
+        </span>
+        <small>
+          Заполняется, что было достигнуто в результате выполнения проекта данным участником.
+          <br/>
+          <b>Варианты:</b>
+          <br/>
+            <b>устройство,</b> предназначенное для (например: визуальной стимуляции головного мозга);
+          <br/>
+          <b>технология </b> (например: формирования оксидных пленок и т.д.);
+          <br/>
+          <b>программный продукт </b> (например:  для формирования электронного расписания занятий вузов);
+          <br/>
+          <b>методика </b> (например: разработки программы продвижения программных продуктов на рынке корпоративных продаж);
+          <br/>
+          <b>организация и проведение мероприятий </b> (например: организация молодежного форума).
+        </small>
+      </div>
+      <button type="button" ng-click="certificate.submit()" ng-show='certificate.validate()' class="button">
+        {{ certificate.saveButtonText() }}
+      </button>
+      <button type="button" ng-click='certificate.hideForm()' class="button cancel"> Отмена </button>
+    </fieldset>
+  </div>
+    <div class="participant" ng-hide='certificate.formShow()'>
+      <div class="text-field">
+        <strong>
+          {{ certificate.participant.name }}
+        </strong>
+        <p>
+          {{ certificate.participant.text_for_views }}
+          <br/>
+          {{ certificate.participant.project_to_s }}
+        </p>
+      </div>
+      <div class="text-field">
+        <label>
+          Проект выполнялся
+        </label>
+        {{ certificate.project_reason }}
+      </div>
+      <div class="text-field" ng-if='certificate.project_result.length'>
+        <label>
+          Результат выполнения проекта
+        </label>
+        {{ certificate.project_result }}
+      </div>
+      <div class="certificate-state {{certificate.state}}">
+        {{ certificate.state_text }}
+      </div>
+      <div class="buttons-wrapper">
+        <button type="button" ng-click='certificate.needs_to_be_edited = true' ng-show='certificate.abilities.edit_destroy' class="button">Редактировать</button>
+        <button type="button" ng-click='certificate.destroy()' class="button danger" ng-show='certificate.abilities.edit_destroy'>Удалить</button>
+        <button type="button" ng-click='certificate.approve()' ng-show='certificate.abilities.approve' class="button" >{{ certificate.approveButtonText() }}</button>
+        <button type="button" ng-click='certificate.decline()' ng-show='certificate.abilities.decline' class="button danger">Отклонить заявку</button>
+        <a href="{{certificates.url}}/{{certificate.id}}/pdf" class="button" ng-show="certificate.abilities.pdf" target='_blank'>PDF</a>
+        <button type="button" ng-click='certificate.selected = !certificate.selected' class="button" ng-if='certificate.abilities.pdf'>
+          {{ certificate.textForSelectButton() }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

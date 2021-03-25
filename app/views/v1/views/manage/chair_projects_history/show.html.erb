@@ -1,0 +1,21 @@
+<% title "История учаcтников проекта &laquo;#{@project.title} &raquo;".html_safe, :project %>
+
+<h2> Проект создан <%= @project.created_at %> </h2>
+
+<h3> Добавленные участники: </h3>
+<% @participants.each do |participant| %>
+  Участник <%= participant.first_name %>
+  <%= participant.middle_name %>
+  <%= participant.last_name %>
+  добавлен в проект (<%= participant.created_at %>) </br>
+<% end %>
+
+<% if @deleted_participants.any? %>
+<h3> Исключенные участники: </h3>
+  <% @deleted_participants.each do |d_participant| %>
+    Участник <%= d_participant.first_name %>
+    <%= d_participant.middle_name %>
+    <%= d_participant.last_name %>
+    исключен из проекта (<%= d_participant.deleted_at %>) </br>
+  <% end %>
+<% end %>

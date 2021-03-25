@@ -1,0 +1,14 @@
+<% if current_user.available_chairs.many? %>
+  <div id="go-to-chair">
+    <%= simple_form_for manage_chairs_path, :method => "get" do | form | %>
+      <%= form.input :chair,
+                     :label => "Кафедра",
+                     :collection => current_user.available_chairs,
+                     :selected => @chair.try(:id),
+                     :include_blank => true,
+                     :required => false %>
+      <%= form.button :submit, "&raquo;".html_safe %>
+    <% end %>
+  </div>
+<% end %>
+

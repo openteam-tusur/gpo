@@ -1,0 +1,25 @@
+<div class="participant object">
+  <%= icon(:participant) %>
+  <h3><%= participant.name %></h3>
+  <% if participant.problems.empty?  %>
+    <% if can?(:make_executive, participant) %>
+      <%= link_to "Назначить ответственным",
+        make_executive_manage_chair_project_participant_path(@chair, @project, participant),
+        :method => :put,
+        :class => 'button executive' if (participant.approved? && !participant.executive)%>
+    <% end %>
+    <% if can?(:unmake_executive, participant) %>
+      <%= link_to "Отменить роль ответственного",
+        unmake_executive_manage_chair_project_participant_path(@chair, @project, participant),
+        :method => :put,
+        :class => 'button executive' if (participant.approved? && participant.executive)%>
+    <% end %>
+  <% end %>
+  <div class="status">
+    <span class="state_<%= participant.state %>"><%= participant.current_state %></span>
+    <span class="date"><%= time_ago(participant, :updated_at) %></span>
+  </div>
+  <div class="details"><%= participant.text_for_views %></div>
+  <div class="details"><%= problem_text(participant) %></div>
+</div>
+

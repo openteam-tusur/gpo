@@ -1,0 +1,15 @@
+<% title "Добавление задачи для участника #{@participant.name}", :issues %>
+
+<% content_for :hint do %>
+  <p>Чтобы добавить задачу укажите название, содержание работ, плановую дату выполнения и нажмите "Добавить".</p>
+  <p>Если нет необходимости создавать задачу перейдите по ссылке "Отмена"</p>
+<% end %>
+
+<%= simple_form_for @issue, :url => manage_chair_project_participant_issues_path(@chair, @project, @participant) do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.button :submit, t("create") %>
+    <%= link_to t("cancel"), manage_chair_project_issues_path(@chair, @project) %>
+  </fieldset>
+<% end %>
+

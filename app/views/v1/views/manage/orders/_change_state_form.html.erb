@@ -1,0 +1,15 @@
+<% if (state_events = @order.state_events_for(current_user)).any? %>
+  <%= simple_form_for @order, :url => resource_url, :html => { :method => :put } do | form | %>
+    <fieldset>
+      <%= form.input :number %>
+      <%= form.input :approved_at, :as => :datepicker %>
+      <%= form.input :state_event, :as => :hidden, :input_html => { :id => 'order_state_event' } %>
+      <%= form.input :comment, :as => :text, :input_html => { :class => "comment_for_change_state_order" } %>
+
+      <% state_events.each do |event| %>
+        <%= form.button :submit, Order.human_state_event_name(event), :name => event %>
+      <% end %>
+    </fieldset>
+  <% end %>
+<% end %>
+
