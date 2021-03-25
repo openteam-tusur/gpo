@@ -1,0 +1,35 @@
+<div class='student_achievements'>
+  <h3>
+    Достижения участников
+  </h3>
+  <table>
+    <thead>
+      <tr>
+        <th>ФИО студентов</th>
+        <th>Курс</th>
+        <th>№ уч. группы</th>
+        <th>Доклады на международных и всероссийских конференциях</th>
+        <th>Дипломы и призовые места во всероссийских и международных конференциях и конкурсах по тематике ГПО</th>
+        <th>Публикации в периодической печати</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% participants.each do |p| %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.course %></td>
+          <td><%= p.edu_group %></td>
+          <td>
+            <%= deleted_student_achievement_links(stage, :international_reports, p) %>
+          </td>
+          <td>
+            <%= deleted_student_achievement_links(stage, :diplomas, p) %>
+          </td>
+          <td>
+            <%= deleted_student_achievement_links(stage, :publications, p) %>
+          </td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</div>

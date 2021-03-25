@@ -1,0 +1,21 @@
+<div class='stage object'>
+  <%= stage.for_reporting? ? icon(:reporting_stage) : icon(:stage) %>
+  <h3>
+    <%= icon(:warning) if stage.for_reporting? && !stage.reporting_filled? %>
+    <%= link_to stage.title, manage_chair_project_stage_path(stage.project.chair, stage.project, stage) %>
+  </h3>
+  <div class='status'>
+    <span class='date'>
+      с
+      <%= date(stage.start) %>
+    </span>
+    <span class='date'>
+      по
+      <%= date(stage.finish) %>
+      <%= 'включительно' if stage.for_reporting? %>
+    </span>
+  </div>
+  <% unless stage.for_reporting? %>
+    <div class='details'><%= stage.activity %></div>
+  <% end %>
+</div>

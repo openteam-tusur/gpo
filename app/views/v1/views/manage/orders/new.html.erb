@@ -1,0 +1,22 @@
+<% title "Создание приказа #{order_title(@order)}", :order %>
+
+<% content_for :hint do %>
+  <h3>Создание приказа</h3>
+  <p>Для создания приказа, отметьте проекты, состояние которых будет утверждено приказом и нажмите "Создать".</p>
+  <p>Если нет необходимости изменять приказ "Отмена" для возврата к списку приказов.</p>
+<% end %>
+
+
+<% if @order.available_projects.empty? %>
+  "Создание приказа невозможно, т.к. нет подходящих проектов"
+<% else %>
+
+  <p>Выберите проекты, состояние которых будет утверждено приказом.</p>
+  <%= simple_form_for @order, :url => collection_url do | form | %>
+    <fieldset>
+      <%= render :partial => "manage/orders/form", :locals => { :form => form, :order => @order } %>
+      <%= form.button :submit, I18n.t("create") %>
+      <%= link_to I18n.t("cancel"), manage_chair_orders_path(@chair) %>
+    </fieldset>
+  <% end %>
+<% end %>

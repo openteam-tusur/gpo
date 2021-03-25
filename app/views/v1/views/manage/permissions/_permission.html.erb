@@ -1,0 +1,29 @@
+<div class='permission object'>
+  <%= icon(:permission) %>
+  <% if permission.user.present?  %>
+    <h3><%= permission.user.fullname %></h3>
+    <% person = Person.find_by(:user_id => permission.user_id) %>
+    <% if permission.role.eql?('project_manager') && ProjectManager.find_by(:project_id => permission.context_id, :person_id => person.try(:id)).blank? %>
+      <div class='attention'>
+        нет связи с проектом
+        <%= '(проект закрыт)' if permission.context.closed? %>
+      </div>
+    <% end %>
+    <div class='details'><%= mail_to permission.user.email %></div>
+  <% else %>
+    <h3 class='attention'>Нет пользователя</h3>
+  <% end %>
+  <div class='status'>
+    <span class='date'>Создано: <%= time_ago permission %></span>
+  </div>
+  <div class='details'>
+    <% if permission.role.eql?('project_manager') %>
+      <%= link_to permission.role_with_context, manage_chair_project_path(Project.find(permission.context_id).chair.id, permission.context_id) %>
+    <% else %>
+      <%= permission.role_with_context %>
+    <% end %>
+  </div>
+</div>
+<div class='actions'>
+  <%= link_to_delete manage_permission_path(permission) if permitted_to?(:delete, permission) && !permission.role.eql?('project_manager') %>
+</div>

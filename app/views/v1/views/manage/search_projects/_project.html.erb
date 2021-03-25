@@ -1,0 +1,28 @@
+<div id="project_<%= project.id %>" class="project object">
+  <%= icon(:project) %>
+  <h3><%= link_to("#{project.cipher} #{project.title}".html_safe, manage_chair_project_path(project.chair, project)) %></h3>
+  <div class="theme">
+  <%= project_theme(project) %>
+  </div>
+  <%= content_tag :div, project.sbi_placing_text, class: 'sbi_placing' if project.sbi_placing_resident? %>
+  <%= content_tag :div, project.interdisciplinary_text, class: :interdisciplinary unless project.not_interdisciplinary? %>
+  <div class="status">
+    <span class="state_<%= project.state %>"><%= project.human_state_name %></span>
+    <span class="editable_state_<%= project.editable_state %>"><%= project.human_editable_state_name %></span>
+    <span class="date"><%= project_updated(project) %></span>
+    <%= "#{Project.human_attribute_name(:close_reason)}: #{project.close_reason}" if project.closed? %>
+  </div>
+  <div class='details'>
+    <div class='category'>
+      <span>Категория:</span><%= project.category_text %>
+    </div>
+    <div class="project_managers">
+      <span>Руководитель:</span><%= project_project_managers(project) %>
+    </div>
+    <div class="project_participants">
+      <span>Участники:</span><%= project_participants(project) %>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,18 @@
+<% title @reporting_stage.title, :reporting_stage %>
+
+<% @statistics.each do |chair, stages| %>
+  <h2 class='margin-bottom-20 margin-top-20'><%= link_to %(Кафедра #{chair.abbr}), manage_chair_path(chair) %></h2>
+  <% stages.sort{ |a, b| a.project.cipher <=> b.project.cipher }.each do |stage| %>
+    <p class='margin-bottom-15<%= ' attention' unless stage.reporting_filled? %>'>
+      <% if stage.reporting_filled? %>
+        <i class='fa fa-check-circle success cursor-help' title='Заполнен'></i>
+      <% else %>
+        <i class='fa fa-exclamation-triangle attention cursor-help' title='Не заполнен'></i>
+      <% end %>
+      <% if stage.empty? %>
+        <span> (н/а) </span>
+      <% end %>
+      <%= link_to stage.project, manage_chair_project_stage_path(stage.chair, stage.project, stage) %>
+    </p>
+  <% end %>
+<% end %>

@@ -1,0 +1,36 @@
+<% title "Приказ #{order_title(@order)}", :order %>
+
+<% content_for :hint do %>
+  <h3>Страница приказа</h3>
+  <p>На странице отображается сведения о приказе и список проектов, связаных с приказом, а также журнал изменения статуса приказа и комментарии к ним.</p>
+<% end %>
+
+<% if @order.file_url? %>
+  <%#= action_link(link_to(I18n.t('order.doc_file'), @order.file_url), 'doc', "Скачать приказ в формате Microsoft Word") %>
+  <% content_for :action_nav do %>
+    <li class="action doc">
+      <%= link_to(I18n.t('order.doc_file'), @order.file_url)%>
+      <%= link_to preview_manage_chair_order_path(@order.chair, @order), target: :_blank do %>
+        <i class="fas fa-external-link-alt"></i>
+      <% end %>
+      <span> "Скачать приказ в формате Microsoft Word" </span>
+    </li>
+  <% end %>
+
+<% else %>
+  <%= action_link(link_to_file(@order, "doc", I18n.t("order.doc_file")), "doc", "Скачать приказ в формате Microsoft Word") %>
+<% end %>
+
+<% action_link(link_to(I18n.t("edit"), edit_manage_chair_order_path(@order.chair, @order)), "edit", "Позволяет изменить информацию о приказе") if can?(:update, @order) %>
+<% action_link(link_to_delete(manage_chair_order_path(@order.chair, @order)), "destroy", "Позволяет удалить приказ") if can?(:destroy, @order) %>
+
+<p class="hint"><%= I18n.t("order.hint_#{@order.state}")%> </p>
+<%= render :partial => "manage/orders/change_state_form", :locals => {:order => @order} %>
+
+<h2>Проекты <span>список проектов, проходящих по данному приказу</span></h2>
+<%= render_list "manage/projects/project", @order.projects, :id => "projects" %>
+
+<% unless @order.activities.recent.empty? %>
+  <h2>Активность по приказу <span>что происходило с данным приказом</span></h2>
+  <%= render_list "shared/activity", @order.activities.recent, :id => "order-activities" %>
+<% end %>

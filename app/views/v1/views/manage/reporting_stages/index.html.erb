@@ -1,0 +1,11 @@
+<% title 'Этапы аттестации', :reporting_stage %>
+
+<% content_for :hint do %>
+  <p>Для добавления нового этапа аттестации передите по ссылке &laquo;Добавить&raquo;</p>
+  <p>Для изменения дат этапа аттестации перейдите по соответсвующей ссылке &laquo;Редактировать&raquo;</p>
+  <p>Для удаления этапа аттестации перейдите по соответсвующей ссылке &laquo;Удалить&raquo;</p>
+<% end %>
+
+<% action_link(link_to('Добавить', new_manage_reporting_stage_path), 'new', 'Позволяет добавить этап аттестации')%>
+
+<%= render_list 'reporting_stage_with_actions', @reporting_stages.descending, id: 'reporting_stages', object: :reporting_stage %>

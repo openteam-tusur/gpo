@@ -16,7 +16,7 @@ module ApplicationHelper
       selected = options[:selected]
     end
     css_class = selected ? 'current' : ''
-    img = image_tag %(nav_#{id}.png), class: 'icon', size: '16x16'
+    img = image_tag %(nav_#{id}.png), class: 'icon'
     content_tag :li, img + link, class: css_class, id: %(link_to_#{id})
   end
 
@@ -152,7 +152,6 @@ module ApplicationHelper
   def icon(style, options = {})
     options[:class] ||= "icon"
     options[:alt] ||= options[:title] unless options[:title].nil?
-    options[:size] ||= "16x16"
     image_tag("icon_#{style}.png", options)
   end
 
@@ -164,7 +163,7 @@ module ApplicationHelper
     rows = stats.collect { |stat|
       content_tag :tr, content_tag(:td, stat.title) + content_tag(:td, stat.value, :class => "value"), :class => cycle("odd", "even") + stat.key.to_s
     }.join
-    content_tag :table, rows.html_safe
+    content_tag :table, rows.html_safe, class: 'table table-bordered'
   end
 
   def render_inline_stats(stats, options = {})

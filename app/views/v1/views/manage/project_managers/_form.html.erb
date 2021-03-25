@@ -1,0 +1,1 @@
+<%= form.input :person_id, :collection => @project.chair.people.collect { | user | [user, user.id] }, :include_blank => true %>

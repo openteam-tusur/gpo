@@ -1,16 +1,25 @@
-// Paddings And Margins generator
-$direction-list: top right bottom left
+ul
+  padding-left: 0
 
-@for $i from 0 through 60
-  @each $direction in $direction-list
-    .margin-#{$direction}-#{$i}
-      margin-#{$direction}: unquote("#{$i}px") !important
+  li
+    list-style-type: none
 
-    .padding-#{$direction}-#{$i}
-      padding-#{$direction}: unquote("#{$i}px") !important
+.ul-rhombus
+  margin-bottom: 25px
 
-.text-muted
-  color: #6c757d
+  > li
+    position: relative
+    padding-left: 20px
+    margin: 5px 0 5px 10px
 
-.font-weight-bold
-  font-weight: bold
+    &:before
+      position: absolute
+      display: block
+      left: 0
+      top: 0
+      content: '\25A0'
+      transform: rotate(45deg)
+      color: #025DAE
+
+  ol li
+    padding-left: 0

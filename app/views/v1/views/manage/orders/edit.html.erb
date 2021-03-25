@@ -1,0 +1,22 @@
+<% title "Изменение приказа #{order_title(@order)}", :order %>
+
+<% content_for :hint do %>
+  <h3>Изменение приказа</h3>
+  <% if @order.approved? %>
+    <p>Для изменения приказа исправьте значения полей формы  и нажмите "Сохранить".</p>
+    <p>Поля номер и дата приказа являются обязательными для заполнения.</p>
+  <% else %>
+    <p>Для изменения приказа, отметьте проекты, состояние которых будет утверждено приказом и нажмите "Сохранить".</p>
+  <% end %>
+    <p>Если нет необходимости изменять приказ "Отмена" для возврата к просмотру приказа.</p>
+<% end %>
+
+<p>Выберите проекты, состояние которых будет утверждено приказом.</p>
+<%= simple_form_for @order, :url => resource_url do | form | %>
+  <fieldset>
+    <%= render :partial => "manage/orders/form", :locals => { :form => form, :order => @order } %>
+    <%= form.button :submit, I18n.t("save") %>
+    <%= link_to I18n.t("cancel"), manage_chair_order_path(@chair, @order) %>
+  </fieldset>
+<% end %>
+

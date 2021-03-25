@@ -4,36 +4,47 @@
 <%= render :partial => 'shared/advertisement' %>
 <div class="faculties_list">
   <% @chairs.each do |faculty, chairs| %>
-
-  <div class="<%= chairs.first.transliterated_faculty_abbr%>">
-    <h2><%= faculty %></h2>
-    <ul class="chairs_list">
-    <% chairs.each do |chair| %>
-      <li>
-        <div class="title">
-          <%= icon(:chair) %>
-          <h3><%= link_to "Кафедра #{content_tag(:abbr, chair.abbr, :title => chair.title)}".html_safe, chair_projects_path(chair) %></h3>
-          <div class="mentors"><%= chair_mentors(chair) %></div>
-            <% chair.projects.active.each do |project| %>
-              <%= link_to chair_project_path(chair_id: chair.id, id: project.id) do %>
-                <div><%= project.title %> (<%= project.cipher %>)</div>
-              <% end %>
-            <% end %>
+    <%= image_tag "faculties/#{chairs.first.transliterated_faculty_abbr}.svg", class:'faculty-image' %>
+    <div class="faculty-item <%= chairs.first.transliterated_faculty_abbr%>">
+      <h2><%= faculty %></h2>
+      <div class="chair_list">
+        <% chairs.each do |chair| %>
+          <div class="row">
+            <div class="col-xs-10">
+              <div class="title">
+                <h3><%= link_to "Кафедра #{content_tag(:abbr, chair.abbr, :title => chair.title)}".html_safe, chair_projects_path(chair) %></h3>
+                <div class="mentors">Ответственный за ГПО на кафедре: <%= chair_mentors(chair) %></div>
+              </div>
+            </div>
+            <div class="col-xs-2">
+              <div class="stats">
+                <div class="pull-right">
+                  <span class="active_projects" title="Активных проектов"><%= chair.projects.current_active.with_participants.count %></span>
+                  <span><%= link_to icon(:project), chair_projects_path(chair) %></span>
+                </div>
+                <br>
+                <div class="pull-right">
+                  <span class="participant_total" title="Всего студентов"><%= chair.participants.active.count %></span>
+                  <span><%= icon(:participant) %></span>
+                </div>
+              </div>
+            </div>
           </div>
-        <div class="stats">
-          <dl>
-            <dt><%= link_to icon(:project), chair_projects_path(chair) %></dt>
-            <dd class="active_projects" title="Активных проектов"><%= chair.projects.current_active.with_participants.count %></dd>
-          </dl>
-          <dl>
-            <dt><%= icon(:participant) %></dt>
-            <dd class="participant_total" title="Всего студентов"><%= chair.participants.active.count %></dd>
-          </dl>
-        </div>
-      </li>
-    <% end %>
-    </ul>
-  </div>
+          <div class="chair-project-list">
+            <ul class="ul-rhombus">
+              <% chair.projects.active.each do |project| %>
+                <li class="chair-project-item">
+                  <%= link_to chair_project_path(chair_id: chair.id, id: project.id) do %>
+                    <%= project.title %> (<%= project.cipher %>)
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 </div>
 

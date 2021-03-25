@@ -1,0 +1,21 @@
+<div id="container-one-collumn" >
+
+  <div class="clearfix">
+  <% if flash['notice'] %>
+    <div id="notice">
+      <%= flash['notice'] %>
+    </div>
+  <% end %>
+  <% if flash['error'] %>
+    <div id="error">
+      <%= flash['error'] %>
+    </div>
+  <% end %>
+
+  <h1><%= yield :page_title %></h1>
+  </div>
+
+  <%= yield %>
+
+</div>
+

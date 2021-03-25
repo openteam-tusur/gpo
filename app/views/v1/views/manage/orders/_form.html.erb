@@ -1,0 +1,5 @@
+<%= form.association :projects, :as => :check_boxes, :collection => (order.available_projects + order.projects), :label_method => :to_s %>
+<% unless @order.draft? %>
+  <%= form.input :number %>
+  <%= form.input :approved_at, :as => :datepicker %>
+<% end %>

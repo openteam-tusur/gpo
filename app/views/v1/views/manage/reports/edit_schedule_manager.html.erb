@@ -1,0 +1,61 @@
+<h3>График работы руководителей групп ГПО в <%= XlsReport.new.semestr %> семестре <%=XlsReport.new.edu_years %> уч. год. </h3>
+<div class='issues'>
+  <%= form_tag manage_report_update_schedule_manager_path(chair: @chair), method: :put do %>
+    <table>
+      <thead>
+        <tr>
+          <th>ФИО руководителя</th>
+          <th>Должность, уч. звание</th>
+          <th>№ группы ГПО</th>
+          <th>Аудитория</th>
+          <th>Время консультаций</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @chair.uniq_project_manager_users.each do |person| %>
+          <% person.project_managers.active.each_with_index do |pm, i| %>
+            <%= fields_for "project_managers[]", pm do |f| %>
+              <tr>
+                <%if i == 0 %>
+                  <td rowspan="<%= person.project_managers.active.count %>">
+                    <%= person %>
+                  </td>
+                  <td rowspan="<%= person.project_managers.active.count %>">
+                    <%= person.post %>
+                  </td>
+                <% end %>
+                <td>
+                  <%= pm.project.cipher %>
+                </td>
+                <% if current_user.mentor_of?(@chair) || current_user.manager? %>
+                  <td>
+                    <div class="field">
+                      <%= f.text_field :auditorium%>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="field">
+                      <%= f.text_field :consultation_time%>
+                    </div>
+                  </td>
+                <% else %>
+                  <td>
+                    <%= pm.auditorium%>
+                  </td>
+                  <td>
+                    <%= pm.consultation_time%>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+    <% if current_user.mentor_of?(@chair) || current_user.manager? %>
+      <div class="actions">
+      <%= submit_tag "Сохранить" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

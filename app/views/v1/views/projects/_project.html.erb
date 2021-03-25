@@ -1,0 +1,11 @@
+<div id="project_<%= project.id %>" class="project object">
+  <%= icon(:project) %>
+  <h3><%= link_to "#{project.cipher} #{project.title}", chair_project_path(project.chair, project) %></h3>
+  <div class="theme">
+  <%= project_theme(project) %>
+  </div>
+  <%= content_tag :div, project.sbi_placing_text, class: :sbi_placing if project.sbi_placing_resident? %>
+  <%= content_tag :div, project.interdisciplinary_text, class: :interdisciplinary unless project.not_interdisciplinary? %>
+  <div class="details"><%= project_project_managers(project) %></div>
+</div>
+

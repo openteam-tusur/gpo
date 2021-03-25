@@ -1,0 +1,9 @@
+<% title 'Документ', :report %>
+<%= simple_form_for @issue_attachment, url: :manage_chair_project_participant_issue_issue_attachment do |f| %>
+  <%= f.input :title, label: 'Название'%>
+  <%= link_to @issue_attachment.document_file_name, @issue_attachment.document.url if @issue_attachment.document.file? %>
+  <%= f.input :document, as: :file, label: 'Документ (лекция, тест и пр.)'%>
+  <%= f.button :submit, 'Сохранить' %>
+<% end %>
+
+<%= link_to 'Отменить', manage_chair_project_issues_path, class: 'btn btn-light-blue' %>

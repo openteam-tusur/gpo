@@ -1,0 +1,8 @@
+<div class="project_manager object">
+  <%= icon(:user) %>
+  <h3><%= project_manager.person %></h3>
+  <div class="status">
+    <span class="state_<%= project_manager.state %>"><%= project_manager.human_state_name %></span>
+    <span class="date"><%= time_ago(project_manager, :updated_at) %></span>
+  </div>
+</div>

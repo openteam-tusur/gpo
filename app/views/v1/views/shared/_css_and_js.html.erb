@@ -1,0 +1,12 @@
+<%= stylesheet_link_tag 'application', :media => 'screen, projection' %>
+<%= stylesheet_link_tag 'print', :media => 'print' %>
+<!-- for all IE -->
+<!--[if IE]>
+<%= stylesheet_link_tag 'ie',  :media => 'screen, projection' %>
+<![endif]-->
+<!-- for IE6 -->
+<!--[if lt IE 7]>
+<%= stylesheet_link_tag 'ie6',  :media => 'screen, projection' %>
+<![endif]-->
+<%= javascript_include_tag 'application' %>
+<%= javascript_include_tag 'angular-certificates' if controller_name == 'certificates' %>

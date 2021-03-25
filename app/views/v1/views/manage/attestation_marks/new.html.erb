@@ -1,0 +1,6 @@
+<% title 'Баллы (аттестационная составляющая) участников', :report %>
+<div class="attestation_mark_form">
+  <%= simple_form_for @attestation_mark, url: manage_attestation_marks_path do |f| %>
+    <%= render :partial => "form", :locals => { :f => f } %>
+  <% end %>
+</div>

@@ -1,0 +1,57 @@
+<%= form.input :title, disabled: true,
+  input_html: { name: nil } %>
+<%= form.input :start, as: :string, disabled: true,
+  input_html: { name: nil, value: I18n.l(form.object.start) } %>
+<%= form.input :finish, label: 'Дата окончания (включительно)', as: :string, disabled: true,
+  input_html: { name: nil, value: I18n.l(form.object.finish) } %>
+
+<hr />
+<%= form.input :file_report %>
+<% if form.object.file_report.present? %>
+  <p>
+    <%= link_to form.object.file_report_file_name, form.object.file_report.url, target: '_blank' %>
+    [<%= number_to_human_size form.object.file_report_file_size %>]
+  </p>
+<% end %>
+
+<hr />
+<%= form.input :file_review %>
+<% if form.object.file_review.present? %>
+  <p>
+    <%= link_to form.object.file_review_file_name, form.object.file_review.url, target: '_blank' %>
+    [<%= number_to_human_size form.object.file_review_file_size %>]
+  </p>
+<% end %>
+
+<hr />
+<% if form.object.reporting_marks.any? %>
+  <h3>Участники</h3>
+  <div class='issues'>
+    <table>
+      <thead>
+        <tr>
+          <th>ФИО</th>
+          <th>Группа</th>
+          <th>Оценка</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= form.simple_fields_for :reporting_marks do |rmf| %>
+        <tr>
+          <td>
+            <%= rmf.object.fullname %>
+          </td>
+          <td>
+            <%= rmf.object.group %>
+          </td>
+          <td>
+            <%= rmf.input :mark, label: false, as: :select, required: true %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p>Отсутствуют участники проекта</p>
+<% end %>

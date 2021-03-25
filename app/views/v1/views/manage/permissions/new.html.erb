@@ -1,0 +1,22 @@
+<% role = 'ответственного за ГПО на кафедре' if params[:permission][:role] == 'mentor' %>
+<% role = 'руководителя пректа' if params[:permission][:role] == 'project_manager' %>
+<% role = 'администратора' if params[:permission][:role] == 'manager' %>
+
+<% title "Добавление нового #{role}", :permission %>
+
+<% content_for :hint do %>
+  <p>Для добавления правила заполните поля формы и нажмите кнопку "Создать"</p>
+  <p>Обязательно выберите пользователя, для которого вы хотите создать правло.</p>
+  <p>Выберите необходимую роль пользователя.</p>
+  <p>Если нужно добавить ответственного зп ГПО на кафедре, обязательно выберите кафедру из списка "Кафедра"</p>
+  <p>Если нет необходимости добавлять правило нажмите "Отмена" для возврата к списку правил.</p>
+<% end %>
+
+<%= simple_form_for @permission, :url => manage_permissions_path(:role => params[:permission][:role]) do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.button :submit, I18n.t("create") %>
+    <%= link_to I18n.t("cancel"), collection_url %>
+  </fieldset>
+<% end %>
+

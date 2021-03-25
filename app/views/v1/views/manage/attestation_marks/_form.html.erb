@@ -1,0 +1,16 @@
+<fieldset>
+<%= f.hidden_field :stage_id %>
+<%= f.input :participant_id,
+            collection: @participants,
+            as: :select,
+            label: 'Участник'
+          %>
+
+<%= f.input :mark, label: 'Баллы (0..30)'%>
+</fieldset>
+<%= f.button :submit, 'Сохранить' %>
+<%= link_to I18n.t("back"),
+    manage_report_edit_chair_attestation_path(
+      report_id: 'chair_attestation',
+      chair: @attestation_mark.stage.chair.id)
+%>

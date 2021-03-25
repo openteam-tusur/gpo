@@ -4,4 +4,5 @@ NonStupidDigestAssets.whitelist = [
   'application.css',
   'datepicker.gif',
   'nav_sessions_dashboard.png',
+  /FontAwesome*/
 ]

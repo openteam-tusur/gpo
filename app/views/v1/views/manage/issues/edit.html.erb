@@ -1,0 +1,16 @@
+<% title "Изменение задачи для участника #{@participant.name}", :issues %>
+
+<% content_for :hint do %>
+  <p>Чтобы изменить задачу внесите изменения в поля форму и нажмите "Сохранить".</p>
+  <p>Если участник выполнил задачу, укажите фактическую дату выполнения, оценку в баллах и полученный результат.</p>
+  <p>Если нет необходимости изменять задачу перейдите по ссылке "Отмена"</p>
+<% end %>
+
+<%= simple_form_for @issue, :url => manage_chair_project_participant_issue_path(@chair, @project, @participant, @issue) do | form | %>
+  <fieldset>
+    <%= render :partial => "form", :locals => { :form => form } %>
+    <%= form.button :submit, t("save") %>
+    <%= link_to t("cancel"), manage_chair_project_issues_path(@chair, @project) %>
+  </fieldset>
+<% end %>
+

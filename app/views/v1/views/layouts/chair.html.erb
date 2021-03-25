@@ -1,0 +1,39 @@
+<%= content_for :base_title do %>
+  Кафедра <%= @chair.abbr %> — <%= yield(:title) %>
+<% end %>
+
+<%= content_for :base_content do %>
+  <div id="wrapper" class="chair-level">
+    <div id="navigation">
+      <ul>
+        <%= nav_link link_to(chair_abbr(@chair), manage_chair_path(@chair)), 'chairs' %>
+        <%= nav_link link_to("Проекты", manage_chair_projects_path(@chair)), 'projects'  %>
+        <%= nav_link link_to("Приказы", manage_chair_orders_path(@chair)), 'orders'  %>
+        <% if can?(:manage_projects, @chair) %>
+          <%= nav_link link_to("Пользователи", manage_chair_people_path(@chair)), 'users' %>
+          <%= nav_link link_to("Руководители", manage_chair_project_managers_path(@chair)), 'project_managers' %>
+          <%= nav_link link_to("Посещаемость", manage_chair_visitations_path(@chair)), 'visitations' %>
+        <% end %>
+        <%= nav_link link_to("Сертификаты", manage_chair_certificates_path(@chair)), 'certificates'  %>
+      </ul>
+    </div>
+
+    <div id="content">
+      <%= render :partial => 'shared/help' %>
+      <div id="page-header">
+        <div id="tray"></div>
+        <div id="page-title">
+          <h1>
+            <%= yield(:page_title) %>
+            <% if content_for?(:inline_navigation) %>
+              <span id="inline-navigation"><%= yield :inline_navigation %></span>
+            <% end%>
+          </h1>
+        </div>
+      </div>
+      <%= render :partial => "shared/#{include_container}" %>
+    </div>
+  </div>
+<% end %>
+
+<%= render :template => 'layouts/base' %>

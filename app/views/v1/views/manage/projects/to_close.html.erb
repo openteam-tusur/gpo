@@ -1,0 +1,23 @@
+<% title "Закрытие проекта #{@project.cipher}", :project %>
+
+<h1><%= @project.cipher %> <%= @project.title %></h1>
+
+<% unless @project.project_managers.empty? %>
+  <h2>Будут удалены руководители проекта:</h2>
+  <ul>
+    <% @project.project_managers.each do |project_manager| %>
+      <li><%= project_manager.text_for_order_report %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+Вы уверены что хотите закрыть проект?
+
+<%= simple_form_for @project, :url => close_manage_chair_project_path(@chair, @project), :html => { :method => :put } do | form | %>
+  <fieldset>
+    <%= form.input :close_reason %>
+    <%= form.input :result %>
+    <%= form.button :submit, Project.human_state_event_name(:close) %>
+    <%= link_to I18n.t("cancel"), resource_url %>
+  </fieldset>
+<% end %>

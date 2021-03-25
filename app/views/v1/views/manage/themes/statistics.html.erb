@@ -1,0 +1,10 @@
+<% title "Направления", :theme %>
+
+<% content_for :hint do %>
+  <p>Для отображения проектов выберите интересующие направления и нажмите кнопку "Показать проекты"</p>
+<% end %>
+
+<%= simple_form_for :themes, :url => projects_manage_themes_path, :method => :get do | form | %>
+  <%= render_list 'theme', @themes, :id => 'themes' %>
+  <%= form.button :submit, "Показать проекты" %>
+<% end %>

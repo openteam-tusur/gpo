@@ -1,0 +1,8 @@
+<% title 'Достижения', :report %>
+<% action_link(link_to_delete(manage_stage_achievement_path(@stage_achievement)), "destroy", "Позволяет удалить достижение") if can?(:destroy, @stage_achievement) %>
+
+<div class="stage_achievement_form">
+  <%= simple_form_for @stage_achievement, url: manage_stage_achievement_path do |f| %>
+    <%= render :partial => "form", :locals => { :f => f } %>
+  <% end %>
+</div>

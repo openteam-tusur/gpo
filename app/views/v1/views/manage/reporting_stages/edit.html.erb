@@ -1,0 +1,15 @@
+<% title 'Редактирование этапа аттестации', :reporting_stage %>
+
+<% content_for :hint do %>
+  <p>Для изменения названия и дат этапа аттестации, измените информацию и нажмите кнопку &laquo;Сохранить&raquo;</p>
+  <p>Если нет необходимости менять информацию, нажмите &laquo;Отмена&raquo; для возврата к списку этапов аттестации.</p>
+<% end %>
+
+<%= simple_form_for resource, url: resource_url do | form | %>
+  <fieldset>
+    <%= render partial: 'form', locals: { form: form } %>
+    <%= form.button :submit, I18n.t('save') %>
+    <%= link_to I18n.t('cancel'), collection_url %>
+  </fieldset>
+<% end %>
+
