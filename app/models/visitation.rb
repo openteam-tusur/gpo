@@ -7,12 +7,12 @@ class Visitation < ActiveRecord::Base
   belongs_to :participant
 
   validates_presence_of :gpoday_id, :participant_id
-  validates_uniqueness_of :gpoday_id, :scope => :participant_id
-  validates_numericality_of :rate, :allow_nil => true, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 2, :on => :update
+  validates_uniqueness_of :gpoday_id, scope: :participant_id
+  validates_numericality_of :rate, allow_nil: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 2, on: :update
 
-  scope :beetween_dates, ->(from,to) { joins(:gpoday).where("gpodays.date between :from and :to", :from => from, :to => to) }
+  scope :beetween_dates, ->(from,to) { joins(:gpoday).where("gpodays.date between :from and :to", from: from, to: to) }
 
-  scope :for_participant, ->(participant) { where(:participant_id => participant) }
+  scope :for_participant, ->(participant) { where(participant_id: participant) }
 
   scope :ascending,  -> { joins(:gpoday).order("gpodays.date") }
   scope :descending, -> { joins(:gpoday).order("gpodays.date desc") }
@@ -27,11 +27,11 @@ class Visitation < ActiveRecord::Base
   end
 
   def total_issues_sum
-    Issue.sum(:grade, :conditions => ['participant_id = ? AND closed_at >= ?', participant.id, Gpoday.find(:first, :order => "date").date])
+    Issue.sum(:grade, conditions: ['participant_id = ? AND closed_at >= ?', participant.id, Gpoday.find(:first, order: "date").date])
   end
 
   def total_sum
-    Visitation.for_participant(participant).sum(:rate, :joins => :gpoday, :conditions => ["gpodays.date <= ?", date]) +
+    Visitation.for_participant(participant).sum(:rate, joins: :gpoday, conditions: ["gpodays.date <= ?", date]) +
       total_issues_sum.to_f
   end
 
@@ -46,8 +46,8 @@ class Visitation < ActiveRecord::Base
   private
 
   def kt_start
-    prev_kt = Gpoday.descending.find(:first, :conditions => ["gpodays.date < ? and kt = ?", date, true])
-    prev_kt ? Gpoday.ascending.find(:first, :conditions => ["gpodays.date > ?", prev_kt.date]).date : Gpoday.ascending.first.date
+    prev_kt = Gpoday.descending.find(:first, conditions: ["gpodays.date < ? and kt = ?", date, true])
+    prev_kt ? Gpoday.ascending.find(:first, conditions: ["gpodays.date > ?", prev_kt.date]).date : Gpoday.ascending.first.date
   end
 end
 

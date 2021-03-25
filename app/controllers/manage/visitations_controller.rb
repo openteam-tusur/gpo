@@ -18,9 +18,15 @@ class Manage::VisitationsController < Manage::ApplicationController
   end
 
   def update
+    if params[:participant].blank?
+      flash['error'] = 'Ошибка сохранения баллов'
+      render :edit and return
+    end
+
     @gporate ='%.2f' % (25.0 / Gpoday.count)
     @errors = []
     @gpoday = Gpoday.find(params[:id])
+
     params[:participant].each do |participant_id, rate|
       participant = @project.participants.find(participant_id)
       visitation = participant.visitations.find_or_initialize_by(gpoday_id: @gpoday.id)
