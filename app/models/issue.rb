@@ -16,6 +16,7 @@ class Issue < ActiveRecord::Base
   scope :for_participant, ->(participant) { where(participant_id: participant) }
   scope :beetween_dates, ->(from,to) { where "closed_at between :from and :to", from: from, to: to }
   scope :order_by_closed_at, -> { reorder(closed_at: :desc) }
+  scope :order_by_planned_closing_at, -> { reorder(planned_closing_at: :asc) }
   scope :distance,        -> { where(:distance_learning => :true) }
   scope :local,        -> { where(:distance_learning => :false) }
   scope :archived, -> { where(archived: true) }
