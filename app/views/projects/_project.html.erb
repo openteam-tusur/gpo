@@ -6,6 +6,5 @@
   </div>
   <%= content_tag :div, project.sbi_placing_text, class: :sbi_placing if project.sbi_placing_resident? %>
   <%= content_tag :div, project.interdisciplinary_text, class: :interdisciplinary unless project.not_interdisciplinary? %>
-  <div class="details"><%= project_project_managers(project) %></div>
+  <div class="details">Руководитель(-и) проекта: <%= project_project_managers(project) %></div>
 </div>
-

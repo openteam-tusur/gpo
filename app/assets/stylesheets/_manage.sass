@@ -1,0 +1,724 @@
+=navigation_text
+  font-size: 13px
+
+.manage
+  *
+    outline: none
+
+  .error
+    color: #D73838
+
+  .email
+    margin: 0.5em 0 0.7em 22px
+
+  #header
+    #header-wrapper
+      #header-navigation
+        float: left
+        +clearfix
+        +horizontal-list
+        margin-right: 20px
+        margin-bottom: 2px
+        li
+          padding: 0
+          margin-right: 10px
+      #go-to-chair
+        float: left
+        width: 180px
+        .simple_form
+          +clearfix
+          .input
+            float: left
+            margin-bottom: 0
+          label
+            +small_text
+            +inline-block
+            margin-right: 5px
+          select
+            width: auto
+            font-size: 0.9em
+            margin-bottom: 0px
+            padding: 0
+          input.button
+            width: auto
+            padding: 0 4px 2px
+      #userbox
+        float: right
+        +clearfix
+        a.login
+          display: block
+          float: left
+          background: transparent image_url("icon_login.png") no-repeat right
+          padding-right: 20px
+
+        span.login
+          display: block
+          float: left
+          color: $header_text_color
+          margin-right: 10px
+        a.logout
+          display: block
+          float: left
+          width: 16px
+          height: 16px
+          overflow: hidden
+          text-indent: -9999px
+          background: transparent image_url("icon_logout.png") no-repeat
+          margin-top: 2px
+
+  #navigation
+    +clearfix
+    margin-bottom: 10px
+    h1
+      font-size: 22px
+      line-height: 1em
+      margin: 6px 0
+    ul
+      float: left
+      +horizontal-list
+      li
+        +navigation_text
+        padding: 7px 10px
+      li.current
+        background: #889ab5 image_url("navigation_tab_background.png") repeat-x 0px 0px
+        border: 1px solid #7b8aa2
+        border-top: 1px solid #555f6d
+        padding: 6px 9px 6px 9px
+        a
+          color: white
+
+  #content
+    #page-header
+      +clearfix
+      background-color: #ececec
+      #local-navigation
+        +tabbed_navigation
+        clear: both
+        padding-top: 10px
+        padding-left: 21px
+      #page-title
+        padding: 25px 0px
+        max-width: 650px
+        float: left
+        h1
+          +huge_header_text
+          margin-left: 30px
+          color: $h1_color
+          .icon
+            vertical-align: baseline
+          #inline-navigation
+            +small_text
+            ul
+              +inline-list
+              margin-left: 15px
+              li
+                padding: 3px 10px
+                a
+                  +decorate_on_hover
+                  color: $text_color
+              li.current
+                background-color: #666666
+                a
+                  color: white
+      #tray
+        width: 170px
+        padding: 25px 25px 0px
+        float: right
+        text-align: right
+    #actions
+      +clearfix
+      margin-bottom: 15px
+      ul
+        list-style: none
+        li
+          padding: 10px 20px 15px
+          margin-bottom: 2px
+          background-color: #fff3c5
+          a
+            +default_text
+            +small_line_height
+            font-weight: bold
+            color: $text_color
+        span
+          +small_text
+          +small_line_height
+          color: $comment_color
+          display: block
+    #container-two-collumn,
+    #container-one-collumn
+      padding: 25px 0 100px 0
+      +clearfix
+      #left
+        +clearfix
+        float: left
+        width: 67%
+      #right
+        +clearfix
+        float: right
+        width: 26%
+
+    .faculties_list
+      h2
+        margin-bottom: 1em
+        margin-left: 25px
+      .chairs_list
+        margin-bottom: 2em
+        li
+          +clearfix
+          margin-bottom: 1em
+          border-bottom: 1px solid #ddd
+          padding-bottom: 1em
+          .title
+            float: left
+            width: 385px
+            margin-right: 10px
+            img
+              float: left
+              margin-top: 2px
+            h3
+              margin-left: 25px
+            .mentors
+              margin-left: 25px
+          .stats
+            float: left
+            dl
+              width: 160px
+              +clearfix
+              dt
+                float: left
+              dd
+                cursor: help
+                font-weight: bold
+                float: left
+
+  .project-level, .order-level
+    #content
+      #container-two-collumn,
+      #container-one-collumn
+        border: none
+      #page-header
+        #page-title
+          padding: 15px 0 0 0
+          h1
+            +header_text
+            .subtitle
+              +default_text
+              display: block
+              margin-top: 3px
+
+  .order-level
+    #content
+      #page-header
+        padding-bottom: 15px
+        border-bottom: 1px solid #cccccc
+
+  .chair-level, .top-level
+    #container-two-collumn,
+    #container-one-collumn
+      h1
+        display: none
+
+  img.icon
+    margin-right: 6px
+    vertical-align: middle
+
+  .table_for_issues
+    .description
+      word-break: break-all
+
+  #container-two-collumn,
+  #container-one-collumn
+    .issues
+      margin-bottom: 20px
+      .header
+        +clearfix
+        margin-bottom: 10px
+        .h3-warning
+          color: #d73838
+        a
+          font-weight: bold
+          display: block
+          float: right
+          background-color: #fff3c5
+          padding: 10px
+          margin-left: 10px
+      table
+        line-height: 1.5em
+        border-collapse: collapse
+        td, th
+          +small_text
+          vertical-align: top
+          border: 1px solid #cccccc
+          background-color: #fff
+          padding: 5px 8px
+        th
+          cursor: default
+          vertical-align: middle
+          text-align: center
+          font-weight: bold
+          background-color: #f5f5f5
+          abbr
+            cursor: help
+            border-bottom: unquote("1px") dashed $text_color
+        td.planned_closing_at,
+        td.planned_grade,
+        td.closed_at,
+        td.grade
+          text-align: center
+        .actions
+          +clearfix
+          margin: 20px 0 5px
+          .edit
+            +link_as_small_float_icon("small_icon_edit.png")
+            margin-right: 10px
+          .destroy
+            +link_as_small_float_icon("small_icon_destroy.png")
+
+    .chair_attestation
+      @extend .issues
+      .stage
+        padding: 15px 8px
+
+        .student_achievements,
+        .stage_achievements
+          padding: 0 0 8px
+          h3
+            margin: 5px 0px
+          .report_actions
+            padding: 5px 0 0
+
+    .stage_achievement_form, .student_achievement_form, .attestation_mark_form
+      fieldset
+        input, select
+          width: 100%
+
+
+    &.error_page
+      p
+        margin-bottom: 20px
+    h1
+      +huge_header_text
+      color: $h1_color
+      margin: 0px 0px 30px 0px
+      border-color: $h1_color
+      span
+        display: block
+        margin-top: 0.5em
+        +title_text
+        line-height: 1.2em
+    h2
+      +header_text
+      color: $h2_color
+      margin-bottom: 0.5em
+      span
+        display: block
+        +comment_text
+      a
+        color: $h2_color
+    h3
+      +subheader_text
+      color: $h3_color
+    table.bordered
+      line-height: 1.5em
+      border-collapse: collapse
+      td, th
+        +small_text
+        vertical-align: top
+        border: 1px solid #cccccc
+        background-color: #fff
+        padding: 5px 8px
+      th
+        cursor: default
+        vertical-align: middle
+        text-align: center
+        font-weight: bold
+        background-color: #f5f5f5
+        abbr
+          cursor: help
+          border-bottom: unquote("1px") dashed $text_color
+    .visitationlog
+      .chair_abbr
+        +huge_header_text
+        display: block
+        margin: 20px 0
+      .chair_cipher
+        +header_text
+        display: block
+        margin: 20px 0
+      div
+        +clearfix
+      .participants
+        float: left
+        width: 280px
+        +listing(10px 0px)
+        margin-top: 40px
+        li
+          height: 41px
+      .rating
+        overflow: auto
+        overflow-x: scroll
+        overflow-y: hidden
+        width: 550px
+        background-color: #f8f8f8
+        .gpoday
+          float: left
+          width: 100px
+          text-align: center
+          padding-bottom: 10px
+          &.kt
+            width: 200px
+            white-space: nowrap
+          +highlight_on_hover
+          .date
+            +title_text
+            display: block
+            border-right: 1px solid #dddddd
+            padding: 10px 5px
+            height: 40px
+          ul
+            +listing(10px 0px)
+            text-align: left
+            margin-bottom: 0
+            li
+              height: 41px
+              padding-left: 10px
+              padding-right: 10px
+              border-right: 1px solid #dddddd
+              white-space: nowrap
+              .ratio
+                float: left
+                display: block
+                width: 45px
+              .empty
+                color: #aa0000
+              .edit
+                +action_link("icon_edit.png")
+              .input
+                +tiny_text
+                float: left
+                width: 25px
+                border: 1px solid #aaaaaa
+                padding: 2px
+                margin-right: 12px
+              .save
+                +action_link("icon_save.png")
+                margin-right: 4px
+              .cancel
+                +action_link("icon_cancel.png")
+              .kt_issues_sum,
+              .kt_sum,
+              .total_sum
+                font-weight: bold
+                cursor: help
+          .edit
+            display: block
+            padding: 10px 0
+
+  #container-one-collumn
+    .clearfix
+      +clearfix
+    #warning
+      +message_box(#f4d659, "warning_background.png", #e1c03a, #784421)
+      float: right
+    #notice
+      +message_box(#bcee72, "", #72c11d, #333333)
+      float: right
+    #error
+      +message_box(#f7a7a7, "error_background.png", #d65d5d, maroon)
+      float: right
+
+
+  .participant_visitation
+    li
+      margin-bottom: 5px
+      +clearfix
+      .participant_label
+        float: left
+        width: 250px
+      .radio_label
+        float: left
+        margin-right: 10px
+      input
+        float: left
+    .action
+      margin-left: 250px
+
+  #left
+    p
+      margin-bottom: 1.5em
+    .section
+      margin-bottom: 1.5em
+      p
+        margin-bottom: 0.8em
+    .blank
+      color: red
+    #activities, #order-activities
+      +listing(7px 0px)
+      .activity
+        +as_activity
+    #order-activities
+      .object
+        display: none
+    #users, #permissions, #participants, #project_managers, #themes, #gpodays, #reporting_stages
+      +listing_with_actions(10px 0px)
+      .kt
+        font-style: italic
+    #chair-project_managers
+      +listing(5px 20px 10px)
+    #chairs, #projects
+      +listing_with_stats(10px 0px)
+      .participant_total, .active_projects
+        text-align: left
+        width: 20px
+        margin-right: 5px
+        font-weight: bold
+    #orders, #stages, #awaiting-orders, .tasks
+      +listing(10px 0px)
+    #reports
+      +listing_with_actions(10px 0px)
+      .report
+        +looks_like_object
+    // элементы списков так выглядят
+    .user, .permission, .stage, .theme
+      +looks_like_object
+    .theme
+      .name
+        +clearfix
+        margin-bottom: 20px
+        .checkbox
+          float: left
+          margin-right: 3px
+        .label
+          float: left
+          width: 370px
+          label
+            font-weight: bold
+      .inline-stats
+        margin: 0 0 10px 20px
+        dd
+          float: left
+          width: 2em
+          text-align: right
+        .active_projects,
+        .participant_total
+          font-weight: bold
+    .chair
+      +looks_like_object
+      .reminder
+        +important_badge
+    .order
+      +looks_like_object
+      .state_draft
+        +normal_state
+        background-color: #d3d3d3
+      .state_being_reviewed
+        +normal_state
+        background-color: #3d69a6
+        color: white
+      .state_reviewed
+        +normal_state
+        background-color: #faee35
+      .state_approved
+        padding: 1px 5px 1px 0px
+    .participant, .project_manager
+      +looks_like_object
+      .state_approved
+        +normal_state
+      .state_awaiting_approval
+        +normal_state
+        background-color: #caec83
+      .state_awaiting_removal
+        +important_state
+      .state_approved
+        padding: 1px 5px 1px 0px
+    .project
+      +looks_like_object
+      .state_draft
+        +normal_state
+        background-color: #d3d3d3
+      .state_active
+        display: none
+      .state_closed
+        +important_state
+      .editable_state_editable
+        display: none
+      .editable_state_blocked
+        +important_state
+      .sbi_placing, .interdisciplinary
+        color: #214478
+        margin: 0.3em 0 0 22px
+        line-height: 1.5em
+      .theme
+        color: #3b7704
+        margin: 0.3em 0 0 11px
+        line-height: 1.5em
+      +theme_error
+    .detailed_info
+      +theme_error
+    .task
+      +clearfix
+      .meta
+        +clearfix
+        text-align: right
+        width: 85px
+        margin-right: 15px
+        float: left
+        .category
+          +tiny_text
+          padding: 1px 5px
+        .task_order
+          background-color: #b62f2f
+          color: white
+        .task_project
+          background-color: #ffcc00
+          color: #484537
+        .date
+          +small_text
+          display: block
+      .description
+        +clearfix
+        float: left
+        width: 400px
+        a
+          +decorate_on_hover
+          color: $text_color
+
+  .fieldWithErrors
+    +small_text
+    color: #ff3333
+    display: block
+    margin: 0 0 5px 10px
+
+  .disabled
+    background: transparent image_url("disabled_bg.png") repeat 0 0
+    color: #888888
+    a
+      color: #888888
+
+  #hint
+    +message_box(#f9fbfe, "hint_background.png", #c4d5ef, #7495c5)
+    display: none
+    position: absolute
+    right: 25px
+    width: 400px
+    height: 290px
+    top: 53px
+    border: 5px solid #7495c5
+    z-index: 100
+    #help-content
+      height: 250px
+      overflow: auto
+      padding: 10px
+      p
+        margin-bottom: 10px
+      dl
+        margin: 0px 0px 10px 15px
+        dt
+          display: block
+          margin-right: 10px
+        dd
+          margin: 0px 0px 15px 0px
+          font-style: italic
+
+  #right
+    h3
+      +subheader_text
+      color: $text_color
+    #warning
+      +message_box(#f4d659, "warning_background.png", #e1c03a, #784421)
+    #notice
+      +message_box(#bcee72, "", #72c11d, #333333)
+    #error
+      +message_box(#f7a7a7, "error_background.png", #d65d5d, maroon)
+    #chair_mentors
+      margin-bottom: 1.5em
+    #project_project_managers
+      margin-bottom: 1.5em
+      li
+        margin-bottom: 0.2em
+      .name
+        +default_text
+        +small_line_height
+      .post
+        +comment_text
+        +small_line_height
+        display: block
+    #stats
+      +nice_block
+      +small_text
+      h3
+        +subheader_text
+        padding: 4px 8px
+        border-bottom: 1px solid $border_color
+      table
+        +zebra_table
+        td.value
+          width: 30%
+          text-align: right
+          border-left: 1px solid $border_color
+
+  .inline-stats
+    +clearfix
+    margin-bottom: 0.7em
+
+  .empty-list
+    font-size: 20px
+    color: $comment_color * 1.5
+
+  .important
+    +important_state
+
+  .hint-switcher
+    cursor: pointer
+
+  .executive
+    margin-top: 5px
+
+  .advertisement
+    border-bottom: 1px solid $border_color
+    margin-bottom: 20px
+
+    .dates
+      margin: 0 0 15px 10px
+
+      li
+        margin-bottom: 10px
+
+      span
+        font-weight: bold
+
+    .orders
+      margin-left: 20px
+      list-style: disc
+
+      li
+        margin: 0
+
+  h1
+    margin: 0
+
+    img
+      display: inline
+
+  .label
+    color: #000
+    text-align: left
+    font-weight: normal
+    font-size: 13px
+
+  .checkbox
+    margin: 3px 0 0
+
+    input[type="checkbox"]
+      position: static
+      margin: 0
+
+  #navigation
+    .nav.nav-pills
+      a
+        display: inline
+        padding: 0
+        text-decoration: none
+
+        &:hover
+          background-color: transparent

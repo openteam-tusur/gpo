@@ -9,16 +9,16 @@
     <%= render :partial => 'shared/css_and_js' %>
   </head>
   <body>
-    <div id="header">
-      <div id="header-wrapper">
-        <%= render :partial => "shared/header" %>
+    <div class = "manage">
+      <%= render :partial => "shared/header" %>
+      
+      <div class="container">
+        <%= yield(:base_content) %>
       </div>
-    </div>
 
-    <%= yield(:base_content) %>
-
-    <div id="footer">
-      <%= render :partial => 'shared/footer' %>
+      <div id="footer">
+        <%= render :partial => 'application/footer' %>
+      </div>
     </div>
   </body>
 </html>

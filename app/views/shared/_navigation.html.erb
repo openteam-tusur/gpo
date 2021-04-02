@@ -1,4 +1,4 @@
-<ul id="header-navigation">
+<ul class="nav nav-pills col-sm-12">
   <%= nav_link link_to("Главная", root_path), 'sessions', :action => 'dashboard' %>
   <%= nav_link link_to("Управление", manage_root_path), 'manage', :action => 'dashboard', :selected => current_page?(manage_dashboard_path) || current_page?(manage_root_path) if can?(:manage, :application)%>
   <% if can?(:manage, :all) %>

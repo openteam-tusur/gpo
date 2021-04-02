@@ -1,7 +1,11 @@
-<%= render :partial => 'shared/navigation', locals: { show_certificates: false } %>
-
-<%= render :partial => 'shared/go_to_chair' %>
-
-<div id="userbox">
-  <%= render :partial => 'shared/user_box' %>
-</div>
+<%= content_for :tusur_cdn_header_subtop do %>
+  <%= render partial: 'application/subtop_navigation' %>
+<% end %>
+<% content_for :tusur_cdn_header_menu do %>
+  <div class='container-fluid main-navigation hidden-xs'>
+    <div class='container'>
+      <%= render :partial => 'shared/navigation', locals: { show_certificates: false } %>
+    </div>
+  </div>
+<% end %>
+<%= render partial: 'tusur_header/tusur_header' %>

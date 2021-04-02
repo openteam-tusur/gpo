@@ -19,17 +19,15 @@ $navigation_group_title: education, learning, science, innovation, enterprise, u
         z-index: 10
 
       li
-        font-size: 1.6rem
+        font-size: 16px
         margin-left: 0
         position: static
 
+        img
+          display: none
+
         &:hover
           z-index: 10
-
-          //ul.subnavigation
-            //visibility: visible
-            //opacity: 1
-            //top: 0
 
           a
             background-color: #fff
@@ -147,10 +145,19 @@ $navigation_group_title: education, learning, science, innovation, enterprise, u
   > ul
 
     > li
-
       &.active > a
         color: #fff
         background-color: #005baa
 
+      img
+        display: none
+
       > ul
         display: none
+
+.manage
+  .tusur-cdn-overall-tusur-header,
+  .main-navigation, .header
+    a:link
+      font-weight: normal
+      text-decoration: none
