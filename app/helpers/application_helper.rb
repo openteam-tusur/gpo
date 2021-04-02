@@ -22,6 +22,12 @@ module ApplicationHelper
 
   def include_container
     case controller.controller_name
+    when 'chairs', 'projects'
+      if current_namespace != :manage
+        'container_two_column_public'
+      else
+        'container_two_column'
+      end
     when 'visitations'
       'container_one_column'
     when 'issues'

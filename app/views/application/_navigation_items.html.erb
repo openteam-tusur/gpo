@@ -1,2 +1,3 @@
-<li><a href="/">Проекты ГПО</a></li>
-<li><a href="https://conf.tusur.ru/#/reports" target="_blank">Конференция ГПО</a></li>
+<%= nav_link link_to("Главная", root_path), 'sessions', :action => 'dashboard' %>
+<%= nav_link link_to("Управление", manage_root_path), 'manage', :action => 'dashboard' if can?(:manage, :application) %>
+<%= nav_link link_to("Конференция ГПО", "https://conf.tusur.ru/", :target => "_blank"), 'chairs', :action => 'dashboard' %>

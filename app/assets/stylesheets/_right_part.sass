@@ -1,105 +1,105 @@
-.right-part
-  margin-left: 30px
-  margin-top: 80px
+.public
+  .right-part
+    margin-left: 30px
+    margin-top: 80px
 
-  .right-part-title
-    max-width: 250px
-    padding: 7px 10px
-    font-size: 18px
-    background-color: #D2D4D3
-    position: relative
-    margin: 0 0 10px 10px
-    text-align: center
-
-    &:after
-      display: block
-      content: ''
-      position: absolute
-      width: 0
-      height: 0
-      right: 0
-      border-style: solid
-      bottom: 0
-      border-width: 10px 10px 0 10px
-      border-color: transparent #f2f2f2 transparent transparent
-
-    &:before
-      display: block
-      content: ''
-      position: absolute
-      top: 5px
-      left: -10px
+    .right-part-title
+      max-width: 250px
+      padding: 7px 10px
+      font-size: 18px
       background-color: #D2D4D3
-      +skew(0, -45deg)
-      height: 100%
-      width: 11px
-      z-index: 1
-
-  .right-part-with-bg
-    background-color: #F2F2F2
-    padding: 10px
-    padding-left: 0
-
-  .right-part-links
-    font-size: 16px
-    margin-bottom: 30px
-
-    ul li
-      margin-bottom: 10px
       position: relative
-      padding-left: 20px
-
-      &:before
-        content: ''
-        position: absolute
-        top: 0
-        left: 0
-        display: block
-        width: 10px
-        height: 20px
-        background-color: $base_color
+      margin: 0 0 10px 10px
+      text-align: center
 
       &:after
-        content: ''
         display: block
+        content: ''
+        position: absolute
         width: 0
         height: 0
-        position: absolute
-        left: 10px
-        top: 0
+        right: 0
         border-style: solid
-        border-width: 10px 0 10px 5px
-        border-color: transparent transparent transparent $base_color
+        bottom: 0
+        border-width: 10px 10px 0 10px
+        border-color: transparent #f2f2f2 transparent transparent
 
-      &:last-child
-        margin-bottom: 0
+      &:before
+        display: block
+        content: ''
+        position: absolute
+        top: 5px
+        left: -10px
+        background-color: #D2D4D3
+        +skew(0, -45deg)
+        height: 100%
+        width: 11px
+        z-index: 1
 
-  #actions
-    margin-bottom: 20px
+    .right-part-with-bg
+      background-color: #F2F2F2
+      padding: 10px
+      padding-left: 0
 
-    .action
+    .right-part-links
+      font-size: 16px
+      margin-bottom: 30px
+
+      ul li
+        margin-bottom: 10px
+        position: relative
+        padding-left: 20px
+
+        &:before
+          content: ''
+          position: absolute
+          top: 0
+          left: 0
+          display: block
+          width: 10px
+          height: 20px
+          background-color: $base_color
+
+        &:after
+          content: ''
+          display: block
+          width: 0
+          height: 0
+          position: absolute
+          left: 10px
+          top: 0
+          border-style: solid
+          border-width: 10px 0 10px 5px
+          border-color: transparent transparent transparent $base_color
+
+        &:last-child
+          margin-bottom: 0
+
+    #actions
+      margin-bottom: 20px
+
+      .action
+        margin-left: 20px
+
+    .contacts-right-part
       margin-left: 20px
 
-  .contacts-right-part
-    margin-left: 20px
+      .gray_text
+        color: #959595
 
-    .gray_text
-      color: #959595
+      .fio
+        font-size: 18px
+        margin-top: 10px
+        margin-bottom: 7px
 
-    .fio
-      font-size: 18px
-      margin-top: 10px
-      margin-bottom: 7px
+      .contacts
+        margin-top: 7px
+        font-size: 14px
 
-    .contacts
-      margin-top: 7px
-      font-size: 14px
+      .fas, .fa
+        color: #959595
+        margin-right: 5px
 
-    .fas, .fa
-      color: #959595
-      margin-right: 5px
-
-  #stats
     h3
       margin-bottom: 0
       background-color: #D2D4D3
@@ -107,3 +107,23 @@
       font-size: 18px
       padding: 5px
       font-weight: normal
+
+      &:first-of-type
+        margin-top: 15px
+
+    #project_project_managers
+      padding: 10px 15px
+      border: 1px solid #D2D4D3
+
+      span
+        display: block
+
+        &:nth-child(2)
+          font-size: 14px
+          color: #959595
+          margin-bottom: 5px
+
+  @media (max-width: $screen-sm-max)
+    .right-part
+      margin-left: 0
+      margin-top: 30px

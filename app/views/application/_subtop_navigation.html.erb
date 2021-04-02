@@ -3,9 +3,7 @@
     <div class='header'>
       <div class='row'>
         <div class='col-md-7 col-sm-6 col-xs-12'>
-
           <div class='logotype'>
-
             <div class='col-xs-10 col-sm-12 col-md-6 col-lg-6 image-wrapper'>
               <%= link_to I18n.locale == :ru ? '/' : "/#{I18n.locale}", :class => 'image' do %>
                 <%= image_tag 'logotype.png', class: 'img-responsive' %>
@@ -33,7 +31,11 @@
           </div>
 
         </div>
-
+        <% if current_namespace == :manage %>
+          <div class='col-xs-12 col-sm-5 col-md-5'>
+            <%= render :partial => 'shared/go_to_chair' %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
