@@ -17,7 +17,7 @@ group :default do
   gem 'default_value_for'
   gem 'enumerize'
   gem 'font-awesome-sass', '~> 5.0.6'
-  gem 'grape', '0.2.2'
+  gem 'grape', '1.1.0'
   gem 'has_scope'
   gem 'inherited_resources'
   gem 'jquery-rails', '2.1.3'

@@ -142,7 +142,7 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     enumerize (0.8.0)
       activesupport (>= 3.2)
-    equalizer (0.0.9)
+    equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.2.1)
@@ -152,21 +152,18 @@ GEM
       sass (>= 3.2)
     forgery (0.6.0)
     fssm (0.2.10)
-    grape (0.2.2)
+    grape (1.1.0)
       activesupport
-      hashie (~> 1.2)
-      multi_json (>= 1.3.2)
-      multi_xml
-      rack
+      builder
+      mustermann-grape (~> 1.0.0)
+      rack (>= 1.3.0)
       rack-accept
-      rack-mount
-      virtus
+      virtus (>= 1.0.0)
     haml (4.0.6)
       tilt
     has_scope (0.6.0)
       actionpack (>= 3.2, < 5)
       activesupport (>= 3.2, < 5)
-    hashie (1.2.0)
     highline (1.6.21)
     hike (1.2.3)
     hirb (0.7.2)
@@ -176,7 +173,7 @@ GEM
       domain_name (~> 0.5)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
-    ice_nine (0.11.0)
+    ice_nine (0.11.2)
     inherited_resources (1.5.0)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0)
@@ -197,7 +194,10 @@ GEM
     mini_portile (0.6.0)
     minitest (4.7.5)
     multi_json (1.14.1)
-    multi_xml (0.5.5)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
+    mustermann-grape (1.0.1)
+      mustermann (>= 1.0.0)
     nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -250,8 +250,6 @@ GEM
     rack (1.5.5)
     rack-accept (0.4.5)
       rack (>= 0.4)
-    rack-mount (0.8.3)
-      rack (>= 1.0.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -311,6 +309,7 @@ GEM
     rspec-support (3.5.0)
     ruby-graphviz (1.2.2)
     ruby-ole (1.2.12)
+    ruby2_keywords (0.0.2)
     ruby2ruby (2.1.3)
       ruby_parser (~> 3.1)
       sexp_processor (~> 4.0)
@@ -396,7 +395,7 @@ GEM
     unicorn (5.2.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    virtus (1.0.3)
+    virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
       descendants_tracker (~> 0.0, >= 0.0.3)
@@ -429,7 +428,7 @@ DEPENDENCIES
   fabrication
   font-awesome-sass (~> 5.0.6)
   forgery
-  grape (= 0.2.2)
+  grape (= 1.1.0)
   has_scope
   hirb
   inherited_resources
