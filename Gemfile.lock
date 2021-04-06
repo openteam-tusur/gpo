@@ -125,7 +125,7 @@ GEM
       sass (~> 3.2.19)
     compass-rails (2.0.0)
       compass (>= 0.12.2)
-    concurrent-ruby (1.1.6)
+    concurrent-ruby (1.1.8)
     configliere (0.4.18)
       highline (>= 1.5.2)
       multi_json (>= 1.1)
@@ -180,9 +180,9 @@ GEM
     inherited_resources (1.5.0)
       has_scope (~> 0.6.0.rc)
       responders (~> 1.0)
-    jquery-rails (2.1.3)
-      railties (>= 3.1.0, < 5.0)
-      thor (~> 0.14)
+    jquery-rails (3.1.3)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.8.1)
     kaminari (0.16.2)
       actionpack (>= 3.0.0)
@@ -196,7 +196,7 @@ GEM
     mini_mime (1.0.1)
     mini_portile (0.6.0)
     minitest (4.7.5)
-    multi_json (1.14.1)
+    multi_json (1.15.0)
     multi_xml (0.5.5)
     nested_form (0.3.2)
     net-scp (1.2.1)
@@ -278,7 +278,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.17.0)
-    rake (12.3.2)
+    rake (13.0.3)
     redis (3.3.3)
     redis-session-store (0.8.0)
       actionpack (>= 3, < 5)
@@ -369,7 +369,7 @@ GEM
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
       rack (>= 1.0.0)
-    thor (0.20.3)
+    thor (1.1.0)
     thread_safe (0.3.6)
     tilt (1.4.1)
     timecop (0.7.1)
@@ -386,7 +386,7 @@ GEM
       rails (>= 4.0, < 7.0)
       rest-client
       tusur_cdn
-    tzinfo (0.3.57)
+    tzinfo (0.3.60)
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -433,7 +433,7 @@ DEPENDENCIES
   has_scope
   hirb
   inherited_resources
-  jquery-rails (= 2.1.3)
+  jquery-rails (= 3.1.3)
   kaminari
   nested_form
   non-stupid-digest-assets

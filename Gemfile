@@ -20,7 +20,7 @@ group :default do
   gem 'grape', '0.2.2'
   gem 'has_scope'
   gem 'inherited_resources'
-  gem 'jquery-rails', '2.1.3'
+  gem 'jquery-rails', '3.1.3'
   gem 'kaminari'
   gem 'nested_form'
   gem 'non-stupid-digest-assets'
