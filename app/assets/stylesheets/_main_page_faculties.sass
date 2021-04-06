@@ -1,117 +1,20 @@
+=faculties($name, $faculty_color)
+  .#{$name}
+    .chair_list
+      background: nth($faculty_color, 3)
+
+    hr
+      border-color: nth($faculty_color, 2)
+
+    ul >li
+      &:before
+        color: nth($faculty_color, 1)
+
 .public
   .faculties_list
-    .faculty-item
-      &.gf
-        .chair_list
-          background-color: $gf_bg
+    @each $item in $faculties
+      +faculties(nth($item, 1), nth($item, 2))
 
-        hr
-          border-color: $gf_light
-
-        ul >li
-          &:before
-            color:  $gf_color
-
-      &.rkf
-        .chair_list
-          background-color: $rkf_bg
-
-        hr
-          border-color: $rkf_light
-
-        ul >li
-          &:before
-            color:  $rkf_color
-
-      &.rtf
-        .chair_list
-          background-color: $rtf_bg
-
-        hr
-          border-color: $rtf_light
-
-        ul >li
-          &:before
-            color:  $rtf_color
-
-      &.fb
-        .chair_list
-          background-color: $fb_bg
-
-        hr
-          border-color: $fb_light
-
-        ul >li
-          &:before
-            color:  $fb_color
-
-      &.fvs
-        .chair_list
-          background-color: $fvs_bg
-
-        hr
-          border-color: $fvs_light
-
-        ul >li
-          &:before
-            color:  $fvs_color
-
-      &.fit
-        .chair_list
-          background-color: $fit_bg
-
-        hr
-          border-color: $fit_light
-
-        ul >li
-          &:before
-            color:  $fit_color
-
-      &.fsu
-        .chair_list
-          background-color: $fsu_bg
-
-        hr
-          border-color: $fsu_light
-
-        ul >li
-          &:before
-            color:  $fsu_color
-
-      &.fjet
-        .chair_list
-          background-color: $fjet_bg
-
-        hr
-          border-color: $fjet_light
-
-        ul >li
-          &:before
-            color:  $fjet_color
-
-      &.jef
-        .chair_list
-          background-color: $jef_bg
-
-        hr
-          border-color: $jef_light
-
-        ul >li
-          &:before
-            color:  $jef_color
-
-      &.juf
-        .chair_list
-          background-color: $juf_bg
-
-        hr
-          border-color: $juf_light
-
-        ul >li
-          &:before
-            color:  $juf_color
-
-  .faculties_list
     .faculty-item
       margin-bottom: 30px
 
@@ -129,9 +32,20 @@
       .mentors
         font-size: 16px
 
+      .title
+        margin-right: 10px
+
       .stats
         .icon
           vertical-align: middle
+
+        >div
+          display: flex
+
+          span
+            display: block
+            width: 20px
+            text-align: right
 
       h3
         margin-top: 0

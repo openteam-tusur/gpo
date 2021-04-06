@@ -10,6 +10,5 @@ $ ->
   init_users_autocomplete() if $('.users_autocomplete').length
   init_project_category() if $('#project_category').length
   init_simple_tabs() if $('.js-simple-tabs').length
-  init_notifications()
 
   return

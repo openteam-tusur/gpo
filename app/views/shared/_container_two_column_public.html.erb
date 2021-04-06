@@ -25,18 +25,16 @@
         <% end %>
       </div>
 
-      <% if flash['notice'] %>
-        <div id="notice">
-          <%= flash['notice'] %>
-        </div>
-      <% end %>
-      <% if flash['error'] %>
-        <div id="error">
-          <%= flash['error'] %>
+      <%= render partial: 'application/notifications' %>
+
+      <%= yield :right %>
+
+      <% if  current_namespace == :projects %>
+        <div class="right-part-with-bg">
+          <%= render partial: 'shared/right_part_links' %>
         </div>
       <% end %>
 
-      <%= yield :right %>
     </div>
   </div>
   <% if content_for? :additional_info %>

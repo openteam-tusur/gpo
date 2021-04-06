@@ -18,9 +18,44 @@
 
   .detailed_info
     font-size: 18px
-    
+
     h3
       font-size: 22px
       line-height: 32px
       font-weight: bold
       margin: 20px 0 15px
+
+  .issues
+    margin: 0 15px
+    padding-top: 20px
+    overflow: auto
+
+    h3
+      font-size: 22px
+      line-height: 32px
+      font-weight: bold
+      margin: 20px 0 15px
+
+    table
+      > tbody > tr
+        > th,  > td
+          border: 1px solid #ddd
+          padding: 5px 10px
+
+        >th
+          background-color: #d2d4d3
+
+    @media (max-width: $screen-xs-max)
+      table
+        > tbody > tr
+          > td
+            display: block
+
+            &:not(:last-child)
+              border-bottom: 0
+
+            &:not(:first-child)
+              border-top: 0
+
+          >th
+            display: none
