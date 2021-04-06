@@ -17,5 +17,4 @@
  * = require main
  * = require project_category
  * = require simple_tabs
- * = require notifications
  */
