@@ -6,7 +6,7 @@ group :default do
   gem 'auth_client', git: 'https://github.com/openteam-tusur/auth_client'
   gem 'auth_redis_user_connector', git: 'https://github.com/openteam-tusur/auth_redis_user_connector'
   gem 'awesome_print'
-  gem 'bootstrap-sass', '3.3'
+  gem 'bootstrap-sass', '3.4.1'
   gem 'better'
   gem 'cancan'
   gem 'petrovich'
