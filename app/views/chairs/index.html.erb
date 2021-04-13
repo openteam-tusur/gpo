@@ -2,13 +2,17 @@
 
 <%= render :partial => 'shared/application_link' %>
 <%= render :partial => 'shared/advertisement' %>
-<div class="faculties_list">
+
+<input class='js-search-input search-input' placeholder='Введите название проекта...'>
+<div class="faculties_list js-search-item-container">
   <% @chairs.each do |faculty, chairs| %>
-    <%= image_tag "faculties/#{chairs.first.transliterated_faculty_abbr}.svg", class:'faculty-image' %>
-    <div class="faculty-item <%= chairs.first.transliterated_faculty_abbr%>">
+
+    <div class="faculty-item js-search-item <%= chairs.first.transliterated_faculty_abbr%>">
+        <%= image_tag "faculties/#{chairs.first.transliterated_faculty_abbr}.svg", class:'faculty-image' %>
       <h2><%= faculty %></h2>
       <div class="chair_list">
         <% chairs.each do |chair| %>
+        <div class="chair-list-item js-search-item">
           <div class="row">
             <div class="col-xs-10">
               <div class="title">
@@ -19,12 +23,12 @@
             <div class="col-xs-2">
               <div class="stats">
                 <div class="pull-right">
-                  <span class="active_projects" title="Активных проектов"><%= chair.projects.current_active.with_participants.count %></span>
+                  <span class="active_projects js-tooltip" title="Активных проектов"><%= chair.projects.current_active.with_participants.count %></span>
                   <span><%= link_to icon(:project), chair_projects_path(chair) %></span>
                 </div>
                 <br>
                 <div class="pull-right">
-                  <span class="participant_total" title="Всего студентов"><%= chair.participants.active.count %></span>
+                  <span class="participant_total js-tooltip" title="Всего студентов"><%= chair.participants.active.count %></span>
                   <span><%= icon(:participant) %></span>
                 </div>
               </div>
@@ -33,7 +37,7 @@
           <div class="chair-project-list">
             <ul class="ul-rhombus">
               <% chair.projects.active.each do |project| %>
-                <li class="chair-project-item">
+                <li class="chair-project-item js-search-item">
                   <%= link_to chair_project_path(chair_id: chair.id, id: project.id) do %>
                     <%= project.title %> (<%= project.cipher %>)
                   <% end %>
@@ -42,6 +46,7 @@
             </ul>
           </div>
           <hr>
+        </div>
         <% end %>
       </div>
     </div>

@@ -18,4 +18,6 @@
  * = require project_category
  * = require simple_tabs
  * = require notifications
+ * = require search
+ * = require tooltip 
  */

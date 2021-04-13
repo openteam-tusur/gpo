@@ -25,6 +25,12 @@
       padding: 20px 20px 20px 60px
       margin-left: 40px
 
+      .chair-list-item
+        &:last-child
+          hr
+            &:last-child
+              display: none
+
       .active_projects, .participant_total
         position: relative
         top: 2px
@@ -54,12 +60,16 @@
     h2
       padding-left: 100px
 
-    hr
-      &:last-child
-        display: none
-
     .chair-project-list
       margin-top: 15px
 
       .chair-project-item
         margin-bottom: 5px
+
+.search-input
+  margin-bottom: 15px
+  padding: 5px 10px
+  width: 100%
+
+  &:hover, &:focus
+    outline: none

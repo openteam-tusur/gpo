@@ -11,5 +11,7 @@ $ ->
   init_project_category() if $('#project_category').length
   init_simple_tabs() if $('.js-simple-tabs').length
   init_notifications()
+  init_search() if $('.js-search-input').length
+  init_tooltip() if $('.js-tooltip').length
 
   return
