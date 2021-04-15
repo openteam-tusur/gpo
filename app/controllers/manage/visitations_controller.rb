@@ -20,6 +20,8 @@ class Manage::VisitationsController < Manage::ApplicationController
   def update
     if params[:participant].blank?
       flash['error'] = 'Ошибка сохранения баллов'
+      @errors = @project.participants.ids
+      @gpoday = Gpoday.find(params[:id])
       render :edit and return
     end
 
