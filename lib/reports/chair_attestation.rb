@@ -44,9 +44,11 @@ class ChairAttestation < XlsReport
         end
         tmp_row.elements[1][1].text = "#{project.cipher} #{project.title} #{project.people.collect {|person| person}.join(", ")}"
 
-
-        tmp_row.elements[2][1].text = stage_achievements(project, participant, :grants)
-        tmp_row.elements[3][1].text = stage_achievements(project, participant, :exhibitions)
+        #tmp_row.elements[2][1].text = stage_achievements(project, participant, :grants)
+        #tmp_row.elements[3][1].text = stage_achievements(project, participant, :exhibitions)
+        stage = ReportingStage.find_by(id: @reporting_stage.id).stages.where(project_id: project.id).last
+        tmp_row.elements[2][1].text = stage.grants.map{ |g| g.title }.join(', ')
+        tmp_row.elements[3][1].text = stage.exhibitions.map{ |e| e.title }.join(', ')
 
         tmp_row.elements[4][1].text = i
         tmp_row.elements[5][1].text = detected_participant_name(participant)
@@ -68,9 +70,12 @@ class ChairAttestation < XlsReport
         tmp_row.elements[11].attributes["formula"].gsub!("J7", "J#{formula_index.to_s}")
 
 
-        tmp_row.elements[12][1].text = student_achievements(project, participant, :international_reports)
-        tmp_row.elements[13][1].text = student_achievements(project, participant, :diplomas)
-        tmp_row.elements[14][1].text = student_achievements(project, participant, :publications)
+        #tmp_row.elements[12][1].text = student_achievements(project, participant, :international_reports)
+        #tmp_row.elements[13][1].text = student_achievements(project, participant, :diplomas)
+        #tmp_row.elements[14][1].text = student_achievements(project, participant, :publications)
+        tmp_row.elements[12][1].text = participant.student_achievements.where(stage_id: stage.id, kind: :international_report).map{ |sa| sa.title }.join(", ")
+        tmp_row.elements[13][1].text = participant.student_achievements.where(stage_id: stage.id, kind: :diploma).map{ |sa| sa.title }.join(", ")
+        tmp_row.elements[14][1].text = participant.student_achievements.where(stage_id: stage.id, kind: :publication).map{ |sa| sa.title }.join(", ")
 
         table.insert_after("//table:table-row[6+#{participant_index}]", tmp_row)
         participant_index += 1
