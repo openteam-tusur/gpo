@@ -57,10 +57,11 @@ class ChairAttestation < XlsReport
         tmp_row.elements[8][1].text = participant.total_term_mark
         tmp_row.elements[8].attributes['value'].gsub!("0", participant.total_term_mark.round.to_s)
 
-        attestation_mark = project.
-                           current_attestation_stage.
-                           try(:attestation_marks).
-                           try(:find_by, participant_id: participant)
+        #attestation_mark = project.
+                           #current_attestation_stage.
+                           #try(:attestation_marks).
+                           #try(:find_by, participant_id: participant)
+        attestation_mark = AttestationMark.find_by(participant_id: participant.id, stage_id: stage.id)
         if attestation_mark.present?
           tmp_row.elements[9].attributes['value'].gsub!("0", attestation_mark.mark.to_s)
         end
@@ -134,11 +135,10 @@ class ChairAttestation < XlsReport
   def filtered_projects(chair)
     if @reporting_stage.present?
       chair.projects
-           .active
            .includes(stages: :reporting_stage)
            .where(reporting_stages: { id: @reporting_stage.id })
     else
-      chair.projects.active
+      chair.projects
     end
   end
 end
