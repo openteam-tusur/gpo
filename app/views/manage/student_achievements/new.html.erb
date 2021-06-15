@@ -1,5 +1,5 @@
 <% title 'Достижения участников', :report %>
-<div class="student_achievement_form">
+<div class="student_achievement_form student-achievement-form-new">
   <%= simple_form_for @student_achievement, url: manage_student_achievements_path do |f| %>
     <%= render :partial => "form", :locals => { :f => f } %>
   <% end %>
