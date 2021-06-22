@@ -10,7 +10,7 @@
           %>
 
 <%= f.input :title, as: :text, label: 'Выходные данные' %>
-<%= link_to @stage_achievement.scan_file_name, @stage_achievement.scan.url if @stage_achievement.scan.file? %>
+<%= link_to @stage_achievement.scan_file_name, @stage_achievement.scan_url if @stage_achievement.scan.file? %>
 <%= f.input :scan, as: :file, label: 'Скан'%>
 </fieldset>
 <%= f.button :submit %>
