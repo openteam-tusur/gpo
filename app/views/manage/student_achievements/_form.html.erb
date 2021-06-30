@@ -17,7 +17,7 @@
           %>
 <%= f.input :title, as: :text, label: 'Выходные данные' %>
 <%= link_to @student_achievement.scan_file_name,
-            @student_achievement.scan.url if @student_achievement.scan.file?
+            @student_achievement.scan_url if @student_achievement.scan.file?
           %>
 <%= f.input :scan, as: :file, label: 'Скан'%>
 </fieldset>
